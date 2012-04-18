@@ -1,0 +1,7 @@
+TM DStat DS84A; Address DS84A 0x84A;
+TM DStat DS84C; Address DS84C 0x84C;
+TM DStat DS851; Address DS851 0x851;
+TM DStat DS855; Address DS855 0x855;
+TM DStat DS868; Address DS868 0x868;
+TM DStat DS86A; Address DS86A 0x86A;
+TM DStat DS873; Address DS873 0x873;
