@@ -81,4 +81,4 @@ TM typedef unsigned char PwrMon_S {
   collect x = sbrba(x.address);
 }
 
-TM 4 Hz UINT Synch, MFCtr;
+TM 0 Hz UINT Synch, MFCtr;
