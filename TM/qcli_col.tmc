@@ -1,0 +1,8 @@
+%{
+  ssp_data_t SSP_C;
+  ssp_data_t SSP_M;
+  ssp_data_t SSP_I;
+  qcli_data_t QCLI_C;
+  qcli_data_t QCLI_M;
+  qcli_data_t QCLI_I;
+%}

@@ -1,18 +1,18 @@
-# wv_iso.qcli
-# Generic Waveforms for wv_iso
+# QCLI_C.qcli
+# Generic Waveforms for QCLI_C
 #QCLIConfig FastRampx25;
 #QCLIConfig Standard;
 Digitizer SSP;
-Prefix wv_iso;
+Prefix QCLI_C;
 
-ICOS Waveform wv_iso_slow {
+ICOS Waveform QCLI_C_slow {
   SampleRate = 1 MHz;
   Ncoadd = 900;
   Tz = 10%;
   Ramp from 60 mA to 90 mA in 1 msec;
 }
 
-ICOS Waveform wv_iso {
+ICOS Waveform QCLI_C {
   # Nsample = 900;
   Ncoadd = 799;
   SampleRate = 50 MHz/50;
@@ -21,7 +21,7 @@ ICOS Waveform wv_iso {
   Ramp from 60 mA to 90 mA in 1 msec;
 }
 
-ICOS Waveform wv_iso_full {
+ICOS Waveform QCLI_C_full {
   # Nsample = 900;
   Ncoadd = 429;
   SampleRate = 50 MHz/50;
@@ -29,7 +29,7 @@ ICOS Waveform wv_iso_full {
   Ramp from 60 mA to 120 mA in 2 msec;
 }
 
-ICOS Waveform wv_iso_10MHz {
+ICOS Waveform QCLI_C_10MHz {
   # Nsample = 900;
   Ncoadd = 450;
   SampleRate = 10 MHz/10;
@@ -37,7 +37,7 @@ ICOS Waveform wv_iso_10MHz {
   Ramp from 10 mA to 90 mA in 2 msec;
 }
 
-ICOS Waveform wv_iso_ConstantI {
+ICOS Waveform QCLI_C_ConstantI {
   Tz = 10 msec;
   Iz = 70 mA;
   SampleRate = 10 MHz;
