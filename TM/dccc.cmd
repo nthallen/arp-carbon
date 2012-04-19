@@ -37,7 +37,7 @@
   : Gas Deck Flow Controller Open { $0 = 39; }
   : Gas Deck Valve Closed { $0 = 33; }
   ;
-&dccc_op_cl <int>
+&dccc_cl_op <int>
   : CO2 Exhaust Valve { $0 = 31; }
   : CO2 Gas Valve { $0 = 30; }
   : CO2 Pressure Reg { $0 = 29; }

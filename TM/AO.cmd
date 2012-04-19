@@ -1,6 +1,7 @@
 %{
   #ifdef SERVER
     #include "subbus.h"
+    #include "address.h"
     
     /* scale is in volts/unit */
     unsigned short ao_scale(double val, double scale, double maxv) {
@@ -16,7 +17,7 @@
   #endif
 %}
 &Command
-  : &AO_volts %f (Enter 0-10 Volts) * { sbwr( $1, ao_scale($2, 1.0, 10.0); ); }
+  : &AO_volts %f (Enter 0-10 Volts) * { sbwr( $1, ao_scale($2, 1.0, 10.0) ); }
   ;
 &AO_volts <unsigned short>
   : CO2 Set Cell Pressure Setpoint { $0 = CCelPSt_Address; }

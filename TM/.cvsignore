@@ -42,6 +42,7 @@ HCIalgo.cc
 HCIalgooui.c
 HCIalgooui.o
 HCIalgo.o
+doit.dep
 HCIclt.o
 HCIcltoui.c
 HCIcltoui.o
@@ -54,5 +55,6 @@ HCIsrvr
 HCIdisp
 HCIdispnc
 HCIalgo
+doit
 HCIclt
 HCIcltnc

@@ -1,15 +1,15 @@
-# Makefile Generated Thu Apr 19 12:56:50 EDT 2012
+# Makefile Generated Thu Apr 19 13:51:44 EDT 2012
 MNC=HCI
 HOMEDIR=/home/hci/src/TM
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
 SRC+=types.tmc AIO.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc
 SRC+=PTRH.tmc SWData.tmc SWData.h QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc
-SRC+=idx64col.tmc PTRH_col.tmc qcli_col.tmc SWData_col.tmc qclis.cmd
-SRC+=idx64drv.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd hk.tbl
-SRC+=HCI.tma HCI.sws
+SRC+=idx64col.tmc PTRH_col.tmc qcli_col.tmc SWData_col.tmc AO.cmd
+SRC+=dccc.cmd qclis.cmd idx64drv.cmd address.h SWData.cmd QCLI_C.cmd
+SRC+=QCLI_M.cmd QCLI_I.cmd hk.tbl HCI.tma HCI.sws HCI.doit
 TOOL=HCI.spec Makefile
-SCRIPT=idx64.idx64
+SCRIPT=idx64.idx64 interact dccc.dccc
 OBJ=QCLI_C.cmd QCLI_C.out QCLI_C.tmc QCLI_C.m QCLI_C.log QCLI_M.cmd
 OBJ+=QCLI_M.out QCLI_M.tmc QCLI_M.m QCLI_M.log QCLI_I.cmd QCLI_I.out
 OBJ+=QCLI_I.tmc QCLI_I.m QCLI_I.log HCIcol.cc HCI.pcm tm.dac
@@ -18,11 +18,11 @@ OBJ+=HCIcmd.dat HCIsrvr.o HCIsrvroui.c HCIsrvroui.o hktbl.tmc
 OBJ+=HCIdisp.cc HCIdispoui.c HCIdispoui.o HCIdisp.o hktblnc.tmc
 OBJ+=HCIdispnc.cc HCIdispncoui.c HCIdispncoui.o HCIdispnc.o
 OBJ+=HCIsws.tma HCIalgoa.tmc HCIalgo.cc HCIalgooui.c HCIalgooui.o
-OBJ+=HCIalgo.o HCIclt.o HCIcltoui.c HCIcltoui.o HCIcltnc.o
+OBJ+=HCIalgo.o doit.dep HCIclt.o HCIcltoui.c HCIcltoui.o HCIcltnc.o
 OBJ+=HCIcltncoui.c HCIcltncoui.o
-TGT=HCIcol HCIsrvr HCIdisp HCIdispnc HCIalgo HCIclt HCIcltnc
+TGT=HCIcol HCIsrvr HCIdisp HCIdispnc HCIalgo doit HCIclt HCIcltnc
 DISTRIB=QCLI_C.out QCLI_M.out QCLI_I.out HCI.pcm tm.dac
-IDISTRIB=Experiment.config VERSION
+IDISTRIB=Experiment.config VERSION doit
 SRCDIST=QCLI_C.m QCLI_M.m QCLI_I.m hk.tbl HCI.tma types.tmc AIO.tmc
 SRCDIST+=digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc
 SRCDIST+=/usr/local/share/huarp/cpu_usage.tmc
@@ -43,8 +43,9 @@ CMDBASE=/usr/local/share/huarp/root.cmd
 CMDBASE+=/usr/local/share/huarp/getcon.cmd
 CMDBASE+=/usr/local/share/huarp/DACS_AI.cmd
 CMDBASE+=/usr/local/share/huarp/idx64.cmd
-CMDBASE+=/usr/local/share/huarp/qcli.cmd qclis.cmd idx64drv.cmd
-CMDBASE+=SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
+CMDBASE+=/usr/local/share/huarp/qcli.cmd AO.cmd dccc.cmd qclis.cmd
+CMDBASE+=idx64drv.cmd address.h SWData.cmd QCLI_C.cmd QCLI_M.cmd
+CMDBASE+=QCLI_I.cmd
 COLBASE=idx64col.tmc PTRH_col.tmc qcli_col.tmc
 COLBASE+=/usr/local/share/huarp/DACS_ID.tmc
 COLBASE+=/usr/local/share/huarp/vl_temp_col.tmc
@@ -90,6 +91,8 @@ HCIdispnc : HCIdispnc.o ptrhm.o HCIdispncoui.o
 HCIalgo : HCIalgo.o ptrhm.o HCIalgooui.o
 	$(LINK.normCXX) HCIalgo.o ptrhm.o HCIalgooui.o -ltmpp -ltm -lnort
 	$(OUIUSE) HCIalgooui.c
+doit : HCI.doit
+	mkdoit3 -o doit  HCI.doit
 HCIclt : HCIclt.o HCIcltoui.o
 	$(LINK.normCXX) HCIclt.o HCIcltoui.o -ltmph -lph -ltmpp -ltm -lnort
 	$(OUIUSE) HCIcltoui.c
@@ -106,13 +109,13 @@ ptrhm.o : /usr/local/share/huarp/ptrhm.cc SWData.h
 	$(COMPILE.cc) /usr/local/share/huarp/ptrhm.cc
 ptrhm_col.o : /usr/local/share/huarp/ptrhm_col.cc SWData.h
 	$(COMPILE.cc) /usr/local/share/huarp/ptrhm_col.cc
-HCIcmd.cc : /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd qclis.cmd idx64drv.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
-	$(CMDGEN) -d HCIcmd.dat /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd qclis.cmd idx64drv.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
+HCIcmd.cc : /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd AO.cmd dccc.cmd qclis.cmd idx64drv.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
+	$(CMDGEN) -d HCIcmd.dat /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd AO.cmd dccc.cmd qclis.cmd idx64drv.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
 HCIsrvr.o : HCIcmd.cc
 	$(COMPILE.srvr) HCIcmd.cc
 HCIsrvroui.c : $(OUIDIR)/cis.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/cis.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
-HCIsrvroui.o : HCIsrvroui.c
+HCIsrvroui.o : HCIsrvroui.c address.h
 hktbl.tmc : hk.tbl
 HCIdisp.cc : types.tmc AIO.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc hktbl.tmc
 	$(TMC) types.tmc AIO.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc hktbl.tmc
@@ -138,16 +141,19 @@ HCIalgooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIalgooui.o : HCIalgooui.c SWData.h
 HCIalgo.o : HCIalgo.cc SWData.h
+doit.dep : HCI.doit
+	mkdoit3 -M -o doit  HCI.doit
+-include doit.dep
 HCIclt.o : HCIcmd.cc
 	$(COMPILE.clt) HCIcmd.cc
 HCIcltoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui
-HCIcltoui.o : HCIcltoui.c
+HCIcltoui.o : HCIcltoui.c address.h
 HCIcltnc.o : HCIcmd.cc
 	$(COMPILE.cltnc) HCIcmd.cc
 HCIcltncoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/nctable.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/kbdclt.oui $(OUIDIR)/nctable.oui $(OUIDIR)/msg.oui
-HCIcltncoui.o : HCIcltncoui.c
+HCIcltncoui.o : HCIcltncoui.c address.h
 SWData.h SWData.tmc SWData_col.tmc SWData.cmd :  HCI.sws
 	swscomp -o SWData  HCI.sws
 QCLI_C.cmd QCLI_C.out QCLI_C.tmc QCLI_C.m : QCLI_C.qcli
@@ -169,3 +175,6 @@ clean : tidy
 	rm -f $(TARGET)
 .cvsignore : Makefile
 	@for i in $(OBJECT) $(TARGET); do echo "$$i"; done >.cvsignore
+
+COLFLAGS = -H address.h
+address.h : HCIcol.cc
