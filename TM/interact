@@ -14,11 +14,11 @@
   Launch cmd/server HCIsrvr
   Launch - lgr -N `mlf_find LOG`
   Launch - idx64 `cat $TMBINDIR/idx64.idx64`
-  Launch - sspdrv -H 10.0.0.200 -hSSP_M -N `mlf_find SSP_M`
+  Launch - sspdrv -H 10.0.0.210 -hSSP_M -N `mlf_find SSP_M`
   Launch - qclidacsd -h QCLI_M -d 0
-  Launch - sspdrv -H 10.0.0.201 -hSSP_C -N `mlf_find SSP_C`
+  Launch - sspdrv -H 10.0.0.211 -hSSP_C -N `mlf_find SSP_C`
   Launch - qclidacsd -h QCLI_C -d 1
-  Launch - sspdrv -H 10.0.0.202 -hSSP_I -N `mlf_find SSP_I`
+  Launch - sspdrv -H 10.0.0.212 -hSSP_I -N `mlf_find SSP_I`
   Launch - qclidacsd -h QCLI_I -d 2
   Launch - tmdf
   Launch - HCIalgo -v
