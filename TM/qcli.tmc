@@ -44,7 +44,7 @@ Group QCLI_C_grp ( QCLI_C_Wave, QCLI_C_s ) {
   QCLI_C_Stale = QCLI_C_obj->stale();
   QCLI_C_obj->synch();
 }
-TM 1 HZ QCLI_CS_t QCLI_C_CS; Address QCLI_C_CS 0x1000;
+TM 1 HZ QCLI_CS_t QCLI_C_CS; Address QCLI_C_CS 0x1010;
 TM "Receive" QCLI_M 1;
 
 TM typedef unsigned short QCLI_M_Wave_t { text "%10d" QCLI_M_Wave_text(); }
@@ -58,7 +58,7 @@ Group QCLI_M_grp ( QCLI_M_Wave, QCLI_M_s ) {
   QCLI_M_Stale = QCLI_M_obj->stale();
   QCLI_M_obj->synch();
 }
-TM 1 HZ QCLI_CS_t QCLI_M_CS; Address QCLI_M_CS 0x1010;
+TM 1 HZ QCLI_CS_t QCLI_M_CS; Address QCLI_M_CS 0x1000;
 TM "Receive" QCLI_I 1;
 
 TM typedef unsigned short QCLI_I_Wave_t { text "%10d" QCLI_I_Wave_text(); }

@@ -1,0 +1,11 @@
+#! /usr/bin/perl -pi.bak
+s/PTRH0/DACS/g;
+s/PTRH1/MQCL/g;
+s/PTRH2/MLPV/g;
+s/PTRH3/MDPV/g;
+s/PTRH4/CQCL/g;
+s/PTRH5/CLPV/g;
+s/PTRH6/IDPV/g;
+s/PTRH7/ILPV/g;
+s/PTRH8/IQCL/g;
+

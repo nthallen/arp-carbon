@@ -1,0 +1,7 @@
+State Initialize {
+  > Telemetry Start
+}
+
+State Shutdown {
+  > Quit
+}
