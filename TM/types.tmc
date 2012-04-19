@@ -1,3 +1,6 @@
+%{
+  #include "subbus.h"
+%}
 TM typedef double VOLTS { text "%6.3lf"; }
 TM typedef double mVOLTS { text "%6.3lf"; }
 TM typedef double AMPS  { text "%6.3lf"; }
@@ -5,6 +8,10 @@ TM typedef unsigned char  UCHAR { text "%3d"; }
 TM typedef unsigned short UINT { text "%5d"; }
 TM typedef   signed short AI16 { text "%7.4lf"; convert VOLTS; }
 TM typedef unsigned short AIC  { text "%4x"; }
+TM typedef unsigned short DStat {
+  text "%5d";
+  collect x = sbrwa(x.address);
+}
 TM typedef unsigned short AO16 {
   text "%6.4lf";
   convert VOLTS;

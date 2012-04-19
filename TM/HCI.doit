@@ -1,0 +1,4 @@
+display HCIdisp
+client HCIclt
+batchfile interact
+memo

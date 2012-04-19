@@ -1,0 +1,10 @@
+Status {
+  HBox { +-; Title: status; -+ };
+  CPU: (CPU_Pct,3) %;
+  Disk: (Disk,5) %;
+  SWStat: (SWStat,3);
+  MFCtr: (MFCtr,5);
+  { >(flttime,9)< }
+}
+
+{ [Status] }
