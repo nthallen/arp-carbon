@@ -1,11 +1,11 @@
-Indexer Status 5 Hz IXStt
+Indexer Status 1 Hz IXStt
 
 Channel 0 Indexer Throttle Valve
   Position 5 Hz TVStep
-  Status 5 Hz TVStat Diagram TVDgrm KillStat TVKill
+  Status 1 Hz TVStat Diagram TVDgrm KillStat TVKill
   Scan
   # Chop
-  Scanstat TVScan
+  # Scanstat TVScan
   Speed 5033 Hz
   Disable Zeroref
   # Swap Limits

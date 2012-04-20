@@ -8,6 +8,14 @@ DACS {
   CPU: (vl_cpuT,4) C;
 }
 
+pwrmon {
+  HBox { +-; Title: "PwrMon"; -+ };
+  >(PM0TO,7)<;
+  ""   >"I(mV)"<   >V<;
+  "1:" HBox{ (PM0I1,5); (PM0I1S,1) } HBox{ (PM0V1,7); (PM0V1S,1) };
+  "2:" HBox{ (PM0I2,5); (PM0I2S,1) } HBox{ (PM0V2,7); (PM0V2S,1) };
+}
+
 Status {
   HBox { +-; Title: status; -+ };
   CPU: (CPU_Pct,3) %;

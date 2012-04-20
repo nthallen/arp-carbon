@@ -42,21 +42,3 @@ IxDriveStat TVDgrm; invalidate TVDgrm; { TVDgrm = TVStat & 0xF; Validate TVDgrm;
 %}
 TM typedef unsigned char IxKillStat { text "%4d" IxKillStat_text[]; }
 IxKillStat TVKill; invalidate TVKill; { TVKill = (TVStat >> 4) & 0xF; Validate TVKill; }
-%{
-  const char *IdxFlgTxt[8] = {
-	"    ",
-	"Scan",
-	"On  ",
-	"S/On",
-	"Off ",
-	"S/Of",
-	"Alt ",
-	"S/Al"
-  };
-%}
-TM typedef unsigned short IndxrFlag {
-  text "%4d" IdxFlgTxt[];
-}
-
-IndxrFlag TVScan; invalidate TVScan;
-{ TVScan = ( IXStt ) & 1; validate TVScan; }
