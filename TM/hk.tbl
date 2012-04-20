@@ -1,3 +1,13 @@
+DACS {
+  HBox { +-; Title: DACS; -+ };
+  P: (DACS_P,7) torr;
+  RH: (DACS_RHC,4) %;
+  T1: (DACS_T1C,5) C;
+  T2: (DACS_T2C,5) C;
+  VL: (vl_bdT,4) C;
+  CPU: (vl_cpuT,4) C;
+}
+
 Status {
   HBox { +-; Title: status; -+ };
   CPU: (CPU_Pct,3) %;
@@ -7,4 +17,7 @@ Status {
   { >(flttime,9)< }
 }
 
-{ [Status] }
+{ [DACS];
+  [pwrmon];
+  [Status];
+}
