@@ -16,6 +16,11 @@ pwrmon {
   "2:" HBox{ (PM0I2,5); (PM0I2S,1) } HBox{ (PM0V2,7); (PM0V2S,1) };
 }
 
+TV { HBox { +-; Title: Throttle; -+ };
+  Step: (TVStep,5) "" (TVDgrm,5);
+  Pot:  (TVPos,7) V (TVKill,5);
+}
+
 Status {
   HBox { +-; Title: status; -+ };
   CPU: (CPU_Pct,3) %;
@@ -38,8 +43,15 @@ PTRHs {
   IQCL: (IQCL_S,4);
 }
 
-{ [DACS];
-  [pwrmon];
-  [PTRHs];
-  [Status];
+{ HBox {
+    { [pwrmon];
+      [TV];
+      [DACS];
+      [Status];
+    }; |; {
+      [PTRHs];
+    }
+  }
 }
+
+
