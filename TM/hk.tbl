@@ -43,13 +43,14 @@ PTRHs {
   IQCL: (IQCL_S,4);
 }
 
-{ HBox {
-    { [pwrmon];
-      [TV];
+{
+  [pwrmon];
+  [TV];
+  HBox {
+    [PTRHs]; |;
+    {
       [DACS];
       [Status];
-    }; |; {
-      [PTRHs];
     }
   }
 }
