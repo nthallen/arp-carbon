@@ -27,11 +27,13 @@ HCIsrvr.o
 HCIsrvroui.c
 HCIsrvroui.o
 hktbl.tmc
+qclitbl.tmc
 HCIdisp.cc
 HCIdispoui.c
 HCIdispoui.o
 HCIdisp.o
 hktblnc.tmc
+qclitblnc.tmc
 HCIdispnc.cc
 HCIdispncoui.c
 HCIdispncoui.o

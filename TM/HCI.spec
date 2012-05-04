@@ -42,7 +42,7 @@ SCRIPT = idx64.idx64 interact dccc.dccc
 
 HCIcol : -lsubbus
 HCIsrvr : -lsubbus
-HCIdisp : PTRH_conv.tmc pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc hk.tbl
+HCIdisp : PTRH_conv.tmc pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc hk.tbl qcli.tbl
 HCIalgo : HCI.tma HCI.sws
 doit : HCI.doit
 
