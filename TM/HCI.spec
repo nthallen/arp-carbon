@@ -1,5 +1,6 @@
 tmcbase = types.tmc
 tmcbase = AIO.tmc
+tmcbase = T30K75KU.tmc
 tmcbase = digio.tmc
 tmcbase = idx64.tmc
 tmcbase = pwrmon.tmc

@@ -1,0 +1,145 @@
+CO2_Cell {
+  HBox { +-; Title: "CO2 Cell"; -+ };
+  HP: (CCelHP,7) V;
+  LP: (CCelLP,7) V;
+  P: (CCelP,7) V;
+  PSt: (CCelPSt,6) V;
+  1T: (CCel1T,6) C;
+  2T: (CCel2T,6) C;
+  CT: (CCelCT,7) V;
+  TSt: (CCelTSt,6) V;
+  HC: (CCell_HC_DS,3);
+  {
+    Prs_Reg: (CPrs_Reg_DS,3);
+    Ex_Vlv: (CGas_Ex_Vlv_DS,3);
+    Gas_Vlv: (CGas_Vlv_DS,3);
+  }
+}
+
+MM_Cell {
+  HBox { +-; Title: "Mini CH4 Cell"; -+ };
+  HP: (MCelHP,7) V;
+  LP: (MCelLP,7) V;
+  P: (MCelP,7) V;
+  PSt: (MCelPSt,6) V;
+  1T: (MCel1T,6) C;
+  2T: (MCel2T,6) C;
+  CT: (MCelCT,7) V;
+  TSt: (MCelTSt,6) V;
+  HC: (MCell_HC_DS,3);
+  {
+    Prs_Reg: (MPrs_Reg_DS,3);
+    Ex_Vlv: (MGas_Ex_Vlv_DS,3);
+    Gas_Vlv: (MGas_Vlv_DS,3);
+  }
+}
+
+I_Cell {
+  HBox { +-; Title: "ICOS Cell"; -+ };
+  HP: (ICelHP,7) V;
+  LP: (ICelLP,7) V;
+  P: (ICelP,7) V;
+  PSt: (ICelPSt,6) V;
+  1T: (ICel1T,6) C;
+  2T: (ICel2T,6) C;
+  CT: (ICelCT,7) V;
+  TSt: (ICelTSt,6) V;
+  HC: (ICell_HC_DS,3);
+  {
+    Prs_Reg: (IPrs_Reg_DS,3);
+    Ex_Vlv: (IGas_Ex_Vlv_DS,3);
+    Gas_Vlv: (IGas_Vlv_DS,3);
+  }
+}
+
+C_Laser {
+  HBox { +-; Title: "CO2 Laser"; -+ };
+  DetT:    (CDetT,6) C;
+  LasI:    (CLasI,7) V;
+  LPV_HC:  (CLPV_HC_DS,3);
+  LTEC:    (CLTEC_DS,3);
+  LH_T:    (CLH_T,6) C;
+  LPVCT:   (CLPVCT,7) V;
+  LPVTSt:  (CLPVTSt,7) V;
+  LTE4R3T: (CLTE4R3T,7) V;
+  LTETSt:  (CLTETSt,7) V;
+  CLPV_P:  (CLPV_P,7) torr;
+  CLPV_RH: (CLPV_RHC,4) %;
+  CLPV_T1: (CLPV_T1C,5) C;
+  CLPV_T2: (CLPV_T2C,5) C;
+  CQCL_P:  (CQCL_P,7) torr;
+  CQCL_RH: (CQCL_RHC,4) %;
+  CQCL_T1: (CQCL_T1C,5) C;
+  CQCL_T2: (CQCL_T2C,5) C;
+}
+
+MM_Laser {
+  HBox { +-; Title: "Mini CH4 Laser"; -+ };
+  LasI: (MLasI,7) V;
+  LPV_TEC: (MLPV_TEC_DS,3);
+  LTEC:    (MLTEC_DS,3);
+  LH_T:    (MLH_T,7) V;
+  LPVCT:   (MLPVCT,7) V;
+  LPVTSt:  (MLPVTSt,6) V;
+  LTE7R7T: (MLTE7R7T,7) V;
+  LTETSt:  (MLTETSt,6) V;
+  MLPV_P:  (MLPV_P,7) torr;
+  MLPV_RH: (MLPV_RHC,4) %;
+  MLPV_T1: (MLPV_T1C,5) C;
+  MLPV_T2: (MLPV_T2C,5) C;
+  MQCL_P:  (MQCL_P,7) torr;
+  MQCL_RH: (MQCL_RHC,4) %;
+  MQCL_T1: (MQCL_T1C,5) C;
+  MQCL_T2: (MQCL_T2C,5) C;
+  DetT:    (MDetT,6) C;
+  DPVCT:   (MDPVCT,7) V;
+  DPVTSt:  (MDPVTSt,6) V;
+  DPV_HC:  (MDPV_HC_DS,3);
+  MDPV_P:  (MDPV_P,7) torr;
+  MDPV_RH: (MDPV_RHC,4) %;
+  MDPV_T1: (MDPV_T1C,5) C;
+  MDPV_T2: (MDPV_T2C,5) C;
+}
+
+I_Laser {
+  HBox { +-; Title: "ICOS Laser"; -+ };
+  LasI:    (ILasI,7) V;
+  LH_T:    (ILH_T,7) V;
+  LPVCT:   (ILPVCT,7) V;
+  LPVTSt:  (ILPVTSt,6) V;
+  LTE4R3T: (ILTE7R7T,7) V;
+  LTETSt:  (ILTETSt,6) V;
+  { TEC:     (ILTEC_DS,3)   (ILTEC_S,3);
+    LPV_HC:  (ILPV_HC_DS,3) (ILPV_HC_S,3);
+  }
+  ILPV_P:  (ILPV_P,7) torr;
+  ILPV_RH: (ILPV_RHC,4) %;
+  ILPV_T1: (ILPV_T1C,5) C;
+  ILPV_T2: (ILPV_T2C,5) C;
+  IQCL_P:  (IQCL_P,7) torr;
+  IQCL_RH: (IQCL_RHC,4) %;
+  IQCL_T1: (IQCL_T1C,5) C;
+  IQCL_T2: (IQCL_T2C,5) C;
+  DetT:    (IDetT,6) C;
+  DPVCT:   (IDPVCT,7) V;
+  DPVTSt:  (IDPVTSt,6) V;
+  { DPV_HC:  (IDPV_HC_DS,3) (IDPV_HC_S,3) };
+  IDPV_P:  (IDPV_P,7) torr;
+  IDPV_RH: (IDPV_RHC,4) %;
+  IDPV_T1: (IDPV_T1C,5) C;
+  IDPV_T2: (IDPV_T2C,5) C;
+}
+
+{
+  HBox {
+    { [CO2_Cell];
+      [CO2_Laser];
+    }; |; {
+      [MM_Cell];
+      [MM_Laser];
+    }; |; {
+      [I_Cell];
+      [I_Laser];
+    }
+  }
+}
