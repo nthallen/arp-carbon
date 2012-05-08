@@ -5,6 +5,7 @@ TM typedef double VOLTS { text "%6.3lf"; }
 TM typedef double mVOLTS { text "%6.3lf"; }
 TM typedef double AMPS  { text "%6.3lf"; }
 TM typedef double PSIG { text "%6.1lf"; }
+TM typedef double SLM { text "%6.3lf"; }
 TM typedef double CELCIUS;
 TM typedef unsigned char  UCHAR { text "%3d"; }
 TM typedef unsigned short UINT { text "%5d"; }
