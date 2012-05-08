@@ -1,84 +1,84 @@
-TM On_Off_t L2_DS; Invalidate L2_DS;
+off_on_t L2_DS; Invalidate L2_DS;
   { L2_DS = (DS84A>>0)&1; Validate L2_DS; }
-TM Op_Cl_t MGas_Ex_Vlv_DS; Invalidate MGas_Ex_Vlv_DS;
+Op_Cl_t MGas_Ex_Vlv_DS; Invalidate MGas_Ex_Vlv_DS;
   { MGas_Ex_Vlv_DS = (DS84C>>0)&1; Validate MGas_Ex_Vlv_DS; }
-TM On_Off_t CQCLI_Reset_DS; Invalidate CQCLI_Reset_DS;
+off_on_t CQCLI_Reset_DS; Invalidate CQCLI_Reset_DS;
   { CQCLI_Reset_DS = (DS84C>>1)&1; Validate CQCLI_Reset_DS; }
-TM On_Off_t CLPV_HC_DS; Invalidate CLPV_HC_DS;
+off_on_t CLPV_HC_DS; Invalidate CLPV_HC_DS;
   { CLPV_HC_DS = (DS84C>>2)&1; Validate CLPV_HC_DS; }
-TM On_Off_t CCell_HC_DS; Invalidate CCell_HC_DS;
+off_on_t CCell_HC_DS; Invalidate CCell_HC_DS;
   { CCell_HC_DS = (DS84C>>3)&1; Validate CCell_HC_DS; }
-TM On_Off_t CLTEC_DS; Invalidate CLTEC_DS;
+off_on_t CLTEC_DS; Invalidate CLTEC_DS;
   { CLTEC_DS = (DS84C>>4)&1; Validate CLTEC_DS; }
-TM Op_Cl_t CPrs_Reg_DS; Invalidate CPrs_Reg_DS;
+Op_Cl_t CPrs_Reg_DS; Invalidate CPrs_Reg_DS;
   { CPrs_Reg_DS = (DS84C>>5)&1; Validate CPrs_Reg_DS; }
-TM Op_Cl_t CGas_Vlv_DS; Invalidate CGas_Vlv_DS;
+Op_Cl_t CGas_Vlv_DS; Invalidate CGas_Vlv_DS;
   { CGas_Vlv_DS = (DS84C>>6)&1; Validate CGas_Vlv_DS; }
-TM Op_Cl_t CGas_Ex_Vlv_DS; Invalidate CGas_Ex_Vlv_DS;
+Op_Cl_t CGas_Ex_Vlv_DS; Invalidate CGas_Ex_Vlv_DS;
   { CGas_Ex_Vlv_DS = (DS84C>>7)&1; Validate CGas_Ex_Vlv_DS; }
-TM On_Off_t MM_Pump_DS; Invalidate MM_Pump_DS;
+off_on_t MM_Pump_DS; Invalidate MM_Pump_DS;
   { MM_Pump_DS = (DS851>>0)&1; Validate MM_Pump_DS; }
-TM On_Off_t C_Pump_DS; Invalidate C_Pump_DS;
+off_on_t C_Pump_DS; Invalidate C_Pump_DS;
   { C_Pump_DS = (DS851>>1)&1; Validate C_Pump_DS; }
-TM On_Off_t I_Pump_DS; Invalidate I_Pump_DS;
+off_on_t I_Pump_DS; Invalidate I_Pump_DS;
   { I_Pump_DS = (DS851>>2)&1; Validate I_Pump_DS; }
-TM On_Off_t ICell_HC_DS; Invalidate ICell_HC_DS;
+off_on_t ICell_HC_DS; Invalidate ICell_HC_DS;
   { ICell_HC_DS = (DS851>>3)&1; Validate ICell_HC_DS; }
-TM On_Off_t IDPV_HC_DS; Invalidate IDPV_HC_DS;
+off_on_t IDPV_HC_DS; Invalidate IDPV_HC_DS;
   { IDPV_HC_DS = (DS851>>4)&1; Validate IDPV_HC_DS; }
-TM On_Off_t ILPV_HC_DS; Invalidate ILPV_HC_DS;
+off_on_t ILPV_HC_DS; Invalidate ILPV_HC_DS;
   { ILPV_HC_DS = (DS851>>5)&1; Validate ILPV_HC_DS; }
-TM On_Off_t ILTEC_DS; Invalidate ILTEC_DS;
+off_on_t ILTEC_DS; Invalidate ILTEC_DS;
   { ILTEC_DS = (DS851>>6)&1; Validate ILTEC_DS; }
-TM On_Off_t L1_DS; Invalidate L1_DS;
+off_on_t L1_DS; Invalidate L1_DS;
   { L1_DS = (DS851>>7)&1; Validate L1_DS; }
-TM On_Off_t IQCLI_Reset_DS; Invalidate IQCLI_Reset_DS;
+off_on_t IQCLI_Reset_DS; Invalidate IQCLI_Reset_DS;
   { IQCLI_Reset_DS = (DS855>>0)&1; Validate IQCLI_Reset_DS; }
-TM On_Off_t GD_Vlv_Clsed_S; Invalidate GD_Vlv_Clsed_S;
+off_on_t GD_Vlv_Clsed_S; Invalidate GD_Vlv_Clsed_S;
   { GD_Vlv_Clsed_S = (DS855>>1)&1; Validate GD_Vlv_Clsed_S; }
-TM Op_Cl_t IPrs_Reg_DS; Invalidate IPrs_Reg_DS;
+Op_Cl_t IPrs_Reg_DS; Invalidate IPrs_Reg_DS;
   { IPrs_Reg_DS = (DS855>>2)&1; Validate IPrs_Reg_DS; }
-TM Op_Cl_t IGas_Vlv_DS; Invalidate IGas_Vlv_DS;
+Op_Cl_t IGas_Vlv_DS; Invalidate IGas_Vlv_DS;
   { IGas_Vlv_DS = (DS855>>3)&1; Validate IGas_Vlv_DS; }
-TM Op_Cl_t IGas_Ex_Vlv_DS; Invalidate IGas_Ex_Vlv_DS;
+Op_Cl_t IGas_Ex_Vlv_DS; Invalidate IGas_Ex_Vlv_DS;
   { IGas_Ex_Vlv_DS = (DS855>>4)&1; Validate IGas_Ex_Vlv_DS; }
-TM On_Off_t SH_HC_DS; Invalidate SH_HC_DS;
+off_on_t SH_HC_DS; Invalidate SH_HC_DS;
   { SH_HC_DS = (DS855>>5)&1; Validate SH_HC_DS; }
-TM On_Off_t SpHt_HC_DS; Invalidate SpHt_HC_DS;
+off_on_t SpHt_HC_DS; Invalidate SpHt_HC_DS;
   { SpHt_HC_DS = (DS855>>6)&1; Validate SpHt_HC_DS; }
-TM On_Off_t Gas_Flw_Open_DS; Invalidate Gas_Flw_Open_DS;
+off_on_t Gas_Flw_Open_DS; Invalidate Gas_Flw_Open_DS;
   { Gas_Flw_Open_DS = (DS855>>7)&1; Validate Gas_Flw_Open_DS; }
-TM On_Off_t Gas_Flw_Clsd_DS; Invalidate Gas_Flw_Clsd_DS;
+off_on_t Gas_Flw_Clsd_DS; Invalidate Gas_Flw_Clsd_DS;
   { Gas_Flw_Clsd_DS = (DS868>>0)&1; Validate Gas_Flw_Clsd_DS; }
-TM On_Off_t MQCLI_Reset_DS; Invalidate MQCLI_Reset_DS;
+off_on_t MQCLI_Reset_DS; Invalidate MQCLI_Reset_DS;
   { MQCLI_Reset_DS = (DS868>>1)&1; Validate MQCLI_Reset_DS; }
-TM On_Off_t MCell_HC_DS; Invalidate MCell_HC_DS;
+off_on_t MCell_HC_DS; Invalidate MCell_HC_DS;
   { MCell_HC_DS = (DS868>>2)&1; Validate MCell_HC_DS; }
-TM On_Off_t MDPV_HC_DS; Invalidate MDPV_HC_DS;
+off_on_t MDPV_HC_DS; Invalidate MDPV_HC_DS;
   { MDPV_HC_DS = (DS868>>3)&1; Validate MDPV_HC_DS; }
-TM On_Off_t MLTEC_DS; Invalidate MLTEC_DS;
+off_on_t MLTEC_DS; Invalidate MLTEC_DS;
   { MLTEC_DS = (DS868>>4)&1; Validate MLTEC_DS; }
-TM On_Off_t MLPV_TEC_DS; Invalidate MLPV_TEC_DS;
+off_on_t MLPV_TEC_DS; Invalidate MLPV_TEC_DS;
   { MLPV_TEC_DS = (DS868>>5)&1; Validate MLPV_TEC_DS; }
-TM Op_Cl_t MPrs_Reg_DS; Invalidate MPrs_Reg_DS;
+Op_Cl_t MPrs_Reg_DS; Invalidate MPrs_Reg_DS;
   { MPrs_Reg_DS = (DS868>>6)&1; Validate MPrs_Reg_DS; }
-TM Op_Cl_t MGas_Vlv_DS; Invalidate MGas_Vlv_DS;
+Op_Cl_t MGas_Vlv_DS; Invalidate MGas_Vlv_DS;
   { MGas_Vlv_DS = (DS868>>7)&1; Validate MGas_Vlv_DS; }
-TM On_Off_t MM_Pump_S; Invalidate MM_Pump_S;
+off_on_t MM_Pump_S; Invalidate MM_Pump_S;
   { MM_Pump_S = (DS86A>>0)&1; Validate MM_Pump_S; }
-TM On_Off_t C_Pump_S; Invalidate C_Pump_S;
+off_on_t C_Pump_S; Invalidate C_Pump_S;
   { C_Pump_S = (DS86A>>1)&1; Validate C_Pump_S; }
-TM On_Off_t I_Pump_S; Invalidate I_Pump_S;
+off_on_t I_Pump_S; Invalidate I_Pump_S;
   { I_Pump_S = (DS86A>>2)&1; Validate I_Pump_S; }
-TM On_Off_t ICell_HC_S; Invalidate ICell_HC_S;
+off_on_t ICell_HC_S; Invalidate ICell_HC_S;
   { ICell_HC_S = (DS86A>>3)&1; Validate ICell_HC_S; }
-TM On_Off_t IDPV_HC_S; Invalidate IDPV_HC_S;
+off_on_t IDPV_HC_S; Invalidate IDPV_HC_S;
   { IDPV_HC_S = (DS86A>>4)&1; Validate IDPV_HC_S; }
-TM On_Off_t ILPV_HC_S; Invalidate ILPV_HC_S;
+off_on_t ILPV_HC_S; Invalidate ILPV_HC_S;
   { ILPV_HC_S = (DS86A>>5)&1; Validate ILPV_HC_S; }
-TM On_Off_t ILTEC_S; Invalidate ILTEC_S;
+off_on_t ILTEC_S; Invalidate ILTEC_S;
   { ILTEC_S = (DS86A>>6)&1; Validate ILTEC_S; }
-TM On_Off_t L1_S; Invalidate L1_S;
+off_on_t L1_S; Invalidate L1_S;
   { L1_S = (DS86A>>7)&1; Validate L1_S; }
-TM On_Off_t L2_S; Invalidate L2_S;
+off_on_t L2_S; Invalidate L2_S;
   { L2_S = (DS873>>0)&1; Validate L2_S; }

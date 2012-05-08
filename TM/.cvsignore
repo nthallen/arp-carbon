@@ -28,12 +28,14 @@ HCIsrvroui.c
 HCIsrvroui.o
 hktbl.tmc
 qclitbl.tmc
+Cellstbl.tmc
 HCIdisp.cc
 HCIdispoui.c
 HCIdispoui.o
 HCIdisp.o
 hktblnc.tmc
 qclitblnc.tmc
+Cellstblnc.tmc
 HCIdispnc.cc
 HCIdispncoui.c
 HCIdispncoui.o

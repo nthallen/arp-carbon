@@ -4,6 +4,7 @@
 TM typedef double VOLTS { text "%6.3lf"; }
 TM typedef double mVOLTS { text "%6.3lf"; }
 TM typedef double AMPS  { text "%6.3lf"; }
+TM typedef double CELCIUS;
 TM typedef unsigned char  UCHAR { text "%3d"; }
 TM typedef unsigned short UINT { text "%5d"; }
 TM typedef unsigned short AIC  { text "%4x"; }
@@ -55,13 +56,14 @@ TM typedef double SHT21RH_t { text "%4.1lf"; }
 TM typedef double PTRHP_t { text "%7.2lf"; }
 
 /* QCLI/SSP types */
-TM typedef double CELCIUS;
 TM typedef long L20 { text "%8ld"; }
 
 %{
-  const char *off_on_text[] = { "off", " on" };
+  #define off_on_text(x) ((x)?" on":"off")
+  #define Op_Cl_text(x) ((x)?"  open":"closed")
 %}
-TM typedef int off_on_t { text "%3d" off_on_text[]; }
+TM typedef unsigned char off_on_t { text "%3d" off_on_text(); }
+TM typedef unsigned char Op_Cl_t { text "%3d" Op_Cl_text(); }
 
 /* Counter types */
 %{
