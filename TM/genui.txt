@@ -43,14 +43,12 @@ ROWS 18
  1 QCLI_C_Busy:QCLI_C_s:15 CO2_QCLI Status
  1 QCLI_C_cksum:QCLI_C_s:14 CO2_QCLI Status
  1 QCLI_C_cmderr:QCLI_C_s:13 CO2_QCLI Status
-
  1 QCLI_C_dot:QCLI_C_s:5 CO2_QCLI Status
  1 QCLI_C_InvCmd:QCLI_C_s:11 CO2_QCLI Status
  1 QCLI_C_laser:QCLI_C_s:12 CO2_QCLI Status
  1 QCLI_C_loc:QCLI_C_s:3 CO2_QCLI Status
  1 QCLI_C_lot:QCLI_C_s:4 CO2_QCLI Status
  1 QCLI_C_ready:QCLI_C_s:9 CO2_QCLI Status
-
  1 QCLI_C_waveerr:QCLI_C_s:8 CO2_QCLI Status
  1 QCLIResponding:QCLI_C_CS:11 CO2_QCLI Status
  1 RBComplete:QCLI_C_CS:9 CO2_QCLI Status
@@ -99,12 +97,11 @@ ROWS 18
  1 SWStat HK_HK SWStat
  5 PM0I1 HK_Power Current
  5 PM0I2 HK_Power Current
- 5 PM0I1_S HK_Power Status
- 5 PM0I2_S HK_Power Status
- 5 PM0Stat HK_Power Status
- 5 PM0TO_S HK_Power Status
- 5 PM0V1_S HK_Power Status
- 5 PM0V2_S HK_Power Status
+ 5 PM0I1_S:PM0Stat:0 HK_Power Status
+ 5 PM0I2_S:PM0Stat:2 HK_Power Status
+ 5 PM0TO_S:PM0Stat:4 HK_Power Status
+ 5 PM0V1_S:PM0Stat:1 HK_Power Status
+ 5 PM0V2_S:PM0Stat:3 HK_Power Status
  5 PM0V1 HK_Power Voltage
  5 PM0V2 HK_Power Voltage
  1 CLPV_S HK_PTRH CLPV
@@ -124,15 +121,14 @@ ROWS 18
  1 SpHtTSt HK_SpaceHt T_ctrl
  1 TVPos HK_Throttle Pot
  0 IXStt HK_Throttle Scan
- 1 A HK_Throttle Status
- 1 B HK_Throttle Status
- 1 C HK_Throttle Status
- 1 D HK_Throttle Status
- 1 I HK_Throttle Status
- 1 O HK_Throttle Status
- 1 R HK_Throttle Status
- 1 TVStat HK_Throttle Status
- 1 Z HK_Throttle Status
+ 1 A:TVStat:4 HK_Throttle Status
+ 1 B:TVStat:5 HK_Throttle Status
+ 1 C:TVStat:7 HK_Throttle Status
+ 1 D:TVStat:2 HK_Throttle Status
+ 1 I:TVStat:0 HK_Throttle Status
+ 1 O:TVStat:1 HK_Throttle Status
+ 1 R:TVStat:3 HK_Throttle Status
+ 1 Z:TVStat:6 HK_Throttle Status
  1 TVStep HK_Throttle Step
  1 ICelHP ISO_Cell P
 10 ICelLP ISO_Cell P
@@ -186,14 +182,12 @@ ROWS 18
  1 QCLI_I_Busy:QCLI_I_s:15 ISO_QCLI Status
  1 QCLI_I_cksum:QCLI_I_s:14 ISO_QCLI Status
  1 QCLI_I_cmderr:QCLI_I_s:13 ISO_QCLI Status
-
  1 QCLI_I_dot:QCLI_I_s:5 ISO_QCLI Status
  1 QCLI_I_InvCmd:QCLI_I_s:11 ISO_QCLI Status
  1 QCLI_I_laser:QCLI_I_s:12 ISO_QCLI Status
  1 QCLI_I_loc:QCLI_I_s:3 ISO_QCLI Status
  1 QCLI_I_lot:QCLI_I_s:4 ISO_QCLI Status
  1 QCLI_I_ready:QCLI_I_s:9 ISO_QCLI Status
-
  1 QCLI_I_waveerr:QCLI_I_s:8 ISO_QCLI Status
  1 QCLIResponding:QCLI_I_CS:11 ISO_QCLI Status
  1 RBComplete:QCLI_I_CS:9 ISO_QCLI Status
@@ -275,14 +269,12 @@ ROWS 18
  1 QCLI_M_Busy:QCLI_M_s:15 MINI_QCLI Status
  1 QCLI_M_cksum:QCLI_M_s:14 MINI_QCLI Status
  1 QCLI_M_cmderr:QCLI_M_s:13 MINI_QCLI Status
-
  1 QCLI_M_dot:QCLI_M_s:5 MINI_QCLI Status
  1 QCLI_M_InvCmd:QCLI_M_s:11 MINI_QCLI Status
  1 QCLI_M_laser:QCLI_M_s:12 MINI_QCLI Status
  1 QCLI_M_loc:QCLI_M_s:3 MINI_QCLI Status
  1 QCLI_M_lot:QCLI_M_s:4 MINI_QCLI Status
  1 QCLI_M_ready:QCLI_M_s:9 MINI_QCLI Status
-
  1 QCLI_M_waveerr:QCLI_M_s:8 MINI_QCLI Status
  1 QCLIResponding:QCLI_M_CS:11 MINI_QCLI Status
  1 RBComplete:QCLI_M_CS:9 MINI_QCLI Status
