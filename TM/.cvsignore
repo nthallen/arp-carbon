@@ -46,6 +46,12 @@ HCIalgo.cc
 HCIalgooui.c
 HCIalgooui.o
 HCIalgo.o
+HCIengextcdf.oui
+HCIengext.tmc
+HCIengext.cc
+HCIengextoui.c
+HCIengextoui.o
+HCIengext.o
 doit.dep
 HCIclt.o
 HCIcltoui.c
@@ -59,6 +65,7 @@ HCIsrvr
 HCIdisp
 HCIdispnc
 HCIalgo
+HCIengext
 doit
 HCIclt
 HCIcltnc

@@ -1,4 +1,4 @@
-# Makefile Generated Tue May 08 14:58:17 EDT 2012
+# Makefile Generated Tue May 08 15:43:45 EDT 2012
 MNC=HCI
 HOMEDIR=/home/hci/src/TM
 SPECFILE=HCI.spec
@@ -158,8 +158,8 @@ HCIengextcdf.oui : HCIeng.cdf
 	$(EDF2OUI) HCIeng.cdf
 HCIengext.tmc : HCIeng.cdf
 	$(EDF2EXT) HCIeng.cdf
-HCIengext.cc : types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc HCIengext.tmc
-	$(TMC) types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc HCIengext.tmc
+HCIengext.cc : types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc qcli_conv.tmc PTRH_conv.tmc HCIengext.tmc
+	$(TMC) types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc qcli_conv.tmc PTRH_conv.tmc HCIengext.tmc
 HCIengextoui.c : HCIengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) HCIengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIengextoui.o : HCIengextoui.c SWData.h
