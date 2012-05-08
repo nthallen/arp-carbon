@@ -24,9 +24,9 @@ TM 1 Hz AI_T30K CSk1T; Address CSk1T 0xC36; /* Skin Temp 1 CO2 */
 TM 1 Hz AI_T30K CSk2T; Address CSk2T 0xC76; /* Skin Temp 2 CO2 */
 TM 1 Hz AI_T30K CSk3T; Address CSk3T 0xCB6; /* Skin Temp 3 CO2 */
 TM 1 Hz AI_T30K CSSPT; Address CSSPT 0xCF0; /* SSP Bd Temp CO2 */
-TM 1 Hz AI16 GasFl; Address GasFl 0xC40; /* Gas Deck Flow */
-TM 1 Hz AI16 GasHP; Address GasHP 0xC80; /* Gas Deck High Pressure (5000 psig) */
-TM 1 Hz AI16 GasLP; Address GasLP 0xCC0; /* Gas Deck Low Pressure (100 psig) */
+TM 1 Hz AI_20SLM GasFl; Address GasFl 0xC40; /* Gas Deck Flow */
+TM 1 Hz AI_5000psig GasHP; Address GasHP 0xC80; /* Gas Deck High Pressure (5000 psig) */
+TM 1 Hz AI_100psig GasLP; Address GasLP 0xCC0; /* Gas Deck Low Pressure (100 psig) */
 TM 1 Hz AI_T30K GD__T; Address GD__T 0xC02; /* Gas Deck Temp */
 TM 1 Hz AI16 SH_CT; Address SH_CT 0xCFA; /* Sample Heater Control Temp */
 TM 1 Hz AI16 SpHCT; Address SpHCT 0xC3C; /* Space Heater Control Temp */
@@ -98,7 +98,7 @@ TM 1 Hz AO16 CCelPSt; Address CCelPSt 0x432; /* Cell Pressure Setpoint CO2 */
 TM 1 Hz AO16 CCelTSt; Address CCelTSt 0x43A; /* Cell Temp Setpoint CO2 */
 TM 1 Hz AO16 CLPVTSt; Address CLPVTSt 0x438; /* Laser Pressure Vessel Temp Setpoint CO2 */
 TM 1 Hz AO16 CLTETSt; Address CLTETSt 0x436; /* Laser  TEC Temp Setpoint CO2 */
-TM 1 Hz AO16 GsFlSt; Address GsFlSt 0x402; /* Gas Flow Setpoint GAS DECK */
+TM 1 Hz AO_20SLM GsFlSt; Address GsFlSt 0x402; /* Gas Flow Setpoint GAS DECK */
 TM 1 Hz AO16 SHTSt; Address SHTSt 0x426; /* Sample Heater Temp Setpoint */
 TM 1 Hz AO16 SpHtTSt; Address SpHtTSt 0x420; /* Space Heater Temp Setpoint */
 TM 1 Hz AO16 ICelPSt; Address ICelPSt 0x434; /* Cell Pressure Setpoint ISO */

@@ -4,6 +4,7 @@
 TM typedef double VOLTS { text "%6.3lf"; }
 TM typedef double mVOLTS { text "%6.3lf"; }
 TM typedef double AMPS  { text "%6.3lf"; }
+TM typedef double PSIG { text "%6.1lf"; }
 TM typedef double CELCIUS;
 TM typedef unsigned char  UCHAR { text "%3d"; }
 TM typedef unsigned short UINT { text "%5d"; }
@@ -12,42 +13,47 @@ TM typedef unsigned short DStat {
   text "%5d";
   collect x = sbrwa(x.address);
 }
-TM typedef unsigned short AO16 {
-  text "%6.4lf";
-  convert VOLTS;
-  collect x = sbrwa(x.address);
-}
-
-  Calibration (AO16, VOLTS) {
-    0, 0,
-    65536, 10
-  }
 
 TM typedef signed short AI16 {
   text "%7.4lf";
   convert VOLTS;
   collect x = sbrwa(x.address);
 }
-
-  Calibration (AI16,VOLTS) {
-    0, 0,
-    32768, 4.096
-  }
+  Calibration (AI16,VOLTS) { 0, 0, 32768, 4.096 }
 
 TM typedef AI16 PBI { text "%5.2lf"; convert AMPS; }
-  Calibration (PBI,AMPS) {
-    -800, .0218,
-    40000, 4.9831
-  }
+  Calibration (PBI,AMPS) { -800, .0218, 40000, 4.9831 }
 
+TM typedef AI16 AI16_5V { text "%7.4lf"; convert VOLTS; }
+  Calibration (AI16_5V, VOLTS) { 0, 0, 32768, 5.3333 }
+
+TM typedef AI16_5V AI_20SLM { text "%6.3lf"; convert SLM; }
+  Calibration (AI_20SLM, SLM) { 0, 0, 32768, 20 }
+  
 TM typedef AI16 AI_T30K
   { text "%6.2lf"; convert CELCIUS; }
   /* Calibration in T30K75KU.tmc */
 
+TM typedef AI16_5V AI_5000psig { text "%6.1lf"; convert PSIG; }
+  Calibration (AI_5000psig, PSIG) { 6155, 0, 30720, 5000 }
+
+TM typedef AI16_5V AI_100psig { text "%6.1lf"; convert PSIG; }
+  Calibration (AI_100psig, PSIG) { 6155, 0, 30720, 100 }
+  
 TM typedef unsigned short AIStat_i {
   text "%012b";
   Collect x = sbrwa(x.address);
 }
+
+TM typedef unsigned short AO16 {
+  text "%6.4lf";
+  convert VOLTS;
+  collect x = sbrwa(x.address);
+}
+  Calibration (AO16, VOLTS) { 0, 0, 65536, 10 }
+
+TM typedef AO16 AO_20SLM { text "%6.3lf"; }
+  Calibration (AO_20SLM, SLM) { 0, 0, 32768, 20 }
 
 TM typedef unsigned char MS5607Db { text "%3d"; }
 TM typedef UINT PTRH_S { text " %04x"; }
