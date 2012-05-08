@@ -10,10 +10,10 @@ DACS {
 
 pwrmon {
   HBox { +-; Title: "PwrMon"; -+ };
-  >(PM0TO,7)<;
   ""   >"I(mV)"<   >V<;
   "1:" HBox{ (PM0I1,5); (PM0I1S,1) } HBox{ (PM0V1,7); (PM0V1S,1) };
   "2:" HBox{ (PM0I2,5); (PM0I2S,1) } HBox{ (PM0V2,7); (PM0V2S,1) };
+  >(PM0TO,7)<;
 }
 
 TV { HBox { +-; Title: Throttle; -+ };
@@ -32,20 +32,26 @@ Status {
 
 PTRHs {
   HBox { +-; Title: PTRHS; -+ };
-  DACS: (DACS_S,4);
-  MDPV: (MDPV_S,4);
-  MLPV: (MLPV_S,4);
-  MQCL: (MQCL_S,4);
-  CLPV: (CLPV_S,4);
-  CQCL: (CQCL_S,4);
-  IDPV: (IDPV_S,4);
-  ILPV: (ILPV_S,4);
-  IQCL: (IQCL_S,4);
+  HBox {
+    {
+      DACS (DACS_S,4);
+      MDPV (MDPV_S,4);
+      MLPV (MLPV_S,4);
+    }; |; {
+      MQCL (MQCL_S,4);
+      CLPV (CLPV_S,4);
+      CQCL (CQCL_S,4);
+    }; |; {
+      IDPV (IDPV_S,4);
+      ILPV (ILPV_S,4);
+      IQCL (IQCL_S,4);
+    }
+  }
 }
 
 CO2 {
   HBox { +-; Title: CO2; -+ };
-  { Pump: (C_Pump_DS,3) (C_PumpS,3) };
+  { Pump: (C_Pump_DS,3) (C_Pump_S,3) };
   CPmtT: (CPmpT,6) C;
   CPMtT: (CPMtT,6) C;
   -;
@@ -90,6 +96,7 @@ MM {
   Pump: (MM_Pump_DS,3) (MM_Pump_S,3);
   MPmpT: (MPmpT,6) C;
   MPMtT: (MPMtT,6) C;
+  -;
   M24VT: (M24VT,6) C;
   MPampT: (MPampT,6) C;
   MSSPT: (MSSPT,6) C;
@@ -108,22 +115,25 @@ MM {
 HC {
   HBox { +-; Title: HC; -+ };
   ""   Sample       Space;
-  Cmd: (SH_HC_DS,3) (SpHt_HC_DS,3)
+  Cmd: (SH_HC_DS,3) (SpHt_HC_DS,3);
   Set: (SHTSt,6)    (SpHtTSt,6) V;
   CT:  (SH_CT,7)    (SpHCT,7)   V;
 }
 
 {
-  [pwrmon];
-  [TV];
   HBox {
-    [PTRHs]; |;
     [MM]; |;
     [CO2]; |;
     [ICOS]; |;
-    [HC]; |;
+    {
+      [HC];
+      [pwrmon];
+      [TV];
+      [PTRHs];
+    }; |;
     {
       [DACS];
+      VGlue 0+1;
       [Status];
     };
   }
