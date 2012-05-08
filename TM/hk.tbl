@@ -43,15 +43,89 @@ PTRHs {
   IQCL: (IQCL_S,4);
 }
 
+CO2 {
+  HBox { +-; Title: CO2; -+ };
+  { Pump: (C_Pump_DS,3) (C_PumpS,3) };
+  CPmtT: (CPmpT,6) C;
+  CPMtT: (CPMtT,6) C;
+  -;
+  C24VT: (C24VT,6) C;
+  CPampT: (CPampT,6) C;
+  CSSPT: (CSSPT,6) C;
+  CRv1T: (CRv1T,6) C;
+  CRv2T: (CRv2T,6) C;
+  CRv3T: (CRv3T,6) C;
+  CRv4T: (CRv4T,6) C;
+  CRv5T: (CRv5T,6) C;
+  CSG1T: (CSG1T,6) C;
+  CSG2T: (CSG2T,6) C;
+  CSk1T: (CSk1T,6) C;
+  CSk2T: (CSk2T,6) C;
+  CSk3T: (CSk3T,6) C;
+}
+
+ICOS {
+  HBox { +-; Title: ICOS; -+ };
+  { Pump: (I_Pump_DS,3) (I_Pump_S,3) };
+  IPmpT: (IPmpT,6) C;
+  IPMtT: (IPMtT,6) C;
+  -;
+  I24VT: (I24VT,6) C;
+  IPampT: (IPampT,6) C;
+  ISSPT: (ISSPT,6) C;
+  IRv1T: (IRv1T,6) C;
+  IRv2T: (IRv2T,6) C;
+  IRv3T: (IRv3T,6) C;
+  IRv4T: (IRv4T,6) C;
+  IRv5T: (IRv5T,6) C;
+  ISG1T: (ISG1T,6) C;
+  ISG2T: (ISG2T,6) C;
+  ISk1T: (ISk1T,6) C;
+  ISk2T: (ISk2T,6) C;
+  ISk3T: (ISk3T,6) C;
+}
+
+MM {
+  HBox { +-; Title: MM; -+ };
+  Pump: (MM_Pump_DS,3) (MM_Pump_S,3);
+  MPmpT: (MPmpT,6) C;
+  MPMtT: (MPMtT,6) C;
+  M24VT: (M24VT,6) C;
+  MPampT: (MPampT,6) C;
+  MSSPT: (MSSPT,6) C;
+  MRv1T: (MRv1T,6) C;
+  MRv2T: (MRv2T,6) C;
+  MRv3T: (MRv3T,6) C;
+  MRv4T: (MRv4T,6) C;
+  MRv5T: (MRv5T,6) C;
+  MSG1T: (MSG1T,6) C;
+  MSG2T: (MSG2T,6) C;
+  MSk1T: (MSk1T,6) C;
+  MSk2T: (MSk2T,6) C;
+  MSk3T: (MSk3T,6) C;
+}
+
+HC {
+  HBox { +-; Title: HC; -+ };
+  ""   Sample       Space;
+  Cmd: (SH_HC_DS,3) (SpHt_HC_DS,3)
+  Set: (SHTSt,6)    (SpHtTSt,6) V;
+  CT:  (SH_CT,7)    (SpHCT,7)   V;
+}
+
 {
   [pwrmon];
   [TV];
   HBox {
     [PTRHs]; |;
+    [MM]; |;
+    [CO2]; |;
+    [ICOS]; |;
+    [HC]; |;
     {
       [DACS];
       [Status];
-    }
+    };
   }
 }
 
