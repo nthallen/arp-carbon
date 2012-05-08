@@ -59,7 +59,9 @@ I_Cell {
   };
   -;
   >{
-    HC: (ICell_HC_DS,3)        Prs_Reg: (IPrs_Reg_DS,6);
+    HC: (ICell_HC_DS,3) (ICell_HC_S,3)  Prs_Reg: (IPrs_Reg_DS,6);
+  }<;
+  >{
     Ex_Vlv: (IGas_Ex_Vlv_DS,6) Gas_Vlv: (IGas_Vlv_DS,6);
   }<
 }
