@@ -39,25 +39,25 @@ ROWS 18
  1 QCLI_C_fifodep CO2_QCLI FIFO
  1 QCLI_C_Stale CO2_QCLI Stale
  1 CQCLI_Reset_DS:DS84C:1 CO2_QCLI Status
- 1 FIFOOvf CO2_QCLI Status
- 1 QCLI_C_Busy CO2_QCLI Status
- 1 QCLI_C_cksum CO2_QCLI Status
- 1 QCLI_C_cmderr CO2_QCLI Status
- 1 QCLI_C_CS CO2_QCLI Status
- 1 QCLI_C_dot CO2_QCLI Status
- 1 QCLI_C_InvCmd CO2_QCLI Status
- 1 QCLI_C_laser CO2_QCLI Status
- 1 QCLI_C_loc CO2_QCLI Status
- 1 QCLI_C_lot CO2_QCLI Status
- 1 QCLI_C_ready CO2_QCLI Status
- 1 QCLI_C_s CO2_QCLI Status
- 1 QCLI_C_waveerr CO2_QCLI Status
- 1 QCLIResponding CO2_QCLI Status
- 1 RBComplete CO2_QCLI Status
- 1 RBPending CO2_QCLI Status
- 1 Reading CO2_QCLI Status
- 1 RWConflict CO2_QCLI Status
- 1 WQPending CO2_QCLI Status
+ 1 FIFOOvf:QCLI_C_CS:12 CO2_QCLI Status
+ 1 QCLI_C_Busy:QCLI_C_s:15 CO2_QCLI Status
+ 1 QCLI_C_cksum:QCLI_C_s:14 CO2_QCLI Status
+ 1 QCLI_C_cmderr:QCLI_C_s:13 CO2_QCLI Status
+
+ 1 QCLI_C_dot:QCLI_C_s:5 CO2_QCLI Status
+ 1 QCLI_C_InvCmd:QCLI_C_s:11 CO2_QCLI Status
+ 1 QCLI_C_laser:QCLI_C_s:12 CO2_QCLI Status
+ 1 QCLI_C_loc:QCLI_C_s:3 CO2_QCLI Status
+ 1 QCLI_C_lot:QCLI_C_s:4 CO2_QCLI Status
+ 1 QCLI_C_ready:QCLI_C_s:9 CO2_QCLI Status
+
+ 1 QCLI_C_waveerr:QCLI_C_s:8 CO2_QCLI Status
+ 1 QCLIResponding:QCLI_C_CS:11 CO2_QCLI Status
+ 1 RBComplete:QCLI_C_CS:9 CO2_QCLI Status
+ 1 RBPending:QCLI_C_CS:8 CO2_QCLI Status
+ 1 Reading:QCLI_C_CS:14 CO2_QCLI Status
+ 1 RWConflict:QCLI_C_CS:13 CO2_QCLI Status
+ 1 WQPending:QCLI_C_CS:10 CO2_QCLI Status
  1 QCLI_C_Wave CO2_QCLI Wave
  1 SSP_C_Num CO2_SSP Files
  1 SSP_C_Flags CO2_SSP Overflow
@@ -181,26 +181,26 @@ ROWS 18
  1 QCLI_I_err ISO_QCLI Error
  1 QCLI_I_fifodep ISO_QCLI FIFO
  1 QCLI_I_Stale ISO_QCLI Stale
- 1 FIFOOvf ISO_QCLI Status
+ 1 FIFOOvf:QCLI_I_CS:12 ISO_QCLI Status
  1 IQCLI_Reset_DS:DS855:0 ISO_QCLI Status
- 1 QCLI_I_Busy ISO_QCLI Status
- 1 QCLI_I_cksum ISO_QCLI Status
- 1 QCLI_I_cmderr ISO_QCLI Status
- 1 QCLI_I_CS ISO_QCLI Status
- 1 QCLI_I_dot ISO_QCLI Status
- 1 QCLI_I_InvCmd ISO_QCLI Status
- 1 QCLI_I_laser ISO_QCLI Status
- 1 QCLI_I_loc ISO_QCLI Status
- 1 QCLI_I_lot ISO_QCLI Status
- 1 QCLI_I_ready ISO_QCLI Status
- 1 QCLI_I_s ISO_QCLI Status
- 1 QCLI_I_waveerr ISO_QCLI Status
- 1 QCLIResponding ISO_QCLI Status
- 1 RBComplete ISO_QCLI Status
- 1 RBPending ISO_QCLI Status
- 1 Reading ISO_QCLI Status
- 1 RWConflict ISO_QCLI Status
- 1 WQPending ISO_QCLI Status
+ 1 QCLI_I_Busy:QCLI_I_s:15 ISO_QCLI Status
+ 1 QCLI_I_cksum:QCLI_I_s:14 ISO_QCLI Status
+ 1 QCLI_I_cmderr:QCLI_I_s:13 ISO_QCLI Status
+
+ 1 QCLI_I_dot:QCLI_I_s:5 ISO_QCLI Status
+ 1 QCLI_I_InvCmd:QCLI_I_s:11 ISO_QCLI Status
+ 1 QCLI_I_laser:QCLI_I_s:12 ISO_QCLI Status
+ 1 QCLI_I_loc:QCLI_I_s:3 ISO_QCLI Status
+ 1 QCLI_I_lot:QCLI_I_s:4 ISO_QCLI Status
+ 1 QCLI_I_ready:QCLI_I_s:9 ISO_QCLI Status
+
+ 1 QCLI_I_waveerr:QCLI_I_s:8 ISO_QCLI Status
+ 1 QCLIResponding:QCLI_I_CS:11 ISO_QCLI Status
+ 1 RBComplete:QCLI_I_CS:9 ISO_QCLI Status
+ 1 RBPending:QCLI_I_CS:8 ISO_QCLI Status
+ 1 Reading:QCLI_I_CS:14 ISO_QCLI Status
+ 1 RWConflict:QCLI_I_CS:13 ISO_QCLI Status
+ 1 WQPending:QCLI_I_CS:10 ISO_QCLI Status
  1 QCLI_I_Wave ISO_QCLI Wave
  1 SSP_I_Num ISO_SSP Files
  1 SSP_I_Flags ISO_SSP Overflow
@@ -270,26 +270,26 @@ ROWS 18
  1 QCLI_M_err MINI_QCLI Error
  1 QCLI_M_fifodep MINI_QCLI FIFO
  1 QCLI_M_Stale MINI_QCLI Stale
- 1 FIFOOvf MINI_QCLI Status
+ 1 FIFOOvf:QCLI_M_CS:12 MINI_QCLI Status
  1 MQCLI_Reset_DS:DS868:1 MINI_QCLI Status
- 1 QCLI_M_Busy MINI_QCLI Status
- 1 QCLI_M_cksum MINI_QCLI Status
- 1 QCLI_M_cmderr MINI_QCLI Status
- 1 QCLI_M_CS MINI_QCLI Status
- 1 QCLI_M_dot MINI_QCLI Status
- 1 QCLI_M_InvCmd MINI_QCLI Status
- 1 QCLI_M_laser MINI_QCLI Status
- 1 QCLI_M_loc MINI_QCLI Status
- 1 QCLI_M_lot MINI_QCLI Status
- 1 QCLI_M_ready MINI_QCLI Status
- 1 QCLI_M_s MINI_QCLI Status
- 1 QCLI_M_waveerr MINI_QCLI Status
- 1 QCLIResponding MINI_QCLI Status
- 1 RBComplete MINI_QCLI Status
- 1 RBPending MINI_QCLI Status
- 1 Reading MINI_QCLI Status
- 1 RWConflict MINI_QCLI Status
- 1 WQPending MINI_QCLI Status
+ 1 QCLI_M_Busy:QCLI_M_s:15 MINI_QCLI Status
+ 1 QCLI_M_cksum:QCLI_M_s:14 MINI_QCLI Status
+ 1 QCLI_M_cmderr:QCLI_M_s:13 MINI_QCLI Status
+
+ 1 QCLI_M_dot:QCLI_M_s:5 MINI_QCLI Status
+ 1 QCLI_M_InvCmd:QCLI_M_s:11 MINI_QCLI Status
+ 1 QCLI_M_laser:QCLI_M_s:12 MINI_QCLI Status
+ 1 QCLI_M_loc:QCLI_M_s:3 MINI_QCLI Status
+ 1 QCLI_M_lot:QCLI_M_s:4 MINI_QCLI Status
+ 1 QCLI_M_ready:QCLI_M_s:9 MINI_QCLI Status
+
+ 1 QCLI_M_waveerr:QCLI_M_s:8 MINI_QCLI Status
+ 1 QCLIResponding:QCLI_M_CS:11 MINI_QCLI Status
+ 1 RBComplete:QCLI_M_CS:9 MINI_QCLI Status
+ 1 RBPending:QCLI_M_CS:8 MINI_QCLI Status
+ 1 Reading:QCLI_M_CS:14 MINI_QCLI Status
+ 1 RWConflict:QCLI_M_CS:13 MINI_QCLI Status
+ 1 WQPending:QCLI_M_CS:10 MINI_QCLI Status
  1 QCLI_M_Wave MINI_QCLI Wave
  1 SSP_M_Num MINI_SSP Files
  1 SSP_M_Flags MINI_SSP Overflow
