@@ -1,4 +1,4 @@
-# Makefile Generated Tue May 08 09:33:38 EDT 2012
+# Makefile Generated Tue May 08 14:58:17 EDT 2012
 MNC=HCI
 HOMEDIR=/home/hci/src/TM
 SPECFILE=HCI.spec
@@ -8,7 +8,7 @@ SRC+=qcli.tmc PTRH.tmc SWData.tmc SWData.h QCLI_C.tmc QCLI_M.tmc
 SRC+=QCLI_I.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc SWData_col.tmc
 SRC+=AO.cmd dccc.cmd qclis.cmd idx64drv.cmd address.h SWData.cmd
 SRC+=QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd digio_conv.tmc hk.tbl qcli.tbl
-SRC+=Cells.tbl HCI.tma HCI.sws HCI.doit
+SRC+=Cells.tbl HCI.tma HCI.sws HCIeng.cdf HCI.doit
 TOOL=HCI.spec Makefile
 SCRIPT=idx64.idx64 interact dccc.dccc
 OBJ=QCLI_C.cmd QCLI_C.out QCLI_C.tmc QCLI_C.m QCLI_C.log QCLI_M.cmd
@@ -20,9 +20,11 @@ OBJ+=qclitbl.tmc Cellstbl.tmc HCIdisp.cc HCIdispoui.c HCIdispoui.o
 OBJ+=HCIdisp.o hktblnc.tmc qclitblnc.tmc Cellstblnc.tmc HCIdispnc.cc
 OBJ+=HCIdispncoui.c HCIdispncoui.o HCIdispnc.o HCIsws.tma
 OBJ+=HCIalgoa.tmc HCIalgo.cc HCIalgooui.c HCIalgooui.o HCIalgo.o
-OBJ+=doit.dep HCIclt.o HCIcltoui.c HCIcltoui.o HCIcltnc.o
-OBJ+=HCIcltncoui.c HCIcltncoui.o
-TGT=HCIcol HCIsrvr HCIdisp HCIdispnc HCIalgo doit HCIclt HCIcltnc
+OBJ+=HCIengextcdf.oui HCIengext.tmc HCIengext.cc HCIengextoui.c
+OBJ+=HCIengextoui.o HCIengext.o doit.dep HCIclt.o HCIcltoui.c
+OBJ+=HCIcltoui.o HCIcltnc.o HCIcltncoui.c HCIcltncoui.o
+TGT=HCIcol HCIsrvr HCIdisp HCIdispnc HCIalgo HCIengext doit HCIclt
+TGT+=HCIcltnc
 DISTRIB=QCLI_C.out QCLI_M.out QCLI_I.out HCI.pcm tm.dac
 IDISTRIB=Experiment.config VERSION doit
 SRCDIST=QCLI_C.m QCLI_M.m QCLI_I.m hk.tbl qcli.tbl Cells.tbl HCI.tma
@@ -95,6 +97,9 @@ HCIdispnc : HCIdispnc.o ptrhm.o HCIdispncoui.o
 HCIalgo : HCIalgo.o ptrhm.o HCIalgooui.o
 	$(LINK.normCXX) HCIalgo.o ptrhm.o HCIalgooui.o -ltmpp -ltm -lnort
 	$(OUIUSE) HCIalgooui.c
+HCIengext : HCIengext.o ptrhm.o HCIengextoui.o
+	$(LINK.normCXX) HCIengext.o ptrhm.o HCIengextoui.o -ltmpp -ltm -lnort
+	$(OUIUSE) HCIengextoui.c
 doit : HCI.doit
 	mkdoit3 -o doit  HCI.doit
 HCIclt : HCIclt.o HCIcltoui.o
@@ -149,6 +154,16 @@ HCIalgooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIalgooui.o : HCIalgooui.c SWData.h
 HCIalgo.o : HCIalgo.cc SWData.h
+HCIengextcdf.oui : HCIeng.cdf
+	$(EDF2OUI) HCIeng.cdf
+HCIengext.tmc : HCIeng.cdf
+	$(EDF2EXT) HCIeng.cdf
+HCIengext.cc : types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc HCIengext.tmc
+	$(TMC) types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc HCIengext.tmc
+HCIengextoui.c : HCIengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) HCIengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+HCIengextoui.o : HCIengextoui.c SWData.h
+HCIengext.o : HCIengext.cc SWData.h
 doit.dep : HCI.doit
 	mkdoit3 -M -o doit  HCI.doit
 -include doit.dep
@@ -186,3 +201,5 @@ clean : tidy
 
 COLFLAGS = -H address.h
 address.h : HCIcol.cc
+HCIeng.cdf : genui.txt
+	genui -d ../eng -c genui.txt

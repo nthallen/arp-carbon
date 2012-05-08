@@ -45,9 +45,12 @@ HCIcol : -lsubbus
 HCIsrvr : -lsubbus
 HCIdisp : PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc hk.tbl qcli.tbl Cells.tbl
 HCIalgo : HCI.tma HCI.sws
+HCIengext : PTRH_conv.tmc HCIeng.cdf
 doit : HCI.doit
 
 %%
 
 COLFLAGS = -H address.h
 address.h : HCIcol.cc
+HCIeng.cdf : genui.txt
+	genui -d ../eng -c genui.txt
