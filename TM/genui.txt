@@ -120,7 +120,7 @@ ROWS 18
  1 SpHCT HK_SpaceHt T_ctrl
  1 SpHtTSt HK_SpaceHt T_ctrl
  1 TVPos HK_Throttle Pot
- 0 IXStt HK_Throttle Scan
+ 1 IXStt HK_Throttle Scan
  1 A:TVStat:4 HK_Throttle Status
  1 B:TVStat:5 HK_Throttle Status
  1 C:TVStat:7 HK_Throttle Status

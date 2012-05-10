@@ -4,4 +4,6 @@ TM 1 Hz DStat DS851; Address DS851 0x851;
 TM 1 Hz DStat DS855; Address DS855 0x855;
 TM 1 Hz DStat DS868; Address DS868 0x868;
 TM 1 Hz DStat DS86A; Address DS86A 0x86A;
+  Collect DS86A = sbrba(DS86A.address) ^ 0xFF;
 TM 1 Hz DStat DS873; Address DS873 0x873;
+  Collect DS873 = sbrba(DS873.address) ^ 0xFF;

@@ -10,9 +10,9 @@ TM typedef double CELCIUS;
 TM typedef unsigned char  UCHAR { text "%3d"; }
 TM typedef unsigned short UINT { text "%5d"; }
 TM typedef unsigned short AIC  { text "%4x"; }
-TM typedef unsigned short DStat {
-  text "%5d";
-  collect x = sbrwa(x.address);
+TM typedef unsigned char  DStat {
+  text "%3d";
+  collect x = sbrba(x.address);
 }
 
 TM typedef signed short AI16 {

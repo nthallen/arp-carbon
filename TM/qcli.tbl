@@ -212,5 +212,5 @@ QCLI_I_Col {
 { HBox { |+;
   [QCLI_M_Col]; |+; [QCLI_C_Col]; |+; [QCLI_I_Col]; |+; };
   -;
-  >{ Time: (flttime,8) MFCtr: (MFCtr,5) }
+  >{ Time: (flttime,9) MFCtr: (MFCtr,5) }
 }
