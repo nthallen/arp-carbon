@@ -1,7 +1,7 @@
 HEADER Harvard Carbon Isotopes
 MNEMONIC HCI
 HOMEDIR HCI_Data_Dir
-ROWS 18
+ROWS 25
  1 CCelHP CO2_Cell P
 10 CCelLP CO2_Cell P
  1 CCelP CO2_Cell P
