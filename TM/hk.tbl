@@ -95,7 +95,7 @@ ICOS {
 
 MM {
   HBox { +-; Title: MM; -+ };
-  Pump: (MM_Pump_DS,3) (MM_Pump_S,3);
+  { Pump: (MM_Pump_DS,3) (MM_Pump_S,3) };
   MPmpT: (MPmpT,6) C;
   MPMtT: (MPMtT,6) C;
   -;
