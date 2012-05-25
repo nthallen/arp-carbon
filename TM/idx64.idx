@@ -8,7 +8,7 @@ Channel 0 Indexer Throttle Valve
   # Scanstat TVScan
   Speed 5033 Hz
   Disable Zeroref
-  # Swap Limits
+  Swap Limits
   # Invert Step
   # Invert Direction
   # Invert Run
