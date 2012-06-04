@@ -104,6 +104,7 @@ ROWS 25
 
  1 CPU_Pct HK_HK CPU
  1 Disk HK_HK Disk
+ 1 freemem HK_HK Memory
  1 SWStat HK_HK SWStat
 
  5 PM0V1 HK_Power Voltage

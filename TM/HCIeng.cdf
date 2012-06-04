@@ -1,4 +1,4 @@
-csv HCIeng_1 213
+csv HCIeng_1 214
   0 THCIeng_1 %.3lf
   1 C24VT
   2 CCel1T
@@ -210,8 +210,9 @@ csv HCIeng_1 213
   208 TVPos
   209 TVStat
   210 TVStep
-  211 vl_bdT
-  212 vl_cpuT
+  211 freemem
+  212 vl_bdT
+  213 vl_cpuT
 csv HCIeng_10 4
   0 THCIeng_10 %.3lf
   1 CCelLP

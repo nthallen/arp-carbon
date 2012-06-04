@@ -26,6 +26,7 @@ Status {
   >{
     CPU: (CPU_Pct,3) %
     Disk: (Disk,5) %
+    FreeMem: (freemem,7) MB
     SWStat: (SWStat,3)
     (flttime,9)
     MFCtr: (MFCtr,5)

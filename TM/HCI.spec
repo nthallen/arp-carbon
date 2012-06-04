@@ -1,3 +1,4 @@
+tmcbase = /usr/local/share/huarp/freemem.tmc
 tmcbase = types.tmc
 tmcbase = AIO.tmc
 tmcbase = T30K75KU.tmc
@@ -21,6 +22,7 @@ cmdbase = AO.cmd
 cmdbase = dccc.cmd
 cmdbase = qclis.cmd
 cmdbase = idx64drv.cmd
+cmdbase = subbus.cmd
 cmdbase = address.h
 
 colbase = idx64col.tmc
@@ -31,6 +33,7 @@ colbase = /usr/local/share/huarp/vl_temp_col.tmc
 colbase = /usr/local/share/huarp/tmdf_col.tmc
 colbase = /usr/local/share/huarp/ptrhm_col.cc
 colbase = /usr/local/share/huarp/cpu_usage_col.tmc
+colbase = /usr/local/share/huarp/freemem_col.tmc
 
 swsbase = HCI.sws
 

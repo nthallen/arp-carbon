@@ -3,11 +3,11 @@
 #define QCLI_I_CS_Address 0x1020
 #define QCLI_M_CS_Address 0x1000
 #define QCLI_C_CS_Address 0x1010
-#define PM0V2_Address 0x368
-#define PM0I2_Address 0x366
-#define PM0V1_Address 0x364
-#define PM0I1_Address 0x362
-#define PM0Stat_Address 0x360
+#define PM0V2_Address 0x378
+#define PM0I2_Address 0x376
+#define PM0V1_Address 0x374
+#define PM0I1_Address 0x372
+#define PM0Stat_Address 0x370
 #define TVStat_Address 0xA0E
 #define TVStep_Address 0xA0C
 #define DS873_Address 0x873
