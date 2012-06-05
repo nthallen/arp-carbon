@@ -1,0 +1,20 @@
+%{
+  UINT last_M_SSP = 0;
+  UINT last_C_SSP = 0;
+  UINT last_I_SSP = 0;
+%}
+
+if (last_M_SSP != SSP_M_Num) {
+  ci_sendfcmd(2, "PhRTG File SSP_M %u\n", SSP_M_Num );
+  last_M_SSP = SSP_M_Num;
+}
+
+if (last_C_SSP != SSP_C_Num) {
+  ci_sendfcmd(2, "PhRTG File SSP_C %u\n", SSP_C_Num );
+  last_C_SSP = SSP_C_Num;
+}
+
+if (last_I_SSP != SSP_I_Num) {
+  ci_sendfcmd(2, "PhRTG File SSP_I %u\n", SSP_I_Num );
+  last_I_SSP = SSP_I_Num;
+}

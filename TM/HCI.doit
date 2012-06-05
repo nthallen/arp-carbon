@@ -1,4 +1,5 @@
-display HCIdisp
+display HCIdisp -C $FlightNode
 client HCIclt
 batchfile interact
 memo
+phrtg

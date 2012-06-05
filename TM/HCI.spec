@@ -18,6 +18,7 @@ cmdbase = /usr/local/share/huarp/getcon.cmd
 cmdbase = /usr/local/share/huarp/DACS_AI.cmd
 cmdbase = /usr/local/share/huarp/idx64.cmd
 cmdbase = /usr/local/share/huarp/qcli.cmd
+cmdbase = /usr/local/share/huarp/phrtg.cmd
 cmdbase = AO.cmd
 cmdbase = dccc.cmd
 cmdbase = qclis.cmd
@@ -47,7 +48,7 @@ SCRIPT = runfile.FF
 
 HCIcol : -lsubbus
 HCIsrvr : -lsubbus
-HCIdisp : PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc hk.tbl qcli.tbl Cells.tbl
+HCIdisp : PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc hk.tbl qcli.tbl Cells.tbl SSPrtg.tmc /usr/local/share/oui/cic.oui
 HCIalgo : HCI.tma HCI.sws
 HCIengext : qcli_conv.tmc PTRH_conv.tmc HCIeng.cdf
 doit : HCI.doit

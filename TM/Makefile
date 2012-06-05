@@ -1,4 +1,4 @@
-# Makefile Generated Tue Jun 05 12:07:49 EDT 2012
+# Makefile Generated Tue Jun 05 15:09:47 EDT 2012
 MNC=HCI
 HOMEDIR=/home/hci/src/TM
 SPECFILE=HCI.spec
@@ -8,7 +8,8 @@ SRC+=qcli.tmc PTRH.tmc SWData.tmc SWData.h QCLI_C.tmc QCLI_M.tmc
 SRC+=QCLI_I.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc SWData_col.tmc
 SRC+=AO.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd address.h
 SRC+=SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd digio_conv.tmc
-SRC+=hk.tbl qcli.tbl Cells.tbl HCI.tma HCI.sws HCIeng.cdf HCI.doit
+SRC+=hk.tbl qcli.tbl Cells.tbl SSPrtg.tmc HCI.tma HCI.sws HCIeng.cdf
+SRC+=HCI.doit
 TOOL=HCI.spec Makefile
 SCRIPT=idx64.idx64 interact dccc.dccc runfile.FF
 OBJ=QCLI_C.cmd QCLI_C.out QCLI_C.tmc QCLI_C.m QCLI_C.log QCLI_M.cmd
@@ -49,7 +50,8 @@ CMDBASE=/usr/local/share/huarp/root.cmd
 CMDBASE+=/usr/local/share/huarp/getcon.cmd
 CMDBASE+=/usr/local/share/huarp/DACS_AI.cmd
 CMDBASE+=/usr/local/share/huarp/idx64.cmd
-CMDBASE+=/usr/local/share/huarp/qcli.cmd AO.cmd dccc.cmd qclis.cmd
+CMDBASE+=/usr/local/share/huarp/qcli.cmd
+CMDBASE+=/usr/local/share/huarp/phrtg.cmd AO.cmd dccc.cmd qclis.cmd
 CMDBASE+=idx64drv.cmd subbus.cmd address.h SWData.cmd QCLI_C.cmd
 CMDBASE+=QCLI_M.cmd QCLI_I.cmd
 COLBASE=idx64col.tmc PTRH_col.tmc qcli_col.tmc
@@ -128,8 +130,8 @@ ptrhm.o : /usr/local/share/huarp/ptrhm.cc SWData.h
 	$(COMPILE.cc) /usr/local/share/huarp/ptrhm.cc
 ptrhm_col.o : /usr/local/share/huarp/ptrhm_col.cc SWData.h
 	$(COMPILE.cc) /usr/local/share/huarp/ptrhm_col.cc
-HCIcmd.cc : /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd AO.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
-	$(CMDGEN) -d HCIcmd.dat /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd AO.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
+HCIcmd.cc : /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd /usr/local/share/huarp/phrtg.cmd AO.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
+	$(CMDGEN) -d HCIcmd.dat /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd /usr/local/share/huarp/phrtg.cmd AO.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
 HCIsrvr.o : HCIcmd.cc
 	$(COMPILE.srvr) HCIcmd.cc
 HCIsrvroui.c : $(OUIDIR)/cis.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
@@ -138,19 +140,19 @@ HCIsrvroui.o : HCIsrvroui.c address.h
 hktbl.tmc : hk.tbl
 qclitbl.tmc : qcli.tbl
 Cellstbl.tmc : Cells.tbl
-HCIdisp.cc : /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc hktbl.tmc qclitbl.tmc Cellstbl.tmc
-	$(TMC) /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc hktbl.tmc qclitbl.tmc Cellstbl.tmc
-HCIdispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+HCIdisp.cc : /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc hktbl.tmc qclitbl.tmc Cellstbl.tmc SSPrtg.tmc
+	$(TMC) /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc hktbl.tmc qclitbl.tmc Cellstbl.tmc SSPrtg.tmc
+HCIdispoui.c : /usr/local/share/oui/cic.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) /usr/local/share/oui/cic.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIdispoui.o : HCIdispoui.c SWData.h
 HCIdisp.o : HCIdisp.cc SWData.h
 hktblnc.tmc : hk.tbl
 qclitblnc.tmc : qcli.tbl
 Cellstblnc.tmc : Cells.tbl
-HCIdispnc.cc : /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc hktblnc.tmc qclitblnc.tmc Cellstblnc.tmc
-	$(TMC) /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc hktblnc.tmc qclitblnc.tmc Cellstblnc.tmc
-HCIdispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+HCIdispnc.cc : /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc hktblnc.tmc qclitblnc.tmc Cellstblnc.tmc SSPrtg.tmc
+	$(TMC) /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc hktblnc.tmc qclitblnc.tmc Cellstblnc.tmc SSPrtg.tmc
+HCIdispncoui.c : /usr/local/share/oui/cic.oui $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) /usr/local/share/oui/cic.oui $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIdispncoui.o : HCIdispncoui.c SWData.h
 HCIdispnc.o : HCIdispnc.cc SWData.h
 HCIsws.tma : HCI.sws
