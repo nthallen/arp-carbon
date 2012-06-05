@@ -1,0 +1,13 @@
+etc/net.cfg
+etc/rc.d/rc.local
+etc/config/ttys
+etc/system/config/useqnet
+etc/system/config/nophoton
+home/flight
+home/flight/Experiment.config
+home/hci
+home/hci/bin
+home/hci/raw
+home/DACS_CI
+home/DACS_CI/bin
+home/DACS_CI/raw

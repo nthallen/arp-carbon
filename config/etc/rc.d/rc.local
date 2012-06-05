@@ -1,0 +1,15 @@
+echo "==> Adding /usr/pkg/lib to LIBPATH"
+setconf LIBPATH $(getconf LIBPATH):/usr/pkg/lib
+
+echo "==> Checking file system"
+/sbin/chkfsys -Pqru /
+
+echo "==> Cleaning out huarp run dir"
+rm -rf /var/huarp/run/*
+
+echo "==> Starting serusb driver for DACS"
+/sbin/devc-serusb -d vid=0x0403,did=0x6010,module=ftdi
+
+# echo "==> Starting Network Daemons"
+# /usr/sbin/sshd
+# /usr/sbin/ntpd
