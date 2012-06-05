@@ -43,6 +43,7 @@ TGTDIR = $(TGTNODE)/home/hci
 SRC = pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc
 SRC = PTRH_conv.tmc
 SCRIPT = idx64.idx64 interact dccc.dccc
+SCRIPT = runfile.FF
 
 HCIcol : -lsubbus
 HCIsrvr : -lsubbus
