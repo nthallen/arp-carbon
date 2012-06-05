@@ -43,13 +43,13 @@
   : QCLI_I { $0 = &if_QCLI_I; }
   ;
 &command
-  : Select QCLI_C Waveform &QCLI_C_Wave * {
-      *sspqcli_bd[0].setup = QCLI_C_Waves[$4];
-      if_QCLI_C.Turf( "SW:%d\n", $4 );
-    }
   : Select QCLI_M Waveform &QCLI_M_Wave * {
-      *sspqcli_bd[1].setup = QCLI_M_Waves[$4];
+      *sspqcli_bd[0].setup = QCLI_M_Waves[$4];
       if_QCLI_M.Turf( "SW:%d\n", $4 );
+    }
+  : Select QCLI_C Waveform &QCLI_C_Wave * {
+      *sspqcli_bd[1].setup = QCLI_C_Waves[$4];
+      if_QCLI_C.Turf( "SW:%d\n", $4 );
     }
   : Select QCLI_I Waveform &QCLI_I_Wave * {
       *sspqcli_bd[2].setup = QCLI_I_Waves[$4];
