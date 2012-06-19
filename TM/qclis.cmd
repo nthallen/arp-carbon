@@ -10,10 +10,14 @@
 #ifdef SERVER
   #include "hsatod.h"
   #define QCLI_ICOS \
-      (HSAD_OPT_A|HSAD_OPT_B|HSAD_OPT_C|HSAD_TRIG_3|HSAD_TRIG_RISING)
+      (HSAD_OPT_A|HSAD_OPT_B|HSAD_TRIG_3|HSAD_TRIG_RISING)
+  #define QCLI_RINGDOWN QCLI_ICOS
   #define QCLI_M_ICOS QCLI_ICOS
   #define QCLI_C_ICOS QCLI_ICOS
   #define QCLI_I_ICOS QCLI_ICOS
+  #define QCLI_M_RINGDOWN QCLI_RINGDOWN
+  #define QCLI_C_RINGDOWN QCLI_RINGDOWN
+  #define QCLI_I_RINGDOWN QCLI_RINGDOWN
   hsatod_setup_t SSP_M_setup;
   hsatod_setup_t SSP_C_setup;
   hsatod_setup_t SSP_I_setup;
