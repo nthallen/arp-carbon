@@ -26,6 +26,7 @@ cmdbase = idx64drv.cmd
 cmdbase = subbus.cmd
 cmdbase = address.h
 
+colbase = AI_col.tmc
 colbase = idx64col.tmc
 colbase = PTRH_col.tmc
 colbase = qcli_col.tmc

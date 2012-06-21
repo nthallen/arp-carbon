@@ -8,7 +8,7 @@ ICOS Waveform M3Df_800Hz {
   SampleRate = 50 MHz/28;
   Ncoadd = 799;
   Tz = 5%;
-  Ramp from 700 mA to 780 mA in 1 msec;
+  Ramp from 650 mA to 780 mA in 1 msec;
 }
 
 ICOS Waveform QCLI_M_ConstantI {

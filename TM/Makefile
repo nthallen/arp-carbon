@@ -1,15 +1,15 @@
-# Makefile Generated Tue Jun 05 15:09:47 EDT 2012
+# Makefile Generated Thu Jun 21 10:01:53 EDT 2012
 MNC=HCI
 HOMEDIR=/home/hci/src/TM
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
 SRC+=types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc
 SRC+=qcli.tmc PTRH.tmc SWData.tmc SWData.h QCLI_C.tmc QCLI_M.tmc
-SRC+=QCLI_I.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc SWData_col.tmc
-SRC+=AO.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd address.h
-SRC+=SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd digio_conv.tmc
-SRC+=hk.tbl qcli.tbl Cells.tbl SSPrtg.tmc HCI.tma HCI.sws HCIeng.cdf
-SRC+=HCI.doit
+SRC+=QCLI_I.tmc AI_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc
+SRC+=SWData_col.tmc AO.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd
+SRC+=address.h SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
+SRC+=digio_conv.tmc hk.tbl qcli.tbl Cells.tbl SSPrtg.tmc HCI.tma
+SRC+=HCI.sws HCIeng.cdf HCI.doit
 TOOL=HCI.spec Makefile
 SCRIPT=idx64.idx64 interact dccc.dccc runfile.FF
 OBJ=QCLI_C.cmd QCLI_C.out QCLI_C.tmc QCLI_C.m QCLI_C.log QCLI_M.cmd
@@ -54,7 +54,7 @@ CMDBASE+=/usr/local/share/huarp/qcli.cmd
 CMDBASE+=/usr/local/share/huarp/phrtg.cmd AO.cmd dccc.cmd qclis.cmd
 CMDBASE+=idx64drv.cmd subbus.cmd address.h SWData.cmd QCLI_C.cmd
 CMDBASE+=QCLI_M.cmd QCLI_I.cmd
-COLBASE=idx64col.tmc PTRH_col.tmc qcli_col.tmc
+COLBASE=AI_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc
 COLBASE+=/usr/local/share/huarp/DACS_ID.tmc
 COLBASE+=/usr/local/share/huarp/vl_temp_col.tmc
 COLBASE+=/usr/local/share/huarp/tmdf_col.tmc
@@ -120,8 +120,8 @@ HCIclt : HCIclt.o HCIcltoui.o
 HCIcltnc : HCIcltnc.o HCIcltncoui.o
 	$(LINK.normCXX) HCIcltnc.o HCIcltncoui.o -ltmnc -lncurses -ltmpp -ltm -lnort
 	$(OUIUSE) HCIcltncoui.c
-HCIcol.cc : /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc /usr/local/share/huarp/DACS_ID.tmc /usr/local/share/huarp/vl_temp_col.tmc /usr/local/share/huarp/tmdf_col.tmc /usr/local/share/huarp/cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
-	$(TMC.col) /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc /usr/local/share/huarp/DACS_ID.tmc /usr/local/share/huarp/vl_temp_col.tmc /usr/local/share/huarp/tmdf_col.tmc /usr/local/share/huarp/cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
+HCIcol.cc : /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc AI_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc /usr/local/share/huarp/DACS_ID.tmc /usr/local/share/huarp/vl_temp_col.tmc /usr/local/share/huarp/tmdf_col.tmc /usr/local/share/huarp/cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
+	$(TMC.col) /usr/local/share/huarp/freemem.tmc types.tmc AIO.tmc T30K75KU.tmc digio.tmc idx64.tmc pwrmon.tmc qcli.tmc PTRH.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc AI_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc /usr/local/share/huarp/DACS_ID.tmc /usr/local/share/huarp/vl_temp_col.tmc /usr/local/share/huarp/tmdf_col.tmc /usr/local/share/huarp/cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
 HCIcoloui.c : $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 HCIcoloui.o : HCIcoloui.c SWData.h
