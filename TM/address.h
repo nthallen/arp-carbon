@@ -34,6 +34,8 @@
 #define CLPVTSt_Address 0x438
 #define CCelTSt_Address 0x43A
 #define CCelPSt_Address 0x432
+#define PS__T_Address 0xC7E
+#define PC__T_Address 0xC3E
 #define SpAI9_Address 0xCAC
 #define Sp8AI_Address 0xCBC
 #define Sp7AI_Address 0xC7C

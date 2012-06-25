@@ -94,6 +94,8 @@ TM 1 Hz AI16 Sp6AI; Address Sp6AI 0xC6E; /* Spare Ana Channel */
 TM 1 Hz AI16 Sp7AI; Address Sp7AI 0xC7C; /* Spare Ana Channel */
 TM 1 Hz AI16 Sp8AI; Address Sp8AI 0xCBC; /* Spare Ana Channel */
 TM 1 Hz AI16 SpAI9; Address SpAI9 0xCAC; /* Spare Ana Channel */
+TM 1 Hz AI_T30K PC__T; Address PC__T 0xC3E; /* PC Temperature */
+TM 1 Hz AI_T30K PS__T; Address PS__T 0xC7E; /* Power Supply Temperature */
 TM 1 Hz AO16 CCelPSt; Address CCelPSt 0x432; /* Cell Pressure Setpoint CO2 */
 TM 1 Hz AO16 CCelTSt; Address CCelTSt 0x43A; /* Cell Temp Setpoint CO2 */
 TM 1 Hz AO16 CLPVTSt; Address CLPVTSt 0x438; /* Laser Pressure Vessel Temp Setpoint CO2 */
