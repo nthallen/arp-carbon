@@ -16,13 +16,13 @@
   : CO2 Laser PV Htr Ctl { $0 = 26; }
   : CO2 QCLI Reset { $0 = 25; }
   : CO2 Scroll Pump { $0 = 1; }
-  : CO2 TEC { $0 = 28; }
+  : CO2 Laser TEC { $0 = 28; }
   : ISO Cell Htr Ctl { $0 = 3; }
   : ISO Detector PV Htr Ctl { $0 = 4; }
   : ISO LPV Ext TEC { $0 = 5; }
   : ISO QCLI Reset { $0 = 32; }
   : ISO Scroll Pump { $0 = 2; }
-  : ISO TEC { $0 = 6; }
+  : ISO Laser TEC { $0 = 6; }
   : Lab Command 1 { $0 = 7; }
   : Lab Command 2 { $0 = 8; }
   : MINI Cell Htr Ctl { $0 = 42; }
@@ -30,7 +30,7 @@
   : MINI LPV TEC { $0 = 45; }
   : MINI QCLI Reset { $0 = 41; }
   : MINI Scroll Pump { $0 = 0; }
-  : MINI TEC { $0 = 44; }
+  : MINI Laser TEC { $0 = 44; }
   : Sample Htr Ctl { $0 = 37; }
   : Space Heater Controller { $0 = 38; }
   : Gas Deck Flow Controller Closed { $0 = 40; }
