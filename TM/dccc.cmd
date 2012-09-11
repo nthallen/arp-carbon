@@ -2,6 +2,7 @@
 &command
   : &dccc_off_on &off_on * { if_dccc.Turf("D%d\n", $1 * 2 + $2); }
   : &dccc_cl_op &cl_op * { if_dccc.Turf("D%d\n", $1 * 2 + $2); }
+  : &dccc_op_cl &op_cl * { if_dccc.Turf("D%d\n", $1 * 2 + $2); }
   ;
 &off_on <int>
   : Off { $0 = 1; }
@@ -10,6 +11,10 @@
 &cl_op <int>
   : Closed { $0 = 1; }
   : Open { $0 = 0; }
+  ;
+&op_cl <int>
+  : Closed { $0 = 0; }
+  : Open { $0 = 1; }
   ;
 &dccc_off_on <int>
   : CO2 Cell Htr Ctl { $0 = 27; }
@@ -45,7 +50,9 @@
   : ISO Gas Valve { $0 = 35; }
   : MINI Exhaust Valve { $0 = 24; }
   : MINI Gas Valve { $0 = 47; }
+  ;
+&dccc_op_cl <int>
+  : CO2 Pressure Reg { $0 = 29; }
   : MINI Pressure Reg { $0 = 46; }
   : ISO Pressure Reg { $0 = 34; }
   ;
-  
