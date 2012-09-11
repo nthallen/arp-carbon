@@ -45,7 +45,6 @@
 &dccc_cl_op <int>
   : CO2 Exhaust Valve { $0 = 31; }
   : CO2 Gas Valve { $0 = 30; }
-  : CO2 Pressure Reg { $0 = 29; }
   : ISO Exhaust Valve { $0 = 36; }
   : ISO Gas Valve { $0 = 35; }
   : MINI Exhaust Valve { $0 = 24; }
