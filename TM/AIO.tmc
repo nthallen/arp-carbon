@@ -1,6 +1,6 @@
 TM 1 Hz AI_T30K C24VT; Address C24VT 0xCB0; /* CO2 V/I 24v Supply Temp */
-TM 1 Hz AI_T30K CCel1T; Address CCel1T 0xCB4; /* Cell Temp 1 CO2 */
-TM 1 Hz AI_T30K CCel2T; Address CCel2T 0xCF4; /* Cell Temp 2 CO2 */
+TM 1 Hz AI_T1M250KU CCel1T; Address CCel1T 0xCB4; /* Cell Temp 1 CO2 */
+TM 1 Hz AI_T1M250KU CCel2T; Address CCel2T 0xCF4; /* Cell Temp 2 CO2 */
 TM 1 Hz AI16 CCelCT; Address CCelCT 0xC7A; /* Cell Control Temp CO2 */
 TM 1 Hz AI16 CCelHP; Address CCelHP 0xC32; /* Cell Pressure (1000 Torr) CO2 */
 TM 10 Hz AI16 CCelLP; Address CCelLP 0xC72; /* Cell Pressure (100 Torr) CO2 */
@@ -32,8 +32,8 @@ TM 1 Hz AI16 SH_CT; Address SH_CT 0xCFA; /* Sample Heater Control Temp */
 TM 1 Hz AI16 SpHCT; Address SpHCT 0xC3C; /* Space Heater Control Temp */
 TM 1 Hz AI16 TVPos; Address TVPos 0xC6C; /* Throttle Valve Pot Position */
 TM 1 Hz AI_T30K I24VT; Address I24VT 0xCD8; /* Large ICOS V/I 24v Supply Temp */
-TM 1 Hz AI_T30K ICel1T; Address ICel1T 0xC44; /* Cell Temp 1 ISO */
-TM 1 Hz AI_T30K ICel2T; Address ICel2T 0xCC4; /* Cell Temp 2 ISO */
+TM 1 Hz AI_T1M250KU ICel1T; Address ICel1T 0xC44; /* Cell Temp 1 ISO */
+TM 1 Hz AI_T1M250KU ICel2T; Address ICel2T 0xCC4; /* Cell Temp 2 ISO */
 TM 1 Hz AI16 ICelCT; Address ICelCT 0xC0A; /* Cell Control Temp ISO */
 TM 1 Hz AI16 ICelHP; Address ICelHP 0xCCA; /* Cell Pressure (1000 Torr) ISO */
 TM 10 Hz AI16 ICelLP; Address ICelLP 0xC0C; /* Cell Pressure (100 Torr) ISO */
@@ -59,8 +59,8 @@ TM 1 Hz AI_T30K ISk2T; Address ISk2T 0xCC2; /* Skin Temp 2 ISO */
 TM 1 Hz AI_T30K ISk3T; Address ISk3T 0xC82; /* Skin Temp 3 ISO */
 TM 1 Hz AI_T30K ISSPT; Address ISSPT 0xC1A; /* SSP Bd Temp ISO */
 TM 1 Hz AI_T30K M24VT; Address M24VT 0xC22; /* Mini-Methane V/I 24v Supply Temp */
-TM 1 Hz AI_T30K MCel1T; Address MCel1T 0xC26; /* Cell Temp 1 MINI */
-TM 1 Hz AI_T30K MCel2T; Address MCel2T 0xC66; /* Cell Temp 2 MINI */
+TM 1 Hz AI_T1M250KU MCel1T; Address MCel1T 0xC26; /* Cell Temp 1 MINI */
+TM 1 Hz AI_T1M250KU MCel2T; Address MCel2T 0xC66; /* Cell Temp 2 MINI */
 TM 1 Hz AI16 MCelCT; Address MCelCT 0xCEA; /* Cell Control Temp MINI */
 TM 1 Hz AI16 MCelHP; Address MCelHP 0xCA2; /* Cell Pressure (1000 Torr) MINI */
 TM 10 Hz AI16 MCelLP; Address MCelLP 0xCE2; /* Cell Pressure (100 Torr) MINI */

@@ -35,6 +35,10 @@ TM typedef AI16 AI_T30K
   { text "%6.2lf"; convert CELCIUS; }
   /* Calibration in T30K75KU.tmc */
 
+TM typedef AI16 AI_T1M250KU
+  { text "%6.2lf"; convert CELCIUS; }
+  /* Calibration in T1M250KU.tmc */
+
 TM typedef AI16_5V AI_5000psig { text "%6.1lf"; convert PSIG; }
   Calibration (AI_5000psig, PSIG) { 6155, 0, 30720, 5000 }
 
