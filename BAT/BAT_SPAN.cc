@@ -21,12 +21,12 @@ BSDataRecord::BSDataRecord() {
 void BSDataRecord::init(Selector &S) {
   SPANport = new SPAN(span_path, this);
   // BATport = new BAT(bat_path, this);
-  // BScmdport = new BScmd(this);
+  BScmdport = new BScmd(this);
   BSTMport = new BSTM(&TMdata);
   BSloggerport = new BSlogger();
   S.add_child(SPANport);
   // S.add_child(BATport);
-  // S.add_child(BScmdport);
+  S.add_child(BScmdport);
   S.add_child(BSTMport);
   S.add_child(BSloggerport);
   LogEnbl = true;
@@ -217,6 +217,30 @@ int BSTM::ProcessData(int flag) {
   Col_send(TMid);
   TMdata->n_span_records = 0;
   TMdata->n_bat_records = 0;
+  return 0;
+}
+
+BScmd::BScmd(BSDataRecord *data_in) : Ser_Sel(NULL, 0, 20) {
+  BSData = data_in;
+  fd = tm_open_name( tm_dev_name("cmd/BAT_SPAN"), NULL, O_RDONLY );
+  flags = Selector::Sel_Read;
+}
+
+int BScmd::ProcessData(int flag) {
+  // Will ultimately handle logging enable/disable commands
+  // BSData->Logging(bool on);
+  if (flag & Selector::Sel_Read) {
+    if (fillbuf()) return 1;
+    if (nc == 0) return 1;
+    switch (buf[cp]) {
+      case 'Q': return 1;
+      case 'L': BSData->Logging(true); break;
+      case 'N': BSData->Logging(false); break;
+      default: report_err("Invalid command"); return 0;
+    }
+    consume(nc);
+    report_ok();
+  }
   return 0;
 }
 
