@@ -32,6 +32,11 @@ struct  __attribute__((__packed__)) INSPVASB {
   unsigned long CRC;
 };
 
+extern unsigned long ulong_swap(unsigned char *s);
+extern long long_swap(unsigned char *s);
+extern unsigned short ushort_swap(unsigned char *s);
+extern double double_swap(unsigned char *s);
+
 class BSDataRecord;
 
 class BAT : public Ser_Sel {
@@ -47,7 +52,6 @@ class SPAN : public Ser_Sel {
   public:
     SPAN( const char *path, BSDataRecord *data_in );
     int ProcessData(int flag);
-    unsigned long ulong_swap(unsigned char *s);
     static const int nb_rec = 104;
   private:
     static const unsigned long CRC32_POLYNOMIAL = 0xEDB88320;
@@ -93,12 +97,12 @@ class BSDataRecord {
   public:
     BSDataRecord();
     void init(Selector &S);
-    //bool Get_TM_Data(BAT_SPAN &bs);
     void BAT_data(unsigned char *data); // could be more precise
     void SPAN_data(unsigned char *data); // could be more precise
     void Flush_data();
     void Logging(bool on);
   private:
+    BAT_SPAN TMdata;
     SPAN *SPANport;
     BAT *BATport;
     BScmd *BScmdport;

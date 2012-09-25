@@ -14,6 +14,7 @@ BSDataRecord::BSDataRecord() {
   BScmdport = 0;
   BSTMport = 0;
   BSloggerport = 0;
+  memset(&TMdata, 0, sizeof(TMdata));
   LogEnbl = false;
 };
 
@@ -21,7 +22,7 @@ void BSDataRecord::init(Selector &S) {
   SPANport = new SPAN(span_path, this);
   // BATport = new BAT(bat_path, this);
   // BScmdport = new BScmd(this);
-  BSTMport = new BSTM(this);
+  BSTMport = new BSTM(&TMdata);
   BSloggerport = new BSlogger();
   S.add_child(SPANport);
   // S.add_child(BATport);
@@ -31,19 +32,46 @@ void BSDataRecord::init(Selector &S) {
   LogEnbl = true;
 }
 
-//bool BSDataRecord::Get_TM_Data(BAT_SPAN &bs) {
-//  return false;
-//}
-
 void BSDataRecord::BAT_data(unsigned char *data) {
   if (LogEnbl) BSloggerport->BAT_data(data);
-  // Also send data to TM processing?
+  TMdata.BAT_Px = ushort_swap&data[3]; // 0
+  TMdata.BAT_Py = ushort_swap&data[5]; // 1
+  TMdata.BAT_Pz = ushort_swap&data[7]; // 2
+  TMdata.BAT_Ps = ushort_swap&data[9]; // 3
+  TMdata.BAT_Ax = ushort_swap&data[11]; // 4
+  TMdata.BAT_Ay = ushort_swap&data[13]; // 5
+  TMdata.BAT_Az = ushort_swap&data[15]; // 6
+  TMdata.BAT_Tp1 = ushort_swap&data[17]; // 7
+  TMdata.BAT_Tp2 = ushort_swap&data[19]; // 8
+  TMdata.BAT_Tbar1 = ushort_swap&data[21]; // 9
+  TMdata.BAT_Tbar2 = ushort_swap&data[23]; // 10
+  TMdata.BAT_Net = ushort_swap&data[25]; // 11
+  TMdata.BAT_Q1 = ushort_swap&data[27]; // 12
+  TMdata.BAT_Q2 = ushort_swap&data[29]; // 13
+  TMdata.BAT_Aux1 = ushort_swap&data[31]; // 14
+  TMdata.BAT_Aux2 = ushort_swap&data[33]; // 15
+  ++TMdata.n_bat_records;
 }
 
 
 void BSDataRecord::SPAN_data(unsigned char *data) {
   if (LogEnbl) BSloggerport->SPAN_data(data);
   // Also send data to TM processing?
+  TMdata.GPS_week = ushort_swap(&data[6]);
+  TMdata.GPS_msecs = long_swap&data[8];
+  TMdata.GPS_weekl = ulong_swap(&data[12]);
+  TMdata.GPS_secs = double_swap(&data[16]);
+  TMdata.Latitude = double_swap(&data[24]);
+  TMdata.Longitude = double_swap(&data[32]);
+  TMdata.Ellipsoidal_Ht = double_swap(&data[40]);
+  TMdata.N_Velocity = double_swap(&data[48]);
+  TMdata.E_Velocity = double_swap(&data[56]);
+  TMdata.Up_Velocity = double_swap(&data[64]);
+  TMdata.Roll = double_swap(&data[72]);
+  TMdata.Pitch = double_swap(&data[80]);
+  TMdata.Azimuth = double_swap(&data[88]);
+  TMdata.INS_Status = ulong_swap(&data[96]);
+  ++TMdata.n_span_records;
 }
 
 
@@ -63,11 +91,37 @@ SPAN::SPAN( const char *path, BSDataRecord *data_in ) :
   setup (115200, 8, 'n', 1, 104, 0);
 }
 
-unsigned long SPAN::ulong_swap(unsigned char *s) {
+unsigned long ulong_swap(unsigned char *s) {
   unsigned long sum = s[0];
   sum = (sum << 4) + s[1];
   sum = (sum << 4) + s[2];
   sum = (sum << 4) + s[3];
+  return sum;
+}
+
+long long_swap(unsigned char *s) {
+  long sum = s[0];
+  sum = (sum << 4) + s[1];
+  sum = (sum << 4) + s[2];
+  sum = (sum << 4) + s[3];
+  return sum;
+}
+
+unsigned short ushort_swap(unsigned char *s) {
+  unsigned short sum = s[0];
+  sum = (sum << 4) + s[1];
+  return sum;
+}
+
+double double_swap(unsigned char *s) {
+  unsigned char swapped[8];
+  double sum;
+  int i;
+  
+  for (i = 0; i < 8; ++i) {
+    swapped[i] = s[7-i];
+  }
+  memcpy(&sum, &swapped[0], 8);
   return sum;
 }
 
