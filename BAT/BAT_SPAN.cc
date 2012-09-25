@@ -1,5 +1,6 @@
 #include <errno.h>
 #include <sys/uio.h>
+#include <string.h>
 #include "BAT_SPAN_int.h"
 #include "nortlib.h"
 #include "oui.h"
@@ -22,17 +23,17 @@ void BSDataRecord::init(Selector &S) {
   // BScmdport = new BScmd(this);
   // BSTMport = new BSTM(this);
   BSloggerport = new BSlogger();
-  S.add_child(&SPANport);
-  // S.add_child(&BATport);
-  // S.add_child(&BScmdport);
-  // S.add_child(&BSTMport);
-  S.add_child(&BSloggerport);
+  S.add_child(SPANport);
+  // S.add_child(BATport);
+  // S.add_child(BScmdport);
+  // S.add_child(BSTMport);
+  S.add_child(BSloggerport);
   LogEnbl = true;
 }
 
-bool BSDataRecord::Get_TM_Data(BAT_SPAN &bs) {
-  return false;
-}
+//bool BSDataRecord::Get_TM_Data(BAT_SPAN &bs) {
+//  return false;
+//}
 
 void BSDataRecord::BAT_data(unsigned char *data) {
   if (LogEnbl) BSloggerport->BAT_data(data);
@@ -94,7 +95,7 @@ int SPAN::ProcessData(int flag) {
       crc_calc = CalculateBlockCRC32(100, &buf[start]);
       crc_rep = ulong_swap(&buf[start+100]);
       if (crc_calc == crc_rep) {
-        BSData->Span_data(&buf[start]);
+        BSData->SPAN_data(&buf[start]);
         report_ok();
       } else {
         report_err("CRC Error");
@@ -221,7 +222,7 @@ void BSlogger::Flush_data() {
 }
 
 int main(int argc, char **argv) {
-  oui_init_options(argc, argv);
+  //oui_init_options(argc, argv);
   
   { Selector S;
     BSDataRecord BSData;

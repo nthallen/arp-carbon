@@ -50,6 +50,7 @@ class SPAN : public Ser_Sel {
     unsigned long ulong_swap(unsigned char *s);
     static const int nb_rec = 104;
   private:
+    static const unsigned long CRC32_POLYNOMIAL = 0xEDB88320;
     unsigned long CRC32Value(int i);
     unsigned long CalculateBlockCRC32( unsigned long ulCount,
         unsigned char *ucBuffer );
@@ -81,7 +82,7 @@ class BSlogger : public Selectee {
     void BAT_data(unsigned char *data); // could be more precise
     void SPAN_data(unsigned char *data); // could be more precise
     void Flush_data();
-  private;
+  private:
     static const unsigned int n_records = 100;
     static const unsigned int rec_size = SPAN::nb_rec + BAT::nb_rec;
     unsigned char BSq[n_records][rec_size];
@@ -93,7 +94,7 @@ class BSDataRecord {
   public:
     BSDataRecord();
     void init(Selector &S);
-    bool Get_TM_Data(BAT_SPAN &bs);
+    //bool Get_TM_Data(BAT_SPAN &bs);
     void BAT_data(unsigned char *data); // could be more precise
     void SPAN_data(unsigned char *data); // could be more precise
     void Flush_data();
