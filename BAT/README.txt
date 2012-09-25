@@ -5,8 +5,8 @@ SPAN Data Packet: INSPVASB Short Binary 50 Hz
     0:  0xAA
     1:  0x44
     2:  0x13 (0x12 would be the long binary header)
-    3:  UChar Message Length, not including header or CRC (88)
-    4:  UShort Message ID Number (508: INSPVASB)
+    3:  UChar Message Length, not including header or CRC (88) x58
+    4:  UShort Message ID Number (508: INSPVASB) x01 xFC
     6:  UShort GPS Week Number
     8:  long Milleseconds from beginning of the GPS week
   INSPVASB
