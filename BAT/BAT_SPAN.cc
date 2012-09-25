@@ -34,22 +34,22 @@ void BSDataRecord::init(Selector &S) {
 
 void BSDataRecord::BAT_data(unsigned char *data) {
   if (LogEnbl) BSloggerport->BAT_data(data);
-  TMdata.BAT_Px = ushort_swap&data[3]; // 0
-  TMdata.BAT_Py = ushort_swap&data[5]; // 1
-  TMdata.BAT_Pz = ushort_swap&data[7]; // 2
-  TMdata.BAT_Ps = ushort_swap&data[9]; // 3
-  TMdata.BAT_Ax = ushort_swap&data[11]; // 4
-  TMdata.BAT_Ay = ushort_swap&data[13]; // 5
-  TMdata.BAT_Az = ushort_swap&data[15]; // 6
-  TMdata.BAT_Tp1 = ushort_swap&data[17]; // 7
-  TMdata.BAT_Tp2 = ushort_swap&data[19]; // 8
-  TMdata.BAT_Tbar1 = ushort_swap&data[21]; // 9
-  TMdata.BAT_Tbar2 = ushort_swap&data[23]; // 10
-  TMdata.BAT_Net = ushort_swap&data[25]; // 11
-  TMdata.BAT_Q1 = ushort_swap&data[27]; // 12
-  TMdata.BAT_Q2 = ushort_swap&data[29]; // 13
-  TMdata.BAT_Aux1 = ushort_swap&data[31]; // 14
-  TMdata.BAT_Aux2 = ushort_swap&data[33]; // 15
+  TMdata.BAT_Px = ushort_swap(&data[3]); // 0
+  TMdata.BAT_Py = ushort_swap(&data[5]); // 1
+  TMdata.BAT_Pz = ushort_swap(&data[7]); // 2
+  TMdata.BAT_Ps = ushort_swap(&data[9]); // 3
+  TMdata.BAT_Ax = ushort_swap(&data[11]); // 4
+  TMdata.BAT_Ay = ushort_swap(&data[13]); // 5
+  TMdata.BAT_Az = ushort_swap(&data[15]); // 6
+  TMdata.BAT_Tp1 = ushort_swap(&data[17]); // 7
+  TMdata.BAT_Tp2 = ushort_swap(&data[19]); // 8
+  TMdata.BAT_Tbar1 = ushort_swap(&data[21]); // 9
+  TMdata.BAT_Tbar2 = ushort_swap(&data[23]); // 10
+  TMdata.BAT_Net = ushort_swap(&data[25]); // 11
+  TMdata.BAT_Q1 = ushort_swap(&data[27]); // 12
+  TMdata.BAT_Q2 = ushort_swap(&data[29]); // 13
+  TMdata.BAT_Aux1 = ushort_swap(&data[31]); // 14
+  TMdata.BAT_Aux2 = ushort_swap(&data[33]); // 15
   ++TMdata.n_bat_records;
 }
 
@@ -58,7 +58,7 @@ void BSDataRecord::SPAN_data(unsigned char *data) {
   if (LogEnbl) BSloggerport->SPAN_data(data);
   // Also send data to TM processing?
   TMdata.GPS_week = ushort_swap(&data[6]);
-  TMdata.GPS_msecs = long_swap&data[8];
+  TMdata.GPS_msecs = long_swap(&data[8]);
   TMdata.GPS_weekl = ulong_swap(&data[12]);
   TMdata.GPS_secs = double_swap(&data[16]);
   TMdata.Latitude = double_swap(&data[24]);
