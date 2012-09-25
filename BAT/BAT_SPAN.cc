@@ -21,12 +21,12 @@ void BSDataRecord::init(Selector &S) {
   SPANport = new SPAN(span_path, this);
   // BATport = new BAT(bat_path, this);
   // BScmdport = new BScmd(this);
-  // BSTMport = new BSTM(this);
+  BSTMport = new BSTM(this);
   BSloggerport = new BSlogger();
   S.add_child(SPANport);
   // S.add_child(BATport);
   // S.add_child(BScmdport);
-  // S.add_child(BSTMport);
+  S.add_child(BSTMport);
   S.add_child(BSloggerport);
   LogEnbl = true;
 }
@@ -152,6 +152,18 @@ BSlogger::~BSlogger() {
            ProcessData(Selector::Sel_Write) == 0);
   }
   close(fd);
+}
+
+BSTM::BSTM(BAT_SPAN *tmdata_in) :
+      TM_Selectee("BAT_SPAN", tmdata_in, sizeof(BAT_SPAN)) {
+  TMdata = tmdata_in;
+}
+
+int BSTM::ProcessData(int flag) {
+  Col_send(TMid);
+  TMdata->n_span_records = 0;
+  TMdata->n_bat_records = 0;
+  return 0;
 }
 
 int BSlogger::ProcessData(int flag) {

@@ -65,13 +65,12 @@ class BScmd : public Ser_Sel {
     BSDataRecord *BSData;
 };
 
-class BSTM : public Selectee {
+class BSTM : public TM_Selectee {
   public:
-    BSTM(BSDataRecord *data_in);
+    BSTM(BAT_SPAN *tmdata_in);
     int ProcessData(int flag);
-    void Data_Ready();
   private:
-    BSDataRecord *BSData;
+    BAT_SPAN *TMdata;
 };
 
 class BSlogger : public Selectee {
