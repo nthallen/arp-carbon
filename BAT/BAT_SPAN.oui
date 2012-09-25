@@ -1,0 +1,22 @@
+<package> BAT_SPAN
+<include> msg
+<follow> msg
+<include> <stdlib.h>
+<include> "BAT_SPAN.h"
+
+<opts> "B:S:"
+<sort>
+	-B <serial device> Serial port for BAT probe
+  -S <serial device> Serial port for SPAN
+
+<switch>
+  case 'B':
+    bat_path = optarg;
+    break;
+  case 'S':
+    span_path = optarg;
+    break;
+
+<package> msghdr_init
+<init>
+  msg_hdr_default = "BAT";

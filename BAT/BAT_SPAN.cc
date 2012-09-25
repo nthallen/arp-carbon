@@ -222,7 +222,7 @@ void BSlogger::Flush_data() {
 }
 
 int main(int argc, char **argv) {
-  //oui_init_options(argc, argv);
+  oui_init_options(argc, argv);
   
   { Selector S;
     BSDataRecord BSData;
