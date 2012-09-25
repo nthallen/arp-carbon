@@ -7,7 +7,7 @@
 <opts> "B:S:"
 <sort>
 	-B <serial device> Serial port for BAT probe
-  -S <serial device> Serial port for SPAN
+	-S <serial device> Serial port for SPAN
 
 <switch>
   case 'B':

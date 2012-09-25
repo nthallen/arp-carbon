@@ -7,7 +7,7 @@ LIBS=-ltmpp -ltm -lnort
 .PHONY : all clean
 all : BAT_SPAN
 
-BSOBJ : BAT_SPAN.o BAT_SPANoui.o
+BSOBJ = BAT_SPAN.o BAT_SPANoui.o
 BAT_SPAN : $(BSOBJ)
 	$(LINK.cc) -o BAT_SPAN $(BSOBJ) $(LIBS)
 	usemsg BAT_SPAN BAT_SPANoui.c
