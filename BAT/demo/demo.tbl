@@ -1,3 +1,41 @@
+SPAN {
+  HBox { +-; Title: SPAN; -+ };
+  weekl: (GPS_weekl,5);
+  week: (GPS_week,5);
+  msecs: (GPS_msecs,9) msec;
+  secs: (GPS_secs,10) sec;
+  Lat: (Latitude,10) deg;
+  Lon: (Longitude,10) deg;
+  Ell_Ht: (Ellipsoidal_Ht,10) m;
+  N_V: (N_Velocity,10) "m/s";
+  E_Velocity: (E_Velocity,10) "m/s";
+  Up_Velocity: (Up_Velocity,10) "m/s";
+  Roll: (Roll,10) deg;
+  Pitch: (Pitch,10) deg;
+  Azimuth: (Azimuth,10) deg;
+  INS_Status: (INS_Status,3);
+  N: (n_span_records,3);
+}
+
+BAT {
+  HBox { +-; Title: BAT; -+ };
+  Px: (BAT_Px,7) mbar;
+  Py: (BAT_Py,7) mbar;
+  Pz: (BAT_Pz,7) mbar;
+  Ps: (BAT_Ps,7) mbar;
+  Ax: (BAT_Ax,7) "m/s2";
+  Ay: (BAT_Ay,7) "m/s2";
+  Az: (BAT_Az,7) "m/s2";
+  FUST: (BAT_FUST,7) uV;
+  Tbar: (BAT_Tbar,7) C;
+  Pump: (BAT_Pump,7) mV;
+  Axb: (BAT_Axb,7) "m/s2";
+  Ayb: (BAT_Ayb,7) "m/s2";
+  Azb: (BAT_Azb,7) "m/s2";
+  N: (n_bat_records,3);
+  Stale: (BSstale,3);
+}
+
 PC {
   HBox { +-; Title: PC; -+ };
   CPU: (CPU_Pct,3) %;
@@ -12,6 +50,8 @@ Status {
   MFCtr: (MFCtr,5);
 }
 
-{ [PC];
-  [Status];
+{ HBox { |; [SPAN]; |; [BAT]; |; {
+          [PC];
+          [Status]
+         }; | }
 }

@@ -1,0 +1,114 @@
+%{
+  #include "BAT_SPAN.h"
+  BAT_SPAN_t BAT_SPAN;
+%}
+
+TM "Receive" BAT_SPAN 1
+TM typedef double MBAR;
+TM typedef double M_S2;
+TM typedef double uVOLTS;
+TM typedef double mVOLTS;
+TM typedef double CELCIUS;
+TM typedef long GPS_msecs_t { text "%9ld"; }
+TM typedef unsigned long GPS_weekl_t { text "%5ld"; }
+TM typedef unsigned short GPS_week_t { text "%5u"; }
+TM typedef double GPS_secs_t GPS_secs { text "%10.3lf"; }
+TM typedef double GPS_double { text "%10.4lf"; }
+TM typedef unsigned char UCHAR { text "%3u"; }
+TM typedef signed short BAT_AI { text "%6d"; }
+TM typedef BAT_AI BAT_Px_t { text "%7.3lf"; }
+TM typedef BAT_AI BAT_Py_t { text "%7.3lf"; }
+TM typedef BAT_AI BAT_Pz_t { text "%7.3lf"; }
+TM typedef BAT_AI BAT_Ps_t { text "%7.2lf"; }
+TM typedef BAT_AI BAT_Ax_t { text "%7.3lf"; }
+TM typedef BAT_AI BAT_Ay_t { text "%7.3lf"; }
+TM typedef BAT_AI BAT_Az_t { text "%7.3lf"; }
+TM typedef BAT_AI BAT_FUST_t { text "%7.2lf"; }
+TM typedef BAT_AI BAT_Tbar_t { text "%7.3lf"; }
+TM typedef BAT_AI BAT_Pump_t { text "%7.1lf"; }
+TM typedef BAT_AI BAT_Axb_t { text "%7.3lf"; }
+TM typedef BAT_AI BAT_Ayb_t { text "%7.3lf"; }
+TM typedef BAT_AI BAT_Azb_t { text "%7.3lf"; }
+
+Calibration ( BAT_Px_t, MBAR) { -32768, -0.27876, 32767, 23.84995 }
+Calibration ( BAT_Py_t, MBAR) { -32768, -17.56082, 32767, 17.66867 }
+Calibration ( BAT_Pz_t, MBAR) { -32768, -17.64273, 32767, 17.70477 }
+Calibration ( BAT_Ps_t, MBAR) { -32768, 473.236, 32767, 1057.92631 }
+Calibration ( BAT_Ax_t, M_S2) { -32768, -20.07689, 32767, 20.11795 }
+Calibration ( BAT_Ay_t, M_S2) { -32768, -19.70348, 32767, 19.6493 }
+Calibration ( BAT_Az_t, M_S2) { -32768, -10.92286, 32767, 30.52107 }
+Calibration ( BAT_FUST_t, uVOLTS) { -32768, 410.1838, 32767, -400.74049 }
+Calibration ( BAT_Tbar_t, CELCIUS) { -32768, -54.21674, 32767, 52.09477 }
+Calibration ( BAT_Pump_t, mVOLTS) { -32768, -4999.15327, 32767, 5001.55327 }
+Calibration ( BAT_Axb_t, M_S2) { -32768, -18.36088, 32767, 18.28451 }
+Calibration ( BAT_Ayb_t, M_S2) { -32768, 18.78692, 32767, -18.93704 }
+Calibration ( BAT_Azb_t, M_S2) { -32768, -9.11474, 32767, 28.98142 }
+
+TM 1 HZ GPS_msecs_t GPS_msecs; // msecs since start of week
+TM 1 Hz GPS_weekl_t GPS_weekl; // Weeks since 0h Jan 6, 1980 UTC
+TM 1 Hz GPS_week_t GPS_week; // Weeks since 0h Jan 6, 1980 UTC
+TM 1 Hz GPS_secs_t GPS_secs; // Seconds since start of week
+TM 1 Hz GPS_double Latitude;
+TM 1 Hz GPS_double Longitude;
+TM 1 Hz GPS_double Ellipsoidal_Ht;
+TM 1 Hz GPS_double N_Velocity;
+TM 1 Hz GPS_double E_Velocity;
+TM 1 Hz GPS_double Up_Velocity;
+TM 1 Hz GPS_double Roll;
+TM 1 Hz GPS_double Pitch;
+TM 1 Hz GPS_double Azimuth;
+TM 1 Hz UCHAR INS_Status;
+TM 1 Hz UCHAR n_span_records;
+TM 1 Hz UCHAR n_bat_records;
+TM 1 Hz BAT_Px_t BAT_Px;
+TM 1 Hz BAT_Py_t BAT_Py;
+TM 1 Hz BAT_Pz_t BAT_Pz;
+TM 1 Hz BAT_Ps_t BAT_Ps;
+TM 1 Hz BAT_Ax_t BAT_Ax;
+TM 1 Hz BAT_Ay_t BAT_Ay;
+TM 1 Hz BAT_Az_t BAT_Az;
+TM 1 Hz BAT_FUST_t BAT_FUST;
+TM 1 Hz BAT_Tbar_t BAT_Tbar;
+TM 1 Hz BAT_Pump_t BAT_Pump;
+TM 1 Hz BAT_Axb_t BAT_Axb;
+TM 1 Hz BAT_Ayb_t BAT_Ayb;
+TM 1 Hz BAT_Azb_t BAT_Azb;
+TM 1 Hz UCHAR BSstale;
+
+Group BAT_SPAN_grp (GPS_msecs, GPS_weekl, GPS_week, GPS_secs, Latitude,
+    Longitude, Ellipsoidal_Ht, N_Velocity, E_Velocity, Up_Velocity, Roll,
+    Pitch, Azimuth, INS_Status, n_span_records, n_bat_records, BAT_Px,
+    BAT_Py, BAT_Pz, BAT_Ps, BAT_Ax, BAT_Ay, BAT_Az, BAT_FUST, BAT_Tbar,
+    BAT_Pump, BAT_Axb, BAT_Ayb, BAT_Azb) {
+  GPS_msecs = BAT_SPAN.GPS_msecs;
+  GPS_weekl = BAT_SPAN.GPS_weekl;
+  GPS_week = BAT_SPAN.GPS_week;
+  GPS_secs = BAT_SPAN.GPS_secs;
+  Latitude = BAT_SPAN.Latitude;
+  Longitude = BAT_SPAN.Longitude;
+  Ellipsoidal_Ht = BAT_SPAN.Ellipsoidal_Ht;
+  N_Velocity = BAT_SPAN.N_Velocity;
+  E_Velocity = BAT_SPAN.E_Velocity;
+  Up_Velocity = BAT_SPAN.Up_Velocity;
+  Roll = BAT_SPAN.Roll;
+  Pitch = BAT_SPAN.Pitch;
+  Azimuth = BAT_SPAN.Azimuth;
+  INS_Status = BAT_SPAN.INS_Status;
+  n_span_records = BAT_SPAN.n_span_records;
+  n_bat_records = BAT_SPAN.n_bat_records;
+  BAT_Px = BAT_SPAN.BAT_Px;
+  BAT_Py = BAT_SPAN.BAT_Py;
+  BAT_Pz = BAT_SPAN.BAT_Pz;
+  BAT_Ps = BAT_SPAN.BAT_Ps;
+  BAT_Ax = BAT_SPAN.BAT_Ax;
+  BAT_Ay = BAT_SPAN.BAT_Ay;
+  BAT_Az = BAT_SPAN.BAT_Az;
+  BAT_FUST = BAT_SPAN.BAT_FUST;
+  BAT_Tbar = BAT_SPAN.BAT_Tbar;
+  BAT_Pump = BAT_SPAN.BAT_Pump;
+  BAT_Axb = BAT_SPAN.BAT_Axb;
+  BAT_Ayb = BAT_SPAN.BAT_Ayb;
+  BAT_Azb = BAT_SPAN.BAT_Azb;
+  BSstale = BAT_SPAN_obj->stale(255);
+  BAT_SPAN_obj->synch();
+}

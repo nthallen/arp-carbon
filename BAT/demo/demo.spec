@@ -4,6 +4,7 @@ tmcbase = /usr/local/share/huarp/cpu_usage.tmc
 tmcbase = /usr/local/share/huarp/freemem.tmc
 tmcbase = /usr/local/share/huarp/flttime.tmc
 tmcbase = base.tmc
+tmcbase = BAT_SPAN.tmc
 
 cmdbase = /usr/local/share/huarp/root.cmd
 cmdbase = /usr/local/share/huarp/getcon.cmd
