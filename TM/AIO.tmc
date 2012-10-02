@@ -96,19 +96,19 @@ TM 1 Hz AI16 Sp8AI; Address Sp8AI 0xCBC; /* Spare Ana Channel */
 TM 1 Hz AI16 SpAI9; Address SpAI9 0xCAC; /* Spare Ana Channel */
 TM 1 Hz AI_T30K PC__T; Address PC__T 0xC3E; /* PC Temperature */
 TM 1 Hz AI_T30K PS__T; Address PS__T 0xC7E; /* Power Supply Temperature */
-TM 1 Hz AO16 CCelPSt; Address CCelPSt 0x432; /* Cell Pressure Setpoint CO2 */
+TM 1 Hz AO_PSt CCelPSt; Address CCelPSt 0x432; /* Cell Pressure Setpoint CO2 */
 TM 1 Hz AO16 CCelTSt; Address CCelTSt 0x43A; /* Cell Temp Setpoint CO2 */
 TM 1 Hz AO16 CLPVTSt; Address CLPVTSt 0x438; /* Laser Pressure Vessel Temp Setpoint CO2 */
 TM 1 Hz AO16 CLTETSt; Address CLTETSt 0x436; /* Laser  TEC Temp Setpoint CO2 */
 TM 1 Hz AO_20SLM GsFlSt; Address GsFlSt 0x402; /* Gas Flow Setpoint GAS DECK */
 TM 1 Hz AO16 SHTSt; Address SHTSt 0x426; /* Sample Heater Temp Setpoint */
 TM 1 Hz AO16 SpHtTSt; Address SpHtTSt 0x420; /* Space Heater Temp Setpoint */
-TM 1 Hz AO16 ICelPSt; Address ICelPSt 0x434; /* Cell Pressure Setpoint ISO */
+TM 1 Hz AO_PSt ICelPSt; Address ICelPSt 0x434; /* Cell Pressure Setpoint ISO */
 TM 1 Hz AO16 ICelTSt; Address ICelTSt 0x408; /* Cell Temp Setpoint ISO */
 TM 1 Hz AO16 IDPVTSt; Address IDPVTSt 0x406; /* Detector Pressure Vessel Temp Setpoint ISO */
 TM 1 Hz AO16 ILPVTSt; Address ILPVTSt 0x404; /* Large ICOS LPV Ext TEC Setpoint ISO */
 TM 1 Hz AO16 ILTETSt; Address ILTETSt 0x400; /* Laser TEC Temp Setpoint ISO */
-TM 1 Hz AO16 MCelPSt; Address MCelPSt 0x430; /* Cell Pressure Setpoint MINI */
+TM 1 Hz AO_PSt MCelPSt; Address MCelPSt 0x430; /* Cell Pressure Setpoint MINI */
 TM 1 Hz AO16 MCelTSt; Address MCelTSt 0x42E; /* Cell Temp Setpoint MINI */
 TM 1 Hz AO16 MDPVTSt; Address MDPVTSt 0x42C; /* Detector Pressure Vessel Temp Setpoint MINI */
 TM 1 Hz AO16 MLPVTSt; Address MLPVTSt 0x42A; /* Mini-Methane LPV External TEC Setpoint */

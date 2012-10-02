@@ -2,10 +2,10 @@ CO2_Cell {
   HBox { +-; Title: "CO2 Cell"; -+ };
   HBox {
     {
-      HP: (CCelHP,7) V;
-      LP: (CCelLP,7) V;
-      P: (CCelP,7) V;
-      PSt: (CCelPSt,6) V;
+      HP: (CCelHP,7) Torr;
+      LP: (CCelLP,7) Torr;
+      P: (CCelP,7) Torr;
+      PSt: (CCelPSt,6) Torr;
     }; |+; {
       "1T:" (CCel1T,6) C;
       "2T:" (CCel2T,6) C;
@@ -24,10 +24,10 @@ MM_Cell {
   HBox { +-; Title: "Mini CH4 Cell"; -+ };
   HBox {
     {
-      HP: (MCelHP,7) V;
-      LP: (MCelLP,7) V;
-      P: (MCelP,7) V;
-      PSt: (MCelPSt,6) V;
+      HP: (MCelHP,7) Torr;
+      LP: (MCelLP,7) Torr;
+      P: (MCelP,7) Torr;
+      PSt: (MCelPSt,6) Torr;
     }; |+; {
       "1T:" (MCel1T,6) C;
       "2T:" (MCel2T,6) C;
@@ -46,10 +46,10 @@ I_Cell {
   HBox { +-; Title: "ICOS Cell"; -+ };
   HBox {
     {
-      HP: (ICelHP,7) V;
-      LP: (ICelLP,7) V;
-      P: (ICelP,7) V;
-      PSt: (ICelPSt,6) V;
+      HP: (ICelHP,7) Torr;
+      LP: (ICelLP,7) Torr;
+      P: (ICelP,7) Torr;
+      PSt: (ICelPSt,6) Torr;
     }; |+; {
       "1T:" (ICel1T,6) C;
       "2T:" (ICel2T,6) C;
@@ -81,7 +81,7 @@ CO2_Laser {
 
 CO2_LPV {
   HBox { +-; Title: "CO2 LPV"; - };
-  P:  (CLPV_P,7) torr;
+  P:  (CLPV_P,7) Torr;
   RH: (CLPV_RHC,4) %;
   T1: (CLPV_T1C,5) C;
   T2: (CLPV_T2C,5) C;
@@ -89,7 +89,7 @@ CO2_LPV {
 
 CO2_QCL {
   HBox { +-; Title: "CO2 QCL"; - };
-  P:  (CQCL_P,7) torr;
+  P:  (CQCL_P,7) Torr;
   RH: (CQCL_RHC,4) %;
   T1: (CQCL_T1C,5) C;
   T2: (CQCL_T2C,5) C;
@@ -105,7 +105,7 @@ MM_LPV {
   TSt:     (MLPVTSt,6) V;
   LTET:    (MLTE7R7T,7) V;
   LTETSt:  (MLTETSt,6) V;
-  P:       (MLPV_P,7) torr;
+  P:       (MLPV_P,7) Torr;
   RH:      (MLPV_RHC,4) %;
   T1:      (MLPV_T1C,5) C;
   T2:      (MLPV_T2C,5) C;
@@ -113,7 +113,7 @@ MM_LPV {
 
 MM_QCL {
   HBox { +-; Title: "Mini CH4 QCL"; - };
-  P:  (MQCL_P,7) torr;
+  P:  (MQCL_P,7) Torr;
   RH: (MQCL_RHC,4) %;
   T1: (MQCL_T1C,5) C;
   T2: (MQCL_T2C,5) C;
@@ -125,7 +125,7 @@ MM_DPV {
   CT:      (MDPVCT,7) V;
   TSt:     (MDPVTSt,6) V;
   HC:      (MDPV_HC_DS,3);
-  P:       (MDPV_P,7) torr;
+  P:       (MDPV_P,7) Torr;
   RH:      (MDPV_RHC,4) %;
   T1:      (MDPV_T1C,5) C;
   T2:      (MDPV_T2C,5) C;
@@ -142,7 +142,7 @@ I_Laser {
   { TEC:     (ILTEC_DS,3)   (ILTEC_S,3);
     LPV_HC:  (ILPV_HC_DS,3) (ILPV_HC_S,3);
   };
-  P:  (ILPV_P,7) torr;
+  P:  (ILPV_P,7) Torr;
   RH: (ILPV_RHC,4) %;
   T1: (ILPV_T1C,5) C;
   T2: (ILPV_T2C,5) C;
@@ -150,7 +150,7 @@ I_Laser {
 
 I_QCL {
   HBox { +-; Title: "ICOS QCL"; - };
-  P:  (IQCL_P,7) torr;
+  P:  (IQCL_P,7) Torr;
   RH: (IQCL_RHC,4) %;
   T1: (IQCL_T1C,5) C;
   T2: (IQCL_T2C,5) C;
@@ -162,7 +162,7 @@ I_DPV {
   CT:   (IDPVCT,7) V;
   TSt:  (IDPVTSt,6) V;
   { HC:  (IDPV_HC_DS,3) (IDPV_HC_S,3) };
-  P:  (IDPV_P,7) torr;
+  P:  (IDPV_P,7) Torr;
   RH: (IDPV_RHC,4) %;
   T1: (IDPV_T1C,5) C;
   T2: (IDPV_T2C,5) C;
