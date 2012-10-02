@@ -14,7 +14,7 @@ BSDataRecord::BSDataRecord() {
   BScmdport = 0;
   BSTMport = 0;
   BSloggerport = 0;
-  memset(&TMdata, 0, sizeof(TMdata));
+  memset(&BAT_SPAN, 0, sizeof(BAT_SPAN));
   LogEnbl = false;
 };
 
@@ -22,7 +22,7 @@ void BSDataRecord::init(Selector &S) {
   SPANport = new SPAN(span_path, this);
   // BATport = new BAT(bat_path, this);
   BScmdport = new BScmd(this);
-  BSTMport = new BSTM(&TMdata);
+  BSTMport = new BSTM(&BAT_SPAN);
   BSloggerport = new BSlogger();
   S.add_child(SPANport);
   // S.add_child(BATport);
@@ -41,15 +41,12 @@ void BSDataRecord::BAT_data(unsigned char *data) {
   BAT_SPAN.BAT_Ax = ushort_swap(&data[11]); // 4
   BAT_SPAN.BAT_Ay = ushort_swap(&data[13]); // 5
   BAT_SPAN.BAT_Az = ushort_swap(&data[15]); // 6
-  BAT_SPAN.BAT_Tp1 = ushort_swap(&data[17]); // 7
-  BAT_SPAN.BAT_Tp2 = ushort_swap(&data[19]); // 8
-  BAT_SPAN.BAT_Tbar1 = ushort_swap(&data[21]); // 9
-  BAT_SPAN.BAT_Tbar2 = ushort_swap(&data[23]); // 10
-  BAT_SPAN.BAT_Net = ushort_swap(&data[25]); // 11
-  BAT_SPAN.BAT_Q1 = ushort_swap(&data[27]); // 12
-  BAT_SPAN.BAT_Q2 = ushort_swap(&data[29]); // 13
-  BAT_SPAN.BAT_Aux1 = ushort_swap(&data[31]); // 14
-  BAT_SPAN.BAT_Aux2 = ushort_swap(&data[33]); // 15
+  BAT_SPAN.BAT_FUST = ushort_swap(&data[17]); // 8
+  BAT_SPAN.BAT_Tbar = ushort_swap(&data[23]); // 10
+  BAT_SPAN.BAT_Pump = ushort_swap(&data[27]); // 12
+  BAT_SPAN.BAT_Axb = ushort_swap(&data[29]); // 13
+  BAT_SPAN.BAT_Ayb = ushort_swap(&data[31]); // 14
+  BAT_SPAN.BAT_Azb = ushort_swap(&data[33]); // 15
   ++BAT_SPAN.n_bat_records;
 }
 
@@ -215,8 +212,8 @@ BSTM::BSTM(BAT_SPAN_t *tmdata_in) :
 
 int BSTM::ProcessData(int flag) {
   Col_send(TMid);
-  TMdata->n_span_records = 0;
-  TMdata->n_bat_records = 0;
+  BAT_SPAN->n_span_records = 0;
+  BAT_SPAN->n_bat_records = 0;
   return 0;
 }
 

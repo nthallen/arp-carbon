@@ -1,9 +1,8 @@
-# Makefile Generated Fri Jul 20 14:01:22 EDT 2012
+# Makefile Generated Tue Oct 02 14:24:53 EDT 2012
 MNC=demo
-HOMEDIR=/home/nort/BUILD/QNX6Build/QNX6/DASdemo
 SPECFILE=demo.spec
-SRC=types.tmc base.tmc SWData.tmc SWData.h demo.tbl demo.tma
-SRC+=demo.sws demo.doit SWData.cmd SWData_col.tmc
+SRC=types.tmc base.tmc BAT_SPAN.tmc SWData.tmc SWData.h demo.tbl
+SRC+=demo.tma demo.sws demo.doit SWData.cmd SWData_col.tmc
 TOOL=demo.spec Makefile
 SCRIPT=interact
 OBJ=SWData.cmd SWData.h SWData.tmc SWData_col.tmc demotbl.tmc
@@ -21,14 +20,13 @@ IDISTRIB=Experiment.config VERSION doit
 SRCDIST=demo.tbl demo.tma types.tmc /usr/local/share/huarp/tmdf.tmc
 SRCDIST+=/usr/local/share/huarp/cpu_usage.tmc
 SRCDIST+=/usr/local/share/huarp/freemem.tmc
-SRCDIST+=/usr/local/share/huarp/flttime.tmc base.tmc SWData.tmc
-SRCDIST+=SWData.h
-NONRCS=
+SRCDIST+=/usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc
+SRCDIST+=SWData.tmc SWData.h
 TMCBASE=types.tmc /usr/local/share/huarp/tmdf.tmc
 TMCBASE+=/usr/local/share/huarp/cpu_usage.tmc
 TMCBASE+=/usr/local/share/huarp/freemem.tmc
-TMCBASE+=/usr/local/share/huarp/flttime.tmc base.tmc SWData.tmc
-TMCBASE+=SWData.h
+TMCBASE+=/usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc
+TMCBASE+=SWData.tmc SWData.h
 CMDBASE=/usr/local/share/huarp/root.cmd
 CMDBASE+=/usr/local/share/huarp/getcon.cmd SWData.cmd
 COLBASE=/usr/local/share/huarp/tmdf_col.tmc
@@ -91,15 +89,15 @@ democol : democol.o democoloui.o
 	$(OUIUSE) democoloui.c
 	$(PROMOTE) democol
 demotbl.tmc : demo.tbl
-demodisp.cc : types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc SWData.tmc demotbl.tmc
-	$(TMC) types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc SWData.tmc demotbl.tmc
+demodisp.cc : types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc SWData.tmc demotbl.tmc
+	$(TMC) types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc SWData.tmc demotbl.tmc
 demodispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 demodispoui.o : demodispoui.c SWData.h
 demodisp.o : demodisp.cc SWData.h
 demotblnc.tmc : demo.tbl
-demodispnc.cc : types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc SWData.tmc demotblnc.tmc
-	$(TMC) types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc SWData.tmc demotblnc.tmc
+demodispnc.cc : types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc SWData.tmc demotblnc.tmc
+	$(TMC) types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc SWData.tmc demotblnc.tmc
 demodispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 demodispncoui.o : demodispncoui.c SWData.h
@@ -109,8 +107,8 @@ demosws.tma : demo.sws
 demoalgoa.tmc : demo.tma demosws.tma demosrvr
 	$(SERVER) ./demosrvr
 	$(TMCALGO) -V "`./demosrvr -R`" demo.tma demosws.tma
-demoalgo.cc : types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc SWData.tmc demoalgoa.tmc
-	$(TMC) types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc SWData.tmc demoalgoa.tmc
+demoalgo.cc : types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc SWData.tmc demoalgoa.tmc
+	$(TMC) types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc SWData.tmc demoalgoa.tmc
 demoalgooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 demoalgooui.o : demoalgooui.c SWData.h
@@ -135,8 +133,8 @@ demosrvr.o : democmd.cc
 demosrvroui.c : $(OUIDIR)/cis.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/cis.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/msg.oui
 demosrvroui.o : demosrvroui.c
-democol.cc : types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc SWData.tmc /usr/local/share/huarp/tmdf_col.tmc /usr/local/share/huarp/cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
-	$(TMC.col) types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc SWData.tmc /usr/local/share/huarp/tmdf_col.tmc /usr/local/share/huarp/cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
+democol.cc : types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc SWData.tmc /usr/local/share/huarp/tmdf_col.tmc /usr/local/share/huarp/cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
+	$(TMC.col) types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc SWData.tmc /usr/local/share/huarp/tmdf_col.tmc /usr/local/share/huarp/cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
 democoloui.c : $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/msg.oui
 democoloui.o : democoloui.c SWData.h
@@ -150,3 +148,5 @@ clean : tidy
 	rm -f $(TARGET)
 .cvsignore : Makefile
 	@for i in $(OBJECT) $(TARGET); do echo "$$i"; done >.cvsignore
+CPPFLAGS += -I ..
+

@@ -25,15 +25,12 @@ typedef struct __attribute__((__packed__)) {
   short BAT_Ax; // 4
   short BAT_Ay; // 5
   short BAT_Az; // 6
-  short BAT_Tp1; // 7
-  short BAT_Tp2; // 8
-  short BAT_Tbar1; // 9
-  short BAT_Tbar2; // 10
-  short BAT_Net; // 11
-  short BAT_Q1; // 12
-  short BAT_Q2; // 13
-  short BAT_Aux1; // 14
-  short BAT_Aux2; // 15
+  short BAT_FUST; // 8
+  short BAT_Tbar; // 10
+  short BAT_Pump; // 12
+  short BAT_Axb; // 13
+  short BAT_Ayb; // 14
+  short BAT_Azb; // 15
   unsigned char INS_Status;
   unsigned char n_span_records;
   unsigned char n_bat_records;

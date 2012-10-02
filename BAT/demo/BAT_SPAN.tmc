@@ -3,7 +3,7 @@
   BAT_SPAN_t BAT_SPAN;
 %}
 
-TM "Receive" BAT_SPAN 1
+TM "Receive" BAT_SPAN 1;
 TM typedef double MBAR;
 TM typedef double M_S2;
 TM typedef double uVOLTS;
@@ -12,9 +12,8 @@ TM typedef double CELCIUS;
 TM typedef long GPS_msecs_t { text "%9ld"; }
 TM typedef unsigned long GPS_weekl_t { text "%5ld"; }
 TM typedef unsigned short GPS_week_t { text "%5u"; }
-TM typedef double GPS_secs_t GPS_secs { text "%10.3lf"; }
+TM typedef double GPS_secs_t { text "%10.3lf"; }
 TM typedef double GPS_double { text "%10.4lf"; }
-TM typedef unsigned char UCHAR { text "%3u"; }
 TM typedef signed short BAT_AI { text "%6d"; }
 TM typedef BAT_AI BAT_Px_t { text "%7.3lf"; }
 TM typedef BAT_AI BAT_Py_t { text "%7.3lf"; }
@@ -44,10 +43,10 @@ Calibration ( BAT_Axb_t, M_S2) { -32768, -18.36088, 32767, 18.28451 }
 Calibration ( BAT_Ayb_t, M_S2) { -32768, 18.78692, 32767, -18.93704 }
 Calibration ( BAT_Azb_t, M_S2) { -32768, -9.11474, 32767, 28.98142 }
 
-TM 1 HZ GPS_msecs_t GPS_msecs; // msecs since start of week
-TM 1 Hz GPS_weekl_t GPS_weekl; // Weeks since 0h Jan 6, 1980 UTC
-TM 1 Hz GPS_week_t GPS_week; // Weeks since 0h Jan 6, 1980 UTC
-TM 1 Hz GPS_secs_t GPS_secs; // Seconds since start of week
+TM 1 HZ GPS_msecs_t GPS_msecs; /* msecs since start of week */
+TM 1 Hz GPS_weekl_t GPS_weekl; /* Weeks since 0h Jan 6, 1980 UTC */
+TM 1 Hz GPS_week_t GPS_week; /* Weeks since 0h Jan 6, 1980 UTC */
+TM 1 Hz GPS_secs_t GPS_secs; /* Seconds since start of week */
 TM 1 Hz GPS_double Latitude;
 TM 1 Hz GPS_double Longitude;
 TM 1 Hz GPS_double Ellipsoidal_Ht;
