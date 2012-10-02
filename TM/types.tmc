@@ -6,6 +6,7 @@ TM typedef double mVOLTS { text "%6.3lf"; }
 TM typedef double AMPS  { text "%6.3lf"; }
 TM typedef double PSIG { text "%6.1lf"; }
 TM typedef double SLM { text "%6.3lf"; }
+TM typedef double TORR { text "%7.3lf"; }
 TM typedef double CELCIUS;
 TM typedef unsigned char  UCHAR { text "%3d"; }
 TM typedef unsigned short UINT { text "%5d"; }
@@ -44,6 +45,16 @@ TM typedef AI16_5V AI_5000psig { text "%6.1lf"; convert PSIG; }
 
 TM typedef AI16_5V AI_100psig { text "%6.1lf"; convert PSIG; }
   Calibration (AI_100psig, PSIG) { 6155, 0, 30720, 100 }
+
+TM typedef AI16 P1000Torr { text "%7.3lf"; convert TORR; }
+TM typedef AI16 P100Torr { text "%7.3lf"; convert TORR; }
+TM typedef AI16 PC100Torr { text "%7.3lf"; convert TORR; }
+TM typedef P1000Torr P1000Torr_C;
+TM typedef P100Torr P100Torr_C;
+TM typedef P1000Torr P1000Torr_M;
+TM typedef P100Torr P100Torr_M;
+TM typedef P1000Torr P1000Torr_I;
+TM typedef P100Torr P100Torr_I;
   
 TM typedef unsigned short AIStat_i {
   text "%012b";
