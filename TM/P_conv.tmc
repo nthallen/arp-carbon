@@ -25,7 +25,7 @@ Calibration (P1000Torr_C, TORR) {
 
 Calibration (P100Torr_C, TORR) {
         0, 0,
-  63971.3, 100,
+  63971.3, 100
 }
 
 Calibration (P1000Torr_M, TORR) {
@@ -35,10 +35,10 @@ Calibration (P1000Torr_M, TORR) {
   25050.8, 392.56666,
   37601.7, 589.41002,
   50152.6, 786.5336,
-  62724.6, 984.29247,
+  62724.6, 984.29247
 }
 
 Calibration (P100Torr_M, TORR) {
         0,   0,
-  63676.2, 100,
+  63676.2, 100
 }
