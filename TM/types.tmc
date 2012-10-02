@@ -71,8 +71,8 @@ TM typedef unsigned short AO16 {
 TM typedef AO16 AO_20SLM { text "%6.3lf"; }
   Calibration (AO_20SLM, SLM) { 0, 0, 32768, 20 }
 
-TM typedef AO16 AO_PSt { text "%7.3lf"; }
-  Calibration (AO_PSt, Torr) { 0, 0, 21845.1, 100 }
+TM typedef AO16 AO_PSt { text "%7.3lf"; convert TORR; }
+  Calibration (AO_PSt, TORR) { 0, 0, 21845.1, 100 }
 
 TM typedef unsigned char MS5607Db { text "%3d"; }
 TM typedef UINT PTRH_S { text " %04x"; }

@@ -5,7 +5,7 @@ CO2_Cell {
       HP: (CCelHP,7) Torr;
       LP: (CCelLP,7) Torr;
       P: (CCelP,7) Torr;
-      PSt: (CCelPSt,6) Torr;
+      PSt: (CCelPSt,7) Torr;
     }; |+; {
       "1T:" (CCel1T,6) C;
       "2T:" (CCel2T,6) C;
@@ -27,7 +27,7 @@ MM_Cell {
       HP: (MCelHP,7) Torr;
       LP: (MCelLP,7) Torr;
       P: (MCelP,7) Torr;
-      PSt: (MCelPSt,6) Torr;
+      PSt: (MCelPSt,7) Torr;
     }; |+; {
       "1T:" (MCel1T,6) C;
       "2T:" (MCel2T,6) C;
@@ -49,7 +49,7 @@ I_Cell {
       HP: (ICelHP,7) Torr;
       LP: (ICelLP,7) Torr;
       P: (ICelP,7) Torr;
-      PSt: (ICelPSt,6) Torr;
+      PSt: (ICelPSt,7) Torr;
     }; |+; {
       "1T:" (ICel1T,6) C;
       "2T:" (ICel2T,6) C;

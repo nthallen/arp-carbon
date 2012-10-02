@@ -18,7 +18,7 @@
 %}
 &Command
   : &AO_volts %f (Enter 0-10 Volts) * { sbwr( $1, ao_scale($2, 1.0, 10.0) ); }
-  : &AO_pset %f (Enter 0-100 Torr) * { sbwr( $1, ao_scale($2, 1/30., 3.333) ); }
+  : &AO_pset %f (Enter 0-100 Torr) * { sbwr( $1, ao_scale($2, 1/30., 100.0) ); }
   ;
 &AO_volts <unsigned short>
   : CO2 Set Cell Temp Setpoint { $0 = CCelTSt_Address; }
