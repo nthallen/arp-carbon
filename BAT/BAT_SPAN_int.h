@@ -71,10 +71,10 @@ class BScmd : public Ser_Sel {
 
 class BSTM : public TM_Selectee {
   public:
-    BSTM(BAT_SPAN *tmdata_in);
+    BSTM(BAT_SPAN_t *tmdata_in);
     int ProcessData(int flag);
   private:
-    BAT_SPAN *TMdata;
+    BAT_SPAN_t *BAT_SPAN;
 };
 
 class BSlogger : public Selectee {
@@ -102,7 +102,7 @@ class BSDataRecord {
     void Flush_data();
     void Logging(bool on);
   private:
-    BAT_SPAN TMdata;
+    BAT_SPAN_t BAT_SPAN;
     SPAN *SPANport;
     BAT *BATport;
     BScmd *BScmdport;
