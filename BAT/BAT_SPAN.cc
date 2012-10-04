@@ -83,30 +83,31 @@ void BSDataRecord::Logging(bool on) {
 }
 
 SPAN::SPAN( const char *path, BSDataRecord *data_in ) :
-    Ser_Sel(path, O_RDONLY, 209) {
+    Ser_Sel(path, O_RDONLY | O_NONBLOCK, 209) {
   BSData = data_in;
   setup (115200, 8, 'n', 1, 104, 0);
+  flush_input();
 }
 
 unsigned long ulong_swap(unsigned char *s) {
   unsigned long sum = s[0];
-  sum = (sum << 4) + s[1];
-  sum = (sum << 4) + s[2];
-  sum = (sum << 4) + s[3];
+  sum = (sum << 8) + s[1];
+  sum = (sum << 8) + s[2];
+  sum = (sum << 8) + s[3];
   return sum;
 }
 
 long long_swap(unsigned char *s) {
   long sum = s[0];
-  sum = (sum << 4) + s[1];
-  sum = (sum << 4) + s[2];
-  sum = (sum << 4) + s[3];
+  sum = (sum << 8) + s[1];
+  sum = (sum << 8) + s[2];
+  sum = (sum << 8) + s[3];
   return sum;
 }
 
 unsigned short ushort_swap(unsigned char *s) {
   unsigned short sum = s[0];
-  sum = (sum << 4) + s[1];
+  sum = (sum << 8) + s[1];
   return sum;
 }
 
@@ -126,12 +127,13 @@ int SPAN::ProcessData(int flag) {
   if (flag & Selector::Sel_Read) {
     int start;
     if (fillbuf()) return 1;
+    cp = 0;
     while (cp < nc) {
       unsigned long crc_calc, crc_rep;
       
       if (not_found('\xAA')) return 0;
       start = cp-1;
-      if (not_str("\x44\x13\x58\x01\xFC", 5)) {
+      if (not_str("\x44\x13\x58\xFC\x01", 5)) {
         if (cp == nc) {
           consume(start);
           return 0;
@@ -149,7 +151,7 @@ int SPAN::ProcessData(int flag) {
         BSData->SPAN_data(&buf[start]);
         report_ok();
       } else {
-        report_err("CRC Error");
+        report_err("CRC Error: calc: %X reported: %X", crc_calc, crc_rep);
       }
       consume(104);
     }
@@ -189,7 +191,7 @@ unsigned long SPAN::CalculateBlockCRC32( unsigned long ulCount,
 }
 
 BSlogger::BSlogger() : Selectee() {
-  fd = open("BSdata.log", O_WRONLY | O_CREAT | O_NONBLOCK);
+  fd = open("BSdata.log", O_WRONLY | O_CREAT | O_NONBLOCK, 0664);
   if (fd == -1) nl_error(3, "Unable to write to BSdata.log");
   flags = 0;
   head = tail = offset = 0;

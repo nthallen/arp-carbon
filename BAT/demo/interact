@@ -6,7 +6,7 @@
 
   Launch DG/cmd democol
   Launch cmd/server demosrvr
-  Launch - BAT_SPAN -S /dev/com2 -B /dev/com1
+  Launch - BAT_SPAN -S /dev/ser2 -B /dev/ser1
   Launch - lgr -N `mlf_find LOG`
   Launch - tmdf
   Launch - demoalgo -v

@@ -1,3 +1,4 @@
 display demodisp
 client democlt
 memo
+batchfile interact

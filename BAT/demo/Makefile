@@ -1,8 +1,9 @@
-# Makefile Generated Tue Oct 02 14:24:53 EDT 2012
+# Makefile Generated Tue Oct 02 15:51:38 EDT 2012
 MNC=demo
 SPECFILE=demo.spec
 SRC=types.tmc base.tmc BAT_SPAN.tmc SWData.tmc SWData.h demo.tbl
-SRC+=demo.tma demo.sws demo.doit SWData.cmd SWData_col.tmc
+SRC+=demo.tma demo.sws demo.doit BAT_SPAN.cmd SWData.cmd
+SRC+=SWData_col.tmc
 TOOL=demo.spec Makefile
 SCRIPT=interact
 OBJ=SWData.cmd SWData.h SWData.tmc SWData_col.tmc demotbl.tmc
@@ -15,7 +16,7 @@ OBJ+=democltncoui.o demosrvr.o demosrvroui.c demosrvroui.o democol.cc
 OBJ+=demo.pcm tm.dac democoloui.c democoloui.o democol.o
 TGT=demodisp demodispnc demoalgo doit democlt democltnc demosrvr
 TGT+=democol
-DISTRIB=demo.pcm tm.dac
+DISTRIB=../BAT_SPAN demo.pcm tm.dac
 IDISTRIB=Experiment.config VERSION doit
 SRCDIST=demo.tbl demo.tma types.tmc /usr/local/share/huarp/tmdf.tmc
 SRCDIST+=/usr/local/share/huarp/cpu_usage.tmc
@@ -28,7 +29,7 @@ TMCBASE+=/usr/local/share/huarp/freemem.tmc
 TMCBASE+=/usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc
 TMCBASE+=SWData.tmc SWData.h
 CMDBASE=/usr/local/share/huarp/root.cmd
-CMDBASE+=/usr/local/share/huarp/getcon.cmd SWData.cmd
+CMDBASE+=/usr/local/share/huarp/getcon.cmd BAT_SPAN.cmd SWData.cmd
 COLBASE=/usr/local/share/huarp/tmdf_col.tmc
 COLBASE+=/usr/local/share/huarp/cpu_usage_col.tmc
 COLBASE+=/usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
@@ -40,7 +41,7 @@ SOURCE=$(RCS) $(NONRCS)
 OBJECT=$(OBJ) *.err
 TARGET=$(TGT)
 DSTRB=$(TGT) $(DISTRIB) $(SCRIPT)
-TGTDIR= $(TGTNODE)/home/DASdemo
+TGTDIR= $(TGTNODE)/home/BATdemo
 include /usr/local/share/huarp/appgen.mk
 
 .PHONY : all extdistribution distribution clean check_photon
@@ -116,8 +117,8 @@ demoalgo.o : demoalgo.cc SWData.h
 doit.dep : demo.doit
 	mkdoit3 -M -o doit  demo.doit
 -include doit.dep
-democmd.cc : /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd SWData.cmd
-	$(CMDGEN) -d democmd.dat /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd SWData.cmd
+democmd.cc : /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd BAT_SPAN.cmd SWData.cmd
+	$(CMDGEN) -d democmd.dat /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd BAT_SPAN.cmd SWData.cmd
 democlt.o : democmd.cc
 	$(COMPILE.clt) democmd.cc
 democltoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui
