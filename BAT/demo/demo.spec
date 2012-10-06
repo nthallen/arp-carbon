@@ -23,7 +23,9 @@ DISTRIB = ../BAT_SPAN
 
 demodisp : demo.tbl
 demoalgo : demo.tma demo.sws
+BATdemoengext : BATdemoeng.cdf
 doit : demo.doit
 %%
 CPPFLAGS += -I ..
-
+BATdemoeng.cdf : genui.txt
+	genui -d eng -c genui.txt

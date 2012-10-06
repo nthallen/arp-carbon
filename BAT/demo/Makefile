@@ -1,21 +1,23 @@
-# Makefile Generated Tue Oct 02 15:51:38 EDT 2012
+# Makefile Generated Sat Oct 06 15:59:50 EDT 2012
 MNC=demo
 SPECFILE=demo.spec
 SRC=types.tmc base.tmc BAT_SPAN.tmc SWData.tmc SWData.h demo.tbl
-SRC+=demo.tma demo.sws demo.doit BAT_SPAN.cmd SWData.cmd
-SRC+=SWData_col.tmc
+SRC+=demo.tma demo.sws BATdemoeng.cdf demo.doit BAT_SPAN.cmd
+SRC+=SWData.cmd SWData_col.tmc
 TOOL=demo.spec Makefile
 SCRIPT=interact
 OBJ=SWData.cmd SWData.h SWData.tmc SWData_col.tmc demotbl.tmc
 OBJ+=demodisp.cc demodispoui.c demodispoui.o demodisp.o demotblnc.tmc
 OBJ+=demodispnc.cc demodispncoui.c demodispncoui.o demodispnc.o
 OBJ+=demosws.tma demoalgoa.tmc demoalgo.cc demoalgooui.c
-OBJ+=demoalgooui.o demoalgo.o doit.dep democmd.cc democmd.dat
-OBJ+=democlt.o democltoui.c democltoui.o democltnc.o democltncoui.c
+OBJ+=demoalgooui.o demoalgo.o BATdemoengextcdf.oui BATdemoengext.tmc
+OBJ+=BATdemoengext.cc BATdemoengextoui.c BATdemoengextoui.o
+OBJ+=BATdemoengext.o doit.dep democmd.cc democmd.dat democlt.o
+OBJ+=democltoui.c democltoui.o democltnc.o democltncoui.c
 OBJ+=democltncoui.o demosrvr.o demosrvroui.c demosrvroui.o democol.cc
 OBJ+=demo.pcm tm.dac democoloui.c democoloui.o democol.o
-TGT=demodisp demodispnc demoalgo doit democlt democltnc demosrvr
-TGT+=democol
+TGT=demodisp demodispnc demoalgo BATdemoengext doit democlt
+TGT+=democltnc demosrvr democol
 DISTRIB=../BAT_SPAN demo.pcm tm.dac
 IDISTRIB=Experiment.config VERSION doit
 SRCDIST=demo.tbl demo.tma types.tmc /usr/local/share/huarp/tmdf.tmc
@@ -73,6 +75,9 @@ demodispnc : demodispnc.o demodispncoui.o
 demoalgo : demoalgo.o demoalgooui.o
 	$(LINK.normCXX) demoalgo.o demoalgooui.o -ltmpp -ltm -lnort
 	$(OUIUSE) demoalgooui.c
+BATdemoengext : BATdemoengext.o BATdemoengextoui.o
+	$(LINK.normCXX) BATdemoengext.o BATdemoengextoui.o -ltmpp -ltm -lnort
+	$(OUIUSE) BATdemoengextoui.c
 doit : demo.doit
 	mkdoit3 -o doit  demo.doit
 democlt : democlt.o democltoui.o
@@ -114,6 +119,16 @@ demoalgooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 demoalgooui.o : demoalgooui.c SWData.h
 demoalgo.o : demoalgo.cc SWData.h
+BATdemoengextcdf.oui : BATdemoeng.cdf
+	$(EDF2OUI) BATdemoeng.cdf
+BATdemoengext.tmc : BATdemoeng.cdf
+	$(EDF2EXT) BATdemoeng.cdf
+BATdemoengext.cc : types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc SWData.tmc BATdemoengext.tmc
+	$(TMC) types.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/flttime.tmc base.tmc BAT_SPAN.tmc SWData.tmc BATdemoengext.tmc
+BATdemoengextoui.c : BATdemoengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) BATdemoengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+BATdemoengextoui.o : BATdemoengextoui.c SWData.h
+BATdemoengext.o : BATdemoengext.cc SWData.h
 doit.dep : demo.doit
 	mkdoit3 -M -o doit  demo.doit
 -include doit.dep
@@ -150,4 +165,5 @@ clean : tidy
 .cvsignore : Makefile
 	@for i in $(OBJECT) $(TARGET); do echo "$$i"; done >.cvsignore
 CPPFLAGS += -I ..
-
+BATdemoeng.cdf : genui.txt
+	genui -d eng -c genui.txt
