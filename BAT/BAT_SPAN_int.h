@@ -32,10 +32,11 @@ struct  __attribute__((__packed__)) INSPVASB {
   unsigned long CRC;
 };
 
-extern unsigned long ulong_swap(unsigned char *s);
-extern long long_swap(unsigned char *s);
+extern unsigned long ulong_unpack(unsigned char *s);
+extern long long_unpack(unsigned char *s);
 extern unsigned short ushort_swap(unsigned char *s);
-extern double double_swap(unsigned char *s);
+extern unsigned short ushort_unpack(unsigned char *s);
+extern double double_unpack(unsigned char *s);
 
 class BSDataRecord;
 
@@ -96,6 +97,7 @@ class BSlogger : public Selectee {
 class BSDataRecord {
   public:
     BSDataRecord();
+    ~BSDataRecord();
     void init(Selector &S);
     void BAT_data(unsigned char *data); // could be more precise
     void SPAN_data(unsigned char *data); // could be more precise

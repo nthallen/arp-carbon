@@ -16,7 +16,14 @@ BSDataRecord::BSDataRecord() {
   BSloggerport = 0;
   memset(&BAT_SPAN, 0, sizeof(BAT_SPAN));
   LogEnbl = false;
-};
+}
+
+BSDataRecord::~BSDataRecord() {
+  if (BSloggerport) delete BSloggerport;
+  if (BSTMport) delete BSTMport;
+  if (BScmdport) delete BScmdport;
+  if (SPANport) delete SPANport;
+}
 
 void BSDataRecord::init(Selector &S) {
   SPANport = new SPAN(span_path, this);
@@ -54,20 +61,20 @@ void BSDataRecord::BAT_data(unsigned char *data) {
 void BSDataRecord::SPAN_data(unsigned char *data) {
   if (LogEnbl) BSloggerport->SPAN_data(data);
   // Also send data to TM processing?
-  BAT_SPAN.GPS_week = ushort_swap(&data[6]);
-  BAT_SPAN.GPS_msecs = long_swap(&data[8]);
-  BAT_SPAN.GPS_weekl = ulong_swap(&data[12]);
-  BAT_SPAN.GPS_secs = double_swap(&data[16]);
-  BAT_SPAN.Latitude = double_swap(&data[24]);
-  BAT_SPAN.Longitude = double_swap(&data[32]);
-  BAT_SPAN.Ellipsoidal_Ht = double_swap(&data[40]);
-  BAT_SPAN.N_Velocity = double_swap(&data[48]);
-  BAT_SPAN.E_Velocity = double_swap(&data[56]);
-  BAT_SPAN.Up_Velocity = double_swap(&data[64]);
-  BAT_SPAN.Roll = double_swap(&data[72]);
-  BAT_SPAN.Pitch = double_swap(&data[80]);
-  BAT_SPAN.Azimuth = double_swap(&data[88]);
-  BAT_SPAN.INS_Status = ulong_swap(&data[96]);
+  BAT_SPAN.GPS_week = ushort_unpack(&data[6]);
+  BAT_SPAN.GPS_msecs = long_unpack(&data[8]);
+  BAT_SPAN.GPS_weekl = ulong_unpack(&data[12]);
+  BAT_SPAN.GPS_secs = double_unpack(&data[16]);
+  BAT_SPAN.Latitude = double_unpack(&data[24]);
+  BAT_SPAN.Longitude = double_unpack(&data[32]);
+  BAT_SPAN.Ellipsoidal_Ht = double_unpack(&data[40]);
+  BAT_SPAN.N_Velocity = double_unpack(&data[48]);
+  BAT_SPAN.E_Velocity = double_unpack(&data[56]);
+  BAT_SPAN.Up_Velocity = double_unpack(&data[64]);
+  BAT_SPAN.Roll = double_unpack(&data[72]);
+  BAT_SPAN.Pitch = double_unpack(&data[80]);
+  BAT_SPAN.Azimuth = double_unpack(&data[88]);
+  BAT_SPAN.INS_Status = ulong_unpack(&data[96]);
   ++BAT_SPAN.n_span_records;
 }
 
@@ -89,19 +96,15 @@ SPAN::SPAN( const char *path, BSDataRecord *data_in ) :
   flush_input();
 }
 
-unsigned long ulong_swap(unsigned char *s) {
-  unsigned long sum = s[0];
-  sum = (sum << 8) + s[1];
-  sum = (sum << 8) + s[2];
-  sum = (sum << 8) + s[3];
+unsigned long ulong_unpack(unsigned char *s) {
+  unsigned long sum;
+  memcpy((unsigned char *)&sum, s, 4);
   return sum;
 }
 
-long long_swap(unsigned char *s) {
-  long sum = s[0];
-  sum = (sum << 8) + s[1];
-  sum = (sum << 8) + s[2];
-  sum = (sum << 8) + s[3];
+long long_unpack(unsigned char *s) {
+  long sum;
+  memcpy((unsigned char *)&sum, s, 4);
   return sum;
 }
 
@@ -111,15 +114,14 @@ unsigned short ushort_swap(unsigned char *s) {
   return sum;
 }
 
-double double_swap(unsigned char *s) {
-  unsigned char swapped[8];
+unsigned short ushort_unpack(unsigned char *s) {
+  unsigned short sum = (s[1]<<8) + s[0];
+  return sum;
+}
+
+double double_unpack(unsigned char *s) {
   double sum;
-  int i;
-  
-  for (i = 0; i < 8; ++i) {
-    swapped[i] = s[7-i];
-  }
-  memcpy(&sum, &swapped[0], 8);
+  memcpy((unsigned char*)&sum, s, sizeof(double));
   return sum;
 }
 
@@ -146,14 +148,15 @@ int SPAN::ProcessData(int flag) {
       }
       // Now check the CRC
       crc_calc = CalculateBlockCRC32(100, &buf[start]);
-      crc_rep = ulong_swap(&buf[start+100]);
+      crc_rep = ulong_unpack(&buf[start+100]);
       if (crc_calc == crc_rep) {
         BSData->SPAN_data(&buf[start]);
         report_ok();
+        consume(start+104);
       } else {
-        report_err("CRC Error: calc: %X reported: %X", crc_calc, crc_rep);
+        // report_err("CRC Error: calc: %X reported: %X", crc_calc, crc_rep);
+        consume(start+50);
       }
-      consume(104);
     }
   }
   return 0;
@@ -205,10 +208,11 @@ BSlogger::~BSlogger() {
            ProcessData(Selector::Sel_Write) == 0);
   }
   close(fd);
+  nl_error(0, "Overflow = %lu", overflow);
 }
 
 BSTM::BSTM(BAT_SPAN_t *tmdata_in) :
-      TM_Selectee("BAT_SPAN", tmdata_in, sizeof(BAT_SPAN)) {
+      TM_Selectee("BAT_SPAN", tmdata_in, sizeof(BAT_SPAN_t)) {
   BAT_SPAN = tmdata_in;
 }
 
@@ -246,21 +250,23 @@ int BScmd::ProcessData(int flag) {
 int BSlogger::ProcessData(int flag) {
   if (flag & Selector::Sel_Write) {
     if (head == tail) {
-      flag = 0;
+      flags = 0;
       return 0;
     } else {
       iov_t iov[2];
       int n_iov = 0;
       ssize_t nc;
       if (head < tail) {
-        SETIOV(&iov[0], &BSq[head][offset], (n_records - head)*rec_size + rec_size - offset);
+        SETIOV(&iov[0], &BSq[head][offset],
+          (n_records - head)*rec_size + rec_size - offset);
         n_iov = 1;
         if (tail > 0) {
           SETIOV(&iov[1], &BSq[0][0], tail*rec_size);
           n_iov = 2;
         }
       } else {
-        SETIOV(&iov[0], &BSq[head][offset], (tail - head)*rec_size + rec_size - offset);
+        SETIOV(&iov[0], &BSq[head][offset],
+          (tail - head)*rec_size + rec_size - offset);
         n_iov = 1;
       }
       nc = writev(fd, &iov[0], n_iov);
@@ -301,12 +307,16 @@ void BSlogger::SPAN_data(unsigned char *data) {
 
 void BSlogger::Flush_data() {
   unsigned nexttail = tail+1;
+  flags = Selector::Sel_Write;
   if (BSq[tail][0] == 0 && BSq[tail][SPAN::nb_rec] == 0)
     return;
   if (nexttail >= n_records)
     nexttail = 0;
-  if (nexttail == head)
+  if (nexttail == head) {
     ++overflow;
+  } else {
+    tail = nexttail;
+  }
   memset(&BSq[tail][0], 0, rec_size);
 }
 
