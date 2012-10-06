@@ -12,6 +12,7 @@ TM typedef double CELCIUS;
 TM typedef long GPS_msecs_t { text "%9ld"; }
 TM typedef unsigned long GPS_weekl_t { text "%5ld"; }
 TM typedef unsigned short GPS_week_t { text "%5u"; }
+TM typedef unsigned short max_nc_t { text "%5u"; }
 TM typedef double GPS_secs_t { text "%10.3lf"; }
 TM typedef double GPS_double { text "%10.4lf"; }
 TM typedef signed short BAT_AI { text "%6d"; }
@@ -58,6 +59,7 @@ TM 1 Hz GPS_double Pitch;
 TM 1 Hz GPS_double Azimuth;
 TM 1 Hz UCHAR INS_Status;
 TM 1 Hz UCHAR n_span_records;
+TM 1 Hz max_nc_t max_span_nc;
 TM 1 Hz UCHAR n_bat_records;
 TM 1 Hz BAT_Px_t BAT_Px;
 TM 1 Hz BAT_Py_t BAT_Py;
@@ -78,7 +80,7 @@ Group BAT_SPAN_grp (GPS_msecs, GPS_weekl, GPS_week, GPS_secs, Latitude,
     Longitude, Ellipsoidal_Ht, N_Velocity, E_Velocity, Up_Velocity, Roll,
     Pitch, Azimuth, INS_Status, n_span_records, n_bat_records, BAT_Px,
     BAT_Py, BAT_Pz, BAT_Ps, BAT_Ax, BAT_Ay, BAT_Az, BAT_FUST, BAT_Tbar,
-    BAT_Pump, BAT_Axb, BAT_Ayb, BAT_Azb) {
+    BAT_Pump, BAT_Axb, BAT_Ayb, BAT_Azb, max_span_nc) {
   GPS_msecs = BAT_SPAN.GPS_msecs;
   GPS_weekl = BAT_SPAN.GPS_weekl;
   GPS_week = BAT_SPAN.GPS_week;
@@ -94,6 +96,7 @@ Group BAT_SPAN_grp (GPS_msecs, GPS_weekl, GPS_week, GPS_secs, Latitude,
   Azimuth = BAT_SPAN.Azimuth;
   INS_Status = BAT_SPAN.INS_Status;
   n_span_records = BAT_SPAN.n_span_records;
+  max_span_nc = BAT_SPAN.max_span_nc;
   n_bat_records = BAT_SPAN.n_bat_records;
   BAT_Px = BAT_SPAN.BAT_Px;
   BAT_Py = BAT_SPAN.BAT_Py;

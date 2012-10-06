@@ -14,6 +14,7 @@ SPAN {
   Pitch: (Pitch,10) deg;
   Azimuth: (Azimuth,10) deg;
   INS_Status: (INS_Status,3);
+  nc: (max_span_nc,5);
   N: (n_span_records,3);
 }
 
