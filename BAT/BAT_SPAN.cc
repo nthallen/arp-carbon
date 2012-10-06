@@ -193,24 +193,6 @@ unsigned long SPAN::CalculateBlockCRC32( unsigned long ulCount,
   return( ulCRC );
 }
 
-BSlogger::BSlogger() : Selectee() {
-  fd = open("BSdata.log", O_WRONLY | O_CREAT | O_NONBLOCK, 0664);
-  if (fd == -1) nl_error(3, "Unable to write to BSdata.log");
-  flags = 0;
-  head = tail = offset = 0;
-  overflow = 0;
-}
-
-BSlogger::~BSlogger() {
-  if (flags) {
-    fcntl(fd, F_SETFL, 0); // remove O_NONBLOCK
-    while (flags != 0 &&
-           ProcessData(Selector::Sel_Write) == 0);
-  }
-  close(fd);
-  nl_error(0, "Overflow = %lu", overflow);
-}
-
 BSTM::BSTM(BAT_SPAN_t *tmdata_in) :
       TM_Selectee("BAT_SPAN", tmdata_in, sizeof(BAT_SPAN_t)) {
   BAT_SPAN = tmdata_in;
@@ -247,6 +229,24 @@ int BScmd::ProcessData(int flag) {
   return 0;
 }
 
+BSlogger::BSlogger() : Selectee() {
+  fd = open("BSdata.log", O_WRONLY | O_CREAT | O_NONBLOCK, 0664);
+  if (fd == -1) nl_error(3, "Unable to write to BSdata.log");
+  flags = 0;
+  head = tail = offset = 0;
+  overflow = 0;
+}
+
+BSlogger::~BSlogger() {
+  if (flags) {
+    fcntl(fd, F_SETFL, 0); // remove O_NONBLOCK
+    while (flags != 0 &&
+           ProcessData(Selector::Sel_Write) == 0);
+  }
+  close(fd);
+  nl_error(0, "Overflow = %lu", overflow);
+}
+
 int BSlogger::ProcessData(int flag) {
   if (flag & Selector::Sel_Write) {
     if (head == tail) {
@@ -256,9 +256,9 @@ int BSlogger::ProcessData(int flag) {
       iov_t iov[2];
       int n_iov = 0;
       ssize_t nc;
-      if (head < tail) {
+      if (head > tail) {
         SETIOV(&iov[0], &BSq[head][offset],
-          (n_records - head)*rec_size + rec_size - offset);
+          (n_records - head)*rec_size - offset);
         n_iov = 1;
         if (tail > 0) {
           SETIOV(&iov[1], &BSq[0][0], tail*rec_size);
@@ -266,7 +266,7 @@ int BSlogger::ProcessData(int flag) {
         }
       } else {
         SETIOV(&iov[0], &BSq[head][offset],
-          (tail - head)*rec_size + rec_size - offset);
+          (tail - head)*rec_size - offset);
         n_iov = 1;
       }
       nc = writev(fd, &iov[0], n_iov);
