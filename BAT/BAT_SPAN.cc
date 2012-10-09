@@ -7,6 +7,7 @@
 
 const char *bat_path = "/dev/ser4";
 const char *span_path = "/dev/ser3";
+const char *mlf_config;
 
 BSDataRecord::BSDataRecord() {
   SPANport = 0;
@@ -221,8 +222,19 @@ int BScmd::ProcessData(int flag) {
 }
 
 BSlogger::BSlogger() : Selectee() {
-  fd = open("BSdata.log", O_WRONLY | O_CREAT | O_NONBLOCK, 0664);
-  if (fd == -1) nl_error(3, "Unable to write to BSdata.log");
+  // fd = open("BSdata.log", O_WRONLY | O_CREAT | O_NONBLOCK, 0664);
+  // if (fd == -1) nl_error(3, "Unable to write to BSdata.log");
+  
+  /* Note: when building the commandline here, I should really pass
+     all of the msg options on to BSlogger. I am assuming I won't
+     actually need any, so I can get away without. */
+  char cmd[160];
+  if (mlf_config)
+    snprintf(cmd, 159, "BSlogger -N %s", mlf_config);
+  else snprintf(cmd, 159, "BSlogger");
+  fp = popen(cmd, "w");
+  if (fp == NULL) nl_error(3, "Unable to open pipe to BSlogger");
+  fd = fileno(fp);
   flags = 0;
   head = tail = offset = 0;
   overflow = 0;
@@ -234,7 +246,8 @@ BSlogger::~BSlogger() {
     while (flags != 0 &&
            ProcessData(Selector::Sel_Write) == 0);
   }
-  close(fd);
+  // close(fd);
+  fclose(fp);
   nl_error(0, "Overflow = %lu", overflow);
 }
 

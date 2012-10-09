@@ -5,7 +5,7 @@ CXXFLAGS= -Wall -g
 LIBS=-ltmpp -ltm -lnort
 
 .PHONY : all clean
-all : BAT_SPAN
+all : BAT_SPAN BSlogger
 
 BSOBJ = BAT_SPAN.o BAT_SPANoui.o
 BAT_SPAN : $(BSOBJ)
@@ -14,5 +14,12 @@ BAT_SPAN : $(BSOBJ)
 BAT_SPANoui.c : BAT_SPAN.oui
 	oui -o BAT_SPANoui.c BAT_SPAN.oui
 
+BSLOBJ = BSlogger.o BSloggeroui.o
+BSlogger : $(BSLOBJ)
+	$(LINK.cc) -o BSlogger $(BSLOBJ) $(LIBS)
+	usemsg BSlogger BSloggeroui.c
+BSloggeroui.c : BSlogger.oui
+	out -o BSloggeroui.c BSlogger.oui
+
 clean :
-	rm -f *.o BAT_SPANoui.c BAT_SPAN
+	rm -f *.o BAT_SPANoui.c BAT_SPAN BSloggeroui.c BSlogger

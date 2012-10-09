@@ -1,0 +1,18 @@
+<package> BSlogger
+<include> msg
+<follow> msg
+<include> <stdlib.h>
+<include> "BAT_SPAN_int.h"
+
+<opts> "N:"
+<sort>
+	-N <mlf config string>
+
+<switch>
+  case 'N':
+    mlf_config = optarg;
+    break;
+
+<package> msghdr_init
+<init>
+  msg_hdr_default = "BSL";

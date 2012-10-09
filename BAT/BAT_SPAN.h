@@ -1,8 +1,6 @@
 #ifndef BAT_SPAN_H_INCLUDED
 #define BAT_SPAN_H_INCLUDED
 // Defines structure of shared data
-extern const char *bat_path;
-extern const char *span_path;
 
 typedef struct __attribute__((__packed__)) {
   long GPS_msecs;

@@ -2,12 +2,13 @@
 <include> msg
 <follow> msg
 <include> <stdlib.h>
-<include> "BAT_SPAN.h"
+<include> "BAT_SPAN_int.h"
 
 <opts> "B:S:"
 <sort>
 	-B <serial device> Serial port for BAT probe
 	-S <serial device> Serial port for SPAN
+  -N <mlf config>
 
 <switch>
   case 'B':
@@ -15,6 +16,9 @@
     break;
   case 'S':
     span_path = optarg;
+    break;
+  case 'N':
+    mlf_config = optarg;
     break;
 
 <package> msghdr_init

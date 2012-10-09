@@ -4,6 +4,10 @@
 #include <termios.h>
 #include "BAT_SPAN.h"
 
+extern const char *bat_path;
+extern const char *span_path;
+extern const char *mlf_config; // Initialization string for BSlogger utility
+
 #ifdef __cplusplus
 
 #include "SerSelector.h"
@@ -90,9 +94,10 @@ class BSlogger : public Selectee {
     void BAT_data(unsigned char *data); // could be more precise
     void SPAN_data(unsigned char *data);
     void Flush_data();
+    static const unsigned int rec_size = SPAN::nb_rec + BAT::nb_rec;
   private:
     static const unsigned int n_records = 100;
-    static const unsigned int rec_size = SPAN::nb_rec + BAT::nb_rec;
+    FILE *fp;
     unsigned char BSq[n_records][rec_size];
     unsigned head, tail, offset;
     unsigned long overflow;
