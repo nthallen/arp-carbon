@@ -1,0 +1,8 @@
+HEADER Harvard Carbon Isotopes SPAN Demo
+MNEMONIC BATdemo
+HOMEDIR BAT_Data_Dir
+ROWS 25
+ 1 max_span_nc SPAN NC
+ 1 n_span_records SPAN N
+ 1 CPU_Pct SPAN CPU
+ 1 SWStat SPAN SWStat

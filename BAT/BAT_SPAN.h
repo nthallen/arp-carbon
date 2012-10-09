@@ -34,6 +34,7 @@ typedef struct __attribute__((__packed__)) {
   unsigned char INS_Status;
   unsigned char n_span_records;
   unsigned char n_bat_records;
+  unsigned short max_span_nc;
 } BAT_SPAN_t;
 
 #endif

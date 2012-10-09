@@ -58,7 +58,7 @@ void BSDataRecord::BAT_data(unsigned char *data) {
 }
 
 
-void BSDataRecord::SPAN_data(unsigned char *data) {
+void BSDataRecord::SPAN_data(unsigned char *data, unsigned max_nc) {
   if (LogEnbl) BSloggerport->SPAN_data(data);
   // Also send data to TM processing?
   BAT_SPAN.GPS_week = ushort_unpack(&data[6]);
@@ -75,6 +75,8 @@ void BSDataRecord::SPAN_data(unsigned char *data) {
   BAT_SPAN.Pitch = double_unpack(&data[80]);
   BAT_SPAN.Azimuth = double_unpack(&data[88]);
   BAT_SPAN.INS_Status = ulong_unpack(&data[96]);
+  if (max_nc > BAT_SPAN.max_span_nc)
+    BAT_SPAN.max_span_nc = max_nc;
   ++BAT_SPAN.n_span_records;
 }
 
@@ -90,73 +92,61 @@ void BSDataRecord::Logging(bool on) {
 }
 
 SPAN::SPAN( const char *path, BSDataRecord *data_in ) :
-    Ser_Sel(path, O_RDONLY | O_NONBLOCK, 209) {
+    Ser_Sel(path, O_RDONLY | O_NONBLOCK, 10240) {
   BSData = data_in;
   setup (115200, 8, 'n', 1, 104, 0);
+  if (tcgetattr(fd, &termios_m)) {
+    nl_error(2, "Error from tcgetattr: %s", strerror(errno));
+  }
+  max_nc = 0;
   flush_input();
 }
 
-unsigned long ulong_unpack(unsigned char *s) {
-  unsigned long sum;
-  memcpy((unsigned char *)&sum, s, 4);
-  return sum;
-}
-
-long long_unpack(unsigned char *s) {
-  long sum;
-  memcpy((unsigned char *)&sum, s, 4);
-  return sum;
-}
-
-unsigned short ushort_swap(unsigned char *s) {
-  unsigned short sum = s[0];
-  sum = (sum << 8) + s[1];
-  return sum;
-}
-
-unsigned short ushort_unpack(unsigned char *s) {
-  unsigned short sum = (s[1]<<8) + s[0];
-  return sum;
-}
-
-double double_unpack(unsigned char *s) {
-  double sum;
-  memcpy((unsigned char*)&sum, s, sizeof(double));
-  return sum;
+SPAN::~SPAN() {
+  nl_error(0, "SPAN: max_nc = %u", max_nc);
 }
 
 int SPAN::ProcessData(int flag) {
+  unsigned min;
   if (flag & Selector::Sel_Read) {
     int start;
     if (fillbuf()) return 1;
+    if (nc > max_nc) max_nc = nc;
     cp = 0;
     while (cp < nc) {
       unsigned long crc_calc, crc_rep;
       
-      if (not_found('\xAA')) return 0;
+      if (not_found('\xAA')) break;
       start = cp-1;
       if (not_str("\x44\x13\x58\xFC\x01", 5)) {
         if (cp == nc) {
           consume(start);
-          return 0;
+          break;
         } else continue;
       }
       // cp is now positioned past first 6 chars
       if (cp + 104 - 6 > nc ) {
         consume(start);
-        return 0;
+        break;
       }
       // Now check the CRC
       crc_calc = CalculateBlockCRC32(100, &buf[start]);
       crc_rep = ulong_unpack(&buf[start+100]);
       if (crc_calc == crc_rep) {
-        BSData->SPAN_data(&buf[start]);
+        BSData->SPAN_data(&buf[start], nc);
         report_ok();
         consume(start+104);
       } else {
         // report_err("CRC Error: calc: %X reported: %X", crc_calc, crc_rep);
         consume(start+50);
       }
+    }
+  }
+  min = nb_rec - nc;
+  if (min != termios_m.c_cc[VMIN]) {
+    termios_m.c_cc[VMIN] = min;
+    if (tcsetattr(fd, TCSANOW, &termios_m)) {
+      nl_error(2, "Error from tcsetattr: %s", strerror(errno));
     }
   }
   return 0;
@@ -201,6 +191,7 @@ BSTM::BSTM(BAT_SPAN_t *tmdata_in) :
 int BSTM::ProcessData(int flag) {
   Col_send(TMid);
   BAT_SPAN->n_span_records = 0;
+  BAT_SPAN->max_span_nc = 0;
   BAT_SPAN->n_bat_records = 0;
   return 0;
 }
@@ -318,6 +309,35 @@ void BSlogger::Flush_data() {
     tail = nexttail;
   }
   memset(&BSq[tail][0], 0, rec_size);
+}
+
+unsigned long ulong_unpack(unsigned char *s) {
+  unsigned long sum;
+  memcpy((unsigned char *)&sum, s, 4);
+  return sum;
+}
+
+long long_unpack(unsigned char *s) {
+  long sum;
+  memcpy((unsigned char *)&sum, s, 4);
+  return sum;
+}
+
+unsigned short ushort_swap(unsigned char *s) {
+  unsigned short sum = s[0];
+  sum = (sum << 8) + s[1];
+  return sum;
+}
+
+unsigned short ushort_unpack(unsigned char *s) {
+  unsigned short sum = (s[1]<<8) + s[0];
+  return sum;
+}
+
+double double_unpack(unsigned char *s) {
+  double sum;
+  memcpy((unsigned char*)&sum, s, sizeof(double));
+  return sum;
 }
 
 int main(int argc, char **argv) {

@@ -1,6 +1,7 @@
 #ifndef BAT_SPAN_INT_H_INCLUDED
 #define BAT_SPAN_INT_H_INCLUDED
 
+#include <termios.h>
 #include "BAT_SPAN.h"
 
 #ifdef __cplusplus
@@ -52,6 +53,7 @@ class BAT : public Ser_Sel {
 class SPAN : public Ser_Sel {
   public:
     SPAN( const char *path, BSDataRecord *data_in );
+    ~SPAN();
     int ProcessData(int flag);
     static const int nb_rec = 104;
   private:
@@ -59,7 +61,9 @@ class SPAN : public Ser_Sel {
     unsigned long CRC32Value(int i);
     unsigned long CalculateBlockCRC32( unsigned long ulCount,
         unsigned char *ucBuffer );
+    unsigned short max_nc;
     BSDataRecord *BSData;
+    termios termios_m;
 };
 
 class BScmd : public Ser_Sel {
@@ -84,7 +88,7 @@ class BSlogger : public Selectee {
     ~BSlogger();
     int ProcessData(int flag);
     void BAT_data(unsigned char *data); // could be more precise
-    void SPAN_data(unsigned char *data); // could be more precise
+    void SPAN_data(unsigned char *data);
     void Flush_data();
   private:
     static const unsigned int n_records = 100;
@@ -100,7 +104,7 @@ class BSDataRecord {
     ~BSDataRecord();
     void init(Selector &S);
     void BAT_data(unsigned char *data); // could be more precise
-    void SPAN_data(unsigned char *data); // could be more precise
+    void SPAN_data(unsigned char *data, unsigned max_nc);
     void Flush_data();
     void Logging(bool on);
   private:
