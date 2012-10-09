@@ -37,10 +37,24 @@ ICOS Waveform QCLI_M_ConstantI {
   dI/dt = 0 A/sec;
 }
 
-Ringdown Waveform M3Df_ring750 {
+Ringdown Waveform M3Df_r50 {
   SampleRate = 25 MHz;
   Toff = 400 usec;
   Ton = 400 usec;
+  Tpre = 2 usec;
+  I = 750 mA;
+}
+Ringdown Waveform M3Df_r10 {
+  SampleRate = 25 MHz;
+  Toff = 72 usec;
+  Ton = 8 usec;
+  Tpre = 2 usec;
+  I = 750 mA;
+}
+Ringdown Waveform M3Df_r1 {
+  SampleRate = 25 MHz;
+  Toff = 100 usec;
+  Ton = 1 usec;
   Tpre = 2 usec;
   I = 750 mA;
 }
