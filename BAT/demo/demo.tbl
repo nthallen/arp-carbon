@@ -18,6 +18,27 @@ SPAN {
   N: (n_span_records,3);
 }
 
+BP {
+  IdleTime: (SPAN_IdleTime,5);
+  TimeStatus: (SPAN_TimeStatus,3);
+  BP_Week: (BP_Week,5);
+  BP_msecs: (BP_msecs,9);
+  Rxvr_Stat: (GPS_Rxvr_Status,8);
+  SolnStat: (SolnStatus,3);
+  PosType: (PosType,3);
+  DatumID: (BP_DatumID,3);
+  BP_Lat: (BP_Lat,10);
+  BP_Lon: (BP_Lon,10);
+  BP_Ht: (BP_Ht,10);
+  BP_undulation: (BP_undulation,9);
+  BP_LatStd: (BP_LatStd,9);
+  BP_LonStd: (BP_LonStd,9);
+  BP_HtStd: (BP_HtStd,9);
+  BP_DiffAge: (BP_DiffAge,9);
+  BP_SolAge: (BP_SolAge,9);
+  N: (n_bp_records,3);
+}
+
 BAT {
   HBox { +-; Title: BAT; -+ };
   Px: (BAT_Px,7) mbar;

@@ -9,26 +9,33 @@ TM typedef double M_S2;
 TM typedef double uVOLTS;
 TM typedef double mVOLTS;
 TM typedef double CELCIUS;
+TM typedef double PERCENT;
 TM typedef long GPS_msecs_t { text "%9ld"; }
 TM typedef unsigned long GPS_weekl_t { text "%5ld"; }
 TM typedef unsigned short GPS_week_t { text "%5u"; }
 TM typedef unsigned short max_nc_t { text "%5u"; }
 TM typedef double GPS_secs_t { text "%10.3lf"; }
 TM typedef double GPS_double { text "%10.4lf"; }
+TM typedef float GPS_float { text "%9.3lf"; }
 TM typedef signed short BAT_AI { text "%6d"; }
-TM typedef BAT_AI BAT_Px_t { text "%7.3lf"; }
-TM typedef BAT_AI BAT_Py_t { text "%7.3lf"; }
-TM typedef BAT_AI BAT_Pz_t { text "%7.3lf"; }
-TM typedef BAT_AI BAT_Ps_t { text "%7.2lf"; }
-TM typedef BAT_AI BAT_Ax_t { text "%7.3lf"; }
-TM typedef BAT_AI BAT_Ay_t { text "%7.3lf"; }
-TM typedef BAT_AI BAT_Az_t { text "%7.3lf"; }
-TM typedef BAT_AI BAT_FUST_t { text "%7.2lf"; }
-TM typedef BAT_AI BAT_Tbar_t { text "%7.3lf"; }
-TM typedef BAT_AI BAT_Pump_t { text "%7.1lf"; }
-TM typedef BAT_AI BAT_Axb_t { text "%7.3lf"; }
-TM typedef BAT_AI BAT_Ayb_t { text "%7.3lf"; }
-TM typedef BAT_AI BAT_Azb_t { text "%7.3lf"; }
+TM typedef BAT_AI BAT_Px_t { text "%7.3lf"; Convert MBAR; }
+TM typedef BAT_AI BAT_Py_t { text "%7.3lf"; Convert MBAR;  }
+TM typedef BAT_AI BAT_Pz_t { text "%7.3lf";  Convert MBAR; }
+TM typedef BAT_AI BAT_Ps_t { text "%7.2lf"; Convert MBAR;  }
+TM typedef BAT_AI BAT_Ax_t { text "%7.3lf"; Convert M_S2; }
+TM typedef BAT_AI BAT_Ay_t { text "%7.3lf"; Convert M_S2;  }
+TM typedef BAT_AI BAT_Az_t { text "%7.3lf"; Convert M_S2;  }
+TM typedef BAT_AI BAT_FUST_t { text "%7.2lf"; Convert uVOLTS; }
+TM typedef BAT_AI BAT_Tbar_t { text "%7.3lf"; Convert CELCIUS;}
+TM typedef BAT_AI BAT_Pump_t { text "%7.1lf"; Convert mVOLTS; }
+TM typedef BAT_AI BAT_Axb_t { text "%7.3lf"; Convert M_S2; }
+TM typedef BAT_AI BAT_Ayb_t { text "%7.3lf"; Convert M_S2; }
+TM typedef BAT_AI BAT_Azb_t { text "%7.3lf"; Convert M_S2; }
+TM typedef unsigned char BP_Idle_t { text "%5.1lf"; Convert PERCENT; }
+TM typedef unsigned long GPS_Rxvr_Status_t { text "%08lX"; }
+TM typedef unsigned long SolnStatus_t { text "%3lu"; }
+TM typedef unsigned long PosType_t { text "%3lu"; }
+TM typedef unsigned long BP_DatumID_t { text "%3lu"; }
 
 Calibration ( BAT_Px_t, MBAR) { -32768, -0.27876, 32767, 23.84995 }
 Calibration ( BAT_Py_t, MBAR) { -32768, -17.56082, 32767, 17.66867 }
@@ -43,6 +50,7 @@ Calibration ( BAT_Pump_t, mVOLTS) { -32768, -4999.15327, 32767, 5001.55327 }
 Calibration ( BAT_Axb_t, M_S2) { -32768, -18.36088, 32767, 18.28451 }
 Calibration ( BAT_Ayb_t, M_S2) { -32768, 18.78692, 32767, -18.93704 }
 Calibration ( BAT_Azb_t, M_S2) { -32768, -9.11474, 32767, 28.98142 }
+Calibration ( BP_Idle_t, PERCENT) { 0, 0, 200, 100 }
 
 TM 1 HZ GPS_msecs_t GPS_msecs; /* msecs since start of week */
 TM 1 Hz GPS_weekl_t GPS_weekl; /* Weeks since 0h Jan 6, 1980 UTC */
@@ -75,12 +83,35 @@ TM 1 Hz BAT_Axb_t BAT_Axb;
 TM 1 Hz BAT_Ayb_t BAT_Ayb;
 TM 1 Hz BAT_Azb_t BAT_Azb;
 TM 1 Hz UCHAR BSstale;
+TM 1 Hz BP_Idle_t SPAN_IdleTime;
+TM 1 Hz UCHAR SPAN_TimeStatus; /* Could be may textual */
+TM 1 Hz GPS_weekl_t BP_Week;
+TM 1 HZ GPS_msecs_t BP_msecs;
+TM 1 Hz GPS_Rxvr_Status_t GPS_Rxvr_Status;
+TM 1 Hz SolnStatus_t SolnStatus;
+TM 1 Hz PosType_t PosType;
+TM 1 Hz BP_DatumID_t BP_DatumID;
+TM 1 Hz GPS_double BP_Lat;
+TM 1 Hz GPS_double BP_Lon;
+TM 1 Hz GPS_double BP_Ht;
+TM 1 Hz GPS_float BP_undulation;
+TM 1 Hz GPS_float BP_LatStd;
+TM 1 Hz GPS_float BP_LonStd;
+TM 1 Hz GPS_float BP_HtStd;
+TM 1 Hz GPS_float BP_DiffAge;
+TM 1 Hz GPS_float BP_SolAge;
+TM 1 Hz UCHAR n_bp_records;
+
 
 Group BAT_SPAN_grp (GPS_msecs, GPS_weekl, GPS_week, GPS_secs, Latitude,
     Longitude, Ellipsoidal_Ht, N_Velocity, E_Velocity, Up_Velocity, Roll,
     Pitch, Azimuth, INS_Status, n_span_records, n_bat_records, BAT_Px,
     BAT_Py, BAT_Pz, BAT_Ps, BAT_Ax, BAT_Ay, BAT_Az, BAT_FUST, BAT_Tbar,
-    BAT_Pump, BAT_Axb, BAT_Ayb, BAT_Azb, max_span_nc) {
+    BAT_Pump, BAT_Axb, BAT_Ayb, BAT_Azb, max_span_nc,
+    SPAN_IdleTime, SPAN_TimeStatus, BP_Week, BP_msecs, GPS_Rxvr_Status,
+    SolnStatus, PosType, BP_DatumID, BP_Lat, BP_Lon, BP_Ht,
+    BP_undulation, BP_LatStd, BP_LonStd, BP_HtStd, BP_DiffAge,
+    BP_SolAge, n_bp_records) {
   GPS_msecs = BAT_SPAN.GPS_msecs;
   GPS_weekl = BAT_SPAN.GPS_weekl;
   GPS_week = BAT_SPAN.GPS_week;
@@ -98,6 +129,24 @@ Group BAT_SPAN_grp (GPS_msecs, GPS_weekl, GPS_week, GPS_secs, Latitude,
   n_span_records = BAT_SPAN.n_span_records;
   max_span_nc = BAT_SPAN.max_span_nc;
   n_bat_records = BAT_SPAN.n_bat_records;
+  SPAN_IdleTime = BAT_SPAN.SPAN_IdleTime;
+  SPAN_TimeStatus = BAT_SPAN.SPAN_TimeStatus;
+  BP_Week = BAT_SPAN.BP_Week;
+  BP_msecs = BAT_SPAN.BP_msecs;
+  GPS_Rxvr_Status = BAT_SPAN.GPS_Rxvr_Status;
+  SolnStatus = BAT_SPAN.SolnStatus;
+  PosType = BAT_SPAN.PosType;
+  BP_DatumID = BAT_SPAN.BP_DatumID;
+  BP_Lat = BAT_SPAN.BP_Lat;
+  BP_Lon = BAT_SPAN.BP_Lon;
+  BP_Ht = BAT_SPAN.BP_Ht;
+  BP_undulation = BAT_SPAN.BP_undulation;
+  BP_LatStd = BAT_SPAN.BP_LatStd;
+  BP_LonStd = BAT_SPAN.BP_LonStd;
+  BP_HtStd = BAT_SPAN.BP_HtStd;
+  BP_DiffAge = BAT_SPAN.BP_DiffAge;
+  BP_SolAge = BAT_SPAN.BP_SolAge;
+  n_bp_records = BAT_SPAN.n_bp_records;
   BAT_Px = BAT_SPAN.BAT_Px;
   BAT_Py = BAT_SPAN.BAT_Py;
   BAT_Pz = BAT_SPAN.BAT_Pz;
