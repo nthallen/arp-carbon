@@ -232,6 +232,7 @@ BSlogger::BSlogger() : Selectee() {
   if (mlf_config)
     snprintf(cmd, 159, "BSlogger -N %s", mlf_config);
   else snprintf(cmd, 159, "BSlogger");
+  nl_error(0, "Command is '%s'", cmd);
   fp = popen(cmd, "w");
   if (fp == NULL) nl_error(3, "Unable to open pipe to BSlogger");
   fd = fileno(fp);

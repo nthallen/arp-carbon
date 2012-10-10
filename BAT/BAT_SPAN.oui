@@ -4,11 +4,11 @@
 <include> <stdlib.h>
 <include> "BAT_SPAN_int.h"
 
-<opts> "B:S:"
+<opts> "B:S:N:"
 <sort>
 	-B <serial device> Serial port for BAT probe
 	-S <serial device> Serial port for SPAN
-  -N <mlf config>
+	-N <mlf config>
 
 <switch>
   case 'B':

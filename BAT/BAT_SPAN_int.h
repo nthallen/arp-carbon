@@ -2,6 +2,7 @@
 #define BAT_SPAN_INT_H_INCLUDED
 
 #include <termios.h>
+#include <stdio.h>
 #include "BAT_SPAN.h"
 
 extern const char *bat_path;

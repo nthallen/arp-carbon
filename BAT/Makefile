@@ -19,7 +19,7 @@ BSlogger : $(BSLOBJ)
 	$(LINK.cc) -o BSlogger $(BSLOBJ) $(LIBS)
 	usemsg BSlogger BSloggeroui.c
 BSloggeroui.c : BSlogger.oui
-	out -o BSloggeroui.c BSlogger.oui
+	oui -o BSloggeroui.c BSlogger.oui
 
 clean :
 	rm -f *.o BAT_SPANoui.c BAT_SPAN BSloggeroui.c BSlogger

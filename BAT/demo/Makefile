@@ -1,4 +1,4 @@
-# Makefile Generated Sat Oct 06 15:59:50 EDT 2012
+# Makefile Generated Tue Oct 09 15:55:45 EDT 2012
 MNC=demo
 SPECFILE=demo.spec
 SRC=types.tmc base.tmc BAT_SPAN.tmc SWData.tmc SWData.h demo.tbl
@@ -18,7 +18,7 @@ OBJ+=democltncoui.o demosrvr.o demosrvroui.c demosrvroui.o democol.cc
 OBJ+=demo.pcm tm.dac democoloui.c democoloui.o democol.o
 TGT=demodisp demodispnc demoalgo BATdemoengext doit democlt
 TGT+=democltnc demosrvr democol
-DISTRIB=../BAT_SPAN demo.pcm tm.dac
+DISTRIB=../BAT_SPAN ../BSlogger demo.pcm tm.dac
 IDISTRIB=Experiment.config VERSION doit
 SRCDIST=demo.tbl demo.tma types.tmc /usr/local/share/huarp/tmdf.tmc
 SRCDIST+=/usr/local/share/huarp/cpu_usage.tmc
