@@ -19,6 +19,7 @@ SPAN {
 }
 
 BP {
+  HBox { +-; Title: BESTPOS; -+ };
   IdleTime: (SPAN_IdleTime,5);
   TimeStatus: (SPAN_TimeStatus,3);
   BP_Week: (BP_Week,5);
@@ -72,7 +73,7 @@ Status {
   MFCtr: (MFCtr,5);
 }
 
-{ HBox { |; [SPAN]; |; [BAT]; |; {
+{ HBox { |; [SPAN]; |; [BP]; |; [BAT]; |; {
           [PC];
           [Status]
          }; | }
