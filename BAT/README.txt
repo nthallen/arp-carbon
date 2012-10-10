@@ -34,6 +34,48 @@ SPAN Data Packet: INSPVASB Short Binary 50 Hz
    
   CRC is calculated on bytes 0-100.
 
+SPAN Long Header Data (for BESTPOSB Message)
+    0: xAA
+    1: x44
+    2: x12 (long header)
+    3: x1C Header Length (presumably x1C, 28 bytes)
+    4: x2A UShort, Msg ID, 42 for BESTPOS x2A
+    6: UCHAR Message type 0x80 == Response, maybe 0x00 (maybe report on first message?)
+    7: UCHAR Port address (probably useless)
+    8: USHORT Message length (not including header or CRC 72 = x48)
+   10: USHORT Sequence (probably 0)
+   12: UCHAR Idle Time (0-200 = 0-100%)
+   13: UCHAR Time Status
+   14: USHORT GPS_Week
+   16: ULONG GPS_msec
+   20: ULONG Rxvr_Status
+   24: USHORT Reserved
+   26: USHORT Rxvr_SW_Ver (report on first message)
+  
+BETSPOSB Message
+    0: ULONG SolnStatus
+    4: ULONG PosType
+    8: double BP_Lat
+   16: double BP_Lon
+   24: double BP_Ht (above MSL)
+   32: float BP_undulation
+   36: ULONG BP_DatumID
+   40: float BP_LatStd
+   44: float BP_LonStd
+   48: float BP_HtStd
+   52: char[4] StnID (probably ignore)
+   56: float BP_DiffAge
+   60: float BP_SolAge
+   64: UCHAR NSVs
+   65: UCHAR NSVsSol
+   66: UCHAR NGGL1
+   67: UCHAR NGGL1L2
+   68: reserved
+   69: UCHAR ExtSolnStatus
+   70: reserved
+   71: UCHAR SigMask
+   72: ULONG CRC
+  
 BAT Connection: RS422?
 BAT Data Packet: 50 Hz, 35 bytes
      0: 0xF8

@@ -81,6 +81,33 @@ void BSDataRecord::SPAN_data(unsigned char *data, unsigned max_nc) {
   ++BAT_SPAN.n_span_records;
 }
 
+void BSDataRecord::BP_data(unsigned char *data) {
+  static bool reported = false;
+  BAT_SPAN.SPAN_IdleTime = data[12];
+  BAT_SPAN.SPAN_TimeStatus = data[13];
+  BAT_SPAN.BP_Week = ushort_unpack(&data[14]);
+  BAT_SPAN.BP_msecs = ulong_unpack(&data[16]);
+  BAT_SPAN.GPS_Rxvr_Status = ulong_unpack(&data[20]);
+  BAT_SPAN.SolnStatus = ulong_unpack(&data[28+0]);
+  BAT_SPAN.PosType = ulong_unpack(&data[28+4]);
+  BAT_SPAN.BP_Lat = double_unpack(&data[28+8]);
+  BAT_SPAN.BP_Lon = double_unpack(&data[28+16]);
+  BAT_SPAN.BP_Ht = double_unpack(&data[28+24]);
+  BAT_SPAN.BP_undulation = float_unpack(&data[28+32]);
+  BAT_SPAN.BP_DatumID = ulong_unpack(&data[28+36]);
+  BAT_SPAN.BP_LatStd = float_unpack(&data[28+40]);
+  BAT_SPAN.BP_LonStd = float_unpack(&data[28+44]);
+  BAT_SPAN.BP_HtStd = float_unpack(&data[28+48]);
+  BAT_SPAN.BP_DiffAge = float_unpack(&data[28+56]);
+  BAT_SPAN.BP_SolAge = float_unpack(&data[28+60]);
+  BAT_SPAN.NSVs = data[28+64];
+  BAT_SPAN.NSVsSol = data[28+65];
+  BAT_SPAN.NGGL1 = data[28+66];
+  BAT_SPAN.NGGL1L2 = data[28+67];
+  BAT_SPAN.ExtSolnStatus = data[28+69];
+  BAT_SPAN.SigMask = data[28+71];
+  ++BAT_SPAN.n_bp_records;
+}
 
 void BSDataRecord::Flush_data() {
   if (LogEnbl) BSloggerport->Flush_data();
@@ -119,14 +146,16 @@ int SPAN::ProcessData(int flag) {
       
       if (not_found('\xAA')) break;
       start = cp-1;
-      if (not_str("\x44\x13\x58\xFC\x01", 5)) {
+      if (not_str("\x44", 1)) {
         if (cp == nc) {
           consume(start);
           break;
         } else continue;
       }
-      // cp is now positioned past first 6 chars
-      if (cp + 104 - 6 > nc ) {
+      // cp is now positioned past first 2 chars
+      // coincidentally, the two messages we are interested in have the
+      // exact same length
+      if (cp + 104 - 2 > nc ) {
         consume(start);
         break;
       }
@@ -134,8 +163,15 @@ int SPAN::ProcessData(int flag) {
       crc_calc = CalculateBlockCRC32(100, &buf[start]);
       crc_rep = ulong_unpack(&buf[start+100]);
       if (crc_calc == crc_rep) {
-        BSData->SPAN_data(&buf[start], nc);
-        report_ok();
+        if (buf[cp] == 0x13 && buf[cp+1] == 0x58 &&
+            buf[cp+2] == 0xFC && buf[cp+3] == 0x01) {
+          BSData->SPAN_data(&buf[start], nc);
+          report_ok();
+        } else if (buf[cp] == 0x12 && buf[cp+1] == 0x1C &&
+            buf[cp+2] == 0x2A) {
+          BSData->BP_data(&buf[start]);
+          report_ok();
+        }
         consume(start+104);
       } else {
         // report_err("CRC Error: calc: %X reported: %X", crc_calc, crc_rep);

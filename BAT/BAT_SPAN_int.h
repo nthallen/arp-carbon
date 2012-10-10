@@ -111,6 +111,7 @@ class BSDataRecord {
     void init(Selector &S);
     void BAT_data(unsigned char *data); // could be more precise
     void SPAN_data(unsigned char *data, unsigned max_nc);
+    void BP_data(unsigned char *data);
     void Flush_data();
     void Logging(bool on);
   private:
