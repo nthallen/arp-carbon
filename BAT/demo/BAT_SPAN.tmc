@@ -99,7 +99,14 @@ TM 1 Hz GPS_float BP_LonStd;
 TM 1 Hz GPS_float BP_HtStd;
 TM 1 Hz GPS_float BP_DiffAge;
 TM 1 Hz GPS_float BP_SolAge;
+TM 1 Hz UCHAR NSVs;
+TM 1 Hz UCHAR NSVsSol;
+TM 1 Hz UCHAR NGGL1;
+TM 1 Hz UCHAR NGGL1L2;
+TM 1 Hz UCHAR ExtSolnStatus;
+TM 1 Hz UCHAR SigMask;
 TM 1 Hz UCHAR n_bp_records;
+
 
 
 Group BAT_SPAN_grp (GPS_msecs, GPS_weekl, GPS_week, GPS_secs, Latitude,
@@ -110,7 +117,8 @@ Group BAT_SPAN_grp (GPS_msecs, GPS_weekl, GPS_week, GPS_secs, Latitude,
     SPAN_IdleTime, SPAN_TimeStatus, BP_Week, BP_msecs, GPS_Rxvr_Status,
     SolnStatus, PosType, BP_DatumID, BP_Lat, BP_Lon, BP_Ht,
     BP_undulation, BP_LatStd, BP_LonStd, BP_HtStd, BP_DiffAge,
-    BP_SolAge, n_bp_records) {
+    BP_SolAge, n_bp_records, NSVs, NSVsSol, NGGL1, NGGL1L2, ExtSolnStatus,
+    SigMask) {
   GPS_msecs = BAT_SPAN.GPS_msecs;
   GPS_weekl = BAT_SPAN.GPS_weekl;
   GPS_week = BAT_SPAN.GPS_week;
@@ -145,6 +153,12 @@ Group BAT_SPAN_grp (GPS_msecs, GPS_weekl, GPS_week, GPS_secs, Latitude,
   BP_HtStd = BAT_SPAN.BP_HtStd;
   BP_DiffAge = BAT_SPAN.BP_DiffAge;
   BP_SolAge = BAT_SPAN.BP_SolAge;
+  NSVs = BAT_SPAN.NSVs;
+  NSVsSol = BAT_SPAN.NSVsSol;
+  NGGL1 = BAT_SPAN.NGGL1;
+  NGGL1L2 = BAT_SPAN.NGGL1L2;
+  ExtSolnStatus = BAT_SPAN.ExtSolnStatus;
+  SigMask = BAT_SPAN.SigMask;
   n_bp_records = BAT_SPAN.n_bp_records;
   BAT_Px = BAT_SPAN.BAT_Px;
   BAT_Py = BAT_SPAN.BAT_Py;

@@ -40,6 +40,16 @@ BP {
   N: (n_bp_records,3);
 }
 
+BPN {
+  HBox { +-; Title: BPN; -+ };
+  NSVs: (NSVs,3);
+  NSVsSol: (NSVsSol,3);
+  NGGL1: (NGGL1,3);
+  NGGL1L2: (NGGL1L2,3);
+  ExtSoln: (ExtSolnStatus,3);
+  SigMask: (SigMask,3);
+}
+
 BAT {
   HBox { +-; Title: BAT; -+ };
   Px: (BAT_Px,7) mbar;
@@ -74,6 +84,7 @@ Status {
 }
 
 { HBox { |; [SPAN]; |; [BP]; |; [BAT]; |; {
+          [BPN];
           [PC];
           [Status]
          }; | }
