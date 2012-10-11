@@ -43,6 +43,7 @@ extern long long_unpack(unsigned char *s);
 extern unsigned short ushort_swap(unsigned char *s);
 extern unsigned short ushort_unpack(unsigned char *s);
 extern double double_unpack(unsigned char *s);
+extern float float_unpack(unsigned char *s);
 
 class BSDataRecord;
 

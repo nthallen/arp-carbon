@@ -107,6 +107,11 @@ void BSDataRecord::BP_data(unsigned char *data) {
   BAT_SPAN.ExtSolnStatus = data[28+69];
   BAT_SPAN.SigMask = data[28+71];
   ++BAT_SPAN.n_bp_records;
+  if (!reported) {
+    nl_error(0, "BP Port: %d  SW Ver: %d", data[7],
+          ushort_unpack(&data[26]));
+    reported = true;
+  }
 }
 
 void BSDataRecord::Flush_data() {
@@ -230,6 +235,7 @@ int BSTM::ProcessData(int flag) {
   BAT_SPAN->n_span_records = 0;
   BAT_SPAN->max_span_nc = 0;
   BAT_SPAN->n_bat_records = 0;
+  BAT_SPAN->n_bp_records = 0;
   return 0;
 }
 
@@ -387,6 +393,12 @@ unsigned short ushort_unpack(unsigned char *s) {
 double double_unpack(unsigned char *s) {
   double sum;
   memcpy((unsigned char*)&sum, s, sizeof(double));
+  return sum;
+}
+
+float float_unpack(unsigned char *s) {
+  float sum;
+  memcpy((unsigned char*)&sum, s, sizeof(float));
   return sum;
 }
 
