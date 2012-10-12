@@ -21,5 +21,12 @@ BSlogger : $(BSLOBJ)
 BSloggeroui.c : BSlogger.oui
 	oui -o BSloggeroui.c BSlogger.oui
 
+BSCOBJ = BS2cdf.o BS2cdfoui.o
+BS2cdfext : $(BSCOBJ)
+	$(LINK.cc) -o BS2cdfext $(BSCOBJ) $(LIBS)
+	usemsg BS2cdfext BS2cdfoui.c
+BS2cdfoui.c : BS2cdf.oui
+	oui -o BS2cdfoui.c BS2cdf.oui
+
 clean :
 	rm -f *.o BAT_SPANoui.c BAT_SPAN BSloggeroui.c BSlogger

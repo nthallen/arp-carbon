@@ -7,6 +7,8 @@
 #include "oui.h"
 #include "mlf.h"
 
+extern const char *mlf_config;
+
 class BS2cdf_c {
   public:
     BS2cdf_c();

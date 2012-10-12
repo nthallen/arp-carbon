@@ -1,6 +1,8 @@
 /* BS2cdf.cc */
 #include "BS2cdf.h"
 
+const char *mlf_config;
+
 void BS2cdf_c::BS2cdf_c() {
   ncid = -1;
 }
