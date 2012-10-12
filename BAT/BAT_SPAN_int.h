@@ -51,7 +51,7 @@ class BAT : public Ser_Sel {
   public:
     BAT( const char *path, BSDataRecord *data_in );
     int ProcessData(int flag);
-    static const int nb_rec = 35;
+    static const unsigned int nb_rec = 35;
   private:
     BSDataRecord *BSData;
     termios termios_m;
@@ -62,7 +62,7 @@ class SPAN : public Ser_Sel {
     SPAN( const char *path, BSDataRecord *data_in );
     ~SPAN();
     int ProcessData(int flag);
-    static const int nb_rec = 104;
+    static const unsigned int nb_rec = 104;
   private:
     static const unsigned long CRC32_POLYNOMIAL = 0xEDB88320;
     unsigned long CRC32Value(int i);

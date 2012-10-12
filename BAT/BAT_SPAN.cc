@@ -123,18 +123,11 @@ void BSDataRecord::Logging(bool on) {
   LogEnbl = on;
   if (!LogEnbl) BSloggerport->Flush_data();
 }
-class BAT : public Ser_Sel {
-  public:
-    int ProcessData(int flag);
-    static const int nb_rec = 35;
-  private:
-    BSDataRecord *BSData;
-};
 
 BAT::BAT(const char *path, BSDataRecord *data_in) :
         Ser_Sel(path, O_RDONLY | O_NONBLOCK, 350) {
   BSData = data_in;
-  setup (330400, 8, 'n', 1, 35, 0);
+  setup (460800, 8, 'n', 1, 35, 0);
   if (tcgetattr(fd, &termios_m)) {
     nl_error(2, "Error from tcgetattr: %s", strerror(errno));
   }
@@ -144,7 +137,7 @@ BAT::BAT(const char *path, BSDataRecord *data_in) :
 int BAT::ProcessData(int flag) {
   unsigned min;
   if (flag & Selector::Sel_Read) {
-    int start;
+    unsigned int start;
     if (fillbuf()) return 1;
     cp = 0;
     while (cp < nc) {
