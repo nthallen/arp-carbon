@@ -1,0 +1,42 @@
+These are notes on what is required to generate a NetCDF file from the BAT and SPAN data
+
+#include <netcdf.h>
+  if((ncrOut = nc_create(ncrFile, NC_CLOBBER, &NcRaw)) != NC_NOERR)
+  if((status = nc_def_dim(NcRaw, "scan", NC_UNLIMITED, &dimids[0])) != NC_NOERR)
+  if((status = nc_put_att_text(NcRaw, NC_GLOBAL, "title", strlen(title)-2, title)) != NC_NOERR) 
+  if((status = nc_put_att_text(NcRaw, NC_GLOBAL, "date", strlen(date), date)) != NC_NOERR) 
+  if((status = nc_put_att_text(NcRaw, NC_GLOBAL, "version_data", strlen(version_data), version_data)) != NC_NOERR) 
+  if((status = nc_put_att_text(NcRaw, NC_GLOBAL, "setup_file", strlen(version_data), version_data)) != NC_NOERR) 
+  if((status = nc_put_att_text(NcRaw, NC_GLOBAL, "coordinate_system", strlen(version_data), version_data)) != NC_NOERR) 
+  if((status = nc_put_att_text(NcRaw, NC_GLOBAL, "pace_gps", strlen(version_data), version_data)) != NC_NOERR) 
+  for(i=0; i<numFreq; i++)
+    if((status = nc_def_dim(NcRaw, dim_names[i], Grp[i], &dim_ids[i+1])) != NC_NOERR)
+  for(i=0; i<numChan; i++)
+    if(!strcasecmp(record[i].cFormat, "NC_CHAR"))
+    {
+      if((status = nc_def_var(NcRaw, record[i].label, NC_CHAR, numdims, dimids, &var_id)) != NC_NOERR)
+    if(!strcasecmp(record[i].cFormat, "NC_SHORT"))
+    {
+      if((status = nc_def_var(NcRaw, record[i].label, NC_SHORT, numdims, dimids, &var_id)) != NC_NOERR)
+    if(!strcasecmp(record[i].cFormat, "NC_INT"))
+    {
+      if((status = nc_def_var(NcRaw, record[i].label, NC_INT, numdims, dimids, &var_id)) != NC_NOERR)
+    if((status = nc_put_att_text(NcRaw, var_id, "units", strlen(record[i].units), record[i].units)) != NC_NOERR)
+    if((status = nc_put_att_float(NcRaw, var_id, "frequency", NC_FLOAT, 1, &dmf)) != NC_NOERR)
+    if((status = nc_put_att_float(NcRaw, var_id, "cal_coef", NC_FLOAT, MAXCALPWR, record[i].coef)) != NC_NOERR)
+    if((status = nc_put_att_float(NcRaw, var_id, "scale_factor", NC_FLOAT, 1, &record[i].scaleFactor)) != NC_NOERR)
+    if((status = nc_put_att_float(NcRaw, var_id, "add_offset", NC_FLOAT, 1, &record[i].addOffset)) != NC_NOERR)
+    if((status = nc_put_att_float(NcRaw, var_id, "valid_min", NC_FLOAT, 1, &record[i].min)) != NC_NOERR)
+    if((status = nc_put_att_float(NcRaw, var_id, "valid_max", NC_FLOAT, 1, &record[i].max)) != NC_NOERR)
+    if((status = nc_put_att_text(NcRaw, var_id, "long_name", strlen(record[i].longName)-1, record[i].longName)) != NC_NOERR)
+  if((status = nc_enddef(NcRaw)) != NC_NOERR)
+
+      if(req.data.type == NC_SHORT)
+      {
+        dms = (short)req.data.data;
+        if((status = nc_put_var1_short(NcRaw, req.data.var_index, index1, &dms)) != NC_NOERR) 
+      if(req.data.type == NC_INT)
+      {
+        dmi = (int)req.data.data;
+        if((status = nc_put_var1_int(NcRaw, req.data.var_index, index1, &dmi)) != NC_NOERR) 
+    if((status = nc_close(NcRaw)) != NC_NOERR)
