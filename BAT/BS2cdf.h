@@ -1,17 +1,18 @@
 #ifndef BS2CDF_H_INCLUDED
-#ifndef BS2CDF_H_INCLUDED
+#define BS2CDF_H_INCLUDED
 
 #include <netcdf.h>
-#include "BS2cdf.h"
 #include "nortlib.h"
 #include "oui.h"
 #include "mlf.h"
 
 extern const char *mlf_config;
 
-class BS2cdf_c {
+#ifdef __cplusplus
+
+class BS2cdf {
   public:
-    BS2cdf_c();
+    BS2cdf();
     void nc_setup();
     int Read_File(FILE *fp);
     void nc_close();
@@ -24,5 +25,7 @@ class BS2cdf_c {
     static unsigned char ibuf[n_rec][nb_rec];
     int ncid;
 };
+
+#endif 
 
 #endif
