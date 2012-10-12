@@ -6,13 +6,14 @@
 #include "oui.h"
 #include "mlf.h"
 
-extern const char *mlf_config;
+extern const char *data_path;
 
 #ifdef __cplusplus
 
 class BS2cdf {
   public:
     BS2cdf();
+    mlf_def_t *mlf_init(const char *data_path);
     void nc_setup();
     int Read_File(FILE *fp);
     void nc_close();

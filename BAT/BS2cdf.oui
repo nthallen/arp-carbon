@@ -1,16 +1,14 @@
 <package> BS2cdf
-<include> msg
-<follow> msg
 <include> <stdlib.h>
 <include> "BS2cdf.h"
 
-<opts> "N:"
+<opts> "P:"
 <sort>
-	-N <mlf config>
+	-P <data path>
 
 <switch>
-  case 'N':
-    mlf_config = optarg;
+  case 'P':
+    data_path = optarg;
     break;
 
 <package> msghdr_init

@@ -1,12 +1,22 @@
 /* BS2cdf.cc */
 #include "BS2cdf.h"
 
-const char *mlf_config;
+const char *data_path;
 
 unsigned char BS2cdf::ibuf[BS2cdf::n_rec][BS2cdf::nb_rec];
 
 BS2cdf::BS2cdf() {
   ncid = -1;
+}
+
+mlf_def_t *BS2cdf::mlf_init(const char *data_path) {
+  char base_path[160];
+  if (data_path) {
+    snprintf(base_path, 159, "%s/BAT_SPAN", data_path);
+  } else {
+    snprintf(base_path, 159, "BAT_SPAN");
+  }
+  mlf_init(3, 60, 0, base_path, "dat", NULL);
 }
 
 void BS2cdf::nc_setup() {
@@ -45,7 +55,7 @@ int main(int argc, char **argv) {
   mlf_def_t *mlf;
   BS2cdf BS2C;
   oui_init_options(argc, argv);
-  mlf = mlf_init(3, 60, 0, "BAT_SPAN", "dat", mlf_config);
+  mlf = mlf_init(data_path);
   BS2C.nc_setup();
   nl_error(0, "Start");
   for (;;) {
