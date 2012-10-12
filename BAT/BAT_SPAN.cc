@@ -123,6 +123,58 @@ void BSDataRecord::Logging(bool on) {
   LogEnbl = on;
   if (!LogEnbl) BSloggerport->Flush_data();
 }
+class BAT : public Ser_Sel {
+  public:
+    int ProcessData(int flag);
+    static const int nb_rec = 35;
+  private:
+    BSDataRecord *BSData;
+};
+
+BAT::BAT(const char *path, BSDataRecord *data_in) :
+        Ser_Sel(path, O_RDONLY | O_NONBLOCK, 350) {
+  BSData = data_in;
+  setup (330400, 8, 'n', 1, 35, 0);
+  if (tcgetattr(fd, &termios_m)) {
+    nl_error(2, "Error from tcgetattr: %s", strerror(errno));
+  }
+  flush_input();
+}
+
+int BAT::ProcessData(int flag) {
+  unsigned min;
+  if (flag & Selector::Sel_Read) {
+    int start;
+    if (fillbuf()) return 1;
+    cp = 0;
+    while (cp < nc) {
+      if (not_found('\xF8')) break;
+      start = cp-1;
+      if (not_str("\x08\xF8", 2)) {
+        if (cp == nc) {
+          consume(start);
+          break;
+        } else continue;
+      }
+      // cp is now positioned past first 3 chars
+      if (start + nb_rec > nc ) {
+        consume(start);
+        break;
+      }
+      BSData->BAT_data(&buf[start]);
+      report_ok();
+      consume(start+nb_rec);
+    }
+  }
+  min = nb_rec - nc;
+  if (min != termios_m.c_cc[VMIN]) {
+    termios_m.c_cc[VMIN] = min;
+    if (tcsetattr(fd, TCSANOW, &termios_m)) {
+      nl_error(2, "Error from tcsetattr: %s", strerror(errno));
+    }
+  }
+  return 0;
+}
 
 SPAN::SPAN( const char *path, BSDataRecord *data_in ) :
     Ser_Sel(path, O_RDONLY | O_NONBLOCK, 10240) {

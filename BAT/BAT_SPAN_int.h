@@ -54,6 +54,7 @@ class BAT : public Ser_Sel {
     static const int nb_rec = 35;
   private:
     BSDataRecord *BSData;
+    termios termios_m;
 };
 
 class SPAN : public Ser_Sel {
