@@ -19,7 +19,7 @@ swsbase = demo.sws
 SCRIPT = interact
 TGTDIR = $(TGTNODE)/home/BATdemo
 OBJ = SWData.cmd SWData.h SWData.tmc SWData_col.tmc
-DISTRIB = ../BAT_SPAN ../BSlogger
+DISTRIB = ../BAT_SPAN ../BSlogger ../BS2cdfext
 
 demodisp : demo.tbl
 demoalgo : demo.tma demo.sws
