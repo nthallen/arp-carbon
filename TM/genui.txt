@@ -69,7 +69,15 @@ ROWS 25
  1 SSP_C_T_FPGA CO2_SSP Temp
  1 SSP_C_T_HtSink CO2_SSP Temp
  1 SSP_C_Num CO2_SSP Files
- 1 SSP_C_Flags CO2_SSP Overflow
+ 1 CAOVF1:SSP_C_Flags:0 CO2_SSP Overflow
+ 1 CAOVF2:SSP_C_Flags:1 CO2_SSP Overflow
+ 1 CAOVF3:SSP_C_Flags:2 CO2_SSP Overflow
+ 1 PAOVF1:SSP_C_Flags:3 CO2_SSP Overflow
+ 1 PAOVF2:SSP_C_Flags:4 CO2_SSP Overflow
+ 1 PAOVF3:SSP_C_Flags:5 CO2_SSP Overflow
+ 1 ADOVF1:SSP_C_Flags:6 CO2_SSP Overflow
+ 1 ADOVF2:SSP_C_Flags:7 CO2_SSP Overflow
+ 1 ADOVF3:SSP_C_Flags:8 CO2_SSP Overflow
  1 SSP_C_SN CO2_SSP Scans
  1 SSP_C_TS CO2_SSP Skipped
  1 SSP_C_Status CO2_SSP Status %.0lf
@@ -325,7 +333,15 @@ ROWS 25
  1 SSP_M_T_FPGA MINI_SSP Temp
  1 SSP_M_T_HtSink MINI_SSP Temp
  1 SSP_M_Num MINI_SSP Files
- 1 SSP_M_Flags MINI_SSP Overflow
+ 1 CAOVF1:SSP_M_Flags:0 MINI_SSP Overflow
+ 1 CAOVF2:SSP_M_Flags:1 MINI_SSP Overflow
+ 1 CAOVF3:SSP_M_Flags:2 MINI_SSP Overflow
+ 1 PAOVF1:SSP_M_Flags:3 MINI_SSP Overflow
+ 1 PAOVF2:SSP_M_Flags:4 MINI_SSP Overflow
+ 1 PAOVF3:SSP_M_Flags:5 MINI_SSP Overflow
+ 1 ADOVF1:SSP_M_Flags:6 MINI_SSP Overflow
+ 1 ADOVF2:SSP_M_Flags:7 MINI_SSP Overflow
+ 1 ADOVF3:SSP_M_Flags:8 MINI_SSP Overflow
  1 SSP_M_SN MINI_SSP Scans
  1 SSP_M_TS MINI_SSP Skipped
  1 SSP_M_Stale MINI_SSP Stale
