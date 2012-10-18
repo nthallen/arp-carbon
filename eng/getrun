@@ -1,0 +1,27 @@
+#! /bin/bash
+flt=''
+gse=htwgse.arp.harvard.edu
+HomeDir=/home/hci
+Exp=HCI
+RunType=''
+for run in $*; do
+  case $run in
+    -f) flt=F; RunType=flight;;
+    cal) RunType=cal;;
+    flight) flt=F; RunType=flight;;
+    data) RunType=data;;
+    junk) RunType=junk;;
+    *)
+      echo $run
+      [ -d $run$flt ] || mkdir $run$flt
+      scp $gse:$HomeDir/anal/$run/*.csv $run$flt
+      if [ -n "$RunType" ]; then
+        scp $gse:$HomeDir/raw/$RunType/$run/$Exp.log $run$flt/$Exp.log
+        scp -r $gse:$HomeDir/raw/$RunType/$run/SSP_C $run$flt/SSP_C
+        scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_C.m $run$flt/waves.m
+      fi
+      echo "$run$flt" >>runs.dat;;
+  esac
+  echo "$run$flt" >>runs.dat
+done
+[ -f runs.dat ] && matlab
