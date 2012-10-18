@@ -186,6 +186,6 @@ f = ne_dialg(f, 'add', 1, 0, 'pHCIminits', 'Sample' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIminitskin', 'Skin' );
 f = ne_dialg(f, 'add', 0, 1, 'gHCIsparespare', 'SPARE_SPARE' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIsparespareai', 'AI' );
-f = ne_listdirs(f, 'HCI_Data_Dir', 8 );
+f = ne_listdirs(f, 'HCI_Data_Dir', 18);
 f = ne_dialg(f, 'newcol');
 f = ne_dialg(f, 'resize');
