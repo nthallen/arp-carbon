@@ -28,12 +28,12 @@ BSDataRecord::~BSDataRecord() {
 
 void BSDataRecord::init(Selector &S) {
   SPANport = new SPAN(span_path, this);
-  // BATport = new BAT(bat_path, this);
+  BATport = new BAT(bat_path, this);
   BScmdport = new BScmd(this);
   BSTMport = new BSTM(&BAT_SPAN);
   BSloggerport = new BSlogger();
   S.add_child(SPANport);
-  // S.add_child(BATport);
+  S.add_child(BATport);
   S.add_child(BScmdport);
   S.add_child(BSTMport);
   S.add_child(BSloggerport);
@@ -319,7 +319,6 @@ BSlogger::BSlogger() : Selectee() {
   if (mlf_config)
     snprintf(cmd, 159, "BSlogger -N %s", mlf_config);
   else snprintf(cmd, 159, "BSlogger");
-  nl_error(0, "Command is '%s'", cmd);
   fp = popen(cmd, "w");
   if (fp == NULL) nl_error(3, "Unable to open pipe to BSlogger");
   fd = fileno(fp);
