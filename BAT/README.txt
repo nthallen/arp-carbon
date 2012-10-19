@@ -76,7 +76,17 @@ BETSPOSB Message
    71: UCHAR SigMask
    72: ULONG CRC
   
-BAT Connection: RS422?
+BAT Connector, RS422
+Pin 1: Tx-(A) [NC]
+Pin 2: Tx+(B) [NC]
+Pin 3: Rx+(B)
+Pin 4: Rx-(A)
+Pin 5: GND
+Pin 6: RTS-(A) [NC]
+Pin 7: RTS+(B) [NC]
+Pin 8: CTS+(B) [NC]
+Pin 9: CTS-(A) [NC]
+
 BAT Data Packet: 50 Hz, 35 bytes
      0: 0xF8
      1: 0x08
