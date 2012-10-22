@@ -1,0 +1,4 @@
+/* Altimeter_col.tmc */
+%{
+  unsigned short MRA_Altitude;
+%}

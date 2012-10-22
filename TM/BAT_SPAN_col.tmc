@@ -1,0 +1,4 @@
+%{
+  #include "BAT_SPAN.h"
+  BAT_SPAN_t BAT_SPAN;
+%}

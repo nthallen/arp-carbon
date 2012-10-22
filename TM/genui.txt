@@ -6,8 +6,8 @@ ROWS 25
 10 CCelLP CO2_Cell P
  1 CCelP CO2_Cell P
  1 CCelPSt CO2_Cell P
- 1 CCel1T CO2_Cell Temp
- 1 CCel2T CO2_Cell Temp
+10 CCel1T CO2_Cell Temp
+10 CCel2T CO2_Cell Temp
  1 CCelCT CO2_Cell T_ctrl
  1 CCelTSt CO2_Cell T_ctrl
  1 CCell_HC_DS:DS84C:3 CO2_Cell Status
@@ -119,20 +119,25 @@ ROWS 25
 
  5 PM0V1 HK_Power Voltage
  5 PM0V2 HK_Power Voltage
+ 5 PM1V1 HK_Power Voltage
  5 PM0I1 HK_Power Current
  5 PM0I2 HK_Power Current
+ 5 PM1I1 HK_Power Current
  5 PM0I1_S:PM0Stat:0 HK_Power Status
  5 PM0I2_S:PM0Stat:2 HK_Power Status
  5 PM0TO_S:PM0Stat:4 HK_Power Status
  5 PM0V1_S:PM0Stat:1 HK_Power Status
  5 PM0V2_S:PM0Stat:3 HK_Power Status
+ 5 PM1I1_S:PM0Stat:0 HK_Power Status
+ 5 PM1I2_S:PM0Stat:2 HK_Power Status
+ 5 PM1TO_S:PM0Stat:4 HK_Power Status
 
  1 CLPV_S HK_PTRH CLPV
  1 CQCL_S HK_PTRH CQCL
  1 DACS_S HK_PTRH DACS
- 1 IDPV_S HK_PTRH IDPV
- 1 ILPV_S HK_PTRH ILPV
- 1 IQCL_S HK_PTRH IQCL
+#1 IDPV_S HK_PTRH IDPV
+#1 ILPV_S HK_PTRH ILPV
+#1 IQCL_S HK_PTRH IQCL
  1 MDPV_S HK_PTRH MDPV
  1 MLPV_S HK_PTRH MLPV
  1 MQCL_S HK_PTRH MQCL
@@ -157,92 +162,92 @@ ROWS 25
  1 R:TVStat:3 HK_Throttle Status
  1 Z:TVStat:6 HK_Throttle Status
 
- 1 ICelHP ISO_Cell P
-10 ICelLP ISO_Cell P
- 1 ICelP ISO_Cell P
- 1 ICelPSt ISO_Cell P
- 1 ICelTSt ISO_Cell T_ctrl
- 1 ICel1T ISO_Cell Temp
- 1 ICel2T ISO_Cell Temp
- 1 ICelCT ISO_Cell Temp
- 1 ICell_HC_DS:DS851:3 ISO_Cell Status
- 1 ICell_HC_S:DS86A:3 ISO_Cell Status
- 1 IGas_Ex_Vlv_DS:DS855:4 ISO_Cell Status
- 1 IGas_Vlv_DS:DS855:3 ISO_Cell Status
- 1 IPrs_Reg_DS:DS855:2 ISO_Cell Status
-
- 1 IDPVCT ISO_Detector T_ctrl
- 1 IDPVTSt ISO_Detector T_ctrl
- 1 IDetT ISO_Detector Temp
-
- 1 IDPV_P ISO_DPV P
- 1 IDPV_T1C ISO_DPV Temp
- 1 IDPV_T2C ISO_DPV Temp
- 1 IDPV_RHC ISO_DPV RH
- 1 IDPV_HC_DS:DS851:4 ISO_DPV Status
- 1 IDPV_HC_S:DS86A:4 ISO_DPV Status
-
- 1 ILPV_P ISO_ILPV P
- 1 ILPV_T1C ISO_ILPV Temp
- 1 ILPV_T2C ISO_ILPV Temp
- 1 ILPV_RHC ISO_ILPV RH
-
- 1 IQCL_P ISO_IQCL P
- 1 IQCL_T1C ISO_IQCL Temp
- 1 IQCL_T2C ISO_IQCL Temp
- 1 IQCL_RHC ISO_IQCL RH
-
- 1 ILasI ISO_Laser Current
- 1 ILPVCT ISO_Laser P
- 1 ILH_T ISO_Laser Temp
- 1 ILPVTSt ISO_Laser T_ctrl
- 1 ILTE7R7T ISO_Laser T_ctrl
- 1 ILTETSt ISO_Laser T_ctrl
- 1 ILPV_HC_DS:DS851:5 ISO_Laser Status
- 1 ILPV_HC_S:DS86A:5 ISO_Laser Status
- 1 ILTEC_DS:DS851:6 ISO_Laser Status
- 1 ILTEC_S:DS86A:6 ISO_Laser Status
- 1 I_Pump_DS:DS851:2 ISO_Pump Status
- 1 I_Pump_S:DS86A:2 ISO_Pump Status
-
- 1 IPmpT ISO_Pump Temp
- 1 IPMtT ISO_Pump Temp
-
- 1 QCLI_I_err ISO_QCLI Error
- 1 QCLI_I_fifodep ISO_QCLI FIFO
- 1 QCLI_I_Wave ISO_QCLI Wave %.0lf
- 1 QCLI_I_Stale ISO_QCLI Stale
- 1 FIFOOvf:QCLI_I_CS:12 ISO_QCLI Status
- 1 IQCLI_Reset_DS:DS855:0 ISO_QCLI Status
- 1 QCLI_I_Busy:QCLI_I_s:15 ISO_QCLI Status
- 1 QCLI_I_cksum:QCLI_I_s:14 ISO_QCLI Status
- 1 QCLI_I_cmderr:QCLI_I_s:13 ISO_QCLI Status
- 1 QCLI_I_dot:QCLI_I_s:5 ISO_QCLI Status
- 1 QCLI_I_InvCmd:QCLI_I_s:11 ISO_QCLI Status
- 1 QCLI_I_laser:QCLI_I_s:12 ISO_QCLI Status
- 1 QCLI_I_loc:QCLI_I_s:3 ISO_QCLI Status
- 1 QCLI_I_lot:QCLI_I_s:4 ISO_QCLI Status
- 1 QCLI_I_ready:QCLI_I_s:9 ISO_QCLI Status
- 1 QCLI_I_waveerr:QCLI_I_s:8 ISO_QCLI Status
- 1 QCLIResponding:QCLI_I_CS:11 ISO_QCLI Status
- 1 RBComplete:QCLI_I_CS:9 ISO_QCLI Status
- 1 RBPending:QCLI_I_CS:8 ISO_QCLI Status
- 1 Reading:QCLI_I_CS:14 ISO_QCLI Status
- 1 RWConflict:QCLI_I_CS:13 ISO_QCLI Status
- 1 WQPending:QCLI_I_CS:10 ISO_QCLI Status
-
- 1 I24VT ISO_SSP Temp
- 1 IPampT ISO_SSP Temp
- 1 ISSPT ISO_SSP Temp
- 1 SSP_I_T_FPGA ISO_SSP Temp
- 1 SSP_I_T_HtSink ISO_SSP Temp
- 1 SSP_I_Num ISO_SSP Files
- 1 SSP_I_Flags ISO_SSP Overflow
- 1 SSP_I_SN ISO_SSP Scans
- 1 SSP_I_TS ISO_SSP Skipped
- 1 SSP_I_Status ISO_SSP Status %.0lf
- 1 SSP_I_Stale ISO_SSP Stale
- 
+# 1 ICelHP ISO_Cell P
+#10 ICelLP ISO_Cell P
+# 1 ICelP ISO_Cell P
+# 1 ICelPSt ISO_Cell P
+# 1 ICelTSt ISO_Cell T_ctrl
+# 1 ICel1T ISO_Cell Temp
+# 1 ICel2T ISO_Cell Temp
+# 1 ICelCT ISO_Cell Temp
+# 1 ICell_HC_DS:DS851:3 ISO_Cell Status
+# 1 ICell_HC_S:DS86A:3 ISO_Cell Status
+# 1 IGas_Ex_Vlv_DS:DS855:4 ISO_Cell Status
+# 1 IGas_Vlv_DS:DS855:3 ISO_Cell Status
+# 1 IPrs_Reg_DS:DS855:2 ISO_Cell Status
+#
+# 1 IDPVCT ISO_Detector T_ctrl
+# 1 IDPVTSt ISO_Detector T_ctrl
+# 1 IDetT ISO_Detector Temp
+#
+# 1 IDPV_P ISO_DPV P
+# 1 IDPV_T1C ISO_DPV Temp
+# 1 IDPV_T2C ISO_DPV Temp
+# 1 IDPV_RHC ISO_DPV RH
+# 1 IDPV_HC_DS:DS851:4 ISO_DPV Status
+# 1 IDPV_HC_S:DS86A:4 ISO_DPV Status
+#
+# 1 ILPV_P ISO_ILPV P
+# 1 ILPV_T1C ISO_ILPV Temp
+# 1 ILPV_T2C ISO_ILPV Temp
+# 1 ILPV_RHC ISO_ILPV RH
+#
+# 1 IQCL_P ISO_IQCL P
+# 1 IQCL_T1C ISO_IQCL Temp
+# 1 IQCL_T2C ISO_IQCL Temp
+# 1 IQCL_RHC ISO_IQCL RH
+#
+# 1 ILasI ISO_Laser Current
+# 1 ILPVCT ISO_Laser P
+# 1 ILH_T ISO_Laser Temp
+# 1 ILPVTSt ISO_Laser T_ctrl
+# 1 ILTE7R7T ISO_Laser T_ctrl
+# 1 ILTETSt ISO_Laser T_ctrl
+# 1 ILPV_HC_DS:DS851:5 ISO_Laser Status
+# 1 ILPV_HC_S:DS86A:5 ISO_Laser Status
+# 1 ILTEC_DS:DS851:6 ISO_Laser Status
+# 1 ILTEC_S:DS86A:6 ISO_Laser Status
+# 1 I_Pump_DS:DS851:2 ISO_Pump Status
+# 1 I_Pump_S:DS86A:2 ISO_Pump Status
+#
+# 1 IPmpT ISO_Pump Temp
+# 1 IPMtT ISO_Pump Temp
+#
+# 1 QCLI_I_err ISO_QCLI Error
+# 1 QCLI_I_fifodep ISO_QCLI FIFO
+# 1 QCLI_I_Wave ISO_QCLI Wave %.0lf
+# 1 QCLI_I_Stale ISO_QCLI Stale
+# 1 FIFOOvf:QCLI_I_CS:12 ISO_QCLI Status
+# 1 IQCLI_Reset_DS:DS855:0 ISO_QCLI Status
+# 1 QCLI_I_Busy:QCLI_I_s:15 ISO_QCLI Status
+# 1 QCLI_I_cksum:QCLI_I_s:14 ISO_QCLI Status
+# 1 QCLI_I_cmderr:QCLI_I_s:13 ISO_QCLI Status
+# 1 QCLI_I_dot:QCLI_I_s:5 ISO_QCLI Status
+# 1 QCLI_I_InvCmd:QCLI_I_s:11 ISO_QCLI Status
+# 1 QCLI_I_laser:QCLI_I_s:12 ISO_QCLI Status
+# 1 QCLI_I_loc:QCLI_I_s:3 ISO_QCLI Status
+# 1 QCLI_I_lot:QCLI_I_s:4 ISO_QCLI Status
+# 1 QCLI_I_ready:QCLI_I_s:9 ISO_QCLI Status
+# 1 QCLI_I_waveerr:QCLI_I_s:8 ISO_QCLI Status
+# 1 QCLIResponding:QCLI_I_CS:11 ISO_QCLI Status
+# 1 RBComplete:QCLI_I_CS:9 ISO_QCLI Status
+# 1 RBPending:QCLI_I_CS:8 ISO_QCLI Status
+# 1 Reading:QCLI_I_CS:14 ISO_QCLI Status
+# 1 RWConflict:QCLI_I_CS:13 ISO_QCLI Status
+# 1 WQPending:QCLI_I_CS:10 ISO_QCLI Status
+#
+# 1 I24VT ISO_SSP Temp
+# 1 IPampT ISO_SSP Temp
+# 1 ISSPT ISO_SSP Temp
+# 1 SSP_I_T_FPGA ISO_SSP Temp
+# 1 SSP_I_T_HtSink ISO_SSP Temp
+# 1 SSP_I_Num ISO_SSP Files
+# 1 SSP_I_Flags ISO_SSP Overflow
+# 1 SSP_I_SN ISO_SSP Scans
+# 1 SSP_I_TS ISO_SSP Skipped
+# 1 SSP_I_Status ISO_SSP Status %.0lf
+# 1 SSP_I_Stale ISO_SSP Stale
+# 
  1 IRv1T ISO_Temps Roving
  1 IRv2T ISO_Temps Roving
  1 IRv3T ISO_Temps Roving
@@ -263,8 +268,8 @@ ROWS 25
 10 MCelLP MINI_Cell P
  1 MCelP MINI_Cell P
  1 MCelPSt MINI_Cell P
- 1 MCel1T MINI_Cell Temp
- 1 MCel2T MINI_Cell Temp
+10 MCel1T MINI_Cell Temp
+10 MCel2T MINI_Cell Temp
  1 MCelCT MINI_Cell T_ctrl
  1 MCelTSt MINI_Cell T_ctrl
  1 MCell_HC_DS:DS868:2 MINI_Cell Status

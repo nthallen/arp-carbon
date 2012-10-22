@@ -210,7 +210,7 @@ QCLI_I_Col {
   [QCLI_I_S];
 }
 { HBox { |+;
-  [QCLI_M_Col]; |+; [QCLI_C_Col]; |+; [QCLI_I_Col]; |+; };
+  [QCLI_M_Col]; |+; [QCLI_C_Col]; |+; };
   -;
   >{ Time: (flttime,9) MFCtr: (MFCtr,5) }
 }

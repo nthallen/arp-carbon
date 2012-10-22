@@ -16,3 +16,9 @@ PMOK PM0I2S; invalidate PM0I2S;
   { PM0I2S = (PM0Stat>>2)&1; Validate PM0I2S; }
 PMOK PM0V2S; invalidate PM0V2S;
   { PM0V2S = (PM0Stat>>3)&1; Validate PM0V2S; }
+PMTO PM1TO; invalidate PM1TO;
+  { PM1TO = (PM1Stat >> 4) & 1; Validate PM1TO; }
+PMOK PM1I1S; invalidate PM1I1S;
+  { PM1I1S = (PM1Stat>>0)&1; Validate PM1I1S; }
+PMOK PM1V1S; invalidate PM1V1S;
+  { PM1V1S = (PM1Stat>>1)&1; Validate PM1V1S; }
