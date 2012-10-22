@@ -1,0 +1,46 @@
+Rovers {
+  HBox { +-; Title: Rovers; -+ };
+  ISSPT: (ISSPT,6) C;
+  IRv1T: (IRv1T,6) C;
+  IRv2T: (IRv2T,6) C;
+  IRv3T: (IRv3T,6) C;
+  IRv4T: (IRv4T,6) C;
+  IRv5T: (IRv5T,6) C;
+  ISG1T: (ISG1T,6) C;
+  ISG2T: (ISG2T,6) C;
+  ISk1T: (ISk1T,6) C;
+  ISk2T: (ISk2T,6) C;
+  ISk3T: (ISk3T,6) C;
+}
+
+Panel {
+  HBox { +-; Title: Panel; -+ };
+  Init: (PP_Init,1);
+  KeyPr: (PP_Key_Pressed,3);
+  WQ_NE: (PP_WQ_NonEmpty,3);
+  WQ_Full: (PP_WQ_Full,3);
+  LKWrEn:  (PP_LKWrEn,3);
+  Purge_Req: (PP_BAT_Purge_Req,3);
+  Purge_LED: (PP_BAT_Purge_LED,3);
+  Land_Req:  (PP_Land_Req,3);
+  Land_LED:  (PP_Land_LED,3);
+}
+
+Altimeter {
+  HBox { +-; Title: Altimeter; -+ };
+  Altitude: (MRA_Alt,6) m;
+  Stale:    (MRA_Stale,3);
+}
+
+Status {
+  HBox { +-; Title: Status; -+ };
+  >{ (flttime,9) }<;
+  MFCtr: (MFCtr,5);
+}
+
+{ HBox { [Rovers]; |; [Panel]; |; {
+    [Altimeter];
+    VGlue 0+1;
+    [Status] }
+  }
+}
