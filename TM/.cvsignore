@@ -41,11 +41,13 @@ HCIdispncoui.c
 HCIdispncoui.o
 HCIdispnc.o
 BAT_SPANtbl.tmc
+hk2tbl.tmc
 BSdisp.cc
 BSdispoui.c
 BSdispoui.o
 BSdisp.o
 BAT_SPANtblnc.tmc
+hk2tblnc.tmc
 BSdispnc.cc
 BSdispncoui.c
 BSdispncoui.o

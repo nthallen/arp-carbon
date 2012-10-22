@@ -144,7 +144,7 @@ GD {
   HBox {
     [MM]; |+;
     [CO2]; |+;
-    [ICOS]; |+;
+#   [ICOS]; |+;
     {
       [HC];
       [pwrmon];
