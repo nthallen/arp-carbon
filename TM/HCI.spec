@@ -1,4 +1,9 @@
 tmcbase = /usr/local/share/huarp/freemem.tmc
+tmcbase = /usr/local/share/huarp/cpu_usage.tmc
+tmcbase = /usr/local/share/huarp/vl_temp.tmc
+tmcbase = /usr/local/share/huarp/tmdf.tmc
+tmcbase = /usr/local/share/huarp/ptrhm.cc
+tmcbase = /usr/local/share/huarp/flttime.tmc
 tmcbase = types.tmc
 tmcbase = AIO.tmc
 tmcbase = Altimeter.tmc
@@ -11,11 +16,6 @@ tmcbase = Pilot.tmc
 tmcbase = pwrmon.tmc
 tmcbase = qcli.tmc
 tmcbase = PTRH.tmc
-tmcbase = /usr/local/share/huarp/cpu_usage.tmc
-tmcbase = /usr/local/share/huarp/vl_temp.tmc
-tmcbase = /usr/local/share/huarp/tmdf.tmc
-tmcbase = /usr/local/share/huarp/ptrhm.cc
-tmcbase = /usr/local/share/huarp/flttime.tmc
 
 cmdbase = /usr/local/share/huarp/root.cmd
 cmdbase = /usr/local/share/huarp/getcon.cmd

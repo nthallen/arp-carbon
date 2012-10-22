@@ -16,7 +16,7 @@ pwrmon {
   "1:" HBox{ (PM0I1,5); (PM0I1S,1) } HBox{ (PM0V1,7); (PM0V1S,1) };
   "2:" HBox{ (PM0I2,5); (PM0I2S,1) } HBox{ (PM0V2,7); (PM0V2S,1) };
   "3:" HBox{ (PM1I1,5); (PM1I1S,1) } HBox{ (PM1V1,7); (PM1V1S,1) };
-  >{ 1-2: (PM0TO,7) 3: (PM1TO,7) }<;
+  >{ "1-2:" (PM0TO,7) "3:" (PM1TO,7) }<;
 }
 
 TV { HBox { +-; Title: Throttle; -+ };
@@ -47,10 +47,10 @@ PTRHs {
       MQCL (MQCL_S,4);
       CLPV (CLPV_S,4);
       CQCL (CQCL_S,4);
-    }; |; {
-      IDPV (IDPV_S,4);
-      ILPV (ILPV_S,4);
-      IQCL (IQCL_S,4);
+#   }; |; {
+#     IDPV (IDPV_S,4);
+#     ILPV (ILPV_S,4);
+#     IQCL (IQCL_S,4);
     }
   }
 }
@@ -78,12 +78,12 @@ CO2 {
 
 ICOS {
   HBox { +-; Title: ICOS; -+ };
-  { Pump: (I_Pump_DS,3) (I_Pump_S,3) };
-  IPmpT: (IPmpT,6) C;
-  IPMtT: (IPMtT,6) C;
-  -;
-  I24VT: (I24VT,6) C;
-  IPampT: (IPampT,6) C;
+# { Pump: (I_Pump_DS,3) (I_Pump_S,3) };
+# IPmpT: (IPmpT,6) C;
+# IPMtT: (IPMtT,6) C;
+# -;
+# I24VT: (I24VT,6) C;
+# IPampT: (IPampT,6) C;
   ISSPT: (ISSPT,6) C;
   IRv1T: (IRv1T,6) C;
   IRv2T: (IRv2T,6) C;
