@@ -42,7 +42,7 @@ TM typedef AI16 AI_T1M250KU
   /* Calibration in T1M250KU.tmc */
 
 TM typedef AI16 AI_VigoT
-  { text "%6.slf"; convert KELVIN; }
+  { text "%6.2lf"; convert KELVIN; }
   /* Calibration in VigoT.tmc */
 
 TM typedef AI16_5V AI_5000psig { text "%6.1lf"; convert PSIG; }
