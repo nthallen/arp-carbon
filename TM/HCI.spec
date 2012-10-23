@@ -10,6 +10,7 @@ tmcbase = Altimeter.tmc
 tmcbase = BAT_SPAN.tmc
 tmcbase = T30K75KU.tmc
 tmcbase = T1M250KU.tmc
+tmcbase = VigoT.tmc
 tmcbase = digio.tmc
 tmcbase = idx64.tmc
 tmcbase = Pilot.tmc

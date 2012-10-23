@@ -8,6 +8,7 @@ TM typedef double PSIG { text "%6.1lf"; }
 TM typedef double SLM { text "%6.3lf"; }
 TM typedef double TORR { text "%7.3lf"; }
 TM typedef double CELCIUS;
+TM typedef double KELVIN;
 TM typedef unsigned char  UCHAR { text "%3d"; }
 TM typedef unsigned short UINT { text "%5d"; }
 TM typedef unsigned short AIC  { text "%4x"; }
@@ -39,6 +40,10 @@ TM typedef AI16 AI_T30K
 TM typedef AI16 AI_T1M250KU
   { text "%6.2lf"; convert CELCIUS; }
   /* Calibration in T1M250KU.tmc */
+
+TM typedef AI16 AI_VigoT
+  { text "%6.2lf"; convert KELVIN; }
+  /* Calibration in VigoT.tmc */
 
 TM typedef AI16_5V AI_5000psig { text "%6.1lf"; convert PSIG; }
   Calibration (AI_5000psig, PSIG) { 6155, 0, 30720, 5000 }
