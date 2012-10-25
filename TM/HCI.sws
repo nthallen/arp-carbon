@@ -5,8 +5,19 @@ SWS_TAKE_DATA   2	Flight Take Data: Validate TAKE_DATA; break;
 SWS_LAND	3	Flight Land: Validate LAND; break;
 SWS_MQCL_SELECT 4	MINI Laser Select Waveform and Run: Validate MQCL_SelectWaveandRun; break;
 SWS_MQCL_START 	5 	MINI Laser Start: Validate MQCL_Start; break;
-SWS_MQCL_STOP	6	MINI Laser Stop: Validate QCL_Stop; break;
+SWS_MQCL_STOP	6	MINI Laser Stop: Validate MQCL_Stop; break;
 SWS_MT_START 	7      	MINI Temperature Ctrl Start: Validate MTControl_Start; break;
-SWS_MCALIBRATE 	8     	MINI Calibrate: Validate MINI_Calibrate; break;
+SWS_MT_STOP	8	MINI Temperature Ctrl Stop: Validate MTControl_Shutdown; break;
+SWS_MCALIBRATE 	9     	MINI Calibrate: Validate MINI_Calibrate; break;
+SWS_MSTART	10	MINI Start: Validate MINI_Start; break;
+SWS_HCISTART	11	HCI Start: Validate HCI_Start; break;
+SWS_CQCL_SELECT 12	CO2 Laser Select Waveform and Run: Validate CQCL_SelectWaveandRun; break;
+SWS_CQCL_START 	13	CO2 Laser Start: Validate CQCL_Start; break;
+SWS_CQCL_STOP	14	CO2 Laser Stop: Validate CQCL_Stop; break;
+SWS_CT_START 	15     	CO2 Temperature Ctrl Start: Validate CTControl_Start; break;
+SWS_CT_STOP	16	CO2 Temperature Ctrl Stop: Validate CTControl_Shutdown; break;
+SWS_CCALIBRATE 	17    	CO2 Calibrate: Validate CO2_Calibrate; break;
+SWS_CSTART	18	CO2 Start: Validate CO2_Start; break;
+
 
 

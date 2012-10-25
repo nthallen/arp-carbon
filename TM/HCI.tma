@@ -173,6 +173,48 @@ State MINI_Is_Shutdown {}
 #----------------------------------------------------------------
 Partition
 
+%{
+  int CO2_Ready_To_Calibrate
+}%
+State CO2_Init {
+   +1 > CO2 Pressure Reg Closed
+   +1 > CO2 Exhaust Valve Closed
+      Depending on (Shutdown) { Validate CO2_Shutdown; }
+      Depending on (Record) { Validate CO2_Start; }
+}
+
+State CO2_Start {
+      Depending on (Shutdown) { Validate CO2_Shutdown; }
+   +1 Validate CTControl_Start;
+   +5 Validate CQCL_SelectWaveandRun;
+   +5 Hold until valid (CQCL_Watch);
+   +1 Validate CO2_Sample;
+}
+
+State CO2_Sample {
+     Depending on (Shutdown) { Validate CO2_Shutdown; }
+     > CO2 Set Cell Pressure Setpoint 40
+     Hold until (convert(CCelLP) < 40)
+  +1 > CO2 Pressure Reg Open
++30:00 Validate CO2_Calibrate;
+}
+
+State CO2_Calibrate {
+     Depending on (Shutdown) { Validate CO2_Shutdown; }
+     { CO2_Ready_To_Calibrate = 1; }
+     {Depending on (1Hz) { if ( CO2_Ready_To_Calibrate == 0 ) Validate CO2_Sample; } }
+}
+
+State CO2_Shutdown {
+     > CO2 Pressure Reg Closed
+  +1 > CO2 Exhaust Valve Closed
+  +1 > CO2 Scroll Pump Off
+  +1 Hold until valid (CQCL_Is_Shutdown)
+     Validate CO2_Is_Shutdown;
+}
+
+State CO2_Is_Shutdown {}
+
 #----------------------------------------------------------------
 # Partition 7: Mini Methane Laser Control 7.7um QCL ICOS
 #----------------------------------------------------------------
@@ -372,13 +414,13 @@ State MQCL_SelectWaveandRun {
     Depending on (Shutdown) { Validate MQCL_Shutdown; }
     > SSP_M Stop
     Hold until ( SSP_M_Status == SSP_M_STATUS_READY ) or 5
-    else { nl_error( 2, "Not Ready in M2Cd_800Hz" ); }
+    else { nl_error( 2, "Not Ready in M3Df_800Hz" ); }
     > QCLI_M Stop
     Hold until ( !(QCLI_M_s & 0x1000) ) or 2
     else Validate MQCL_SelectWaveandRun_Reset;
- +1 > MINI Set Laser TEC Temp Setpoint 1.4
+ +1 > MINI Set Laser TEC Temp Setpoint 1.65
  +1 > MINI Laser TEC On
- +5 > Select QCLI_M Waveform M2Cd_800Hz
+ +5 > Select QCLI_M Waveform M3Df_800Hz
  +2 Validate MQCL_Start;
 }
 
@@ -395,7 +437,218 @@ State MQCL_SelectWaveandRun_Reset {
 #----------------------------------------------------------------
 Partition
 
+%{
+ int num_CQCL_recovers=0;
+ #define LOW_CURRENT 0.02
+ #define CQCL_TEMP_LIMIT 1.3
+ #define CQCL_TEMP_OK(x,y) (x > CQCL_TEMP_LIMIT && fabs(x - y) < 0.2)
+%}
+# CO2 Starting and Stopping
 
+State CQCL_Init {
+  +1  > SSP_C Stop
+  +1  > QCLI_C Stop
+      Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 2
+      else > QCLI_C clear errors
+      Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 2
+      else Validate CQCL_Stop_Reset;
+      Validate CQCL_Idle;
+}
+
+State CQCL_Idle {
+    Depending on (Shutdown) { Validate CQCL_Shutdown; }
+}
+
+State CQCL_Start {
+    Depending on (Shutdown) { Validate CQCL_Shutdown; }
+    Hold until ( SSP_C_Status == SSP_C_STATUS_READY )
+    or 2 else {
+      nl_error( 2, "SSP_C Not Ready in CQCL_Start" );
+      Validate CQCL_SSP_C_Recover;
+    }
+    Hold until ( CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)) ) or 10
+    else Validate CQCL_Out_TSpec;
+    Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 5
+    else Validate CQCL_QCLI_C_Recover;
+ +1 > SSP_C Start
+    Hold until ( SSP_C_Status == SSP_C_STATUS_ARMED )
+    or 20 else {
+      nl_error( 2, "Not Armed in CQCL_Start" );
+      Validate CQCL_SSP_C_Recover;
+    }
+    > QCLI_C Run
+    Hold until ( SSP_C_Status == SSP_C_STATUS_TRIG && convert(CLasI) > LOW_CURRENT ) or 20
+    #Hold until ( SSP_C_Status == SSP_C_STATUS_TRIG ) or 20
+    else Validate CQCL_SSP_C_Recover;
+    { num_CQCL_recovers = 0; }
+    Validate CQCL_Watch;
+}
+
+State CQCL_Watch NoLog {
+    Depending on (Shutdown) { Validate CQCL_Shutdown; }
+    { if ( SSP_C_Status == SSP_C_STATUS_READY ) {
+        nl_error( 2, "SSP_C Went Ready Spontaneously" );
+        Validate CQCL_SSP_C_Recover;
+      }
+    }
+         # convert(HNano_I) < LOW_CURRENT ||
+    hold until ( SSP_C_Status != SSP_C_STATUS_TRIG ||
+         !CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)) ||
+	 convert(CLasI) <= LOW_CURRENT));
+    hold until ( SSP_C_Status == SSP_C_STATUS_TRIG &&
+         CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)) &&
+	 convert(CLasI) >= LOW_CURRENT)) or 2
+    else Validate CQCL_Watch;
+%{  
+    if (!CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)) Validate CQCL_Out_TSpec;
+    if (convert(CLasI) <= LOW_CURRENT) Validate CQCL_Out_Spec;
+    if (SSP_C_Status != SSP_C_STATUS_TRIG) Validate CQCL_SSP_C_Recover;
+}%
+    Validate CQCL_Watch;
+}
+
+State CQCL_SSP_C_Recover NoLog {
+    Depending on (Shutdown) { Validate CQCL_Shutdown; }
+    > SSP_C Stop
+    { if ( ++num_CQCL_recovers > 20 ) {
+        nl_error( 2, "Exceeded num_CQCL_recovers. Trying reset" );
+        num_CQCL_recovers = 0;
+        Validate CQCL_QCLI_C_Reset;
+      }
+    }
+    Hold until ( SSP_C_Status == SSP_C_STATUS_READY ) or 10
+    else Validate CQCL_SSP_C_Not_Talking;
+ +2 > QCLI_C Stop
+    Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 2
+    else > QCLI_C clear errors
+    Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 2
+    else Validate CQCL_QCLI_C_Reset;
+    Validate CQCL_Start;
+}
+
+State CQCL_SSP_C_Not_Talking {
+    Depending on (Shutdown) { Validate CQCL_Shutdown; }
+    > SSP_C Stop
+    { if ( ++num_CQCL_recovers > 20 ) Validate CQCL_Fail; }
+    Hold until ( SSP_C_Status == SSP_C_STATUS_READY ) or 10
+    else Validate CQCL_SSP_C_Not_Talking;
+    Validate CQCL_SSP_C_Recover;
+}
+
+State CQCL_Fail {
+    > Log Laser CQCL Has Failed
+ +1 Validate CQCL_Shutdown;
+}
+
+State CQCL_Shutdown {
+    > SSP_C Stop
+ +1 > QCLI_C Stop
+    Hold until ( !(QCLI_C_s & 0x1000) ) or 2
+    else Validate CQCL_Shutdown_Reset;
+    > Log Laser CQCL Has Shutdown
+    > CO2 Laser TEC Off
+    Validate CQCL_Is_Shutdown;
+}
+
+State CQCL_Shutdown_Reset {
+    > Command QCLI_C_Reset On
+ +1 > Command QCLI_C_Reset Off
+    Validate CQCL_Shutdown;
+}
+
+State CQCL_Is_Shutdown {}
+
+State CQCL_Out_Spec {
+    > QCLI_C Stop
+ +1 Validate CQCL_QCLI_C_Recover;
+}
+
+State CQCL_Out_TSpec {
+    > QCLI_C Stop
+ +1 > CO2 Laser TEC Off
+ +5 > CO2 Laser TEC On
+    Hold until ( CQCL_TEMP_OK(convert(CLTE7R7T),convert(CLTETSt)) ) or 10
+    else Validate CQCL_Out_TSpec;
+ +1 Validate CQCL_Start;
+}
+
+State CQCL_QCLI_C_Recover {
+   Depending on (Shutdown) { Validate CQCL_Shutdown; }
+
+ +1  { nl_error( 2, "QCLI_C reporting error status 0x%04X", QCLI_C_s ); }
+ +1  > QCLI_C Clear Errors
+     Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 5
+     else {
+       nl_error( 2, "QCLI_C error did not clear: Resetting" );
+       Validate CQCL_QCLI_C_Reset;
+     }
+     Validate CQCL_Start;
+}
+
+State CQCL_QCLI_C_Reset {
+    Depending on (Shutdown) { Validate CQCL_Shutdown; }
+    { if ( ++num_CQCL_recovers > 20 ) {
+        nl_error( 2,"Exceeded num_CQCL_recovers in QCLI_C_Reset: Invoking shutdown" );
+        Validate CQCL_Fail;
+      }
+    }
+ +1 > Command QCLI_C_Reset On
+    > Command QCLI_C_Reset Off
+    Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 2
+    else > QCLI_C clear errors
+    Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 2
+    else Validate CQCL_QCLI_C_Reset;
+    { ci_sendfcmd( 0, "Select QCLI_C Waveform Number %d\n", QCLI_C_Wave );
+      Validate CQCL_Start;
+    }
+}
+
+State CQCL_Stop {
+    Depending on (Shutdown) { Validate CQCL_Shutdown; }
+    > SSP_C Stop
+ +1 > QCLI_C Stop
+    Hold until ( !(QCLI_C_s & 0x1000)) or 2
+    else Validate CQCL_Stop_Reset;
+    Hold until ( SSP_C_Status == SSP_C_STATUS_READY ) or 5
+    else { nl_error( 2, "Not Ready in CQCL_Stop" ); }
+    Validate CQCL_Idle;
+}
+
+State CQCL_Stop_Reset {
+    > Command QCLI_C_Reset On
+ +1 > Command QCLI_C_Reset Off
+    Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 2
+    else > QCLI_C clear errors
+    Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 2
+    else Validate CQCL_Stop_Reset;
+    { ci_sendfcmd( 0, "Select QCLI_C Waveform Number %d\n", QCLI_C_Wave );
+      Validate CQCL_Idle;
+    }
+}
+
+#Running Waveforms
+
+State CQCL_SelectWaveandRun {
+    Depending on (Shutdown) { Validate CQCL_Shutdown; }
+    > SSP_C Stop
+    Hold until ( SSP_C_Status == SSP_C_STATUS_READY ) or 5
+    else { nl_error( 2, "Not Ready in C2Cd_800Hz" ); }
+    > QCLI_C Stop
+    Hold until ( !(QCLI_C_s & 0x1000) ) or 2
+    else Validate CQCL_SelectWaveandRun_Reset;
+ +1 > CO2 Set Laser TEC Temp Setpoint 1.45
+ +1 > CO2 Laser TEC On
+ +5 > Select QCLI_C Waveform C2Cd_800Hz
+ +2 Validate CQCL_Start;
+}
+
+State CQCL_SelectWaveandRun_Reset {
+    > Command QCLI_C_Reset On
+ +1 > Command QCLI_C_Reset Off
+    Hold until ( !(QCLI_C_s & 0x1000) ) or 2
+    else Validate CQCL_SelectWaveandRun_Reset;
+    Validate CQCL_SelectWaveandRun;
+}
 #----------------------------------------------------------------
 # Partition 6: Calibration Logic 
 #----------------------------------------------------------------
@@ -510,9 +763,10 @@ State Pump_Init {
 # Partition 9: Luggage Bay Temperature Control
 # Throttle Valve Control and Space Heater Control
 # -----------------------------------------------------------------------------
-# 
-# Partition
-# 
+Partition
+
+State LuggageBay_TCtrl_Init {
+} 
 # State Throttle_Standby {
 #   +5
 #   depending on (OFF_GROUND) { Validate Throttle_init; }
@@ -602,6 +856,45 @@ State MTControl_Shutdown {
 # Partition 11: CO2 Temperature Control
 # -----------------------------------------------------------------------------
 Partition
+
+%
+#define TEMP_OK(x,y) ( y-x < 0.5 )
+%
+
+State CTControl_Init {
+Depending on (Shutdown) { Validate CTControl_Shutdown; }
+}
+
+State CTControl_Start {
+Depending on (Shutdown) { Validate CTControl_Shutdown; }
+    +1 > CO2 Set LPV Temp Setpoint 1.25
+    +1 > CO2 Set Cell Temp Setpoint 1.25
+    +1 > CO2 Cell Htr Ctl On
+   +10 > CO2 Laser PV Htr Ctl
+   +1  Validate CTControl_Watch;
+}
+
+State CTControl_Watch NoLog {
+Depending on (Shutdown) { Validate CTControl_Shutdown; }
+    Hold until (!TEMP_OK(convert(CLPVTSt),convert(CLPVCT)) || !TEMP_OK(convert(CCelTSt),convert(CCelCT)) );
+    Hold until (TEMP_OK(convert(CLPVTSt),convert(CLPVCT))  && TEMP_OK(convert(CCelTSt),convert(CCelCT)) ) or 2
+    else Validate CTControl_Not_OK;
+    Validate CTControl_Watch;
+}
+
+State CTControl_Not_OK {
+Depending on (Shutdown) { Validate CTControl_Shutdown; }
+       { if (!TEMP_OK(convert(CLPVTSt),convert(CLPVCT))) > CO2 Laser PV Htr Off;} 
+       { if (!TEMP_OK(convert(CCelTSt),convert(CCelCT))) > CO2 Cell Htr Ctl Off;}
+   +10 > CO2 Cell Htr Ctl On
+    +1 > CO2 Laser PV Htr On
+    +1 Validate CTControl_Watch;
+}
+
+State CTControl_Shutdown {
+    > CO2 Cell Htr Ctl Off
+    > CO2 Laser PV Htr Off
+}
 
 # -----------------------------------------------------------------------------
 # Partition 12: Realtime File Input
