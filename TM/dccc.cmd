@@ -40,7 +40,6 @@
   : Space Heater Controller { $0 = 38; }
   : Gas Deck Flow Controller Closed { $0 = 40; }
   : Gas Deck Flow Controller Open { $0 = 39; }
-  : Gas Deck Valve Closed { $0 = 33; }
   ;
 &dccc_cl_op <int>
   : CO2 Exhaust Valve { $0 = 31; }
@@ -49,6 +48,7 @@
   : ISO Gas Valve { $0 = 35; }
   : MINI Exhaust Valve { $0 = 24; }
   : MINI Gas Valve { $0 = 47; }
+  : Gas Deck Valve { $0 = 33; }
   ;
 &dccc_on_off <int>
   : CO2 Pressure Reg { $0 = 29; }

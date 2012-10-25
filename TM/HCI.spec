@@ -52,7 +52,7 @@ SCRIPT = runfile.FF
 HCIcol : -lsubbus
 HCIsrvr : -lsubbus
 HCIdisp : PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc P_conv.tmc hk.tbl qcli.tbl Cells.tbl SSPrtg.tmc /usr/local/share/oui/cic.oui
-HCIalgo : HCI.tma HCI.sws
+HCIalgo : P_conv.tmc HCI.tma HCI.sws
 HCIengext : qcli_conv.tmc PTRH_conv.tmc P_conv.tmc HCIeng.cdf
 doit : HCI.doit
 

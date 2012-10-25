@@ -33,4 +33,5 @@
   : CO2 Temperature Ctrl Stop { $0 = SWS_CT_STOP; }
   : CO2 Calibrate { $0 = SWS_CCALIBRATE; }
   : CO2 Start { $0 = SWS_CSTART; }
+  : Time Warp { $0 = SWS_TIMEWARP; }
   ;

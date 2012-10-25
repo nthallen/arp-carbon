@@ -18,6 +18,7 @@ SWS_CT_START 	15     	CO2 Temperature Ctrl Start: Validate CTControl_Start; brea
 SWS_CT_STOP	16	CO2 Temperature Ctrl Stop: Validate CTControl_Shutdown; break;
 SWS_CCALIBRATE 	17    	CO2 Calibrate: Validate CO2_Calibrate; break;
 SWS_CSTART	18	CO2 Start: Validate CO2_Start; break;
+SWS_TIMEWARP    19      Time Warp: break;
 
 
 
