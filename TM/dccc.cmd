@@ -2,7 +2,7 @@
 &command
   : &dccc_off_on &off_on * { if_dccc.Turf("D%d\n", $1 * 2 + $2); }
   : &dccc_cl_op &cl_op * { if_dccc.Turf("D%d\n", $1 * 2 + $2); }
-  : &dccc_op_cl &op_cl * { if_dccc.Turf("D%d\n", $1 * 2 + $2); }
+  : &dccc_on_off &on_off * { if_dccc.Turf("D%d\n", $1 * 2 + $2); }
   ;
 &off_on <int>
   : Off { $0 = 1; }
@@ -12,9 +12,9 @@
   : Closed { $0 = 1; }
   : Open { $0 = 0; }
   ;
-&op_cl <int>
-  : Closed { $0 = 0; }
-  : Open { $0 = 1; }
+&on_off <int>
+  : Off { $0 = 0; }
+  : On { $0 = 1; }
   ;
 &dccc_off_on <int>
   : CO2 Cell Htr Ctl { $0 = 27; }
@@ -40,7 +40,6 @@
   : Space Heater Controller { $0 = 38; }
   : Gas Deck Flow Controller Closed { $0 = 40; }
   : Gas Deck Flow Controller Open { $0 = 39; }
-  : Gas Deck Valve Closed { $0 = 33; }
   ;
 &dccc_cl_op <int>
   : CO2 Exhaust Valve { $0 = 31; }
@@ -49,8 +48,9 @@
   : ISO Gas Valve { $0 = 35; }
   : MINI Exhaust Valve { $0 = 24; }
   : MINI Gas Valve { $0 = 47; }
+  : Gas Deck Valve { $0 = 33; }
   ;
-&dccc_op_cl <int>
+&dccc_on_off <int>
   : CO2 Pressure Reg { $0 = 29; }
   : MINI Pressure Reg { $0 = 46; }
   : ISO Pressure Reg { $0 = 34; }

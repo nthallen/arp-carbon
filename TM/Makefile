@@ -1,4 +1,4 @@
-# Makefile Generated Tue Oct 23 11:44:18 EDT 2012
+# Makefile Generated Thu Oct 25 14:54:11 EDT 2012
 MNC=HCI
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
@@ -192,8 +192,8 @@ HCIsws.tma : HCI.sws
 HCIalgoa.tmc : HCI.tma HCIsws.tma HCIsrvr
 	$(SERVER) ./HCIsrvr
 	$(TMCALGO) -V "`./HCIsrvr -R`" HCI.tma HCIsws.tma
-HCIalgo.cc : /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc T30K75KU.tmc T1M250KU.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc HCIalgoa.tmc
-	$(TMC) /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc T30K75KU.tmc T1M250KU.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc HCIalgoa.tmc
+HCIalgo.cc : /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc T30K75KU.tmc T1M250KU.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc P_conv.tmc HCIalgoa.tmc
+	$(TMC) /usr/local/share/huarp/freemem.tmc /usr/local/share/huarp/cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc T30K75KU.tmc T1M250KU.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc P_conv.tmc HCIalgoa.tmc
 HCIalgooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIalgooui.o : HCIalgooui.c SWData.h

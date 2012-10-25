@@ -15,7 +15,7 @@ CO2_Cell {
   };
   -;
   >{
-    HC: (CCell_HC_DS,3)        Prs_Reg: (CPrs_Reg_DS,6);
+    HC: (CCell_HC_DS,3)        Prs_Reg: (CPrs_Reg_DS,3);
     Ex_Vlv: (CGas_Ex_Vlv_DS,6) Gas_Vlv: (CGas_Vlv_DS,6);
   }<
 }
@@ -37,7 +37,7 @@ MM_Cell {
   };
   -;
   >{
-    HC: (MCell_HC_DS,3)        Prs_Reg: (MPrs_Reg_DS,6);
+    HC: (MCell_HC_DS,3)        Prs_Reg: (MPrs_Reg_DS,3);
     Ex_Vlv: (MGas_Ex_Vlv_DS,6) Gas_Vlv: (MGas_Vlv_DS,6);
   }<
 }
@@ -59,7 +59,7 @@ I_Cell {
   };
   -;
   >{
-    HC: (ICell_HC_DS,3) (ICell_HC_S,3)  Prs_Reg: (IPrs_Reg_DS,6);
+    HC: (ICell_HC_DS,3) (ICell_HC_S,3)  Prs_Reg: (IPrs_Reg_DS,3);
   }<;
   >{
     Ex_Vlv: (IGas_Ex_Vlv_DS,6) Gas_Vlv: (IGas_Vlv_DS,6);

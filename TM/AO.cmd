@@ -24,7 +24,7 @@
   : CO2 Set Cell Temp Setpoint { $0 = CCelTSt_Address; }
   : CO2 Set Laser TEC Temp Setpoint { $0 = CLTETSt_Address; }
   : CO2 Set LPV Temp Setpoint { $0 = CLPVTSt_Address; }
-  : GASDECK Set Gas Flow Setpoint { $0 = GsFlSt_Address; }
+  : Gas Deck Set Gas Flow Setpoint { $0 = GsFlSt_Address; }
   : HK Set Sample Heater Temp Setpoint { $0 = SHTSt_Address; }
   : HK Set Space Heater Temp Setpoint { $0 = SpHtTSt_Address; }
 # : ISO Set Cell Temp Setpoint { $0 = ICelTSt_Address; }
