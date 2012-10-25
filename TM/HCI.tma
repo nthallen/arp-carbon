@@ -154,7 +154,10 @@ State MINI_Sample {
 State MINI_Calibrate {
      Depending on (Shutdown) { Validate MINI_Shutdown; }
      { MINI_Ready_To_Calibrate = 1; }
-     {Depending on (1Hz) { if ( MINI_Ready_To_Calibrate == 0 ) Validate MINI_Sample; } }
+     Depending on (1Hz) {
+       if ( MINI_Ready_To_Calibrate == 0 )
+         Validate MINI_Sample;
+     }
 }
 
 State MINI_Shutdown {
@@ -199,9 +202,12 @@ State CO2_Sample {
 }
 
 State CO2_Calibrate {
-     Depending on (Shutdown) { Validate CO2_Shutdown; }
-     { CO2_Ready_To_Calibrate = 1; }
-     {Depending on (1Hz) { if ( CO2_Ready_To_Calibrate == 0 ) Validate CO2_Sample; } }
+    Depending on (Shutdown) { Validate CO2_Shutdown; }
+    { CO2_Ready_To_Calibrate = 1; }
+    Depending on (1Hz) {
+      if ( CO2_Ready_To_Calibrate == 0 )
+        Validate CO2_Sample;
+    }
 }
 
 State CO2_Shutdown {
@@ -279,15 +285,19 @@ State MQCL_Watch NoLog {
     hold until ( SSP_M_Status == SSP_STATUS_TRIG &&
          MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) &&
 	 convert(MLasI) >= M_LOW_CURRENT) or 2
-    else {  
-      if (!MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)))
-        Validate MQCL_Out_TSpec;
-      if (convert(MLasI) <= M_LOW_CURRENT)
-        Validate MQCL_Out_Spec;
-      if (SSP_M_Status != SSP_STATUS_TRIG)
-        Validate MQCL_SSP_M_Recover;
-    }
-  +1 Validate MQCL_Watch;
+    else Validate MQCL_Watch_Recover;
+    Validate MQCL_Watch;
+}
+
+State MQCL_Watch_Recover {  
+  { if (!MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)))
+      Validate MQCL_Out_TSpec;
+    else if (convert(MLasI) <= M_LOW_CURRENT)
+      Validate MQCL_Out_Spec;
+    else if (SSP_M_Status != SSP_STATUS_TRIG)
+      Validate MQCL_SSP_M_Recover;
+    else Validate MQCL_Watch;
+  }
 }
 
 State MQCL_SSP_M_Recover NoLog {
@@ -500,15 +510,20 @@ State CQCL_Watch NoLog {
     hold until ( SSP_C_Status == SSP_STATUS_TRIG &&
          CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)) &&
 	 convert(CLasI) >= C_LOW_CURRENT ) or 2
-    else {
+    else Validate CQCL_Watch_Recover;
+    Validate CQCL_Watch;
+}
+
+State CQCL_Watch_Recover {
+    {
       if (!CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)))
         Validate CQCL_Out_TSpec;
-      if (convert(CLasI) <= C_LOW_CURRENT)
+      else if (convert(CLasI) <= C_LOW_CURRENT)
         Validate CQCL_Out_Spec;
-      if (SSP_C_Status != SSP_STATUS_TRIG)
+      else if (SSP_C_Status != SSP_STATUS_TRIG)
         Validate CQCL_SSP_C_Recover;
+      else Validate CQCL_Watch;
     }
-  +1 Validate CQCL_Watch;
 }
 
 State CQCL_SSP_C_Recover NoLog {
@@ -659,9 +674,12 @@ State CQCL_SelectWaveandRun_Reset {
 Partition
 
 State Calibrate_Logic {
-    { Depending on (1Hz) { if ( MINI_Ready_To_Calibrate == 1 ) Validate Calibrate_MINI; 
-    else if ( CO2_Ready_To_Calibrate == 1 ) Validate Calibrate_CO2; }
-    }
+  Depending on (1Hz) {
+    if ( MINI_Ready_To_Calibrate == 1 )
+      Validate Calibrate_MINI; 
+    else if ( CO2_Ready_To_Calibrate == 1 )
+      Validate Calibrate_CO2;
+  }
 }
 
 State Calibrate_MINI {
