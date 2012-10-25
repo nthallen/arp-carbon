@@ -59,20 +59,22 @@ Group QCLI_M_grp ( QCLI_M_Wave, QCLI_M_s ) {
   QCLI_M_obj->synch();
 }
 TM 1 HZ QCLI_CS_t QCLI_M_CS; Address QCLI_M_CS 0x1000;
-TM "Receive" QCLI_I 1;
+/*
+  TM "Receive" QCLI_I 1;
 
-TM typedef unsigned short QCLI_I_Wave_t { text "%10d" QCLI_I_Wave_text(); }
-TM 1 Hz QCLI_I_Wave_t QCLI_I_Wave;
-TM 1 Hz UINT QCLI_I_s;
-TM 1 Hz UINT QCLI_I_Stale;
+  TM typedef unsigned short QCLI_I_Wave_t { text "%10d" QCLI_I_Wave_text(); }
+  TM 1 Hz QCLI_I_Wave_t QCLI_I_Wave;
+  TM 1 Hz UINT QCLI_I_s;
+  TM 1 Hz UINT QCLI_I_Stale;
 
-Group QCLI_I_grp ( QCLI_I_Wave, QCLI_I_s ) {
-  QCLI_I_Wave = QCLI_I.qcli_wave;
-  QCLI_I_s = QCLI_I.status;
-  QCLI_I_Stale = QCLI_I_obj->stale();
-  QCLI_I_obj->synch();
-}
-TM 1 HZ QCLI_CS_t QCLI_I_CS; Address QCLI_I_CS 0x1020;
+  Group QCLI_I_grp ( QCLI_I_Wave, QCLI_I_s ) {
+    QCLI_I_Wave = QCLI_I.qcli_wave;
+    QCLI_I_s = QCLI_I.status;
+    QCLI_I_Stale = QCLI_I_obj->stale();
+    QCLI_I_obj->synch();
+  }
+  TM 1 HZ QCLI_CS_t QCLI_I_CS; Address QCLI_I_CS 0x1020;
+*/
 TM "Receive" SSP_C 1;
 
 TM 1 Hz L20 SSP_C_Num;
@@ -119,26 +121,29 @@ Group SSP_M_grp ( SSP_M_Num, SSP_M_SN, SSP_M_TS, SSP_M_Flags,
   SSP_M_Stale = SSP_M_obj->stale();
   SSP_M_obj->synch();
 }
-TM "Receive" SSP_I 1;
 
-TM 1 Hz L20 SSP_I_Num;
-TM 1 Hz L20 SSP_I_SN;
-TM 1 Hz L20 SSP_I_TS;
-TM 1 Hz XLONG SSP_I_Flags;
-TM 1 Hz SSP_Status_t SSP_I_Status;
-TM 1 Hz UINT SSP_I_Stale;
-TM 1 Hz T_FPGA_t SSP_I_T_FPGA;
-TM 1 Hz T_HtSink_t SSP_I_T_HtSink;
+/*
+  TM "Receive" SSP_I 1;
 
-Group SSP_I_grp ( SSP_I_Num, SSP_I_SN, SSP_I_TS, SSP_I_Flags,
-		 SSP_I_T_FPGA, SSP_I_T_HtSink ) {
-  SSP_I_Num = SSP_I.index;
-  SSP_I_SN = SSP_I.ScanNum;
-  SSP_I_TS = SSP_I.Total_Skip;
-  SSP_I_Flags = SSP_I.Flags;
-  SSP_I_Status = SSP_I.Status;
-  SSP_I_T_FPGA = SSP_I.T_FPGA & 0xFFF8;
-  SSP_I_T_HtSink = SSP_I.T_HtSink & 0xFFE0;
-  SSP_I_Stale = SSP_I_obj->stale();
-  SSP_I_obj->synch();
-}
+  TM 1 Hz L20 SSP_I_Num;
+  TM 1 Hz L20 SSP_I_SN;
+  TM 1 Hz L20 SSP_I_TS;
+  TM 1 Hz XLONG SSP_I_Flags;
+  TM 1 Hz SSP_Status_t SSP_I_Status;
+  TM 1 Hz UINT SSP_I_Stale;
+  TM 1 Hz T_FPGA_t SSP_I_T_FPGA;
+  TM 1 Hz T_HtSink_t SSP_I_T_HtSink;
+
+  Group SSP_I_grp ( SSP_I_Num, SSP_I_SN, SSP_I_TS, SSP_I_Flags,
+       SSP_I_T_FPGA, SSP_I_T_HtSink ) {
+    SSP_I_Num = SSP_I.index;
+    SSP_I_SN = SSP_I.ScanNum;
+    SSP_I_TS = SSP_I.Total_Skip;
+    SSP_I_Flags = SSP_I.Flags;
+    SSP_I_Status = SSP_I.Status;
+    SSP_I_T_FPGA = SSP_I.T_FPGA & 0xFFF8;
+    SSP_I_T_HtSink = SSP_I.T_HtSink & 0xFFE0;
+    SSP_I_Stale = SSP_I_obj->stale();
+    SSP_I_obj->synch();
+  }
+*/

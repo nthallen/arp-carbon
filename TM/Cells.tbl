@@ -186,10 +186,10 @@ Status {
       HBox { [CO2_Laser]; |+; { [CO2_LPV]; [CO2_QCL] } };
       [Status];
       +-+;
-    }; |; |; {
-      [I_Cell];
-      HBox { [I_Laser]; |; { [I_DPV]; [I_QCL] } };
-      +-+;
+#   }; |; |; {
+#     [I_Cell];
+#     HBox { [I_Laser]; |; { [I_DPV]; [I_QCL] } };
+#     +-+;
     }; |;
   }
 }

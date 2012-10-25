@@ -1,6 +1,6 @@
 TM 1 Hz AI_T30K C24VT; Address C24VT 0xCB0; /* CO2 V/I 24v Supply Temp */
-TM 1 Hz AI_T1M250KU CCel1T; Address CCel1T 0xCB4; /* Cell Temp 1 CO2 */
-TM 1 Hz AI_T1M250KU CCel2T; Address CCel2T 0xCF4; /* Cell Temp 2 CO2 */
+TM 10 Hz AI_T1M250KU CCel1T; Address CCel1T 0xCB4; /* Cell Temp 1 CO2 */
+TM 10 Hz AI_T1M250KU CCel2T; Address CCel2T 0xCF4; /* Cell Temp 2 CO2 */
 TM 1 Hz AI16 CCelCT; Address CCelCT 0xC7A; /* Cell Control Temp CO2 */
 TM 1 Hz P1000Torr_C CCelHP; Address CCelHP 0xC32; /* Cell Pressure (1000 Torr) CO2 */
 TM 10 Hz P100Torr_C CCelLP; Address CCelLP 0xC72; /* Cell Pressure (100 Torr) CO2 */
@@ -31,22 +31,22 @@ TM 1 Hz AI_T30K GD__T; Address GD__T 0xC02; /* Gas Deck Temp */
 TM 1 Hz AI16 SH_CT; Address SH_CT 0xCFA; /* Sample Heater Control Temp */
 TM 1 Hz AI16 SpHCT; Address SpHCT 0xC3C; /* Space Heater Control Temp */
 TM 1 Hz AI16 TVPos; Address TVPos 0xC6C; /* Throttle Valve Pot Position */
-TM 1 Hz AI_T30K I24VT; Address I24VT 0xCD8; /* Large ICOS V/I 24v Supply Temp */
+/* TM 1 Hz AI_T30K I24VT; Address I24VT 0xCD8; */ /* Large ICOS V/I 24v Supply Temp */
 TM 1 Hz AI_T1M250KU ICel1T; Address ICel1T 0xC44; /* Cell Temp 1 ISO */
 TM 1 Hz AI_T1M250KU ICel2T; Address ICel2T 0xCC4; /* Cell Temp 2 ISO */
-TM 1 Hz AI16 ICelCT; Address ICelCT 0xC0A; /* Cell Control Temp ISO */
-TM 1 Hz P1000Torr_I ICelHP; Address ICelHP 0xCCA; /* Cell Pressure (1000 Torr) ISO */
-TM 10 Hz P100Torr_I ICelLP; Address ICelLP 0xC0C; /* Cell Pressure (100 Torr) ISO */
-TM 1 Hz PC100Torr ICelP; Address ICelP 0xC64; /* Large ICOS Pressure Regulator Prs */
-TM 1 Hz AI_VigoT IDetT; Address IDetT 0xC5A; /* Detector Temp (on Mount) ISO */
-TM 1 Hz AI16 IDPVCT; Address IDPVCT 0xC8A; /* Detector Pressure Vessel Control Temp ISO */
-TM 1 Hz AI16 ILasI; Address ILasI 0xC58; /* Laser Current ISO */
-TM 1 Hz AI_T30K ILH_T; Address ILH_T 0xC00; /* 7.7 laser Housing (Mount) Temp ISO */
-TM 1 Hz AI16 ILPVCT; Address ILPVCT 0xC4A; /* Laser Pressure Vessel Control Temp ISO */
-TM 1 Hz AI16 ILTE7R7T; Address ILTE7R7T 0xC18; /* 7.7 Laser TEC Control Temp ISO */
-TM 1 Hz AI_T30K IPampT; Address IPampT 0xC98; /* Large ICOS Power Amp (PA09) Temp */
-TM 1 Hz AI_T30K IPmpT; Address IPmpT 0xCDC; /* Large ICOS Pump Temp */
-TM 1 Hz AI_T30K IPMtT; Address IPMtT 0xC9C; /* Large ICOS Pump Moter Temp */
+/* TM 1 Hz AI16 ICelCT; Address ICelCT 0xC0A; */ /* Cell Control Temp ISO */
+/* TM 1 Hz P1000Torr_I ICelHP; Address ICelHP 0xCCA; */ /* Cell Pressure (1000 Torr) ISO */
+/* TM 10 Hz P100Torr_I ICelLP; Address ICelLP 0xC0C; */ /* Cell Pressure (100 Torr) ISO */
+/* TM 1 Hz PC100Torr ICelP; Address ICelP 0xC64; */ /* Large ICOS Pressure Regulator Prs */
+/* TM 1 Hz AI_VigoT IDetT; Address IDetT 0xC5A; */ /* Detector Temp (on Mount) ISO */
+/* TM 1 Hz AI16 IDPVCT; Address IDPVCT 0xC8A; */ /* Detector Pressure Vessel Control Temp ISO */
+/* TM 1 Hz AI16 ILasI; Address ILasI 0xC58; */ /* Laser Current ISO */
+/* TM 1 Hz AI_T30K ILH_T; Address ILH_T 0xC00; */ /* 7.7 laser Housing (Mount) Temp ISO */
+/* TM 1 Hz AI16 ILPVCT; Address ILPVCT 0xC4A; */ /* Laser Pressure Vessel Control Temp ISO */
+/* TM 1 Hz AI16 ILTE7R7T; Address ILTE7R7T 0xC18; */ /* 7.7 Laser TEC Control Temp ISO */
+/* TM 1 Hz AI_T30K IPampT; Address IPampT 0xC98; */ /* Large ICOS Power Amp (PA09) Temp */
+/* TM 1 Hz AI_T30K IPmpT; Address IPmpT 0xCDC; */ /* Large ICOS Pump Temp */
+/* TM 1 Hz AI_T30K IPMtT; Address IPMtT 0xC9C; */ /* Large ICOS Pump Moter Temp */
 TM 1 Hz AI_T30K IRv1T; Address IRv1T 0xC04; /* Roving Temp 1 ISO */
 TM 1 Hz AI_T30K IRv2T; Address IRv2T 0xC84; /* Roving Temp 2 ISO */
 TM 1 Hz AI_T30K IRv3T; Address IRv3T 0xC06; /* Roving Temp 3 ISO */
@@ -59,8 +59,8 @@ TM 1 Hz AI_T30K ISk2T; Address ISk2T 0xCC2; /* Skin Temp 2 ISO */
 TM 1 Hz AI_T30K ISk3T; Address ISk3T 0xC82; /* Skin Temp 3 ISO */
 TM 1 Hz AI_T30K ISSPT; Address ISSPT 0xC1A; /* SSP Bd Temp ISO */
 TM 1 Hz AI_T30K M24VT; Address M24VT 0xC22; /* Mini-Methane V/I 24v Supply Temp */
-TM 1 Hz AI_T1M250KU MCel1T; Address MCel1T 0xC26; /* Cell Temp 1 MINI */
-TM 1 Hz AI_T1M250KU MCel2T; Address MCel2T 0xC66; /* Cell Temp 2 MINI */
+TM 10 Hz AI_T1M250KU MCel1T; Address MCel1T 0xC26; /* Cell Temp 1 MINI */
+TM 10 Hz AI_T1M250KU MCel2T; Address MCel2T 0xC66; /* Cell Temp 2 MINI */
 TM 1 Hz AI16 MCelCT; Address MCelCT 0xCEA; /* Cell Control Temp MINI */
 TM 1 Hz P1000Torr_M MCelHP; Address MCelHP 0xCA2; /* Cell Pressure (1000 Torr) MINI */
 TM 10 Hz P100Torr_M MCelLP; Address MCelLP 0xCE2; /* Cell Pressure (100 Torr) MINI */
@@ -103,11 +103,11 @@ TM 1 Hz AO16 CLTETSt; Address CLTETSt 0x436; /* Laser  TEC Temp Setpoint CO2 */
 TM 1 Hz AO_20SLM GsFlSt; Address GsFlSt 0x402; /* Gas Flow Setpoint GAS DECK */
 TM 1 Hz AO16 SHTSt; Address SHTSt 0x426; /* Sample Heater Temp Setpoint */
 TM 1 Hz AO16 SpHtTSt; Address SpHtTSt 0x420; /* Space Heater Temp Setpoint */
-TM 1 Hz AO_PSt ICelPSt; Address ICelPSt 0x434; /* Cell Pressure Setpoint ISO */
-TM 1 Hz AO16 ICelTSt; Address ICelTSt 0x408; /* Cell Temp Setpoint ISO */
-TM 1 Hz AO16 IDPVTSt; Address IDPVTSt 0x406; /* Detector Pressure Vessel Temp Setpoint ISO */
-TM 1 Hz AO16 ILPVTSt; Address ILPVTSt 0x404; /* Large ICOS LPV Ext TEC Setpoint ISO */
-TM 1 Hz AO16 ILTETSt; Address ILTETSt 0x400; /* Laser TEC Temp Setpoint ISO */
+/* TM 1 Hz AO_PSt ICelPSt; Address ICelPSt 0x434; */ /* Cell Pressure Setpoint ISO */
+/* TM 1 Hz AO16 ICelTSt; Address ICelTSt 0x408; */ /* Cell Temp Setpoint ISO */
+/* TM 1 Hz AO16 IDPVTSt; Address IDPVTSt 0x406; */ /* Detector Pressure Vessel Temp Setpoint ISO */
+/* TM 1 Hz AO16 ILPVTSt; Address ILPVTSt 0x404; */ /* Large ICOS LPV Ext TEC Setpoint ISO */
+/* TM 1 Hz AO16 ILTETSt; Address ILTETSt 0x400; */ /* Laser TEC Temp Setpoint ISO */
 TM 1 Hz AO_PSt MCelPSt; Address MCelPSt 0x430; /* Cell Pressure Setpoint MINI */
 TM 1 Hz AO16 MCelTSt; Address MCelTSt 0x42E; /* Cell Temp Setpoint MINI */
 TM 1 Hz AO16 MDPVTSt; Address MDPVTSt 0x42C; /* Detector Pressure Vessel Temp Setpoint MINI */

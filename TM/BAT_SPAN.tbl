@@ -1,0 +1,83 @@
+SPAN {
+  HBox { +-; Title: SPAN; -+ };
+  weekl: (GPS_weekl,5);
+  week: (GPS_week,5);
+  msecs: (GPS_msecs,9) msec;
+  secs: (GPS_secs,10) sec;
+  Lat: (Latitude,10) deg;
+  Lon: (Longitude,10) deg;
+  Ell_Ht: (Ellipsoidal_Ht,10) m;
+  N_V: (N_Velocity,10) "m/s";
+  E_Velocity: (E_Velocity,10) "m/s";
+  Up_Velocity: (Up_Velocity,10) "m/s";
+  Roll: (Roll,10) deg;
+  Pitch: (Pitch,10) deg;
+  Azimuth: (Azimuth,10) deg;
+  INS_Status: (INS_Status,3);
+  nc: (max_span_nc,5);
+  N: (n_span_records,3);
+}
+
+BP {
+  HBox { +-; Title: BESTPOS; -+ };
+  IdleTime: (SPAN_IdleTime,5);
+  TimeStatus: (SPAN_TimeStatus,3);
+  BP_Week: (BP_Week,5);
+  BP_msecs: (BP_msecs,9);
+  Rxvr_Stat: (GPS_Rxvr_Status,8);
+  SolnStat: (SolnStatus,3);
+  PosType: (PosType,3);
+  DatumID: (BP_DatumID,3);
+  BP_Lat: (BP_Lat,10);
+  BP_Lon: (BP_Lon,10);
+  BP_Ht: (BP_Ht,10);
+  BP_undulation: (BP_undulation,9);
+  BP_LatStd: (BP_LatStd,9);
+  BP_LonStd: (BP_LonStd,9);
+  BP_HtStd: (BP_HtStd,9);
+  BP_DiffAge: (BP_DiffAge,9);
+  BP_SolAge: (BP_SolAge,9);
+  N: (n_bp_records,3);
+}
+
+BPN {
+  HBox { +-; Title: BPN; -+ };
+  NSVs: (NSVs,3);
+  NSVsSol: (NSVsSol,3);
+  NGGL1: (NGGL1,3);
+  NGGL1L2: (NGGL1L2,3);
+  ExtSoln: (ExtSolnStatus,3);
+  SigMask: (SigMask,3);
+}
+
+BAT {
+  HBox { +-; Title: BAT; -+ };
+  Px: (BAT_Px,7) mbar;
+  Py: (BAT_Py,7) mbar;
+  Pz: (BAT_Pz,7) mbar;
+  Ps: (BAT_Ps,7) mbar;
+  Ax: (BAT_Ax,7) "m/s2";
+  Ay: (BAT_Ay,7) "m/s2";
+  Az: (BAT_Az,7) "m/s2";
+  FUST: (BAT_FUST,7) uV;
+  Tbar: (BAT_Tbar,7) C;
+  Pump: (BAT_Pump,7) mV;
+  Axb: (BAT_Axb,7) "m/s2";
+  Ayb: (BAT_Ayb,7) "m/s2";
+  Azb: (BAT_Azb,7) "m/s2";
+  N: (n_bat_records,3);
+  Stale: (BSstale,3);
+}
+
+Status {
+  HBox { +-; Title: Status; -+ };
+  >(flttime,9)<;
+  MFCtr: (MFCtr,5);
+}
+
+{ HBox { |; [SPAN]; |; [BP]; |; [BAT]; |; {
+          [BPN];
+          VGlue 0+1;
+          [Status]
+         }; | }
+}

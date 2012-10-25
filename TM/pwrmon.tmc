@@ -7,3 +7,6 @@ TM 5 Hz PwrMon_I PM0I1; Address PM0I1 0x372;
 TM 5 Hz PwrMon_V PM0V1; Address PM0V1 0x374;
 TM 5 Hz PwrMon_I PM0I2; Address PM0I2 0x376;
 TM 5 Hz PwrMon_V PM0V2; Address PM0V2 0x378;
+TM 5 Hz PwrMon_S PM1Stat; Address PM1Stat 0x380;
+TM 5 Hz PwrMon_I PM1I1; Address PM1I1 0x382;
+TM 5 Hz PwrMon_V PM1V1; Address PM1V1 0x384;
