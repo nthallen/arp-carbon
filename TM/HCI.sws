@@ -1,4 +1,12 @@
 SW_Variable: SWStat
 
-SWS_SHUTDOWN 255 Shutdown: Validate Shutdown; break;
+SWS_SHUTDOWN 	1 	Shutdown: Validate Shutdown; break;
+SWS_TAKE_DATA   2	Flight Take Data: Validate TAKE_DATA; break;
+SWS_LAND	3	Flight Land: Validate LAND; break;
+SWS_MQCL_SELECT 4	MINI Laser Select Waveform and Run: Validate MQCL_SelectWaveandRun; break;
+SWS_MQCL_START 	5 	MINI Laser Start: Validate MQCL_Start; break;
+SWS_MQCL_STOP	6	MINI Laser Stop: Validate QCL_Stop; break;
+SWS_MT_START 	7      	MINI Temperature Ctrl Start: Validate MTControl_Start; break;
+SWS_MCALIBRATE 	8     	MINI Calibrate: Validate MINI_Calibrate; break;
+
 
