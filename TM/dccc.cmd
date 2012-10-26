@@ -3,6 +3,7 @@
   : &dccc_off_on &off_on * { if_dccc.Turf("D%d\n", $1 * 2 + $2); }
   : &dccc_cl_op &cl_op * { if_dccc.Turf("D%d\n", $1 * 2 + $2); }
   : &dccc_on_off &on_off * { if_dccc.Turf("D%d\n", $1 * 2 + $2); }
+  : &dccc_set &on_off * { if_dccc.Turf("S%d=%d\n", $1, $2); }
   ;
 &off_on <int>
   : Off { $0 = 1; }
@@ -55,3 +56,7 @@
   : MINI Pressure Reg { $0 = 46; }
   : ISO Pressure Reg { $0 = 34; }
   ;
+&dccc_set <int>
+  : Coolant Divert { $0 = 100; }
+  ;
+
