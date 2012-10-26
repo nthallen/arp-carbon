@@ -10,7 +10,7 @@ off_on_t CCell_HC_DS; Invalidate CCell_HC_DS;
   { CCell_HC_DS = (DS84C>>3)&1; Validate CCell_HC_DS; }
 off_on_t CLTEC_DS; Invalidate CLTEC_DS;
   { CLTEC_DS = (DS84C>>4)&1; Validate CLTEC_DS; }
-Op_Cl_t CPrs_Reg_DS; Invalidate CPrs_Reg_DS;
+off_on_t CPrs_Reg_DS; Invalidate CPrs_Reg_DS;
   { CPrs_Reg_DS = (DS84C>>5)&1; Validate CPrs_Reg_DS; }
 Op_Cl_t CGas_Vlv_DS; Invalidate CGas_Vlv_DS;
   { CGas_Vlv_DS = (DS84C>>6)&1; Validate CGas_Vlv_DS; }
@@ -36,7 +36,7 @@ off_on_t IQCLI_Reset_DS; Invalidate IQCLI_Reset_DS;
   { IQCLI_Reset_DS = (DS855>>0)&1; Validate IQCLI_Reset_DS; }
 off_on_t GD_Vlv_Clsed_S; Invalidate GD_Vlv_Clsed_S;
   { GD_Vlv_Clsed_S = (DS855>>1)&1; Validate GD_Vlv_Clsed_S; }
-Op_Cl_t IPrs_Reg_DS; Invalidate IPrs_Reg_DS;
+off_on_t IPrs_Reg_DS; Invalidate IPrs_Reg_DS;
   { IPrs_Reg_DS = (DS855>>2)&1; Validate IPrs_Reg_DS; }
 Op_Cl_t IGas_Vlv_DS; Invalidate IGas_Vlv_DS;
   { IGas_Vlv_DS = (DS855>>3)&1; Validate IGas_Vlv_DS; }
@@ -60,7 +60,7 @@ off_on_t MLTEC_DS; Invalidate MLTEC_DS;
   { MLTEC_DS = (DS868>>4)&1; Validate MLTEC_DS; }
 off_on_t MLPV_TEC_DS; Invalidate MLPV_TEC_DS;
   { MLPV_TEC_DS = (DS868>>5)&1; Validate MLPV_TEC_DS; }
-Op_Cl_t MPrs_Reg_DS; Invalidate MPrs_Reg_DS;
+off_on_t MPrs_Reg_DS; Invalidate MPrs_Reg_DS;
   { MPrs_Reg_DS = (DS868>>6)&1; Validate MPrs_Reg_DS; }
 Op_Cl_t MGas_Vlv_DS; Invalidate MGas_Vlv_DS;
   { MGas_Vlv_DS = (DS868>>7)&1; Validate MGas_Vlv_DS; }
