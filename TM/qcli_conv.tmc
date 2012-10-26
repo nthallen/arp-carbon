@@ -42,7 +42,7 @@ ok_fail_t QCLI_C_cmderr; invalidate QCLI_C_cmderr;
   { QCLI_C_cmderr = (QCLI_C_s & 0x2000) ? 1 : 0;
     validate QCLI_C_cmderr; }
 off_on_t QCLI_C_laser; invalidate QCLI_C_laser;
-  { QCLI_C_laser = (QCLI_C_s & 0x1000) ? 0 : 1;
+  { QCLI_C_laser = (QCLI_C_s & 0x1000) ? 1 : 0;
     validate QCLI_C_laser; }
 ok_fail_t QCLI_C_cordte; invalidate QCLI_C_cordte;
   { QCLI_C_cordte = (QCLI_C_s & 0x0800) ? 1 : 0;
@@ -95,7 +95,7 @@ ok_fail_t QCLI_M_cmderr; invalidate QCLI_M_cmderr;
   { QCLI_M_cmderr = (QCLI_M_s & 0x2000) ? 1 : 0;
     validate QCLI_M_cmderr; }
 off_on_t QCLI_M_laser; invalidate QCLI_M_laser;
-  { QCLI_M_laser = (QCLI_M_s & 0x1000) ? 0 : 1;
+  { QCLI_M_laser = (QCLI_M_s & 0x1000) ? 1 : 0;
     validate QCLI_M_laser; }
 ok_fail_t QCLI_M_cordte; invalidate QCLI_M_cordte;
   { QCLI_M_cordte = (QCLI_M_s & 0x0800) ? 1 : 0;
@@ -148,7 +148,7 @@ ok_fail_t QCLI_I_cmderr; invalidate QCLI_I_cmderr;
   { QCLI_I_cmderr = (QCLI_I_s & 0x2000) ? 1 : 0;
     validate QCLI_I_cmderr; }
 off_on_t QCLI_I_laser; invalidate QCLI_I_laser;
-  { QCLI_I_laser = (QCLI_I_s & 0x1000) ? 0 : 1;
+  { QCLI_I_laser = (QCLI_I_s & 0x1000) ? 1 : 0;
     validate QCLI_I_laser; }
 ok_fail_t QCLI_I_cordte; invalidate QCLI_I_cordte;
   { QCLI_I_cordte = (QCLI_I_s & 0x0800) ? 1 : 0;

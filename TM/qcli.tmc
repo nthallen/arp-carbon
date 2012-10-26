@@ -40,7 +40,7 @@ TM 1 Hz UINT QCLI_C_Stale;
 
 Group QCLI_C_grp ( QCLI_C_Wave, QCLI_C_s ) {
   QCLI_C_Wave = QCLI_C.qcli_wave;
-  QCLI_C_s = QCLI_C.status;
+  QCLI_C_s = QCLI_C.status ^ 0x1000; /* flip laser bit */
   QCLI_C_Stale = QCLI_C_obj->stale();
   QCLI_C_obj->synch();
 }
@@ -54,7 +54,7 @@ TM 1 Hz UINT QCLI_M_Stale;
 
 Group QCLI_M_grp ( QCLI_M_Wave, QCLI_M_s ) {
   QCLI_M_Wave = QCLI_M.qcli_wave;
-  QCLI_M_s = QCLI_M.status;
+  QCLI_M_s = QCLI_M.status ^ 0x1000;
   QCLI_M_Stale = QCLI_M_obj->stale();
   QCLI_M_obj->synch();
 }
@@ -68,7 +68,7 @@ TM 1 Hz UINT QCLI_I_Stale;
 
 Group QCLI_I_grp ( QCLI_I_Wave, QCLI_I_s ) {
   QCLI_I_Wave = QCLI_I.qcli_wave;
-  QCLI_I_s = QCLI_I.status;
+  QCLI_I_s = QCLI_I.status ^ 0x1000;
   QCLI_I_Stale = QCLI_I_obj->stale();
   QCLI_I_obj->synch();
 }
