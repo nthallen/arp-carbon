@@ -41,27 +41,26 @@ ROWS 25
  1 C_Pump_S:DS86A:1 CO2_Pump Status
 
  1 QCLI_C_Wave CO2_QCLI Wave %.0lf
- 1 QCLI_C_err CO2_QCLI Error
  1 QCLI_C_fifodep CO2_QCLI FIFO
  1 QCLI_C_Stale CO2_QCLI Stale
- 1 CQCLI_Reset_DS:DS84C:1 CO2_QCLI Status
- 1 FIFOOvf:QCLI_C_CS:12 CO2_QCLI Status
- 1 QCLI_C_Busy:QCLI_C_s:15 CO2_QCLI Status
- 1 QCLI_C_cksum:QCLI_C_s:14 CO2_QCLI Status
- 1 QCLI_C_cmderr:QCLI_C_s:13 CO2_QCLI Status
- 1 QCLI_C_dot:QCLI_C_s:5 CO2_QCLI Status
- 1 QCLI_C_InvCmd:QCLI_C_s:11 CO2_QCLI Status
- 1 QCLI_C_laser:QCLI_C_s:12 CO2_QCLI Status
- 1 QCLI_C_loc:QCLI_C_s:3 CO2_QCLI Status
- 1 QCLI_C_lot:QCLI_C_s:4 CO2_QCLI Status
- 1 QCLI_C_ready:QCLI_C_s:9 CO2_QCLI Status
- 1 QCLI_C_waveerr:QCLI_C_s:8 CO2_QCLI Status
- 1 QCLIResponding:QCLI_C_CS:11 CO2_QCLI Status
- 1 RBComplete:QCLI_C_CS:9 CO2_QCLI Status
- 1 RBPending:QCLI_C_CS:8 CO2_QCLI Status
- 1 Reading:QCLI_C_CS:14 CO2_QCLI Status
- 1 RWConflict:QCLI_C_CS:13 CO2_QCLI Status
- 1 WQPending:QCLI_C_CS:10 CO2_QCLI Status
+ 1 CQCLI_Reset_DS:DS84C:1 CO2_QCLI_Status Status
+ 1 FIFOOvf:QCLI_C_CS:12 CO2_QCLI_Status Status
+ 1 QCLI_C_Busy:QCLI_C_s:15 CO2_QCLI_Status Status
+ 1 QCLI_C_cksum:QCLI_C_s:14 CO2_QCLI_Status Status
+ 1 QCLI_C_cmderr:QCLI_C_s:13 CO2_QCLI_Status Status
+ 1 QCLI_C_dot:QCLI_C_s:5 CO2_QCLI_Status Status
+ 1 QCLI_C_InvCmd:QCLI_C_s:11 CO2_QCLI_Status Status
+ 1 QCLI_C_laser:QCLI_C_s:12 CO2_QCLI_Status Status
+ 1 QCLI_C_loc:QCLI_C_s:3 CO2_QCLI_Status Status
+ 1 QCLI_C_lot:QCLI_C_s:4 CO2_QCLI_Status Status
+ 1 QCLI_C_ready:QCLI_C_s:9 CO2_QCLI_Status Status
+ 1 QCLI_C_waveerr:QCLI_C_s:8 CO2_QCLI_Status Status
+ 1 QCLIResponding:QCLI_C_CS:11 CO2_QCLI_Status Status
+ 1 RBComplete:QCLI_C_CS:9 CO2_QCLI_Status Status
+ 1 RBPending:QCLI_C_CS:8 CO2_QCLI_Status Status
+ 1 Reading:QCLI_C_CS:14 CO2_QCLI_Status Status
+ 1 RWConflict:QCLI_C_CS:13 CO2_QCLI_Status Status
+ 1 WQPending:QCLI_C_CS:10 CO2_QCLI_Status Status
 
  1 C24VT CO2_SSP Temp
  1 CPampT CO2_SSP Temp
@@ -213,7 +212,6 @@ ROWS 25
 # 1 IPmpT ISO_Pump Temp
 # 1 IPMtT ISO_Pump Temp
 #
-# 1 QCLI_I_err ISO_QCLI Error
 # 1 QCLI_I_fifodep ISO_QCLI FIFO
 # 1 QCLI_I_Wave ISO_QCLI Wave %.0lf
 # 1 QCLI_I_Stale ISO_QCLI Stale
@@ -310,27 +308,26 @@ ROWS 25
  1 MM_Pump_S:DS86A:0 MINI_Pump Status
 
  1 QCLI_M_Wave MINI_QCLI Wave %.0lf
- 1 QCLI_M_err MINI_QCLI Error
  1 QCLI_M_fifodep MINI_QCLI FIFO
  1 QCLI_M_Stale MINI_QCLI Stale
- 1 FIFOOvf:QCLI_M_CS:12 MINI_QCLI Status
- 1 MQCLI_Reset_DS:DS868:1 MINI_QCLI Status
- 1 QCLI_M_Busy:QCLI_M_s:15 MINI_QCLI Status
- 1 QCLI_M_cksum:QCLI_M_s:14 MINI_QCLI Status
- 1 QCLI_M_cmderr:QCLI_M_s:13 MINI_QCLI Status
- 1 QCLI_M_dot:QCLI_M_s:5 MINI_QCLI Status
- 1 QCLI_M_InvCmd:QCLI_M_s:11 MINI_QCLI Status
- 1 QCLI_M_laser:QCLI_M_s:12 MINI_QCLI Status
- 1 QCLI_M_loc:QCLI_M_s:3 MINI_QCLI Status
- 1 QCLI_M_lot:QCLI_M_s:4 MINI_QCLI Status
- 1 QCLI_M_ready:QCLI_M_s:9 MINI_QCLI Status
- 1 QCLI_M_waveerr:QCLI_M_s:8 MINI_QCLI Status
- 1 QCLIResponding:QCLI_M_CS:11 MINI_QCLI Status
- 1 RBComplete:QCLI_M_CS:9 MINI_QCLI Status
- 1 RBPending:QCLI_M_CS:8 MINI_QCLI Status
- 1 Reading:QCLI_M_CS:14 MINI_QCLI Status
- 1 RWConflict:QCLI_M_CS:13 MINI_QCLI Status
- 1 WQPending:QCLI_M_CS:10 MINI_QCLI Status
+ 1 FIFOOvf:QCLI_M_CS:12 MINI_QCLI_Status Status
+ 1 MQCLI_Reset_DS:DS868:1 MINI_QCLI_Status Status
+ 1 QCLI_M_Busy:QCLI_M_s:15 MINI_QCLI_Status Status
+ 1 QCLI_M_cksum:QCLI_M_s:14 MINI_QCLI_Status Status
+ 1 QCLI_M_cmderr:QCLI_M_s:13 MINI_QCLI_Status Status
+ 1 QCLI_M_dot:QCLI_M_s:5 MINI_QCLI_Status Status
+ 1 QCLI_M_InvCmd:QCLI_M_s:11 MINI_QCLI_Status Status
+ 1 QCLI_M_laser:QCLI_M_s:12 MINI_QCLI_Status Status
+ 1 QCLI_M_loc:QCLI_M_s:3 MINI_QCLI_Status Status
+ 1 QCLI_M_lot:QCLI_M_s:4 MINI_QCLI_Status Status
+ 1 QCLI_M_ready:QCLI_M_s:9 MINI_QCLI_Status Status
+ 1 QCLI_M_waveerr:QCLI_M_s:8 MINI_QCLI_Status Status
+ 1 QCLIResponding:QCLI_M_CS:11 MINI_QCLI_Status Status
+ 1 RBComplete:QCLI_M_CS:9 MINI_QCLI_Status Status
+ 1 RBPending:QCLI_M_CS:8 MINI_QCLI_Status Status
+ 1 Reading:QCLI_M_CS:14 MINI_QCLI_Status Status
+ 1 RWConflict:QCLI_M_CS:13 MINI_QCLI_Status Status
+ 1 WQPending:QCLI_M_CS:10 MINI_QCLI_Status Status
 
  1 M24VT MINI_SSP Temp
  1 MPampT MINI_SSP Temp
