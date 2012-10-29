@@ -5,7 +5,8 @@ CXXFLAGS= -Wall -g
 LIBS=-ltmpp -ltm -lnort
 
 .PHONY : all clean
-all : BAT_SPAN BSlogger BS2cdfext
+# all : BAT_SPAN BSlogger BS2cdfext
+all : BAT_SPAN BSlogger
 
 BSOBJ = BAT_SPAN.o BAT_SPANoui.o
 BAT_SPAN : $(BSOBJ)

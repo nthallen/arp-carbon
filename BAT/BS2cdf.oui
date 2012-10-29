@@ -10,7 +10,3 @@
   case 'P':
     data_path = optarg;
     break;
-
-<package> msghdr_init
-<init>
-  msg_hdr_default = "B2C";

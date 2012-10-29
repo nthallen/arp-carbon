@@ -9,14 +9,30 @@ BS2cdf::BS2cdf() {
   ncid = -1;
 }
 
+void BS2cdf::back_tick(const char *fmt, ...) {
+
+}
+
 mlf_def_t *BS2cdf::mlf_init(const char *data_path) {
   char base_path[160];
+  mlf_def_t *mlf;
+  const char *config;
+  mlf_ntup_t *mlfn;
+
   if (data_path) {
     snprintf(base_path, 159, "%s/BAT_SPAN", data_path);
   } else {
     snprintf(base_path, 159, "BAT_SPAN");
   }
-  mlf_init(3, 60, 0, base_path, "dat", NULL);
+  config = back_tick("mlf_find %s", base_path);
+  mlf = ::mlf_init(3, 60, 0, base_path, "dat", config);
+  last_idx = mlf->index;
+  config = back_tick("mlf_find -f %s", base_path);
+  mlfn = mlf_convert_fname(mlf, base_path, config);
+  mlf_set_ntup(mlf, mlfn);
+  mlf_free_mlfn(mlfn);
+  nl_error(0, "Will extract from %ld to %ld", mlf->index, last_idx);
+  return mlf;
 }
 
 void BS2cdf::nc_setup() {
@@ -55,7 +71,7 @@ int main(int argc, char **argv) {
   mlf_def_t *mlf;
   BS2cdf BS2C;
   oui_init_options(argc, argv);
-  mlf = mlf_init(data_path);
+  mlf = BS2C.mlf_init(data_path);
   BS2C.nc_setup();
   nl_error(0, "Start");
   for (;;) {
