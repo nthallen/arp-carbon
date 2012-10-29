@@ -1,4 +1,4 @@
-# Makefile Generated Fri Oct 26 11:24:27 EDT 2012
+# Makefile Generated Mon Oct 29 15:55:33 EDT 2012
 MNC=HCI
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
@@ -31,8 +31,8 @@ OBJ+=HCIengext.o doit.dep HCIclt.o HCIcltoui.c HCIcltoui.o HCIcltnc.o
 OBJ+=HCIcltncoui.c HCIcltncoui.o
 TGT=HCIcol HCIsrvr HCIdisp HCIdispnc BSdisp BSdispnc HCIalgo
 TGT+=HCIengext doit HCIclt HCIcltnc
-DISTRIB=QCLI_C.out QCLI_M.out QCLI_I.out ../BAT/BAT_SPAN HCI.pcm
-DISTRIB+=tm.dac
+DISTRIB=QCLI_C.out QCLI_M.out QCLI_I.out ../BAT/BAT_SPAN
+DISTRIB+=../BAT/BS2cdf HCI.pcm tm.dac
 IDISTRIB=Experiment.config VERSION doit
 SRCDIST=QCLI_C.m QCLI_M.m QCLI_I.m hk.tbl qcli.tbl Cells.tbl
 SRCDIST+=BAT_SPAN.tbl hk2.tbl HCI.tma
@@ -248,5 +248,5 @@ COLFLAGS = -H address.h
 address.h : HCIcol.cc
 HCIeng.cdf : genui.txt
 	genui -d ../eng -c genui.txt
-../BAT/BAT_SPAN :
+../BAT/BAT_SPAN ../BAT/BS2cdf:
 	cd ../BAT && make

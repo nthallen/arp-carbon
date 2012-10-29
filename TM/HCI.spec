@@ -54,7 +54,7 @@ SRC = pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc
 SRC = PTRH_conv.tmc
 SCRIPT = idx64.idx64 interact dccc.dccc
 SCRIPT = runfile.FF
-DISTRIB = ../BAT/BAT_SPAN
+DISTRIB = ../BAT/BAT_SPAN ../BAT/BS2cdf
 
 HCIcol : -lsubbus
 HCIsrvr : -lsubbus
@@ -71,5 +71,5 @@ COLFLAGS = -H address.h
 address.h : HCIcol.cc
 HCIeng.cdf : genui.txt
 	genui -d ../eng -c genui.txt
-../BAT/BAT_SPAN :
+../BAT/BAT_SPAN ../BAT/BS2cdf:
 	cd ../BAT && make

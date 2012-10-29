@@ -17,9 +17,10 @@ class BS2cdf {
     void nc_setup();
     int Read_File(FILE *fp);
     void nc_close();
+    unsigned long last_idx;
   private:
     void Parse_Record(unsigned char *rec);
-    void back_tick(const char *fmt, ...);
+    const char *back_tick(const char *fmt, ...);
     static const int SPAN_nb_rec = 104;
     static const int BAT_nb_rec = 35;
     static const int nb_rec = SPAN_nb_rec + BAT_nb_rec;
