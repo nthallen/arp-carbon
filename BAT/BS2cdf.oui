@@ -2,11 +2,15 @@
 <include> <stdlib.h>
 <include> "BS2cdf.h"
 
-<opts> "P:"
+<opts> "P:S:"
 <sort>
 	-P <data path>
+  -S <setup file> Defaults to <data path>/BAT_setup.txt
 
 <switch>
   case 'P':
     data_path = optarg;
+    break;
+  case 'S':
+    setup_path = optarg;
     break;
