@@ -210,13 +210,13 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
       nl_error(3, "%s:%d Input line too long in setup file", setup_path, line_num);
     BC = new BS2Cchan(chan_def, setup_path, line_num);
     if (BC->valid) {
-      int i;
+      unsigned i;
       chan.push_back(BC);
       for (i = 0; i < dims.size(); ++i) {
-        if (BC.frequency == dims[i].frequency) break;
+        if (BC->frequency == dims[i].frequency) break;
       }
       if (i == dims.size())
-        dims.push_back(BS2Cdim(BC.frequency));
+        dims.push_back(BS2Cdim(BC->frequency));
     } else {
       bool done = (BC->device == -99);
       delete BC;

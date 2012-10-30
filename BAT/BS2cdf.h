@@ -40,7 +40,7 @@ class BS2Cchan {
     int cp;
 };
 
-Class BS2Cdim {
+class BS2Cdim {
   public:
     BS2Cdim(short freq);
     short frequency;
