@@ -212,11 +212,13 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
     if (BC->valid) {
       unsigned i;
       chan.push_back(BC);
-      for (i = 0; i < dims.size(); ++i) {
-        if (BC->frequency == dims[i].frequency) break;
+      if (BC->frequency > 1) {
+        for (i = 0; i < dims.size(); ++i) {
+          if (BC->frequency == dims[i].frequency) break;
+        }
+        if (i == dims.size())
+          dims.push_back(BS2Cdim(BC->frequency));
       }
-      if (i == dims.size())
-        dims.push_back(BS2Cdim(BC->frequency));
     } else {
       bool done = (BC->device == -99);
       delete BC;
@@ -224,6 +226,25 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
     }
   }
   fclose(ifp);
+  
+  // Create dimensions
+  { std::vector<BS2Cdim>::iterator pos;
+    for (pos = dims.bigin(); pos < dims.end(); ++pos) {
+      char dim_name[10];
+      int status;
+      
+      snprintf(dim_name, "%02d_Hz", pos->frequency);
+      status = nc_def_dim(ncid, dim_name, pos->frequency, &pos->dim_id);
+      if (status != NC_NOERR)
+        nl_error(3, "Error creating dimension frequency '%s'", dim_name);
+    }
+  }
+  { std::vector<BS2Cchan *>::iterator pos;
+    for (pos = chan.begin(); pos < chan.end(); ++pos) {
+      int num_dims = (pos->frequency > 1) ? 2 : 1;
+      // find dimension...
+    }
+  }
       // Add definitions to ncid
       /*  setup_template.txt variable columns:
           label  string (var name)
