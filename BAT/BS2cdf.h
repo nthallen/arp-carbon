@@ -40,6 +40,13 @@ class BS2Cchan {
     int cp;
 };
 
+Class BS2Cdim {
+  public:
+    BS2Cdim(short freq);
+    short frequency;
+    int dim_id;
+};
+
 class BS2cdf {
   public:
     BS2cdf();
@@ -56,6 +63,7 @@ class BS2cdf {
     int ncid, dimids[2];
     unsigned line_num;
     std::vector<BS2Cchan *> chan;
+    std::vector<BS2Cdim> dims;
     static const int SPAN_nb_rec = 104;
     static const int BAT_nb_rec = 35;
     static const int nb_rec = SPAN_nb_rec + BAT_nb_rec;

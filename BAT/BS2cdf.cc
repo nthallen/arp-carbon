@@ -86,6 +86,11 @@ int BS2Cchan::parse_str(char *ibuf, int len, const char *strname, int ws_ok) {
   return n == 0;
 }
 
+BS2Cdim::BS2Cdim(short freq) {
+  frequency = freq;
+  dim_id = -1;
+}
+
 unsigned char BS2cdf::ibuf[BS2cdf::n_rec][BS2cdf::nb_rec];
 
 BS2cdf::BS2cdf() {
@@ -205,7 +210,20 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
       nl_error(3, "%s:%d Input line too long in setup file", setup_path, line_num);
     BC = new BS2Cchan(chan_def, setup_path, line_num);
     if (BC->valid) {
+      int i;
       chan.push_back(BC);
+      for (i = 0; i < dims.size(); ++i) {
+        if (BC.frequency == dims[i].frequency) break;
+      }
+      if (i == dims.size())
+        dims.push_back(BS2Cdim(BC.frequency));
+    } else {
+      bool done = (BC->device == -99);
+      delete BC;
+      if (done) break;
+    }
+  }
+  fclose(ifp);
       // Add definitions to ncid
       /*  setup_template.txt variable columns:
           label  string (var name)
@@ -221,14 +239,7 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
           scaleFactor float
           addOffset float
           longName string */
-    } else {
-      bool done = (BC->device == -99);
-      delete BC;
-      if (done) break;
-    }
-  }
-  
-  fclose(ifp);
+
   if (nc_enddef(ncid) != NC_NOERR)
     nl_error(3, "Error leaving define mode");
 }
