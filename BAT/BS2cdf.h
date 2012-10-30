@@ -11,7 +11,7 @@ extern const char *setup_path;
 
 #ifdef __cplusplus
 
-#include <dequeue>
+#include <vector>
 
 class BS2Cchan {
   public:
@@ -19,7 +19,7 @@ class BS2Cchan {
     ~BS2Cchan();
     bool valid;
     char label[12];
-    short device
+    short device;
     short phsicalChannel;
     short frequency;
     char units[12];
@@ -45,7 +45,7 @@ class BS2cdf {
     BS2cdf();
     ~BS2cdf();
     mlf_def_t *mlf_init(const char *data_path);
-    void nc_setup();
+    void nc_setup(const char *data_path, const char *setup_path);
     int Read_File(FILE *fp);
     void nc_close();
     unsigned long last_idx;

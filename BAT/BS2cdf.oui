@@ -5,7 +5,7 @@
 <opts> "P:S:"
 <sort>
 	-P <data path>
-  -S <setup file> Defaults to <data path>/BAT_setup.txt
+	-S <setup file> Defaults to <data path>/BAT_setup.txt
 
 <switch>
   case 'P':

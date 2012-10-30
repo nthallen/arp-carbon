@@ -1,6 +1,9 @@
 /* BS2cdf.cc */
 #include <stdarg.h>
+#include <stdlib.h>
 #include <ctype.h>
+#include <strings.h>
+#include <time.h>
 #include "BS2cdf.h"
 
 const char *data_path;
@@ -20,14 +23,14 @@ BS2Cchan::BS2Cchan(const char *line, const char *filename, int ln) {
   line_num = ln;
   cp = 0;
   
-  if (parse_str(label, sizeof(label)), "label") return;
+  if (parse_str(&label[0], sizeof(label), "label")) return;
   n = sscanf(&cfg[cp], "%hd%hd%hd%n", &device, &phsicalChannel, &frequency, &nc);
   if (n == 1 && device == -99) return;
-  else if (chk_sscanf(n != 2, nc, "device, channel or frequency"))
+  else if (chk_sscanf(n != 3, nc, "device, channel or frequency"))
     return;
-  if (parse_str(units, sizeof(units)), "units") return;
+  if (parse_str(&units[0], sizeof(units), "units")) return;
   n = sscanf(&cfg[cp], "%hd%n", &cal_pwr, &nc);
-  if (chk_sscanf(n != 2, nc, "cal_pwr") return;
+  if (chk_sscanf(n != 1, nc, "cal_pwr")) return;
   if (cal_pwr > 5) {
     nl_error(2, "%s:%d Invalid cal_pwr: %d", file, line_num, cal_pwr);
     return;
@@ -39,15 +42,16 @@ BS2Cchan::BS2Cchan(const char *line, const char *filename, int ln) {
   for (; i < 5; ++i) coef[i] = 0.;
   n = sscanf(&cfg[cp], "%f%f%n", &min, &max, &nc);
   if (chk_sscanf(n != 2, nc, "min or max")) return;
-  if (parse_str(cFormat, sizeof(cFormat)), "cFormat") return;
+  if (parse_str(&cFormat[0], sizeof(cFormat), "cFormat")) return;
   if ((strcasecmp(cFormat, "NC_CHAR")) &&
       (strcasecmp(cFormat, "NC_SHORT")) &&
       (strcasecmp(cFormat, "NC_INT")))
-    nl_error(2, "%s:%d Invalid cFormat for %s: '%s'", file, line_num, label, cFormat
+    nl_error(2, "%s:%d Invalid cFormat for %s: '%s'",
+        file, line_num, label, cFormat);
   n = sscanf(&cfg[cp], "%f%f%n", &scaleFactor, &addOffset, &nc);
   if (chk_sscanf(n != 2, nc, "scaleFactor or addOffset"))
     return;
-  if (parse_str(longName, sizeof(longName)), "longName") return;
+  if (parse_str(&longName[0], sizeof(longName), "longName")) return;
   valid = true;
 }
 
@@ -73,13 +77,13 @@ int BS2Cchan::parse_str(char *ibuf, int len, const char *strname, int ws_ok) {
       nl_error(2, "%s:%d String overflow parsing %s", file, line_num, strname);
       return 1;
     }
-    ibuf[n++] = cfg[cp];
+    ibuf[n++] = cfg[cp++];
   }
   // Trim trailing whitespace
   while (ws_ok && n > 0 && isspace(ibuf[n-1]))
     --n;
   ibuf[n] = '\0';
-  return n > 0;
+  return n == 0;
 }
 
 unsigned char BS2cdf::ibuf[BS2cdf::n_rec][BS2cdf::nb_rec];
@@ -152,7 +156,7 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
   if (nc_err != NC_NOERR)
     nl_error(3, "Unable to create BAT_SPAN.ncr");
   opened = true;
-  nc_err = nc_def_dim(ncid, "scan", NC_UNLIMITED, &dimids[0]));
+  nc_err = nc_def_dim(ncid, "scan", NC_UNLIMITED, &dimids[0]);
   if (nc_err != NC_NOERR)
     nl_error(3, "Error creating unlimited scan dimension");
   
@@ -168,9 +172,9 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
   if (fgets(title, sizeof(title), ifp) == NULL)
     nl_error(3, "%s:%d Unexpected EOF reading title", setup_path, line_num);
   nc = strlen(title);
-  while (nc > 0 && isspace(title[nc-1])
+  while (nc > 0 && isspace(title[nc-1]))
     title[--nc] = '\0';
-  nc_err = nc_put_att_text(ncid, NC_GLOBAL, "title", nc, title))
+  nc_err = nc_put_att_text(ncid, NC_GLOBAL, "title", nc, title);
   if (nc_err != NC_NOERR)
     nl_error(3, "Error setting title");
 
@@ -267,7 +271,7 @@ int main(int argc, char **argv) {
   mlf_def_t *mlf;
   BS2cdf BS2C;
   oui_init_options(argc, argv);
-  BS2C.nc_setup();
+  BS2C.nc_setup(data_path, setup_path);
   mlf = BS2C.mlf_init(data_path);
   nl_error(0, "Start");
   while (mlf->index <= BS2C.last_idx) {

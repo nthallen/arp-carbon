@@ -1,8 +1,9 @@
-LDFLAGS=-Wl,-rpath -Wl,/usr/local/lib -L /usr/local/lib
+LDFLAGS=-Wl,-rpath -Wl,/usr/local/lib -L /usr/local/lib \
+ -Wl,-rpath -Wl,/usr/pkg/lib -L /usr/pkg/lib
 CPPFLAGS= -I /usr/local/include -I /usr/pkg/include
 CFLAGS=-Wall -g
 CXXFLAGS= -Wall -g
-LIBS=-ltmpp -ltm -lnort
+LIBS=-ltmpp -ltm -lnort -lnetcdf
 
 .PHONY : all clean
 all : BAT_SPAN BSlogger BS2cdfext
