@@ -229,11 +229,11 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
   
   // Create dimensions
   { std::vector<BS2Cdim>::iterator pos;
-    for (pos = dims.bigin(); pos < dims.end(); ++pos) {
+    for (pos = dims.begin(); pos < dims.end(); ++pos) {
       char dim_name[10];
       int status;
       
-      snprintf(dim_name, "%02d_Hz", pos->frequency);
+      snprintf(dim_name, 10, "%02d_Hz", pos->frequency);
       status = nc_def_dim(ncid, dim_name, pos->frequency, &pos->dim_id);
       if (status != NC_NOERR)
         nl_error(3, "Error creating dimension frequency '%s'", dim_name);
@@ -241,7 +241,7 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
   }
   { std::vector<BS2Cchan *>::iterator pos;
     for (pos = chan.begin(); pos < chan.end(); ++pos) {
-      int num_dims = (pos->frequency > 1) ? 2 : 1;
+      int num_dims = ((*pos)->frequency > 1) ? 2 : 1;
       // find dimension...
     }
   }
