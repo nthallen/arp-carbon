@@ -70,7 +70,7 @@ int BS2Cchan::chk_sscanf(int bad_ret, int nc, const char *what) {
 void BS2Cchan::chk_attr(const char *attr, int nc_err) {
   if (nc_err != NC_NOERR)
     nl_error(3, "Couldn't put %s attribute for var %s. nc_err=%d",
-      attr, var->label, nc_err);
+      attr, label, nc_err);
 }
 
 /** @return non-zero if no string is found or string is more than len-1 characters.
@@ -286,22 +286,22 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
       }
       var->chk_attr("cal_coef",
         nc_put_att_float(ncid, var->var_id, "cal_coef", NC_FLOAT,
-          var->MAXCALPWR, var->coef);
+          var->MAXCALPWR, var->coef));
       var->chk_attr("scale_factor",
         nc_put_att_float(ncid, var->var_id, "scale_factor", NC_FLOAT,
-          1, &var->scaleFactor);
+          1, &var->scaleFactor));
       var->chk_attr("add_offset",
         nc_put_att_float(ncid, var->var_id, "add_offset", NC_FLOAT,
-          1, &var->addOffset);
+          1, &var->addOffset));
       var->chk_attr("valid_min",
         nc_put_att_float(ncid, var->var_id, "valid_min", NC_FLOAT,
-          1, &var->min);
+          1, &var->min));
       var->chk_attr("valid_max",
         nc_put_att_float(ncid, var->var_id, "valid_max", NC_FLOAT,
-          1, &var->max);
+          1, &var->max));
       var->chk_attr("long_name",
         nc_put_att_text(ncid, var->var_id, "long_name",
-          strlen(var->longName), var->longName);
+          strlen(var->longName), var->longName));
     }
   }
 
