@@ -1,4 +1,4 @@
-# Makefile Generated Fri Oct 26 11:24:27 EDT 2012
+# Makefile Generated Fri Oct 26 13:17:46 EDT 2012
 MNC=HCI
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc

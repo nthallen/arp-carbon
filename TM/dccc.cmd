@@ -29,7 +29,7 @@
   : ISO QCLI Reset { $0 = 32; }
   : ISO Scroll Pump { $0 = 2; }
   : ISO Laser TEC { $0 = 6; }
-  : Lab Command 1 { $0 = 7; }
+  : Coolant Pump { $0 = 7; }
   : Lab Command 2 { $0 = 8; }
   : MINI Cell Htr Ctl { $0 = 42; }
   : MINI Detector PV Htr Ctl { $0 = 43; }
