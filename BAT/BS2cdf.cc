@@ -244,7 +244,7 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
     dimids[0] = scan_dimid;
     for (pos = chan.begin(); pos < chan.end(); ++pos) {
       std::vector<BS2Cdim>::iterator dim;
-      BS2Cdim *var = *pos;
+      BS2Cchan *var = *pos;
       int num_dims;
       nc_type xtype;
       if (var->frequency > 1) {
