@@ -23,8 +23,9 @@ class BS2Cchan {
     short phsicalChannel;
     short frequency;
     char units[12];
+    static const unsigned MAXCALPWR = 5;
     short cal_pwr;
-    float coef[5];
+    float coef[MAXCALPWR];
     float min;
     float max;
     char cFormat[9];

@@ -269,6 +269,32 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
       nc_err = nc_def_var(ncid, var->label, xtype, num_dims, dimids, &var->var_id);
       if (nc_err != NC_NOERR)
         nl_error(3, "Error defining variable %s", var->label);
+      nc_err = nc_put_att_text(ncid, var->var_id, "units", strlen(var->units), var->units);
+      if (nc_err != NC_NOERR)
+        nl_error(3, "Couldn't put units attribute for var %s. nc_err=%d", var->label, nc_err);
+      { float dmf = (float)var->frequency;
+        nc_err = nc_put_att_float(ncid, var->var_id, "frequency", NC_FLOAT, 1, &dmf);
+        if (nc_err != NC_NOERR)
+          nl_error(3, "Couldn't put frequency attribute for var %s. nc_err=%d", var->label, nc_err);
+      }
+      nc_err = nc_put_att_float(ncid, var->var_id, "cal_coef", NC_FLOAT, var->MAXCALPWR, var->coef);
+      if (nc_err != NC_NOERR)
+        nl_error(3, "Couldn't put cal_coef attribute for var %s. nc_err=%d", var->label, nc_err);
+      nc_err = nc_put_att_float(ncid, var->var_id, "scale_factor", NC_FLOAT, 1, &var->scaleFactor);
+      if (nc_err != NC_NOERR)
+        nl_error(3, "Couldn't put scale_factor attribute for var %s. nc_err=%d", var->label, nc_err);
+      nc_err = nc_put_att_float(ncid, var->var_id, "add_offset", NC_FLOAT, 1, &var->addOffset);
+      if (nc_err != NC_NOERR)
+        nl_error(3, "Couldn't put add_offset attribute for var %s. nc_err=%d", var->label, nc_err);
+      nc_err = nc_put_att_float(ncid, var->var_id, "valid_min", NC_FLOAT, 1, &var->min);
+      if (nc_err != NC_NOERR)
+        nl_error(3, "Couldn't put valid_min attribute for var %s. nc_err=%d", var->label, nc_err);
+      nc_err = nc_put_att_float(ncid, var->var_id, "valid_max", NC_FLOAT, 1, &record[i].max);
+      if (nc_err != NC_NOERR)
+        nl_error(3, "Couldn't put valid_max attribute for var %s. nc_err=%d", var->label, nc_err);
+      nc_err = nc_put_att_text(ncid, var->var_id, "long_name", strlen(var->longName), var->longName);
+      if (nc_err != NC_NOERR)
+        nl_error(3, "Couldn't put long_name attribute for var %s. nc_err=%d", var->label, nc_err);
     }
   }
       // Add definitions to ncid
