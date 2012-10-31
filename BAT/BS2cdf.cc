@@ -102,6 +102,10 @@ unsigned char BS2cdf::ibuf[BS2cdf::n_rec][BS2cdf::nb_rec];
 BS2cdf::BS2cdf() {
   ncid = -1;
   opened = false;
+  cur_time = 0;
+  cur_rec = 0;
+  scan = 0;
+  haveGPStime = false;
 }
 
 BS2cdf::~BS2cdf() {
@@ -318,6 +322,47 @@ void BS2cdf::nc_close() {
 }
 
 void BS2cdf::Parse_Record(unsigned char *rec) {
+  // First, check to see if we have SPAN data
+  // and/or BAT data. Ultimately will drop
+  // the record unless we have both, but for
+  // certain diagnostic purposes, looking at
+  // one or the other might be interesting.
+  bool SPAN_missing = rec[SPAN_offset] != 0xAA;
+  bool BAT_missing = rec[BAT_offset] != 0xF8;
+  if (!all && (SPAN_missing || BAT_missing))
+    return;
+  if (SPAN_missing) {
+    if (haveGPStime) {
+      haveGPStime = false;
+      if (cur_rec > 0) ++scan;
+      cur_time = 0;
+      cur_rec = 0;
+    }
+  } else {
+    double GPStime;
+    unsigned long itime;
+    
+    memcpy(GPStime, &rec[SPAN_offset+16], sizeof(double));
+    itime = (unsigned long)floor(GPStime);
+    if (!haveGPStime || itime != cur_time) {
+      if (cur_rec > 0) ++scan;
+      cur_time = itime;
+      cur_rec = 0;
+    }
+  }
+  { std::vector<BS2Cchan *>::iterator pos;
+    int index[2];
+    index[0] = scan;
+    index[1] = cur_rec;
+    for (pos = chan.begin(); pos < chan.end(); ++pos) {
+      BS2Cchan *var = *pos;
+      switch (var->device) {
+        case 20:
+        case 14:
+        default: break;
+      }
+    }
+  }
 }
 
 /**

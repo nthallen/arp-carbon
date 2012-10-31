@@ -29,7 +29,7 @@ SPAN Data Packet: INSPVASB Short Binary 50 Hz
         level around x-axis in degrees Double 8 H+68
     88: Azimuth Left handed rotation around z-axis
         Degrees clockwise from North Double 8 H+76
-    96: Status INS Status, see Table 1 on page 39 Enum 4 H+84
+    96: Status INS Status, see Table 1 on page 39 Enum 4 H+84 (vals 0-7)
    100: xxxx 32-bit CRC Hex 4 H+88
    
   CRC is calculated on bytes 0-100.
@@ -129,3 +129,13 @@ Strategy:
     Must know the record size and check for framing chars. Find an
     efficient number of records near 5 seconds/file. Set a timeout
     to close an open file if no data arrives for 5 seconds.
+    
+  Extraction app
+    Will read the standard BAT configuration file
+    BAT Channels will be designated as usual
+    SPAN Channels will use the following channel numbering:
+      0: Header Week Number (UShort)
+      1: Header Seconds (long msecs)
+      2: INSPVAS Week Number (Ulong)
+      3-12: Doubles as listed in INSPVAS Pg 122
+      13: INS Status (Ulong values 0-7)

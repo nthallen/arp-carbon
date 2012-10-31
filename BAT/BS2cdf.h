@@ -67,8 +67,13 @@ class BS2cdf {
     unsigned line_num;
     std::vector<BS2Cchan *> chan;
     std::vector<BS2Cdim> dims;
+    unsigned long cur_time;
+    int scan, cur_rec;
+    bool haveGPStime;
     static const int SPAN_nb_rec = 104;
+    static const int SPAN_offset = 0;
     static const int BAT_nb_rec = 35;
+    static const int BAT_offset = SPAN_nb_rec;
     static const int nb_rec = SPAN_nb_rec + BAT_nb_rec;
     static const int n_rec = 500; // defined in BSlogger.cc
     static unsigned char ibuf[n_rec][nb_rec];
