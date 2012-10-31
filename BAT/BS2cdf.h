@@ -31,6 +31,7 @@ class BS2Cchan {
     float scaleFactor;
     float addOffset;
     char longName[100];
+    int var_id;
   private:
     int parse_str(char *ibuf, int len, const char *strname, int ws_ok = 0);
     int chk_sscanf(int bad_ret, int nc, const char *what);
@@ -60,7 +61,7 @@ class BS2cdf {
     void Parse_Record(unsigned char *rec);
     const char *back_tick(const char *fmt, ...);
     bool opened;
-    int ncid, dimids[2];
+    int ncid, scan_dimid;
     unsigned line_num;
     std::vector<BS2Cchan *> chan;
     std::vector<BS2Cdim> dims;

@@ -161,7 +161,7 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
   if (nc_err != NC_NOERR)
     nl_error(3, "Unable to create BAT_SPAN.ncr");
   opened = true;
-  nc_err = nc_def_dim(ncid, "scan", NC_UNLIMITED, &dimids[0]);
+  nc_err = nc_def_dim(ncid, "scan", NC_UNLIMITED, &scan_dimid);
   if (nc_err != NC_NOERR)
     nl_error(3, "Error creating unlimited scan dimension");
   
@@ -240,9 +240,35 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
     }
   }
   { std::vector<BS2Cchan *>::iterator pos;
+    int dimids[2];
+    dimids[0] = scan_dimid;
     for (pos = chan.begin(); pos < chan.end(); ++pos) {
-      int num_dims = ((*pos)->frequency > 1) ? 2 : 1;
-      // find dimension...
+      std::vector<BS2Cdim>::iterator dim;
+      BS2Cdim *var = *pos;
+      int num_dims;
+      nc_type xtype;
+      if (var->frequency > 1) {
+        num_dims = 2;
+        // find dimension...
+        for (dim = dims.begin(); dim < dims.end(); ++dim) {
+          if (dim->frequency == var->frequency) {
+            dimids[1] = dim->dim_id;
+            break;
+          }
+        }
+      } else {
+        num_dims = 1;
+      }
+      if (!strcasecmp(var->cFormat,"NC_CHAR"))
+        xtype = NC_CHAR;
+      else if (!strcasecmp(var->cFormat,"NC_SHORT"))
+        xtype = NC_SHORT;
+      else if (!strcasecmp(var->cFormat,"NC_INT"))
+        xtype = NC_INT;
+      else nl_error(4, "Unexpected unknown cFormat: '%s'", var->cFormat);
+      nc_err = nc_def_var(ncid, var->label, xtype, num_dims, dimids, &var->var_id);
+      if (nc_err != NC_NOERR)
+        nl_error(3, "Error defining variable %s", var->label);
     }
   }
       // Add definitions to ncid
