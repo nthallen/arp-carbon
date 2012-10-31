@@ -17,6 +17,7 @@ class BS2Cchan {
   public:
     BS2Cchan(const char *line, const char *filename, int line_num);
     ~BS2Cchan();
+    void chk_attr(const char *attr, int nc_err);
     bool valid;
     char label[12];
     short device;

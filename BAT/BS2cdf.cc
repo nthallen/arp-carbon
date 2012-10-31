@@ -67,6 +67,12 @@ int BS2Cchan::chk_sscanf(int bad_ret, int nc, const char *what) {
   return 0;
 }
 
+void BS2Cchan::chk_attr(const char *attr, int nc_err) {
+  if (nc_err != NC_NOERR)
+    nl_error(3, "Couldn't put %s attribute for var %s. nc_err=%d",
+      attr, var->label, nc_err);
+}
+
 /** @return non-zero if no string is found or string is more than len-1 characters.
  */
 int BS2Cchan::parse_str(char *ibuf, int len, const char *strname, int ws_ok) {
@@ -266,52 +272,38 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
       else if (!strcasecmp(var->cFormat,"NC_INT"))
         xtype = NC_INT;
       else nl_error(4, "Unexpected unknown cFormat: '%s'", var->cFormat);
-      nc_err = nc_def_var(ncid, var->label, xtype, num_dims, dimids, &var->var_id);
+      nc_err = nc_def_var(ncid, var->label, xtype, num_dims,
+        dimids, &var->var_id);
       if (nc_err != NC_NOERR)
         nl_error(3, "Error defining variable %s", var->label);
-      nc_err = nc_put_att_text(ncid, var->var_id, "units", strlen(var->units), var->units);
-      if (nc_err != NC_NOERR)
-        nl_error(3, "Couldn't put units attribute for var %s. nc_err=%d", var->label, nc_err);
+      var->chk_attr("units",
+        nc_put_att_text(ncid, var->var_id, "units",
+          strlen(var->units), var->units));
       { float dmf = (float)var->frequency;
-        nc_err = nc_put_att_float(ncid, var->var_id, "frequency", NC_FLOAT, 1, &dmf);
-        if (nc_err != NC_NOERR)
-          nl_error(3, "Couldn't put frequency attribute for var %s. nc_err=%d", var->label, nc_err);
+        var->chk_attr("frequency",
+          nc_put_att_float(ncid, var->var_id, "frequency",
+            NC_FLOAT, 1, &dmf));
       }
-      nc_err = nc_put_att_float(ncid, var->var_id, "cal_coef", NC_FLOAT, var->MAXCALPWR, var->coef);
-      if (nc_err != NC_NOERR)
-        nl_error(3, "Couldn't put cal_coef attribute for var %s. nc_err=%d", var->label, nc_err);
-      nc_err = nc_put_att_float(ncid, var->var_id, "scale_factor", NC_FLOAT, 1, &var->scaleFactor);
-      if (nc_err != NC_NOERR)
-        nl_error(3, "Couldn't put scale_factor attribute for var %s. nc_err=%d", var->label, nc_err);
-      nc_err = nc_put_att_float(ncid, var->var_id, "add_offset", NC_FLOAT, 1, &var->addOffset);
-      if (nc_err != NC_NOERR)
-        nl_error(3, "Couldn't put add_offset attribute for var %s. nc_err=%d", var->label, nc_err);
-      nc_err = nc_put_att_float(ncid, var->var_id, "valid_min", NC_FLOAT, 1, &var->min);
-      if (nc_err != NC_NOERR)
-        nl_error(3, "Couldn't put valid_min attribute for var %s. nc_err=%d", var->label, nc_err);
-      nc_err = nc_put_att_float(ncid, var->var_id, "valid_max", NC_FLOAT, 1, &var->max);
-      if (nc_err != NC_NOERR)
-        nl_error(3, "Couldn't put valid_max attribute for var %s. nc_err=%d", var->label, nc_err);
-      nc_err = nc_put_att_text(ncid, var->var_id, "long_name", strlen(var->longName), var->longName);
-      if (nc_err != NC_NOERR)
-        nl_error(3, "Couldn't put long_name attribute for var %s. nc_err=%d", var->label, nc_err);
+      var->chk_attr("cal_coef",
+        nc_put_att_float(ncid, var->var_id, "cal_coef", NC_FLOAT,
+          var->MAXCALPWR, var->coef);
+      var->chk_attr("scale_factor",
+        nc_put_att_float(ncid, var->var_id, "scale_factor", NC_FLOAT,
+          1, &var->scaleFactor);
+      var->chk_attr("add_offset",
+        nc_put_att_float(ncid, var->var_id, "add_offset", NC_FLOAT,
+          1, &var->addOffset);
+      var->chk_attr("valid_min",
+        nc_put_att_float(ncid, var->var_id, "valid_min", NC_FLOAT,
+          1, &var->min);
+      var->chk_attr("valid_max",
+        nc_put_att_float(ncid, var->var_id, "valid_max", NC_FLOAT,
+          1, &var->max);
+      var->chk_attr("long_name",
+        nc_put_att_text(ncid, var->var_id, "long_name",
+          strlen(var->longName), var->longName);
     }
   }
-      // Add definitions to ncid
-      /*  setup_template.txt variable columns:
-          label  string (var name)
-          device  short integer
-          physicalChannel short integer
-          frequency short integer
-          units string
-          cal_pwr short integer (number of coef for polynomial fit)
-          coef[0 .. cal_pwr-1] float
-          min float min expected engineering value (should actually be min expected raw value)
-          max float max expected engineering value (")
-          cFormat string netcdf data type
-          scaleFactor float
-          addOffset float
-          longName string */
 
   if (nc_enddef(ncid) != NC_NOERR)
     nl_error(3, "Error leaving define mode");
