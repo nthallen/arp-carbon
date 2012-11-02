@@ -93,7 +93,7 @@ TM typedef long L20 { text "%8ld"; }
   #define Op_Cl_text(x) ((x)?"  open":"closed")
 %}
 TM typedef unsigned char off_on_t { text "%3d" off_on_text(); }
-TM typedef unsigned char Op_Cl_t { text "%3d" Op_Cl_text(); }
+TM typedef unsigned char Op_Cl_t { text "%6d" Op_Cl_text(); }
 
 /* Counter types */
 %{

@@ -135,8 +135,8 @@ GD {
   GD__T:  (GD__T,6)   C;
   {
     Gas_Flw_Clsd: (Gas_Flw_Clsd_DS,3);
-    Gas_Flw_Open: (Gas_Flw_Open_DS,3);
-    GD_Vlv_Clsd:  (GD_Vlv_Clsed_S,3);
+   #Gas_Flw_Open: (Gas_Flw_Open_DS,3);
+    GD_Vlv:       (GD_Vlv_Clsed_S,6);
   }
 }
 

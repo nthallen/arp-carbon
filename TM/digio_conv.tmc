@@ -34,7 +34,7 @@ off_on_t L1_DS; Invalidate L1_DS;
   { L1_DS = (DS851>>7)&1; Validate L1_DS; }
 off_on_t IQCLI_Reset_DS; Invalidate IQCLI_Reset_DS;
   { IQCLI_Reset_DS = (DS855>>0)&1; Validate IQCLI_Reset_DS; }
-off_on_t GD_Vlv_Clsed_S; Invalidate GD_Vlv_Clsed_S;
+Op_Cl_t GD_Vlv_Clsed_S; Invalidate GD_Vlv_Clsed_S;
   { GD_Vlv_Clsed_S = (DS855>>1)&1; Validate GD_Vlv_Clsed_S; }
 off_on_t IPrs_Reg_DS; Invalidate IPrs_Reg_DS;
   { IPrs_Reg_DS = (DS855>>2)&1; Validate IPrs_Reg_DS; }
