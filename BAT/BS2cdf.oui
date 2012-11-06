@@ -6,6 +6,7 @@
 <sort>
 	-P <data path>
 	-S <setup file> Defaults to <data path>/BAT_setup.txt
+	-A Extract data even when one instrument's data is missing
 
 <switch>
   case 'P':
@@ -14,3 +15,7 @@
   case 'S':
     setup_path = optarg;
     break;
+  case 'A':
+    all_recs = true;
+    break;
+

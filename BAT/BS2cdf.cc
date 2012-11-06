@@ -8,6 +8,7 @@
 
 const char *data_path;
 const char *setup_path;
+bool all_recs = false;
 
 /** Parses configuration line to initialize member fields.
     In the event of a syntax error, valid will be false.
@@ -43,11 +44,17 @@ BS2Cchan::BS2Cchan(const char *line, const char *filename, int ln) {
   n = sscanf(&cfg[cp], "%f%f%n", &min, &max, &nc);
   if (chk_sscanf(n != 2, nc, "min or max")) return;
   if (parse_str(&cFormat[0], sizeof(cFormat), "cFormat")) return;
-  if ((strcasecmp(cFormat, "NC_CHAR")) &&
-      (strcasecmp(cFormat, "NC_SHORT")) &&
-      (strcasecmp(cFormat, "NC_INT")))
+  if (strcasecmp(cFormat, "NC_CHAR") == 0)
+    cFormat_code = NC_CHAR;
+  else if (strcasecmp(cFormat, "NC_SHORT") == 0)
+    cFormat_code = NC_SHORT;
+  else if (strcasecmp(cFormat, "NC_INT") == 0)
+    cFormat_code = NC_INT;
+  else {
+    cFormat_code = 0;
     nl_error(2, "%s:%d Invalid cFormat for %s: '%s'",
         file, line_num, label, cFormat);
+  }
   n = sscanf(&cfg[cp], "%f%f%n", &scaleFactor, &addOffset, &nc);
   if (chk_sscanf(n != 2, nc, "scaleFactor or addOffset"))
     return;
@@ -321,7 +328,7 @@ void BS2cdf::nc_close() {
   }
 }
 
-void BS2cdf::Parse_Record(unsigned char *rec) {
+void BS2cdf::Parse_Record(const unsigned char *rec) {
   // First, check to see if we have SPAN data
   // and/or BAT data. Ultimately will drop
   // the record unless we have both, but for
@@ -350,18 +357,85 @@ void BS2cdf::Parse_Record(unsigned char *rec) {
       cur_rec = 0;
     }
   }
+  index[0] = scan;
+  index[1] = cur_rec;
   { std::vector<BS2Cchan *>::iterator pos;
-    int index[2];
-    index[0] = scan;
-    index[1] = cur_rec;
     for (pos = chan.begin(); pos < chan.end(); ++pos) {
       BS2Cchan *var = *pos;
       switch (var->device) {
-        case 20:
-        case 14:
+        case 20: Parse_BAT_data(var, &rec[BAT_offset]); break;
+        case 14: Parse_SPAN_data(var, &rec[SPAN_offset]); break;
         default: break;
       }
     }
+  }
+}
+
+void BS2cdf::Parse_BAT_data(BS2Cchan *var, const unsigned char *rec) {
+  int offset = 3+2*var->physicalChannel;
+  unsigned short val = rec[offset]<<8 + rec[offset+1];
+  if (var->cFormat_code != NC_SHORT)
+    nl_error(3, "Unexpected format '%s' for BAT Channel", var->cFormat);
+  int status = nc_put_var1_short(ncid, var->var_id, index, &val);
+  if (status != NC_NOERR)
+    nl_error(3, "Error nc_put_var1_short(%s[%d,%d] <= %u): %d",
+      var->label, index[0], index[1], val, status);
+}
+
+void BS2cdf::Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec) {
+  enum raw_type_t { rt_double, rt_ushort, rt_long };
+  raw_type_t raw_type;
+  double dval, scaled;
+  short sval;
+  int ival;
+  unsigned short usval;
+  long lval;
+  switch (var->physicalChannel) {
+    case 0: raw_type = rt_double; offset = 24; break; // Lat
+    case 1: raw_type = rt_double; offset = 32; break; // Lon
+    case 2: raw_type = rt_double; offset = 40; break; // Alt == Ellipsoidal Height
+    case 3: raw_type = rt_double; offset = 48; break; // Su == N_Velocity
+    case 4: raw_type = rt_double; offset = 56; break; // Sv == E_Velocity
+    case 5: raw_type = rt_double; offset = 64; break; // Sw == Up_Velocity
+    case 6: raw_type = rt_double; offset = 80; break; // Pitch
+    case 7: raw_type = rt_double; offset = 72; break; // Roll
+    case 8: raw_type = rt_double; offset = 88; break; // Hdg == Azimuth
+    case 9: raw_type = rt_ushort; offset = 96; break; // INS_Status
+    case 10: raw_type = rt_double; offset = 16; break; // Time == GPS_secs
+    case 11: raw_type = rt_ushort; offset = 6; break; // GPS_week
+  }
+  switch (raw_type) {
+    case rt_double:
+      memcpy((unsigned char *)&dval, &rec[offset], sizeof(double));
+      break;
+    case rt_ushort:
+      memcpy((unsigned char *)&usval, &rec[offset], sizeof(unsigned short));
+      dval = usval;
+      break;
+    case rt_long:
+      memcpy((unsigned char *)&lval, &rec[offset], sizeof(long));
+      dval = lval;
+      break;
+  }
+  scaled = (dval - var->addOffset)/var->scaleFactor;
+  switch (var->cFormat_code) {
+    case NC_SHORT:
+      if (scaled < SHRT_MIN || scaled > SHRT_MAX)
+        nl_error(1, "Scaled value of var %s exceeds NC_SHORT range", var->label);
+      sval = scaled;
+      status = nc_put_var1_short(ncid, var->var_id, index, &sval);
+      break;
+    case NC_INT:
+      if (scaled < INT_MIN || scaled > INT_MAX)
+        nl_error(1, "Scaled value of var %s exceeds NC_INT range", var->label);
+      ival = scaled;
+      status = nc_put_var1_int(ncid, var->var_id, index, &ival);
+      break;
+    default:
+      nl_error(3, "Unexpected cFormat type for var %s in Parse_SPAN_data()", var->label );
+  }
+  if (status != NC_NOERR) {
+    nl_error(3, "Error writing value for var %s: %d", var->label, status);
   }
 }
 
