@@ -37,10 +37,10 @@
 #define Sp7AI_Address 0xC7C
 #define Sp6AI_Address 0xC6E
 #define Sp5AI_Address 0xC2E
-#define Sp4AI_Address 0xC50
+#define CoolT_Address 0xC50
 #define Sp3AI_Address 0xC10
-#define Sp2AI_Address 0xCCE
-#define Sp1AI_Address 0xC8E
+#define CoolP_Address 0xCCE
+#define WPmpT_Address 0xC8E
 #define MSSPT_Address 0xC62
 #define MSk3T_Address 0xC28
 #define MSk2T_Address 0xCE6

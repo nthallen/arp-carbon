@@ -85,10 +85,10 @@ TM 1 Hz AI_T30K MSk1T; Address MSk1T 0xCA6; /* Skin Temp 1 MINI */
 TM 1 Hz AI_T30K MSk2T; Address MSk2T 0xCE6; /* Skin Temp 2 MINI */
 TM 1 Hz AI_T30K MSk3T; Address MSk3T 0xC28; /* Skin Temp 3 MINI */
 TM 1 Hz AI_T30K MSSPT; Address MSSPT 0xC62; /* SSP Bd Temp MINI */
-TM 1 Hz AI_T30K Sp1AI; Address Sp1AI 0xC8E; /* Spare: will be renamed WPmpT */
-TM 1 Hz AI16 Sp2AI; Address Sp2AI 0xCCE; /* Spare Ana Channel */
+TM 1 Hz AI_T30K WPmpT; Address WPmpT 0xC8E; /* Coolant Pump Temp */
+TM 1 Hz AI_100psig CoolP; Address CoolP 0xCCE; /* Coolant Pressure */
 TM 1 Hz AI16 Sp3AI; Address Sp3AI 0xC10; /* Spare Ana Channel */
-TM 1 Hz AI_T30K Sp4AI; Address Sp4AI 0xC50; /* Spare: to be CoolT */
+TM 1 Hz AI_T30K CoolT; Address CoolT 0xC50; /* Coolant Return Temp */
 TM 1 Hz AI16 Sp5AI; Address Sp5AI 0xC2E; /* Spare Ana Channel */
 TM 1 Hz AI16 Sp6AI; Address Sp6AI 0xC6E; /* Spare Ana Channel */
 TM 1 Hz AI16 Sp7AI; Address Sp7AI 0xC7C; /* Spare Ana Channel */

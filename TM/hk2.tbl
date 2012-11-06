@@ -26,6 +26,13 @@ Panel {
   Land_LED:  (PP_Land_LED,3);
 }
 
+Cool {
+  HBox { +-; Title: Coolant; -+ };
+  WPmpT: (WPmpT,6) C;
+  CoolT: (CoolT,6) C;
+  CoolP: (CoolP,6) psig;
+}
+
 Altimeter {
   HBox { +-; Title: Altimeter; -+ };
   Altitude: (MRA_Alt,6) m;
@@ -39,6 +46,7 @@ Status {
 }
 
 { HBox { [Rovers]; |; [Panel]; |; {
+    [Cool];
     [Altimeter];
     VGlue 0+1;
     [Status] }
