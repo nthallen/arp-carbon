@@ -22,8 +22,7 @@ TM typedef BAT_AI BAT_Ps_t { text "%7.2lf"; Convert MBAR;  }
 TM typedef BAT_AI BAT_Ax_t { text "%7.3lf"; Convert M_S2; }
 TM typedef BAT_AI BAT_Ay_t { text "%7.3lf"; Convert M_S2;  }
 TM typedef BAT_AI BAT_Az_t { text "%7.3lf"; Convert M_S2;  }
-TM typedef BAT_AI BAT_FUST_t { text "%7.2lf"; Convert uVOLTS; }
-TM typedef BAT_AI BAT_Tbar_t { text "%7.3lf"; Convert CELCIUS;}
+TM typedef BAT_AI BAT_FOTemp_t { text "%7.2lf"; Convert CELCIUS; }
 TM typedef BAT_AI BAT_Pump_t { text "%7.1lf"; Convert mVOLTS; }
 TM typedef BAT_AI BAT_Axb_t { text "%7.3lf"; Convert M_S2; }
 TM typedef BAT_AI BAT_Ayb_t { text "%7.3lf"; Convert M_S2; }
@@ -41,8 +40,7 @@ Calibration ( BAT_Ps_t, MBAR) { -32768, 473.236, 32767, 1057.92631 }
 Calibration ( BAT_Ax_t, M_S2) { -32768, -20.07689, 32767, 20.11795 }
 Calibration ( BAT_Ay_t, M_S2) { -32768, -19.70348, 32767, 19.6493 }
 Calibration ( BAT_Az_t, M_S2) { -32768, -10.92286, 32767, 30.52107 }
-Calibration ( BAT_FUST_t, uVOLTS) { -32768, 410.1838, 32767, -400.74049 }
-Calibration ( BAT_Tbar_t, CELCIUS) { -32768, -54.21674, 32767, 52.09477 }
+Calibration ( BAT_FOTemp_t, CELCIUS) { -32768, 410.1838, 32767, -400.74049 }
 Calibration ( BAT_Pump_t, mVOLTS) { -32768, -4999.15327, 32767, 5001.55327 }
 Calibration ( BAT_Axb_t, M_S2) { -32768, -18.36088, 32767, 18.28451 }
 Calibration ( BAT_Ayb_t, M_S2) { -32768, 18.78692, 32767, -18.93704 }
@@ -73,8 +71,7 @@ TM 1 Hz BAT_Ps_t BAT_Ps;
 TM 1 Hz BAT_Ax_t BAT_Ax;
 TM 1 Hz BAT_Ay_t BAT_Ay;
 TM 1 Hz BAT_Az_t BAT_Az;
-TM 1 Hz BAT_FUST_t BAT_FUST;
-TM 1 Hz BAT_Tbar_t BAT_Tbar;
+TM 1 Hz BAT_FOTemp_t BAT_FOTemp;
 TM 1 Hz BAT_Pump_t BAT_Pump;
 TM 1 Hz BAT_Axb_t BAT_Axb;
 TM 1 Hz BAT_Ayb_t BAT_Ayb;
@@ -110,7 +107,7 @@ TM 1 Hz UCHAR n_bp_records;
 Group BAT_SPAN_grp (GPS_msecs, GPS_weekl, GPS_week, GPS_secs, Latitude,
     Longitude, Ellipsoidal_Ht, N_Velocity, E_Velocity, Up_Velocity, Roll,
     Pitch, Azimuth, INS_Status, n_span_records, n_bat_records, BAT_Px,
-    BAT_Py, BAT_Pz, BAT_Ps, BAT_Ax, BAT_Ay, BAT_Az, BAT_FUST, BAT_Tbar,
+    BAT_Py, BAT_Pz, BAT_Ps, BAT_Ax, BAT_Ay, BAT_Az, BAT_FOTemp,
     BAT_Pump, BAT_Axb, BAT_Ayb, BAT_Azb, max_span_nc,
     SPAN_IdleTime, SPAN_TimeStatus, BP_Week, BP_msecs, GPS_Rxvr_Status,
     SolnStatus, PosType, BP_DatumID, BP_Lat, BP_Lon, BP_Ht,
@@ -165,8 +162,7 @@ Group BAT_SPAN_grp (GPS_msecs, GPS_weekl, GPS_week, GPS_secs, Latitude,
   BAT_Ax = BAT_SPAN.BAT_Ax;
   BAT_Ay = BAT_SPAN.BAT_Ay;
   BAT_Az = BAT_SPAN.BAT_Az;
-  BAT_FUST = BAT_SPAN.BAT_FUST;
-  BAT_Tbar = BAT_SPAN.BAT_Tbar;
+  BAT_FOTemp = BAT_SPAN.BAT_FOTemp;
   BAT_Pump = BAT_SPAN.BAT_Pump;
   BAT_Axb = BAT_SPAN.BAT_Axb;
   BAT_Ayb = BAT_SPAN.BAT_Ayb;

@@ -59,8 +59,7 @@ BAT {
   Ax: (BAT_Ax,7) "m/s2";
   Ay: (BAT_Ay,7) "m/s2";
   Az: (BAT_Az,7) "m/s2";
-  FUST: (BAT_FUST,7) uV;
-  Tbar: (BAT_Tbar,7) C;
+  FOT: (BAT_FOTemp,7) C;
   Pump: (BAT_Pump,7) mV;
   Axb: (BAT_Axb,7) "m/s2";
   Ayb: (BAT_Ayb,7) "m/s2";
