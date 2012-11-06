@@ -363,6 +363,7 @@ ROWS 25
  1 WPmpT Coolant Temp
  1 CoolT Coolant Temp
  1 CoolP Coolant Pressure
+ 1 CoolPump_DS:DS848:4 Coolant Status
 
 #1 Sp1AI SPARE_SPARE AI
 #1 Sp2AI SPARE_SPARE AI

@@ -28,6 +28,7 @@ Panel {
 
 Cool {
   HBox { +-; Title: Coolant; -+ };
+  Pump:  (CoolPump_DS,3);
   WPmpT: (WPmpT,6) C;
   CoolT: (CoolT,6) C;
   CoolP: (CoolP,6) psig;

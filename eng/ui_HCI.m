@@ -138,6 +138,7 @@ f = ne_dialg(f, 'add', 1, 0, 'pHCIminitskin', 'Skin' );
 f = ne_dialg(f, 'add', 0, 1, 'gHCIc', 'Coolant' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIct', 'Temp' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIcp', 'Pressure' );
+f = ne_dialg(f, 'add', 1, 0, 'pHCIcs', 'Status' );
 f = ne_dialg(f, 'add', 0, 1, 'gHCIsparespare', 'SPARE_SPARE' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIsparespareai', 'AI' );
 f = ne_listdirs(f, 'HCI_Data_Dir', 18);

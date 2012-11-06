@@ -1,3 +1,5 @@
+off_on_t CoolPump_DS; Invalidate CoolPump_DS;
+  { CoolPump_DS = (DS848>>4)&1; Validate CoolPump_DS; }
 off_on_t L2_DS; Invalidate L2_DS;
   { L2_DS = (DS84A>>0)&1; Validate L2_DS; }
 Op_Cl_t MGas_Ex_Vlv_DS; Invalidate MGas_Ex_Vlv_DS;
