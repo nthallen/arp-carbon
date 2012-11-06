@@ -16,6 +16,6 @@
     setup_path = optarg;
     break;
   case 'A':
-    all_recs = true;
+    all_recs = 1;
     break;
 

@@ -8,7 +8,7 @@
 
 extern const char *data_path;
 extern const char *setup_path;
-extern bool all_recs;
+extern int all_recs;
 
 #ifdef __cplusplus
 
@@ -22,7 +22,7 @@ class BS2Cchan {
     bool valid;
     char label[12];
     short device;
-    short phsicalChannel;
+    short physicalChannel;
     short frequency;
     char units[12];
     static const unsigned MAXCALPWR = 5;
@@ -64,6 +64,7 @@ class BS2cdf {
   private:
     void Parse_Record(const unsigned char *rec);
     void Parse_BAT_data(BS2Cchan *var, const unsigned char *rec);
+    void Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec);
     const char *back_tick(const char *fmt, ...);
     bool opened;
     int ncid, scan_dimid;
@@ -72,7 +73,7 @@ class BS2cdf {
     std::vector<BS2Cdim> dims;
     unsigned long cur_time;
     int scan, cur_rec;
-    int index[2];
+    size_t index[2];
     bool haveGPStime;
     static const int SPAN_nb_rec = 104;
     static const int SPAN_offset = 0;

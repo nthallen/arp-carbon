@@ -11,7 +11,7 @@ Ps         20  3  50 mb       2 765.5110000  0.0584649     0.00   1057.84 NC_SHO
 Ax         20  4  50 m/s2     2   0.0157116  0.0040192   -20.10     20.12 NC_SHORT 0.1526010    1.2763000  Ax acceleration measured from probe
 Ay         20  5  50 m/s2     2  -0.0318080  0.0039350   -19.71     19.65 NC_SHORT 0.1526010    1.2763000  Ay acceleration measured from probe
 Az         20  6  50 m/s2     2   9.7941300  0.0041441   -10.93     30.52 NC_SHORT 0.1526010    1.2763000  Az acceleration measured from probe
-FOTemp     20 11  50 deg C    2   0.0000000 10.0000000   -50.00     50.00 NC_SHORT 0.1526010    1.2763000  OpSens Fiber-Optic Temperature Sensor (FOTS)
+FOTemp     20 11  50 deg_C    2   0.0000000 10.0000000   -50.00     50.00 NC_SHORT 0.1526010    1.2763000  OpSens Fiber-Optic Temperature Sensor (FOTS)
 Pump       20 12  50 -        2   0.0000000  1.0000000    -5000      5000 NC_SHORT 0.1526010    1.2763000  BAT Probe Pump Indicator
 Axb        20 13  50 m/s2     2  -0.0451721  0.0036626   -18.36     18.27 NC_SHORT 0.1526710    1.9847300  Axb acceleration measured from the back seat
 Ayb        20 14  50 m/s2     2  -0.0678672 -0.0037704   -18.92     18.79 NC_SHORT 0.1526710    1.9847300  Ayb acceleration measured from the back seat 

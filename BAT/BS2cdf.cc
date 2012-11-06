@@ -4,11 +4,12 @@
 #include <ctype.h>
 #include <strings.h>
 #include <time.h>
+#include <math.h>
 #include "BS2cdf.h"
 
 const char *data_path;
 const char *setup_path;
-bool all_recs = false;
+int all_recs = 0;
 
 /** Parses configuration line to initialize member fields.
     In the event of a syntax error, valid will be false.
@@ -25,7 +26,8 @@ BS2Cchan::BS2Cchan(const char *line, const char *filename, int ln) {
   cp = 0;
   
   if (parse_str(&label[0], sizeof(label), "label")) return;
-  n = sscanf(&cfg[cp], "%hd%hd%hd%n", &device, &phsicalChannel, &frequency, &nc);
+  n = sscanf(&cfg[cp], "%hd%hd%hd%n", &device, &physicalChannel,
+        &frequency, &nc);
   if (n == 1 && device == -99) return;
   else if (chk_sscanf(n != 3, nc, "device, channel or frequency"))
     return;
@@ -336,7 +338,7 @@ void BS2cdf::Parse_Record(const unsigned char *rec) {
   // one or the other might be interesting.
   bool SPAN_missing = rec[SPAN_offset] != 0xAA;
   bool BAT_missing = rec[BAT_offset] != 0xF8;
-  if (!all && (SPAN_missing || BAT_missing))
+  if (!all_recs && (SPAN_missing || BAT_missing))
     return;
   if (SPAN_missing) {
     if (haveGPStime) {
@@ -349,7 +351,7 @@ void BS2cdf::Parse_Record(const unsigned char *rec) {
     double GPStime;
     unsigned long itime;
     
-    memcpy(GPStime, &rec[SPAN_offset+16], sizeof(double));
+    memcpy((char *)&GPStime, &rec[SPAN_offset+16], sizeof(double));
     itime = (unsigned long)floor(GPStime);
     if (!haveGPStime || itime != cur_time) {
       if (cur_rec > 0) ++scan;
@@ -373,7 +375,7 @@ void BS2cdf::Parse_Record(const unsigned char *rec) {
 
 void BS2cdf::Parse_BAT_data(BS2Cchan *var, const unsigned char *rec) {
   int offset = 3+2*var->physicalChannel;
-  unsigned short val = rec[offset]<<8 + rec[offset+1];
+  short val = (rec[offset]<<8) + rec[offset+1];
   if (var->cFormat_code != NC_SHORT)
     nl_error(3, "Unexpected format '%s' for BAT Channel", var->cFormat);
   int status = nc_put_var1_short(ncid, var->var_id, index, &val);
@@ -387,13 +389,14 @@ void BS2cdf::Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec) {
   raw_type_t raw_type;
   double dval, scaled;
   short sval;
-  int ival;
+  int ival, offset, status;
   unsigned short usval;
   long lval;
+
   switch (var->physicalChannel) {
     case 0: raw_type = rt_double; offset = 24; break; // Lat
     case 1: raw_type = rt_double; offset = 32; break; // Lon
-    case 2: raw_type = rt_double; offset = 40; break; // Alt == Ellipsoidal Height
+    case 2: raw_type = rt_double; offset = 40; break; // Alt == Ellip. Ht
     case 3: raw_type = rt_double; offset = 48; break; // Su == N_Velocity
     case 4: raw_type = rt_double; offset = 56; break; // Sv == E_Velocity
     case 5: raw_type = rt_double; offset = 64; break; // Sw == Up_Velocity
@@ -403,6 +406,9 @@ void BS2cdf::Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec) {
     case 9: raw_type = rt_ushort; offset = 96; break; // INS_Status
     case 10: raw_type = rt_double; offset = 16; break; // Time == GPS_secs
     case 11: raw_type = rt_ushort; offset = 6; break; // GPS_week
+    default:
+      nl_error(3, "Invalid SPAN channel number for var %s",
+        var->physicalChannel, var->label);
   }
   switch (raw_type) {
     case rt_double:
@@ -421,7 +427,8 @@ void BS2cdf::Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec) {
   switch (var->cFormat_code) {
     case NC_SHORT:
       if (scaled < SHRT_MIN || scaled > SHRT_MAX)
-        nl_error(1, "Scaled value of var %s exceeds NC_SHORT range", var->label);
+        nl_error(1, "Scaled value of var %s exceeds NC_SHORT range",
+            var->label);
       sval = scaled;
       status = nc_put_var1_short(ncid, var->var_id, index, &sval);
       break;
@@ -432,7 +439,8 @@ void BS2cdf::Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec) {
       status = nc_put_var1_int(ncid, var->var_id, index, &ival);
       break;
     default:
-      nl_error(3, "Unexpected cFormat type for var %s in Parse_SPAN_data()", var->label );
+      nl_error(3, "Unexpected cFormat type for var %s in Parse_SPAN_data()",
+          var->label );
   }
   if (status != NC_NOERR) {
     nl_error(3, "Error writing value for var %s: %d", var->label, status);
