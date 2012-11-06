@@ -58,7 +58,7 @@ PTRHs {
 CO2 {
   HBox { +-; Title: CO2; -+ };
   { Pump: (C_Pump_DS,3) (C_Pump_S,3) };
-  CPmtT: (CPmpT,6) C;
+  CPmpT: (CPmpT,6) C;
   CPMtT: (CPMtT,6) C;
   -;
   C24VT: (C24VT,6) C;

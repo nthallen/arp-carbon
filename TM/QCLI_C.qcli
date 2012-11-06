@@ -12,6 +12,27 @@ ICOS Waveform C2Cd_800Hz {
   Ramp from 700 mA to 850 mA in 1 msec;
 }
 
+ICOS Waveform C2Cd_600 {
+  SampleRate = 50 MHz/28;
+  Ncoadd = 900;
+  Tz = 10%;
+  Ramp from 600 mA to 750 mA in 1 msec;
+}
+
+ICOS Waveform C2Cd_550 {
+  SampleRate = 50 MHz/28;
+  Ncoadd = 900;
+  Tz = 10%;
+  Ramp from 550 mA to 700 mA in 1 msec;
+}
+
+ICOS Waveform C2Cd_500 {
+  SampleRate = 50 MHz/28;
+  Ncoadd = 900;
+  Tz = 10%;
+  Ramp from 500 mA to 650 mA in 1 msec;
+}
+
 ICOS Waveform C2Cd_10Hz {
   SampleRate = 50 MHz/28;
   Ncoadd = 90;
