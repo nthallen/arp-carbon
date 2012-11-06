@@ -49,8 +49,7 @@ void BSDataRecord::BAT_data(unsigned char *data) {
   BAT_SPAN.BAT_Ax = ushort_swap(&data[11]); // 4
   BAT_SPAN.BAT_Ay = ushort_swap(&data[13]); // 5
   BAT_SPAN.BAT_Az = ushort_swap(&data[15]); // 6
-  BAT_SPAN.BAT_FUST = ushort_swap(&data[17]); // 8
-  BAT_SPAN.BAT_Tbar = ushort_swap(&data[23]); // 10
+  BAT_SPAN.BAT_FOTemp = ushort_swap(&data[25]); // 11
   BAT_SPAN.BAT_Pump = ushort_swap(&data[27]); // 12
   BAT_SPAN.BAT_Axb = ushort_swap(&data[29]); // 13
   BAT_SPAN.BAT_Ayb = ushort_swap(&data[31]); // 14

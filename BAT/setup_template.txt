@@ -1,0 +1,87 @@
+Example header template file
+
+-0  /dev/ttyUSB9   115200,8,N,1,D NovAtel GPS COM1
+-1  /dev/ttyUSB0   115200,8,N,1,D NovAtel GPS COM2
+-2  /dev/ttyUSB2   115200,8,N,1,D Javad AT-4 Attitude GPS
+-3  /dev/ttyUSB5    19200,8,N,1,D Riegl Laser Altimeter
+-4  /dev/ttyUSB3     9600,8,N,1,D LiCor 7500 CO2/H2O
+-5  /dev/ttyS0      38400,8,O,1,D Trimble TANS Attitude GPS
+-6  /dev/ttyUSB0   115200,8,N,1,D Ashtech GPS
+-7  /dev/ttyUSB8   115200,8,N,1,D S-D CMIGITS Attitude GPS/INS
+14 /dev/ttyUSB1   115200,8,N,1,D NovAtel SPAN GPS/INS
+20 /dev/ttyUSB0   460800,8,N,1,D BAT-REM Module 1
+21 /dev/ttyUSB7   460800,8,N,1,D BAT-REM Module 2
+-99
+
+Px         20  0  50 mb       2  11.7827000  0.0024127     0.00     23.85 NC_SHORT 0.1526010    1.2763000  Delta Px air pressure measurement
+Py         20  1  50 mb       2   0.0496977  0.0035227   -17.57     17.67 NC_SHORT 0.1526010    1.2763000  Delta Py air pressure measurement
+Pz         20  2  50 mb       2   0.0267778  0.0035345   -17.65     17.70 NC_SHORT 0.1526010    1.2763000  Delta Pz air pressure measurement
+Ps         20  3  50 mb       2 765.5110000  0.0584649     0.00   1057.84 NC_SHORT 0.1526010    1.2763000  Static air pressure measurement
+Ax         20  4  50 m/s2     2   0.0157116  0.0040192   -20.10     20.12 NC_SHORT 0.1526010    1.2763000  Ax acceleration measured from probe
+Ay         20  5  50 m/s2     2  -0.0318080  0.0039350   -19.71     19.65 NC_SHORT 0.1526010    1.2763000  Ay acceleration measured from probe
+Az         20  6  50 m/s2     2   9.7941300  0.0041441   -10.93     30.52 NC_SHORT 0.1526010    1.2763000  Az acceleration measured from probe
+FUST       20  8  50 uVolts   2   4.8189600 -0.0810867 -2652.15   2661.87 NC_SHORT 0.1526010    1.2763000  Fast Ultra Sensitive Temperature (FUST)
+Tbar       20  9  50 C        2  -1.0737380  0.0106304   -54.23     52.08 NC_SHORT 0.1526010    1.2763000  TBar Temperature Sensor (1 Hz)
+Mickey     20 13  50 mV       2   0.0000000  1.0000000    -5000      5000 NC_SHORT 0.1526010    1.2763000  Aircraft radio transmitter channel
+F_H2O      21  0  50 mmol/m3  2   0.0000000  0.3200000     0.00   1600.00 NC_SHORT 0.1526710    1.9847300  LiCor 7500 H2O measurement (50 Hz)
+F_CO2      21  1  50 mmol/m3  2  10.0000000  0.0040000    10.00     30.00 NC_SHORT 0.1526710    1.9847300  LiCor 7500 CO2 measurement (50 Hz)
+DewPt      21  6  50 C        2 -65.0000000  0.0251000   -40.00     60.00 NC_SHORT 0.1526710    1.9847300  EG&G Dew point (deg C)
+IRT_DN     21  7  50 C        2 -39.9839000  0.0280017   -10.00     70.00 NC_SHORT 0.1526710    1.9847300  Everest InfraRed temperature (down wrt a/c)
+Axb        21  8  50 m/s2     2  -0.0451721  0.0036626   -18.36     18.27 NC_SHORT 0.1526710    1.9847300  Axb acceleration measured from the back seat
+Ayb        21  9  50 m/s2     2  -0.0678672 -0.0037704   -18.92     18.79 NC_SHORT 0.1526710    1.9847300  Ayb acceleration measured from the back seat 
+Azb        21 10  50 m/s2     2   9.9260700  0.0038076    -9.12     28.97 NC_SHORT 0.1526710    1.9847300  Azb acceleration measured from the back seat
+PAR_UP     21 11  50 uM/m2/s  2 -15.1179300  0.1253670     0.00    611.72 NC_SHORT 0.1527610    1.9847300  LiCor Photosynthetically Active Radiation (up wrt a/c)
+PAR_DN     21 14  50 uM/m2/s  2 -10.3276000  0.1275880     0.00    627.61 NC_SHORT 0.1527610    1.9847300  LiCor Photosynthetically Active Radiation (down wrt a/c)
+Net        21 15  50 W/m2     2  17.5800000  0.0502250 -1628.00   1663.00 NC_SHORT 0.1527610    1.9847300  Kipp & Zonen NR Lite Radiometer
+NLat        1  0  10 deg      2   0.0000000  1.0000000   -90.00     90.00 NC_INT   0.0000305    0.0000000  NovAtel GPS latitude measurement (deg wrt earth)
+NLon        1  1  10 deg      2   0.0000000  1.0000000  -180.00    180.00 NC_INT   0.0000305    0.0000000  NovAtel GPS longitude measurement (deg wrt earth)
+NAlt        1  2  10 m        2   0.0000000  1.0000000  -235.00   5000.00 NC_SHORT 0.1000000 3000.0000000  NovAtel GPS altitude measurement (m wrt earth)
+Nu          1  3  10 m/s      2   0.0000000  1.0000000  -200.00    200.00 NC_SHORT 0.0100000    0.0000000  NovAtel GPS U velocity component (m/s wrt earth)
+Nv          1  4  10 m/s      2   0.0000000  1.0000000  -200.00    200.00 NC_SHORT 0.0100000    0.0000000  NovAtel GPS V velocity component (m/s wrt earth)
+Nw          1  5  10 m/s      2   0.0000000  1.0000000  -100.00    100.00 NC_SHORT 0.0100000    0.0000000  NovAtel GPS W velocity component (m/s wrt earth)
+GPSTime     1  6   1 sec      2   0.0000000  1.0000000     0.00 604800.00 NC_INT   1.0000000    0.0000000  NovAtel GPS time measurement (sec since midnight Sat GMT)
+JPitch      2  0  20 deg      2   0.0000000  1.0000000   -20.00     20.00 NC_SHORT 0.0100000    0.0000000  Javad GPS pitch measurement (deg wrt Earth)
+JRoll       2  1  20 deg      2   0.0000000  1.0000000   -80.00     80.00 NC_SHORT 0.0100000    0.0000000  Javad GPS roll measurement (deg wrt Earth)
+JHdg        2  2  20 deg      2   0.0000000  1.0000000     0.00    360.00 NC_SHORT 0.0100000  180.0000000  Javad GPS heading measurement (deg wrt Earth)
+JFlag       2  3  20 -        2   0.0000000  1.0000000     0.00    256.00 NC_SHORT 1.0000000    0.0000000  Javad GPS angle flag (0=bad, 1=good)
+LRange      3  0  50 m        2   0.0000000  1.0000000     0.00    500.00 NC_SHORT 0.1000000    0.0000000  Riegl Laser Altimeter Distance (m AGL)
+LICO2D      4  0  20 mmol/m3  2   0.0000000  1.0000000    10.00     30.00 NC_SHORT 0.0010000    0.0000000  LiCor 7500 CO2 Concentration (mmol/m3)
+LIH2OD      4  1  20 mmol/m3  2   0.0000000  1.0000000     0.00   1600.00 NC_SHORT 0.1000000    0.0000000  LiCor 7500 H2O Concentration (mmol/m3)
+LITEMP      4  2  20 C        2   0.0000000  1.0000000   -20.00     45.53 NC_SHORT 0.0010000   12.7670000  LiCor 7500 Temperature (C)
+LIPRES      4  3  20 mb       2   0.0000000  1.0000000   473.19   1057.84 NC_SHORT 0.0089211  765.5110000  LiCor 7500 Pressure (mb)
+LIDIAG      4  4  20 -        2   0.0000000  1.0000000     0.00    500.00 NC_SHORT 1.0000000    0.0000000  LiCor 7500 Diagnostics Byte
+TPitch      5  0  10 deg      2   0.0000000  1.0000000   -20.00     20.00 NC_SHORT 0.0100000    0.0000000  Trimble TANS GPS pitch measurement (deg wrt Earth)
+TRoll       5  1  10 deg      2   0.0000000  1.0000000   -80.00     80.00 NC_SHORT 0.0100000    0.0000000  Trimble TANS GPS roll measurement (deg wrt Earth)
+THdg        5  2  10 deg      2   0.0000000  1.0000000     0.00    360.00 NC_SHORT 0.0100000  180.0000000  Trimble TANS GPS heading measurement (deg wrt Earth)
+TTime       5  3  10 sec      2   0.0000000  1.0000000     0.00 604800.00 NC_INT   0.1000000    0.0000000  Trimble TANS GPS time measurement (sec since midnight Sat GMT)
+ALat        6  0  10 deg      2   0.0000000  1.0000000   -90.00     90.00 NC_INT   0.0000305    0.0000000  Ashtech GPS latitude measurement (deg wrt earth)
+ALon        6  1  10 deg      2   0.0000000  1.0000000  -180.00    180.00 NC_INT   0.0000305    0.0000000  Ashtech GPS longitude measurement (deg wrt earth)
+AAlt        6  2  10 m        2   0.0000000  1.0000000  -235.00   5000.00 NC_SHORT 0.1000000 3000.0000000  Ashtech GPS altitude measurement (m wrt earth)
+Au          6  3  10 m/s      2   0.0000000  1.0000000  -200.00    200.00 NC_SHORT 0.0100000    0.0000000  Ashtech GPS U velocity component (m/s wrt earth)
+Av          6  4  10 m/s      2   0.0000000  1.0000000  -200.00    200.00 NC_SHORT 0.0100000    0.0000000  Ashtech GPS V velocity component (m/s wrt earth)
+Aw          6  5  10 m/s      2   0.0000000  1.0000000  -100.00    100.00 NC_SHORT 0.0100000    0.0000000  Ashtech GPS W velocity component (m/s wrt earth)
+ATime       6  6   1 sec      2   0.0000000  1.0000000     0.00 604800.00 NC_INT   1.0000000    0.0000000  Ashtech GPS time measurement (sec since midnight Sat GMT)
+CPitch      7  0  10 deg      2   0.0000000  1.0000000  -180.00    180.00 NC_SHORT 0.0100000    0.0000000  CMIGITS GPS/INS pitch measurement (deg wrt Earth)
+CRoll       7  1  10 deg      2   0.0000000  1.0000000  -180.00    180.00 NC_SHORT 0.0100000    0.0000000  CMIGITS GPS/INS roll measurement (deg wrt Earth)
+CHdg        7  2  10 deg      2   0.0000000  1.0000000     0.00    360.00 NC_SHORT 0.0100000  180.0000000  CMIGITS GPS/INS heading measurement (deg wrt Earth)
+CTime       7  3  10 -        2   0.0000000  1.0000000     0.00 604800.00 NC_INT   0.1000000    0.0000000  CMIGITS GPS/INS time tag (sec since midnight Sat GMT)
+CMode       7  4   1 -        2   0.0000000  1.0000000     1.00      9.00 NC_SHORT 1.0000000    0.0000000  CMIGITS GPS/INS mode of operation (1-9)
+CValid      7  5   1 -        2   0.0000000  1.0000000     0.00  65536.00 NC_SHORT 1.0000000    0.0000000  CMIGITS GPS/INS valid message value (short integer)
+CSats       7  6   1 -        2   0.0000000  1.0000000     0.00     12.00 NC_SHORT 1.0000000    0.0000000  CMIGITS GPS/INS number of satellites (0-12)
+CPfom       7  7   1 -        2   0.0000000  1.0000000     0.00     12.00 NC_SHORT 1.0000000    0.0000000  CMIGITS GPS/INS Position figure of merit (0-12)
+CVfom       7  8   1 -        2   0.0000000  1.0000000     0.00     12.00 NC_SHORT 1.0000000    0.0000000  CMIGITS GPS/INS Velocity figure of merit (0-12)
+CHfom       7  9   1 -        2   0.0000000  1.0000000     0.00     12.00 NC_SHORT 1.0000000    0.0000000  CMIGITS GPS/INS Heading figure of merit (0-12)
+CTfom       7  10  1 -        2   0.0000000  1.0000000     0.00     12.00 NC_SHORT 1.0000000    0.0000000  CMIGITS GPS/INS Time figure of merit (0-12)
+SLat       14  0  50 deg      2   0.0000000  1.0000000   -90.00     90.00 NC_INT   0.0000305    0.0000000  NovAtel SPAN GPS/INS latitude measurement (deg wrt earth)
+SLon       14  1  50 deg      2   0.0000000  1.0000000  -180.00    180.00 NC_INT   0.0000305    0.0000000  NovAtel SPAN GPS/INS longitude measurement (deg wrt earth)
+SAlt       14  2  50 m        2   0.0000000  1.0000000  -235.00   5000.00 NC_SHORT 0.1000000 3000.0000000  NovAtel SPAN GPS/INS altitude measurement (m wrt earth)
+Su         14  3  50 m/s      2   0.0000000  1.0000000  -200.00    200.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS U velocity component (m/s wrt earth)
+Sv         14  4  50 m/s      2   0.0000000  1.0000000  -200.00    200.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS V velocity component (m/s wrt earth)
+Sw         14  5  50 m/s      2   0.0000000  1.0000000  -100.00    100.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS W velocity component (m/s wrt earth)
+SPitch     14  6  50 deg      2   0.0000000  1.0000000   -20.00     20.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS pitch measurement (deg wrt Earth)
+SRoll      14  7  50 deg      2   0.0000000  1.0000000   -80.00     80.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS roll measurement (deg wrt Earth)
+SHdg       14  8  50 deg      2   0.0000000  1.0000000     0.00    360.00 NC_SHORT 0.0100000  180.0000000  NovAtel SPAN GPS/INS heading measurement (deg wrt Earth)
+SStatus    14  9  50 -        2   0.0000000  1.0000000     0.00      8.00 NC_SHORT 1.0000000    0.0000000  NovAtel SPAN GPS/INS INS status
+STime      14 10  50 sec      2   0.0000000  1.0000000     0.00 604800.00 NC_INT   0.0100000    0.0000000  NovAtel SPAN GPS/INS time measurement (sec since midnight Sat GMT)
+End       -99
+
