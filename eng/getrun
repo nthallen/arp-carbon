@@ -1,27 +1,47 @@
 #! /bin/bash
+function nl_error {
+  echo "getrun: $*" >&2
+  exit 1
+}
+
 flt=''
 gse=htwgse.arp.harvard.edu
 HomeDir=/home/hci
 Exp=HCI
 RunType=''
+Copy_CO2=no
+Copy_MM=no
 for run in $*; do
   case $run in
     -f) flt=F; RunType=flight;;
+    [Cc][Oo]2) Copy_CO2=yes;;
+    [Mm][Mm]) Copy_MM=yes;;
     cal) RunType=cal;;
     flight) flt=F; RunType=flight;;
     data) RunType=data;;
     junk) RunType=junk;;
     *)
       echo $run
+      [ $Copy_CO2 = yes -o $Copy_MM = yes ] && [ -z "$RunType" ] &&
+        nl_error "Cannot retrieve CO2 or MM scans without RunType (cal/flight/data/junk)"
       [ -d $run$flt ] || mkdir $run$flt
       scp $gse:$HomeDir/anal/$run/*.csv $run$flt
       if [ -n "$RunType" ]; then
         scp $gse:$HomeDir/raw/$RunType/$run/$Exp.log $run$flt/$Exp.log
-        scp -r $gse:$HomeDir/raw/$RunType/$run/SSP_C $run$flt/SSP_C
-        scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_C.m $run$flt/waves.m
+        if [ $Copy_CO2 = yes ]; then
+          scp -r $gse:$HomeDir/raw/$RunType/$run/SSP_C $run$flt/SSP_C
+          scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_C.m $run$flt/QCLI_C.m
+          [ -d CO2 ] || mkdir CO2
+          [ -d CO2/$run$flt ] || mkdir CO2/$run$flt
+       fi
+        if [ $Copy_MM = yes ]; then
+          scp -r $gse:$HomeDir/raw/$RunType/$run/SSP_M $run$flt/SSP_M
+          scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_M.m $run$flt/QCLI_M.m
+          [ -d MM ] || mkdir MM
+          [ -d MM/$run$flt ] || mmkdir MM/$run$flt
+        fi
       fi
       echo "$run$flt" >>runs.dat;;
   esac
-  echo "$run$flt" >>runs.dat
 done
 [ -f runs.dat ] && matlab
