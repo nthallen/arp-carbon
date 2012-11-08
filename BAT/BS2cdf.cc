@@ -351,17 +351,24 @@ void BS2cdf::Parse_Record(const unsigned char *rec) {
       cur_rec = 0;
     }
   } else {
-    double GPStime;
+    unsigned long msecs;
     unsigned long itime;
+    int old_rec;
     
-    memcpy((char *)&GPStime, &rec[SPAN_offset+16], sizeof(double));
-    itime = (unsigned long)floor(GPStime);
+    memcpy((char *)&msecs, &rec[SPAN_offset+8], sizeof(unsigned long));
+    itime = msecs/1000;
     if (!haveGPStime || itime != cur_time) {
       haveGPStime = true;
       if (cur_rec > 0) ++scan;
       cur_time = itime;
-      cur_rec = 0;
-    } else ++cur_rec;
+      cur_rec = -1;
+    }
+    old_rec = cur_rec;
+    cur_rec = (msecs%1000)/20;
+    if (cur_rec == old_rec) {
+      nl_error(1, "Rec[%lu][%d] repeated", scan, cur_rec);
+      return;
+    }
   }
   if (cur_rec >= 50) {
     nl_error(1, "%d records for second %lu", cur_rec+1, cur_time);
