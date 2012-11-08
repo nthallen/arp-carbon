@@ -63,8 +63,11 @@ class BS2cdf {
     unsigned long last_idx;
   private:
     void Parse_Record(const unsigned char *rec);
+    void Parse_Rec(const unsigned char *SPAN_rec,
+          const unsigned char *BAT_rec, int shifted);
     void Parse_BAT_data(BS2Cchan *var, const unsigned char *rec);
-    void Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec);
+    void Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec,
+          int shifted);
     const char *back_tick(const char *fmt, ...);
     bool opened;
     int ncid, scan_dimid;
@@ -74,7 +77,6 @@ class BS2cdf {
     unsigned long cur_time;
     int scan, cur_rec;
     size_t index[2];
-    bool haveGPStime;
     static const unsigned int SPAN_nb_rec = 104;
     static const unsigned int SPAN_offset = 0;
     static const unsigned int BAT_nb_rec = 35;
@@ -82,6 +84,8 @@ class BS2cdf {
     static const unsigned int nb_rec = SPAN_nb_rec + BAT_nb_rec;
     static const unsigned int n_rec = 500; // defined in BSlogger.cc
     static unsigned char ibuf[n_rec][nb_rec];
+    unsigned char BAT_rec[BAT_nb_rec];
+    bool BAT_saved;
 };
 
 #endif 

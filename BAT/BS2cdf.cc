@@ -6,6 +6,7 @@
 #include <time.h>
 #include <math.h>
 #include "BS2cdf.h"
+#include "nl_assert.h"
 
 const char *data_path;
 const char *setup_path;
@@ -60,7 +61,8 @@ BS2Cchan::BS2Cchan(const char *line, const char *filename, int ln) {
   n = sscanf(&cfg[cp], "%f%f%n", &scaleFactor, &addOffset, &nc);
   if (chk_sscanf(n != 2, nc, "scaleFactor or addOffset"))
     return;
-  if (parse_str(&longName[0], sizeof(longName), "longName")) return;
+  if (parse_str(&longName[0], sizeof(longName), "longName", 1))
+    return;
   valid = true;
 }
 
@@ -112,9 +114,9 @@ BS2cdf::BS2cdf() {
   ncid = -1;
   opened = false;
   cur_time = 0;
-  cur_rec = 0;
+  cur_rec = -1;
   scan = 0;
-  haveGPStime = false;
+  BAT_saved = false;
 }
 
 BS2cdf::~BS2cdf() {
@@ -331,22 +333,43 @@ void BS2cdf::nc_close() {
 }
 
 void BS2cdf::Parse_Record(const unsigned char *rec) {
+  const unsigned char *SPAN_rec = &rec[0];
+  const unsigned char *BAT_new = &rec[BAT_offset];
+  bool SPAN_missing = SPAN_rec[0] != 0xAA;
+  bool BAT_missing = BAT_new[0] != 0xF8;
+  if (SPAN_missing) SPAN_rec = 0;
+  if (BAT_missing) BAT_new = 0;
+  if (BAT_missing && SPAN_missing) {
+    nl_error(2, "Empty record");
+    return;
+  }
+  if (BAT_saved) {
+    Parse_Rec(SPAN_rec, &BAT_rec[0], 1);
+    if (BAT_new) {
+      memcpy(&BAT_rec[0], BAT_new, BAT_nb_rec);
+    } else {
+      BAT_saved = false;
+    }
+  } else if (SPAN_rec) {
+    Parse_Rec(SPAN_rec, BAT_new, 0);
+  } else {
+    nl_assert(BAT_new);
+    memcpy(&BAT_rec[0], BAT_new, BAT_nb_rec);
+    BAT_saved = true;
+  }
+}
+
+void BS2cdf::Parse_Rec(const unsigned char *SPAN_rec,
+              const unsigned char *BAT_rec, int shifted) {
   // First, check to see if we have SPAN data
   // and/or BAT data. Ultimately will drop
   // the record unless we have both, but for
   // certain diagnostic purposes, looking at
   // one or the other might be interesting.
-  bool SPAN_missing = rec[SPAN_offset] != 0xAA;
-  bool BAT_missing = rec[BAT_offset] != 0xF8;
-  if (!all_recs && (SPAN_missing || BAT_missing))
+  if (!all_recs && (!SPAN_rec || !BAT_rec))
     return;
-  if (SPAN_missing) {
-    if (haveGPStime) {
-      haveGPStime = false;
-      if (cur_rec > 0) ++scan;
-      cur_time = 0;
-      cur_rec = 0;
-    } else if (++cur_rec == 50) {
+  if (all_recs) {
+    if (++cur_rec == 50) {
       ++scan;
       cur_rec = 0;
     }
@@ -355,11 +378,10 @@ void BS2cdf::Parse_Record(const unsigned char *rec) {
     unsigned long itime;
     int old_rec;
     
-    memcpy((char *)&msecs, &rec[SPAN_offset+8], sizeof(unsigned long));
+    memcpy((char *)&msecs, &SPAN_rec[8], sizeof(unsigned long));
     itime = msecs/1000;
-    if (!haveGPStime || itime != cur_time) {
-      haveGPStime = true;
-      if (cur_rec > 0) ++scan;
+    if (itime != cur_time) {
+      if (cur_rec >= 0) ++scan;
       cur_time = itime;
       cur_rec = -1;
     }
@@ -381,12 +403,12 @@ void BS2cdf::Parse_Record(const unsigned char *rec) {
       BS2Cchan *var = *pos;
       switch (var->device) {
         case 20:
-          if (!BAT_missing)
-            Parse_BAT_data(var, &rec[BAT_offset]);
+          if (BAT_rec)
+            Parse_BAT_data(var, BAT_rec);
           break;
         case 14:
-          if (!SPAN_missing)
-            Parse_SPAN_data(var, &rec[SPAN_offset]);
+          if (SPAN_rec)
+            Parse_SPAN_data(var, SPAN_rec, shifted);
           break;
         default: break;
       }
@@ -405,8 +427,9 @@ void BS2cdf::Parse_BAT_data(BS2Cchan *var, const unsigned char *rec) {
       var->label, index[0], index[1], val, status);
 }
 
-void BS2cdf::Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec) {
-  enum raw_type_t { rt_double, rt_ushort, rt_long };
+void BS2cdf::Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec,
+          int shifted) {
+  enum raw_type_t { rt_double, rt_ushort, rt_long, rt_special };
   raw_type_t raw_type;
   double dval, scaled;
   short sval;
@@ -427,6 +450,7 @@ void BS2cdf::Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec) {
     case 9: raw_type = rt_ushort; offset = 96; break; // INS_Status
     case 10: raw_type = rt_double; offset = 16; break; // Time == GPS_secs
     case 11: raw_type = rt_ushort; offset = 6; break; // GPS_week
+    case 12: raw_type = rt_special; offset = 0; break; // Shifted
     default:
       nl_error(3, "Invalid SPAN channel number for var %s",
         var->physicalChannel, var->label);
@@ -442,6 +466,9 @@ void BS2cdf::Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec) {
     case rt_long:
       memcpy((unsigned char *)&lval, &rec[offset], sizeof(long));
       dval = lval;
+      break;
+    case rt_special:
+      dval = shifted;
       break;
   }
   scaled = (dval - var->addOffset)/var->scaleFactor;
