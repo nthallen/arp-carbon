@@ -75,12 +75,12 @@ class BS2cdf {
     int scan, cur_rec;
     size_t index[2];
     bool haveGPStime;
-    static const int SPAN_nb_rec = 104;
-    static const int SPAN_offset = 0;
-    static const int BAT_nb_rec = 35;
-    static const int BAT_offset = SPAN_nb_rec;
-    static const int nb_rec = SPAN_nb_rec + BAT_nb_rec;
-    static const int n_rec = 500; // defined in BSlogger.cc
+    static const unsigned int SPAN_nb_rec = 104;
+    static const unsigned int SPAN_offset = 0;
+    static const unsigned int BAT_nb_rec = 35;
+    static const unsigned int BAT_offset = SPAN_nb_rec;
+    static const unsigned int nb_rec = SPAN_nb_rec + BAT_nb_rec;
+    static const unsigned int n_rec = 500; // defined in BSlogger.cc
     static unsigned char ibuf[n_rec][nb_rec];
 };
 

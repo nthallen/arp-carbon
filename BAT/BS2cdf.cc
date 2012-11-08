@@ -346,6 +346,9 @@ void BS2cdf::Parse_Record(const unsigned char *rec) {
       if (cur_rec > 0) ++scan;
       cur_time = 0;
       cur_rec = 0;
+    } else if (++cur_rec == 50) {
+      ++scan;
+      cur_rec = 0;
     }
   } else {
     double GPStime;
@@ -354,10 +357,15 @@ void BS2cdf::Parse_Record(const unsigned char *rec) {
     memcpy((char *)&GPStime, &rec[SPAN_offset+16], sizeof(double));
     itime = (unsigned long)floor(GPStime);
     if (!haveGPStime || itime != cur_time) {
+      haveGPStime = true;
       if (cur_rec > 0) ++scan;
       cur_time = itime;
       cur_rec = 0;
-    }
+    } else ++cur_rec;
+  }
+  if (cur_rec >= 50) {
+    nl_error(1, "%d records for second %lu", cur_rec+1, cur_time);
+    return;
   }
   index[0] = scan;
   index[1] = cur_rec;
@@ -365,8 +373,14 @@ void BS2cdf::Parse_Record(const unsigned char *rec) {
     for (pos = chan.begin(); pos < chan.end(); ++pos) {
       BS2Cchan *var = *pos;
       switch (var->device) {
-        case 20: Parse_BAT_data(var, &rec[BAT_offset]); break;
-        case 14: Parse_SPAN_data(var, &rec[SPAN_offset]); break;
+        case 20:
+          if (!BAT_missing)
+            Parse_BAT_data(var, &rec[BAT_offset]);
+          break;
+        case 14:
+          if (!SPAN_missing)
+            Parse_SPAN_data(var, &rec[SPAN_offset]);
+          break;
         default: break;
       }
     }
@@ -477,7 +491,7 @@ int main(int argc, char **argv) {
   BS2C.nc_setup(data_path, setup_path);
   mlf = BS2C.mlf_init(data_path);
   nl_error(0, "Start");
-  while (mlf->index <= BS2C.last_idx) {
+  while (mlf->index < BS2C.last_idx) {
     fp = mlf_next_file(mlf);
     if (fp != 0) {
       if (BS2C.Read_File(fp))

@@ -2,11 +2,11 @@
 <include> <stdlib.h>
 <include> "BS2cdf.h"
 
-<opts> "P:S:"
+<opts> "P:S:A"
 <sort>
 	-P <data path>
 	-S <setup file> Defaults to <data path>/BAT_setup.txt
-	-A Extract data even when one instrument's data is missing
+	-A Extract data even when data is missing
 
 <switch>
   case 'P':
