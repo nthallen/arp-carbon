@@ -9,9 +9,9 @@ CPU Configuration:
   Drive C: Secondary/Slave (for compact flash)
   PCI INT B => IRQ10 (instead of IRQ5)
   ISA IRQ 5 Enabled (for Xtreme/104 board)
-  COM1 => IRQ4 (for use with laser altimeter)
+  COM1 => IRQ4 (for use with inverter)
   COM2 => IRQ3 (default, for use with SPAN)
-  COM3 => IRQ7 (for use with inverter) (need to test this)
+  COM3 => IRQ7 (for use with laser altimeter) (need to test this)
   COM4 => Disabled
   
   Xtreme/104:

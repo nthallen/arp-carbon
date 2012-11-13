@@ -6,7 +6,7 @@
 
 # Verify and/or Program QCLIs
   qclidprog -h QCLI_M -d0 -cwc $TMBINDIR/QCLI_M.out
-# qclidprog -h QCLI_C -d1 -cwc $TMBINDIR/QCLI_C.out
+  qclidprog -h QCLI_C -d1 -cwc $TMBINDIR/QCLI_C.out
 # qclidprog -h QCLI_I -d2 -cwc $TMBINDIR/QCLI_I.out
 
   Launch dccc   dccc -f $TMBINDIR/dccc.dccc
@@ -16,9 +16,12 @@
   Launch - idx64 `cat $TMBINDIR/idx64.idx64`
   Launch - sspdrv -H 10.0.0.210 -hSSP_M -N `mlf_find SSP_M`
   Launch - qclidacsd -h QCLI_M -d 0
-# Launch - sspdrv -H 10.0.0.211 -hSSP_C -N `mlf_find SSP_C`
-# Launch - qclidacsd -h QCLI_C -d 1
+  Launch - sspdrv -H 10.0.0.211 -hSSP_C -N `mlf_find SSP_C`
+  Launch - qclidacsd -h QCLI_C -d 1
 # Launch - sspdrv -H 10.0.0.212 -hSSP_I -N `mlf_find SSP_I`
 # Launch - qclidacsd -h QCLI_I -d 2
   Launch - tmdf
+# Launch - BAT_SPAN -S /dev/ser2 -B /dev/ser4 -N `mlf_find BAT_SPAN`
+  Launch - Inverter -p /dev/ser1
+# Launch - Altimeter -p /dev/ser3
   Launch - HCIalgo -v

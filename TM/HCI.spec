@@ -8,6 +8,7 @@ tmcbase = types.tmc
 tmcbase = AIO.tmc
 tmcbase = Altimeter.tmc
 tmcbase = BAT_SPAN.tmc
+tmcbase = Inverter.tmc
 tmcbase = T30K75KU.tmc
 tmcbase = T1M250KU.tmc
 tmcbase = VigoT.tmc
@@ -35,6 +36,7 @@ cmdbase = address.h
 colbase = Altimeter_col.tmc
 colbase = AI_col.tmc
 colbase = BAT_SPAN_col.tmc
+colbase = Inverter_col.tmc
 colbase = idx64col.tmc
 colbase = PTRH_col.tmc
 colbase = qcli_col.tmc
@@ -54,7 +56,8 @@ SRC = pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc
 SRC = PTRH_conv.tmc
 SCRIPT = idx64.idx64 interact dccc.dccc
 SCRIPT = runfile.FF
-DISTRIB = ../BAT/BAT_SPAN
+DISTRIB = ../BAT/BAT_SPAN ../BAT/BS2cdfext
+DISTRIB = ../Inverter/Inverter
 
 HCIcol : -lsubbus
 HCIsrvr : -lsubbus
@@ -66,10 +69,12 @@ doit : HCI.doit
 
 %%
 
-CPPFLAGS += -I ../BAT
+CPPFLAGS += -I ../BAT -I ../Inverter
 COLFLAGS = -H address.h
 address.h : HCIcol.cc
 HCIeng.cdf : genui.txt
 	genui -d ../eng -c genui.txt
-../BAT/BAT_SPAN :
+../BAT/BAT_SPAN ../BAT/BS2cdfext :
 	cd ../BAT && make
+../Inverter/Inverter :
+	cd ../Inverter && make

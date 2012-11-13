@@ -21,4 +21,7 @@
 # Launch - sspdrv -H 10.0.0.212 -hSSP_I -N `mlf_find SSP_I`
 # Launch - qclidacsd -h QCLI_I -d 2
   Launch - tmdf
+# Launch - BAT_SPAN -S /dev/ser2 -B /dev/ser4 -N `mlf_find BAT_SPAN`
+  Launch - Inverter -p /dev/ser1
+# Launch - Altimeter -p /dev/ser3
   Launch - HCIalgo -v

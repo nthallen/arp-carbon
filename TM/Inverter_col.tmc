@@ -1,0 +1,4 @@
+%{
+  #include "Inverter.h"
+  Inverter_t Inverter;
+%}

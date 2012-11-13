@@ -1,0 +1,27 @@
+TM "Receive" Inverter 1;
+
+TM 1 Hz UCHAR InvQury0;
+TM 1 Hz UCHAR InvQury1;
+TM 1 Hz UCHAR InvQury2;
+TM 1 Hz UCHAR InvQury3;
+TM 1 Hz UCHAR InvQury4;
+TM 1 Hz UCHAR InvQury5;
+TM 1 Hz UCHAR InvQury6;
+TM 1 Hz UCHAR InvQury7;
+TM 1 Hz UCHAR InvStat;
+TM 1 Hz UCHAR InvStale;
+
+Group Inv (InvQury0, InvQury1, InvQury2, InvQury3, InvQury4,
+    InvQury5, InvQury6, InvQury7, InvStat, InvStale) {
+  InvQury0 = Inverter.QURY[0];
+  InvQury1 = Inverter.QURY[1];
+  InvQury2 = Inverter.QURY[2];
+  InvQury3 = Inverter.QURY[3];
+  InvQury4 = Inverter.QURY[4];
+  InvQury5 = Inverter.QURY[5];
+  InvQury6 = Inverter.QURY[6];
+  InvQury7 = Inverter.QURY[7];
+  InvStat = Inverter.Status;
+  InvStale = Inverter_obj->stale(255);
+  Inverter_obj->synch();
+}

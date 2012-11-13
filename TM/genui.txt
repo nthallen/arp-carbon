@@ -361,13 +361,25 @@ ROWS 25
  1 MSk3T MINI_Temps Skin
 
  1 WPmpT Coolant Temp
+ 1 WTnkT Coolant Temp
  1 CoolT Coolant Temp
  1 CoolP Coolant Pressure
  1 CoolPump_DS:DS848:4 Coolant Status
 
+ 1 InvQury0 Inverter Qury
+ 1 InvQury1 Inverter Qury
+ 1 InvQury2 Inverter Qury
+ 1 InvQury3 Inverter Qury
+ 1 InvQury4 Inverter Qury
+ 1 InvQury5 Inverter Qury
+ 1 InvQury6 Inverter Qury
+ 1 InvQury7 Inverter Qury
+ 1 InvStat  Inverter Status
+ 1 InvStale Inverter Stale
+
 #1 Sp1AI SPARE_SPARE AI
 #1 Sp2AI SPARE_SPARE AI
- 1 Sp3AI SPARE_SPARE AI
+#1 Sp3AI SPARE_SPARE AI
 #1 Sp4AI SPARE_SPARE AI
  1 Sp5AI SPARE_SPARE AI
  1 Sp6AI SPARE_SPARE AI
