@@ -1,0 +1,16 @@
+<package> Inverter
+<include> msg
+<include> "Inverter.h"
+
+<opts> "p:"
+<sort>
+	-p <serial device> Serial port for Inverter
+
+<switch>
+  case 'p':
+    inverter_path = optarg;
+    break;
+
+<package> msghdr_init
+<init>
+  msg_hdr_default = "Inv";
