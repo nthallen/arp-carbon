@@ -30,7 +30,7 @@ int InvTM::ProcessData(int flag) {
   return rv;
 }
 
-Cmd_Sel::Cmd_Sel() : Cmd_Selectee("cmd/Inverter") {
+Cmd_Sel::Cmd_Sel() : Cmd_Selectee("cmd/Inverter", 20) {
   top = 0;
   Cmds.push_back(InvRequest("POWER 0\r\n", &PwrStat));
   Cmds.push_back(InvRequest("POWER 2\r\n", &PwrStat));
@@ -38,7 +38,7 @@ Cmd_Sel::Cmd_Sel() : Cmd_Selectee("cmd/Inverter") {
 
 Cmd_Sel::~Cmd_Sel() {}
 
-int Cmd_Sel::Process_Data(int flag) {
+int Cmd_Sel::ProcessData(int flag) {
   nl_assert(top != 0);
   if (flag == Selector::Sel_Read) {
     cp = 0;
@@ -84,6 +84,9 @@ void Inverter::init(const char *port, Inverter_t *data) {
   Reqs.push_back(InvRequest("QURY 5\r\n", &TMdata->QURY[5]));
   Reqs.push_back(InvRequest("QURY 6\r\n", &TMdata->QURY[6]));
   Reqs.push_back(InvRequest("QURY 7\r\n", &TMdata->QURY[7]));
+  Req = Reqs.end();
+  flags = Stor->Sel_Read | Stor->gflag(0) | Stor->gflag(1) |
+    Stor->Sel_Timeout;
 }
 
 void Inverter::InverterPower(InvRequest *cmd) {
@@ -97,7 +100,7 @@ int Inverter::ProcessData(int flag) {
     cp = 0;
     if (fillbuf()) return 1;
     if (CurReq == 0) {
-      report_err("Unexpected input:");
+      // report_err("Unexpected input:");
     } else {
       while (cp < nc && isspace(buf[cp])) ++cp;
       while (cp < nc && isxdigit(buf[cp])) {
@@ -113,6 +116,7 @@ int Inverter::ProcessData(int flag) {
         *(CurReq->result) = val;
         CurReq = 0;
         consume(nc);
+        report_ok();
         next_request();
       }
     }

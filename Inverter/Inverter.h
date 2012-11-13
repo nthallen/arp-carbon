@@ -47,7 +47,7 @@ class Cmd_Sel : public Cmd_Selectee {
     Cmd_Sel();
     ~Cmd_Sel();
     inline void init(InvDriver *top_in) { top = top_in; }
-    int Process_Data(int flag);
+    int ProcessData(int flag);
   private:
     InvDriver *top;
     std::vector<InvRequest> Cmds;
