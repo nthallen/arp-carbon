@@ -1,5 +1,5 @@
 LDFLAGS=-Wl,-rpath -Wl,/usr/local/lib -L /usr/local/lib
-CPPFAGS=-I /usr/local/include
+CPPFLAGS=-I /usr/local/include
 CFLAGS=-Wall -g
 CXXFLAGS=-Wall -g
 LIBS=-ltmpp -ltm -lnort

@@ -1,5 +1,8 @@
 /* Inverter.cc */
+#include <termios.h>
 #include "Inverter.h"
+#include "nl_assert.h"
+#include "oui.h"
 
 const char *inverter_port = "/dev/ser1";
 
@@ -9,8 +12,12 @@ InvRequest::InvRequest(const char *cmd, unsigned char *res) {
   cmdlen = strlen(cmdtxt);
 }
 
-InvTM::InvTM(Inverter_t *data) :
-      TM_Selectee("Inverter", data, sizeof(Inverter_t)) {
+InvTM::InvTM() : TM_Selectee() {
+  TMdata = 0;
+}
+
+void InvTM::init(Inverter_t *data) {
+  TM_Selectee::init("Inverter", data, sizeof(Inverter_t));
   TMdata = data;
   TMdata->Status &= ~INV_STAT_FRESH;
 }
@@ -18,15 +25,15 @@ InvTM::InvTM(Inverter_t *data) :
 InvTM::~InvTM() {}
 
 int InvTM::ProcessData(int flag) {
-  rv = TM_Selectee::ProcessData(flag);
+  int rv = TM_Selectee::ProcessData(flag);
   TMdata->Status &= ~INV_STAT_FRESH;
   return rv;
 }
 
 Cmd_Sel::Cmd_Sel() : Cmd_Selectee("cmd/Inverter") {
   top = 0;
-  Cmds.append(InvRequest("POWER 0\r\n", &PwrStat);
-  Cmds.append(InvRequest("POWER 2\r\n", &PwrStat);
+  Cmds.push_back(InvRequest("POWER 0\r\n", &PwrStat));
+  Cmds.push_back(InvRequest("POWER 2\r\n", &PwrStat));
 }
 
 Cmd_Sel::~Cmd_Sel() {}
@@ -35,7 +42,7 @@ int Cmd_Sel::Process_Data(int flag) {
   nl_assert(top != 0);
   if (flag == Selector::Sel_Read) {
     cp = 0;
-    if (fillbuf()) return;
+    if (fillbuf()) return 1;
     switch (buf[cp]) {
       case 'P':
         switch (buf[++cp]) {
@@ -69,14 +76,14 @@ void Inverter::init(const char *port, Inverter_t *data) {
   tcgetattr(fd, &tio);
   tio.c_cc[VFWD] = '>';
   tcsetattr(fd, TCSANOW, &tio);
-  Reqs.append(InvRequest("QURY 0\r\n", &TMdata->QURY[0]));
-  Reqs.append(InvRequest("QURY 1\r\n", &TMdata->QURY[1]));
-  Reqs.append(InvRequest("QURY 2\r\n", &TMdata->QURY[2]));
-  Reqs.append(InvRequest("QURY 3\r\n", &TMdata->QURY[3]));
-  Reqs.append(InvRequest("QURY 4\r\n", &TMdata->QURY[4]));
-  Reqs.append(InvRequest("QURY 5\r\n", &TMdata->QURY[5]));
-  Reqs.append(InvRequest("QURY 6\r\n", &TMdata->QURY[6]));
-  Reqs.append(InvRequest("QURY 7\r\n", &TMdata->QURY[7]));
+  Reqs.push_back(InvRequest("QURY 0\r\n", &TMdata->QURY[0]));
+  Reqs.push_back(InvRequest("QURY 1\r\n", &TMdata->QURY[1]));
+  Reqs.push_back(InvRequest("QURY 2\r\n", &TMdata->QURY[2]));
+  Reqs.push_back(InvRequest("QURY 3\r\n", &TMdata->QURY[3]));
+  Reqs.push_back(InvRequest("QURY 4\r\n", &TMdata->QURY[4]));
+  Reqs.push_back(InvRequest("QURY 5\r\n", &TMdata->QURY[5]));
+  Reqs.push_back(InvRequest("QURY 6\r\n", &TMdata->QURY[6]));
+  Reqs.push_back(InvRequest("QURY 7\r\n", &TMdata->QURY[7]));
 }
 
 void Inverter::InverterPower(InvRequest *cmd) {
@@ -84,6 +91,32 @@ void Inverter::InverterPower(InvRequest *cmd) {
 }
 
 int Inverter::ProcessData(int flag) {
+  if (flag & Stor->Sel_Read) {
+    unsigned char val = 0;
+    bool saw_digit = false;
+    cp = 0;
+    if (fillbuf()) return 1;
+    if (CurReq == 0) {
+      report_err("Unexpected input:");
+    } else {
+      while (cp < nc && isspace(buf[cp])) ++cp;
+      while (cp < nc && isxdigit(buf[cp])) {
+        unsigned char c = tolower(buf[cp]);
+        val = val*16 + isdigit(c) ? (c - '0') : (c - 'a' + 10);
+        ++cp;
+        saw_digit = true;
+      }
+      while (cp < nc && isspace(buf[cp])) ++cp;
+      if (not_str("=>")) {
+        if (cp < nc) consume(nc);
+      } else {
+        *(CurReq->result) = val;
+        CurReq = 0;
+        consume(nc);
+        next_request();
+      }
+    }
+  }
   if (flag & Stor->gflag(0)) { // TM reported
     TM_reported = true;
     if (CurReq == 0)
@@ -96,26 +129,6 @@ int Inverter::ProcessData(int flag) {
   if (flag & Stor->Sel_Timeout) {
     report_err("Timeout on query: '%s'", ascii_escape(CurReq->cmdtxt));
     CurReq = 0;
-    next_request();
-  }
-  if (flag & Stor->Sel_Read) {
-    unsigned char val = 0;
-    bool saw_digit = false;
-    cp = 0;
-    if (fillbuf()) return 1;
-    while (cp < nc && isspace(buf[cp])) ++cp;
-    while (cp < nc && isxdigit(buf[cp])) {
-      unsigned char c = tolower(buf[cp]);
-      val = val*16 + isdigit(c) ? (c - '0') : (c - 'a' + 10);
-      ++cp;
-      saw_digit = true;
-    }
-    while (cp < nc && isspace(buf[cp])) ++cp;
-    if (not_str("=>")) return 0;
-    if (CurReq) {
-      *(CurReq->result) = val;
-      CurReq = 0;
-    }
     next_request();
   }
   return 0;
@@ -132,7 +145,7 @@ void Inverter::next_request() {
         TM_reported = false;
       }
       if (Req != Reqs.end()) {
-        CurReq = *Req;
+        CurReq = &(*Req);
         ++Req;
       }
     }

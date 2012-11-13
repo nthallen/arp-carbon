@@ -8,7 +8,7 @@
 
 <switch>
   case 'p':
-    inverter_path = optarg;
+    inverter_port = optarg;
     break;
 
 <package> msghdr_init

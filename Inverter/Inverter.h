@@ -17,10 +17,13 @@ extern const char *inverter_port;
 
 #ifdef __cplusplus
 
+#include <string.h>
 #include <vector>
 #include "SerSelector.h"
 
-Class InvTM public TM_Selectee {
+class InvDriver;
+
+class InvTM : public TM_Selectee {
   public:
     InvTM();
     ~InvTM();
@@ -30,7 +33,7 @@ Class InvTM public TM_Selectee {
     Inverter_t *TMdata;
 };
 
-Class InvRequest {
+class InvRequest {
   public:
     InvRequest(const char *cmd, unsigned char *res);
     const char *cmdtxt;
@@ -39,7 +42,7 @@ Class InvRequest {
   private:
 };
 
-Class Cmd_Sel : public Cmd_Selectee {
+class Cmd_Sel : public Cmd_Selectee {
   public:
     Cmd_Sel();
     ~Cmd_Sel();
@@ -51,7 +54,7 @@ Class Cmd_Sel : public Cmd_Selectee {
     unsigned char PwrStat;
 };
 
-Class Inverter public Ser_Sel {
+class Inverter : public Ser_Sel {
   public:
     Inverter();
     ~Inverter();
@@ -62,13 +65,13 @@ Class Inverter public Ser_Sel {
     void next_request();
     Inverter_t *TMdata;
     bool TM_reported;
-    InvRequest *CmdReq; // Command stored here when queued
-    InvRequest *CurReq; // Then moved here...
+    const InvRequest *CmdReq; // Command stored here when queued
+    const InvRequest *CurReq; // Then moved here...
     std::vector<InvRequest> Reqs;
     std::vector<InvRequest>::const_iterator Req;
 };
 
-Class InvDriver public Selector {
+class InvDriver : public Selector {
   public:
     InvDriver(const char *serial_port);
     ~InvDriver();
