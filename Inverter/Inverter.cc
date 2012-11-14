@@ -32,8 +32,8 @@ int InvTM::ProcessData(int flag) {
 
 Cmd_Sel::Cmd_Sel() : Cmd_Selectee("cmd/Inverter", 20) {
   top = 0;
-  Cmds.push_back(InvRequest("POWER 0\r\n", &PwrStat));
-  Cmds.push_back(InvRequest("POWER 2\r\n", &PwrStat));
+  Cmds.push_back(InvRequest("POWER 0\r\n", 0));
+  Cmds.push_back(InvRequest("POWER 2\r\n", 0));
 }
 
 Cmd_Sel::~Cmd_Sel() {}
@@ -54,6 +54,7 @@ int Cmd_Sel::ProcessData(int flag) {
       case 'Q': return 1;
       default: report_err("Invalid Command"); break;
     }
+    consume(nc);
   }
   return 0;
 }
@@ -84,6 +85,7 @@ void Inverter::init(const char *port, Inverter_t *data) {
   Reqs.push_back(InvRequest("QURY 5\r\n", &TMdata->QURY[5]));
   Reqs.push_back(InvRequest("QURY 6\r\n", &TMdata->QURY[6]));
   Reqs.push_back(InvRequest("QURY 7\r\n", &TMdata->QURY[7]));
+  Reqs.push_back(InvRequest("POWER 3\r\n", &TMdata->Power));
   Req = Reqs.end();
   flags = Stor->Sel_Read | Stor->gflag(0) | Stor->gflag(1) |
     Stor->Sel_Timeout;
@@ -99,10 +101,12 @@ int Inverter::ProcessData(int flag) {
     bool saw_digit = false;
     cp = 0;
     if (fillbuf()) return 1;
+    while (cp < nc && isspace(buf[cp])) ++cp;
     if (CurReq == 0) {
-      // report_err("Unexpected input:");
+      if (cp < nc)
+        report_err("Unexpected input:");
+      consume(nc);
     } else {
-      while (cp < nc && isspace(buf[cp])) ++cp;
       while (cp < nc && isxdigit(buf[cp])) {
         unsigned char c = tolower(buf[cp]);
         val = val*16 + isdigit(c) ? (c - '0') : (c - 'a' + 10);
@@ -113,7 +117,8 @@ int Inverter::ProcessData(int flag) {
       if (not_str("=>")) {
         if (cp < nc) consume(nc);
       } else {
-        *(CurReq->result) = val;
+        if (CurReq->result)
+          *(CurReq->result) = val;
         CurReq = 0;
         consume(nc);
         report_ok();

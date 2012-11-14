@@ -3,6 +3,7 @@
 
 typedef struct __attribute__((__packed__)) {
   unsigned char QURY[8];
+  unsigned char Power;
   unsigned char Status;
 } Inverter_t;
 
