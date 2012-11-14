@@ -12,6 +12,7 @@ typedef struct __attribute__((__packed__)) {
    1: Fresh Data
 */
 #define INV_STAT_FRESH 1
+#define INV_STAT_SYNERR 2
 
 extern const char *inverter_port;
 
@@ -61,10 +62,12 @@ class Inverter : public Ser_Sel {
     void init(const char *port, Inverter_t *data);
     void InverterPower(InvRequest *cmd);
     int ProcessData(int flag);
+    Timeout *GetTimeout();
   private:
     void next_request();
     Inverter_t *TMdata;
     bool TM_reported;
+    Timeout TO;
     const InvRequest *CmdReq; // Command stored here when queued
     const InvRequest *CurReq; // Then moved here...
     std::vector<InvRequest> Reqs;

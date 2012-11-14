@@ -19,7 +19,7 @@ InvTM::InvTM() : TM_Selectee() {
 void InvTM::init(Inverter_t *data) {
   TM_Selectee::init("Inverter", data, sizeof(Inverter_t));
   TMdata = data;
-  TMdata->Status &= ~INV_STAT_FRESH;
+  TMdata->Status &= ~(INV_STAT_FRESH|INV_STAT_SYNERR);
 }
 
 InvTM::~InvTM() {}
@@ -95,6 +95,10 @@ void Inverter::InverterPower(InvRequest *cmd) {
   CmdReq = cmd;
 }
 
+Timeout *Inverter::GetTimeout() {
+  return &TO;
+}
+
 int Inverter::ProcessData(int flag) {
   if (flag & Stor->Sel_Read) {
     unsigned char val = 0;
@@ -114,15 +118,22 @@ int Inverter::ProcessData(int flag) {
         saw_digit = true;
       }
       while (cp < nc && isspace(buf[cp])) ++cp;
-      if (not_str("=>")) {
-        if (cp < nc) consume(nc);
-      } else {
-        if (CurReq->result)
-          *(CurReq->result) = val;
-        CurReq = 0;
-        consume(nc);
-        report_ok();
-        next_request();
+      if (cp < nc) {
+        if (buf[cp] == '!') {
+          TMdata->Status |= INV_STAT_SYNERR;
+          consume(nc);
+        } else { 
+          if (not_str("=>")) {
+            if (cp < nc) consume(nc);
+          } else {
+            if (CurReq->result)
+              *(CurReq->result) = val;
+            CurReq = 0;
+            consume(nc);
+            report_ok();
+            next_request();
+          }
+        }
       }
     }
   }
@@ -155,6 +166,7 @@ void Inverter::next_request() {
       }
       if (Req == Reqs.end()) {
         TMdata->Status |= INV_STAT_FRESH;
+        TO.Clear();
       } else {
         CurReq = &(*Req);
         ++Req;
@@ -162,6 +174,7 @@ void Inverter::next_request() {
     }
     if (CurReq != 0) {
       write(fd, CurReq->cmdtxt, CurReq->cmdlen); //### Check?
+      TO.Set(0, 100); // 100 msecs
     }
   }
 }
