@@ -21,7 +21,7 @@ Group Inv (InvQury0, InvQury1, InvQury2, InvQury3, InvQury4,
   InvQury5 = Inverter.QURY[5];
   InvQury6 = Inverter.QURY[6];
   InvQury7 = Inverter.QURY[7];
-  InvStat = Inverter.Status;
+  InvStat = (Inverter.Power&3) + (Inverter.Status&1)<<2;
   InvStale = Inverter_obj->stale(255);
   Inverter_obj->synch();
 }

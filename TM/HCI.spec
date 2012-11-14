@@ -27,6 +27,7 @@ cmdbase = /usr/local/share/huarp/qcli.cmd
 cmdbase = /usr/local/share/huarp/phrtg.cmd
 cmdbase = AO.cmd
 cmdbase = BAT_SPAN.cmd
+cmdbase = Inverter.cmd
 cmdbase = dccc.cmd
 cmdbase = qclis.cmd
 cmdbase = idx64drv.cmd

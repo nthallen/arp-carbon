@@ -1,4 +1,4 @@
-# Makefile Generated Tue Nov 13 11:52:58 EST 2012
+# Makefile Generated Tue Nov 13 14:47:41 EST 2012
 MNC=HCI
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
@@ -7,8 +7,8 @@ SRC+=T30K75KU.tmc T1M250KU.tmc VigoT.tmc digio.tmc idx64.tmc
 SRC+=Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc SWData.h
 SRC+=QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Altimeter_col.tmc AI_col.tmc
 SRC+=BAT_SPAN_col.tmc Inverter_col.tmc idx64col.tmc PTRH_col.tmc
-SRC+=qcli_col.tmc SWData_col.tmc AO.cmd BAT_SPAN.cmd dccc.cmd
-SRC+=qclis.cmd idx64drv.cmd subbus.cmd address.h SWData.cmd
+SRC+=qcli_col.tmc SWData_col.tmc AO.cmd BAT_SPAN.cmd Inverter.cmd
+SRC+=dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd address.h SWData.cmd
 SRC+=QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd digio_conv.tmc P_conv.tmc
 SRC+=hk.tbl qcli.tbl Cells.tbl SSPrtg.tmc Pilot_conv.tmc BAT_SPAN.tbl
 SRC+=hk2.tbl HCI.tma HCI.sws HCIeng.cdf HCI.doit
@@ -62,8 +62,8 @@ CMDBASE+=/usr/local/share/huarp/DACS_AI.cmd
 CMDBASE+=/usr/local/share/huarp/idx64.cmd
 CMDBASE+=/usr/local/share/huarp/qcli.cmd
 CMDBASE+=/usr/local/share/huarp/phrtg.cmd AO.cmd BAT_SPAN.cmd
-CMDBASE+=dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd address.h
-CMDBASE+=SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
+CMDBASE+=Inverter.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd
+CMDBASE+=address.h SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
 COLBASE=Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc
 COLBASE+=Inverter_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc
 COLBASE+=/usr/local/share/huarp/DACS_ID.tmc
@@ -147,8 +147,8 @@ ptrhm.o : /usr/local/share/huarp/ptrhm.cc SWData.h
 	$(COMPILE.cc) /usr/local/share/huarp/ptrhm.cc
 ptrhm_col.o : /usr/local/share/huarp/ptrhm_col.cc SWData.h
 	$(COMPILE.cc) /usr/local/share/huarp/ptrhm_col.cc
-HCIcmd.cc : /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd /usr/local/share/huarp/phrtg.cmd AO.cmd BAT_SPAN.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
-	$(CMDGEN) -d HCIcmd.dat /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd /usr/local/share/huarp/phrtg.cmd AO.cmd BAT_SPAN.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
+HCIcmd.cc : /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd /usr/local/share/huarp/phrtg.cmd AO.cmd BAT_SPAN.cmd Inverter.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
+	$(CMDGEN) -d HCIcmd.dat /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd /usr/local/share/huarp/phrtg.cmd AO.cmd BAT_SPAN.cmd Inverter.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
 HCIsrvr.o : HCIcmd.cc
 	$(COMPILE.srvr) HCIcmd.cc
 HCIsrvroui.c : $(OUIDIR)/cis.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
