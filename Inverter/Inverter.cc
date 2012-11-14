@@ -153,7 +153,9 @@ void Inverter::next_request() {
         Req = Reqs.begin();
         TM_reported = false;
       }
-      if (Req != Reqs.end()) {
+      if (Req == Reqs.end()) {
+        TMdata->Status |= INV_STAT_FRESH;
+      } else {
         CurReq = &(*Req);
         ++Req;
       }

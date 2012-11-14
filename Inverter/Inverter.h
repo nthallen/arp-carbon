@@ -11,8 +11,7 @@ typedef struct __attribute__((__packed__)) {
    0: Power On
    1: Fresh Data
 */
-#define INV_STAT_POWER 1
-#define INV_STAT_FRESH 2
+#define INV_STAT_FRESH 1
 
 extern const char *inverter_port;
 
