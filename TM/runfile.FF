@@ -5,9 +5,9 @@
   echo "Running script interact" >$memo
 
 # Verify and/or Program QCLIs
-  qclidprog -h QCLI_M -d0 -cwc $TMBINDIR/QCLI_M.out
-  qclidprog -h QCLI_C -d1 -cwc $TMBINDIR/QCLI_C.out
-# qclidprog -h QCLI_I -d2 -cwc $TMBINDIR/QCLI_I.out
+  qclidprog -h QCLI_M -d0 -cccwcwc $TMBINDIR/QCLI_M.out
+  qclidprog -h QCLI_C -d1 -cccwcwc $TMBINDIR/QCLI_C.out
+# qclidprog -h QCLI_I -d2 -cccwcwc $TMBINDIR/QCLI_I.out
 
   Launch dccc   dccc -f $TMBINDIR/dccc.dccc
   Launch DG/cmd HCIcol
