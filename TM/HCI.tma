@@ -49,7 +49,7 @@ State Record {
 
 # SHUTDOWN
 State Shutdown {
-      Hold until valid (HCI_Is_Shutdown) or 20;
+      Hold until valid (HCI_Is_Shutdown);
 # +5   > Fail Light On
       > quit
 }
@@ -113,7 +113,7 @@ State HCI_Shutdown {
       > Sample Htr Ctl Off
       Hold until valid (MINI_Is_Shutdown) or 20;
       Hold until valid (CO2_Is_Shutdown) or 20;
-      #Hold until valid (Pump_TControl_Is_Shutdown) or 10;
+      Hold until valid (Pump_Cool_Is_Shutdown);
    +5 Validate HCI_Is_Shutdown;
 }
 
@@ -130,7 +130,6 @@ Partition
 
 State MINI_Init {
    +1 > MINI Pressure Reg Off
-   +1 > MINI Exhaust Valve Closed
       Depending on (Shutdown) { Validate MINI_Shutdown; }
       Depending on (Record) { Validate MINI_Start; }
 }
@@ -140,6 +139,7 @@ State MINI_Start {
    +1 Validate MTControl_Start;
    +5 Validate MQCL_SelectWaveandRun;
    +5 Hold until valid (MQCL_Watch);
+   +1 Hold until valid (Pump_Watch);
    +1 Validate MINI_Sample;
 }
 
@@ -162,8 +162,6 @@ State MINI_Calibrate {
 
 State MINI_Shutdown {
      > MINI Pressure Reg Off
-  +1 > MINI Exhaust Valve Closed
-  +1 > MINI Scroll Pump Off
   +1 Hold until valid (MQCL_Is_Shutdown);
      Validate MINI_Is_Shutdown;
 }
@@ -180,7 +178,6 @@ Partition
 %}
 State CO2_Init {
    +1 > CO2 Pressure Reg Off
-   +1 > CO2 Exhaust Valve Closed
       Depending on (Shutdown) { Validate CO2_Shutdown; }
       Depending on (Record) { Validate CO2_Start; }
 }
@@ -190,6 +187,7 @@ State CO2_Start {
    +1 Validate CTControl_Start;
    +5 Validate CQCL_SelectWaveandRun;
    +5 Hold until valid (CQCL_Watch);
+   +1 Hold until valid (Pump_Watch);
    +1 Validate CO2_Sample;
 }
 
@@ -212,8 +210,6 @@ State CO2_Calibrate {
 
 State CO2_Shutdown {
      > CO2 Pressure Reg Off
-  +1 > CO2 Exhaust Valve Closed
-  +1 > CO2 Scroll Pump Off
   +1 Hold until valid (CQCL_Is_Shutdown);
      Validate CO2_Is_Shutdown;
 }
@@ -773,12 +769,119 @@ State GasDeck_Close {
 }
 
 #----------------------------------------------------------------
-# Partition 8: Pump Cooling Control
+# Partition 8: Pump Control
 #----------------------------------------------------------------
 Partition
+%{
+ #define PUMP_TEMP_HOT 50
+ #define PUMP_TEMP_OK(x) (x < PUMP_TEMP_HOT)
+%}
 
 State Pump_Init {
+    > CO2 Exhaust Valve Close
+    > MINI Exhaust Valve Close
+ +1 > CO2 Scroll Pump Off
+ +1 > MINI Scroll Pump Off
+    Depending on (Shutdown) { Validate Pump_Shutdown; }
+    Depending on (Record) { Validate Pump_Start; }
+
 }
+
+State Pump_Start {
+    Depending on (Shutdown) { Validate Pump_Shutdown; }
+    Hold until valid (Pump_Cool_Watch);
+ +5 > CO2 Scroll Pump On
+ +5 > MINI Scroll Pump On
+ +5 > CO2 Exhaust Valve Open
+ +1 > MINI Exhaust Valve Open
+    Validate Pump_Watch;
+}
+
+State Pump_Watch Nolog {
+    Depending on (Shutdown) { Validate Pump_Shutdown; }
+    hold until ( !PUMP_TEMP_OK(convert(CPmpT)) ||
+         !PUMP_TEMP_OK(convert(MPmpT)) );
+    hold until ( PUMP_TEMP_OK(convert(CPmpT)) &&
+         PUMP_TEMP_OK(convert(MPmpT)) ); or 5
+    else Validate Pump_Hot;
+    Validate Pump_Watch;
+}
+
+State Pump_Hot {
+    Depending on (Shutdown) { Validate Pump_Shutdown; }
+    > CO2 Exhaust Valve Close
+    > MINI Exhaust Valve Close
+ +1 > CO2 Scroll Pump Off
+ +1 > MINI Scroll Pump Off
+    Hold until ( PUMP_TEMP_OK(convert(CPmpT)+5) &&
+         PUMP_TEMP_OK(convert(MPmpT)+5) );
+ +5 > CO2 Scroll Pump On
+ +5 > MINI Scroll Pump On
+ +1 > CO2 Exhaust Valve Open
+ +1 > MINI Exhaust Valve Open
+    Validate Pump_Watch;
+}
+
+State Pump_Shutdown {
+    > CO2 Exhaust Valve Close
+    > MINI Exhaust Valve Close
+    > CO2 Scroll Pump Off
+    > MINI Scroll Pump Off
+    Validate Pump_Is_Shutdown;
+}
+
+State Pump_Is_Shutdown {}
+
+
+# -----------------------------------------------------------------------------
+# Partition 10: Pump Cooling Control
+# -----------------------------------------------------------------------------
+Partition
+
+%{
+ #define BATH_TEMP_COLD 25
+ #define BATH_TEMP_OK(x) (x > BATH_TEMP_COLD)
+%}
+
+State Pump_Cool_Init {
+    > Coolant Pump Off
+    > Coolant Divert Off
+    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+    Depending on (Record) { Validate Pump_Cool_Start; }
+}
+
+State Pump_Cool_Start {
+    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+ +1 > Inverter On
+ +1 > Coolant Pump On
+ +1 Validate Pump_Cool_Watch;
+}
+
+State Pump_Cool_Watch Nolog {
+    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+    hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
+    hold until ( BATH_TEMP_OK(convert(WTnkT)) ); or 5
+    else Validate Pump_Cool_Cold;
+    Validate Pump_Watch;
+}
+
+State Pump_Cool_Cold {
+    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+    > Coolant Divert On
+    Hold until ( BATH_TEMP_OK(convert(WTnkT)-5) );
+ +1 > Coolant Divert Off
+ +1 Validate Pump_Cool_Watch;
+}
+
+State Pump_Cool_Shutdown {
+   +1 Hold until valid (Pump_Is_Shutdown);
++5:00 > Coolant Pump Off
+      > Inverter Off
+      Validate Pump_Cool_Is_Shutdown;
+}
+
+State Pump_Cool_Is_Shutdown {}
+
 
 # -----------------------------------------------------------------------------
 # Partition 9: Luggage Bay Temperature Control
@@ -822,6 +925,7 @@ State LuggageBay_TCtrl_Init {
 #   > drive Throttle Valve in 48000
 #   > drive Throttle Valve out 20
 # }
+
 
 # -----------------------------------------------------------------------------
 # Partition 10: Mini Methane Temperature Control
