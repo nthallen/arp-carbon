@@ -34,4 +34,6 @@
   : CO2 Calibrate { $0 = SWS_CCALIBRATE; }
   : CO2 Start { $0 = SWS_CSTART; }
   : Time Warp { $0 = SWS_TIMEWARP; }
+  : Pump Start { $0 = SWS_PUMP_START; }
+  : Pump Cool Start { $0 = SWS_COOL_START; }
   ;

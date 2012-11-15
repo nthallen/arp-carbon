@@ -778,8 +778,8 @@ Partition
 %}
 
 State Pump_Init {
-    > CO2 Exhaust Valve Close
-    > MINI Exhaust Valve Close
+    > CO2 Exhaust Valve Closed
+    > MINI Exhaust Valve Closed
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
     Depending on (Shutdown) { Validate Pump_Shutdown; }
@@ -802,15 +802,15 @@ State Pump_Watch Nolog {
     hold until ( !PUMP_TEMP_OK(convert(CPmpT)) ||
          !PUMP_TEMP_OK(convert(MPmpT)) );
     hold until ( PUMP_TEMP_OK(convert(CPmpT)) &&
-         PUMP_TEMP_OK(convert(MPmpT)) ); or 5
+         PUMP_TEMP_OK(convert(MPmpT)) ) or 5
     else Validate Pump_Hot;
     Validate Pump_Watch;
 }
 
 State Pump_Hot {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
-    > CO2 Exhaust Valve Close
-    > MINI Exhaust Valve Close
+    > CO2 Exhaust Valve Closed
+    > MINI Exhaust Valve Closed
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
     Hold until ( PUMP_TEMP_OK(convert(CPmpT)+5) &&
@@ -823,8 +823,8 @@ State Pump_Hot {
 }
 
 State Pump_Shutdown {
-    > CO2 Exhaust Valve Close
-    > MINI Exhaust Valve Close
+    > CO2 Exhaust Valve Closed
+    > MINI Exhaust Valve Closed
     > CO2 Scroll Pump Off
     > MINI Scroll Pump Off
     Validate Pump_Is_Shutdown;
@@ -852,7 +852,7 @@ State Pump_Cool_Init {
 
 State Pump_Cool_Start {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
- +1 > Inverter On
+ +1 > Inverter Power On
  +1 > Coolant Pump On
  +1 Validate Pump_Cool_Watch;
 }
@@ -860,7 +860,7 @@ State Pump_Cool_Start {
 State Pump_Cool_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
-    hold until ( BATH_TEMP_OK(convert(WTnkT)) ); or 5
+    hold until ( BATH_TEMP_OK(convert(WTnkT)) ) or 5
     else Validate Pump_Cool_Cold;
     Validate Pump_Watch;
 }
@@ -876,7 +876,7 @@ State Pump_Cool_Cold {
 State Pump_Cool_Shutdown {
    +1 Hold until valid (Pump_Is_Shutdown);
 +5:00 > Coolant Pump Off
-      > Inverter Off
+      > Inverter Power Off
       Validate Pump_Cool_Is_Shutdown;
 }
 

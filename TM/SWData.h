@@ -26,5 +26,7 @@ extern SWData_t SWData;
 #define SWS_CCALIBRATE 17
 #define SWS_CSTART 18
 #define SWS_TIMEWARP 19
+#define SWS_PUMP_START 20
+#define SWS_COOL_START 21
 
 #endif
