@@ -10,11 +10,15 @@ Commands:
   Inverter Off (send "POWER 0\r\n")
 
 Data:
-  QURY 0-7? No idea what most of these are, but we hope to find
-    Input voltage
-    Output load
-    Power On/Off status
-    Various status bits for failure modes
+  QURY 0-7? No idea what most of these are, best guesses:
+    QURY 0 1 = Failed (latched...)
+    QURY 1 Input Voltage
+    QURY 2 0 = OK 4 = Failed
+    QURY 3 4 = commanded off 7 = commanded on
+    QURY 4 Output Load (latched in failure mode)
+    QURY 5 Bit Mapped
+    QURY 6 Bit Mapped
+    QURY 7 Bit Mapped
   POWER 3
     0: Off
     2: On
