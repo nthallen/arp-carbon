@@ -1,5 +1,7 @@
-off_on_t CoolPump_DS; Invalidate CoolPump_DS;
-  { CoolPump_DS = (DS848>>4)&1; Validate CoolPump_DS; }
+off_on_t InverterArm_DS; Invalidate InverterArm_DS;
+  { InverterArm_DS = (DS842>>0)&1; Validate InverterArm_DS; }
+off_on_t CoolDivert_DS; Invalidate CoolDivert_DS;
+  { CoolDivert_DS = (DS848>>4)&1; Validate CoolDivert_DS; }
 off_on_t L2_DS; Invalidate L2_DS;
   { L2_DS = (DS84A>>0)&1; Validate L2_DS; }
 Op_Cl_t MGas_Ex_Vlv_DS; Invalidate MGas_Ex_Vlv_DS;
@@ -32,8 +34,8 @@ off_on_t ILPV_HC_DS; Invalidate ILPV_HC_DS;
   { ILPV_HC_DS = (DS851>>5)&1; Validate ILPV_HC_DS; }
 off_on_t ILTEC_DS; Invalidate ILTEC_DS;
   { ILTEC_DS = (DS851>>6)&1; Validate ILTEC_DS; }
-off_on_t L1_DS; Invalidate L1_DS;
-  { L1_DS = (DS851>>7)&1; Validate L1_DS; }
+off_on_t CoolPump_DS; Invalidate CoolPump_DS;
+  { CoolPump_DS = (DS851>>7)&1; Validate CoolPump_DS; }
 off_on_t IQCLI_Reset_DS; Invalidate IQCLI_Reset_DS;
   { IQCLI_Reset_DS = (DS855>>0)&1; Validate IQCLI_Reset_DS; }
 Op_Cl_t GD_Vlv_Clsed_S; Invalidate GD_Vlv_Clsed_S;

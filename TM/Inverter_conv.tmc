@@ -1,0 +1,4 @@
+off_on_t InvPwrS; Invalidate InvPwrS;
+  { InvPwrS = (InvStat>>1)&1; Validate InvPwrS; }
+off_on_t InvErrS; Invalidate InvErrS;
+  { InvErrS = (InvStat>>2)&1; Validate InvErrS; }

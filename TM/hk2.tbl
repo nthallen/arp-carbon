@@ -28,15 +28,19 @@ Panel {
 
 Cool {
   HBox { +-; Title: Coolant; -+ };
-  Pump:  (CoolPump_DS,3);
-  WPmpT: (WPmpT,6) C;
-  WTnkT: (WTnkT,6) C;
-  CoolT: (CoolT,6) C;
-  CoolP: (CoolP,6) psig;
+  Pump:   (CoolPump_DS,3);
+  Divert: (CoolDivert_DS,3);
+  WPmpT:  (WPmpT,6) C;
+  WTnkT:  (WTnkT,6) C;
+  CoolT:  (CoolT,6) C;
+  CoolP:  (CoolP,6) psig;
 }
 
 Inverter {
   HBox { +-; Title: Inverter; -+ };
+  Arm:   (InverterArm_DS,3);
+  Power: (InvPwrS,3);
+  Error: (InvErrS,3);
   QURY0: (InvQury0,3);
   QURY1: (InvQury1,3);
   QURY2: (InvQury2,3);
@@ -45,7 +49,6 @@ Inverter {
   QURY5: (InvQury5,3);
   QURY6: (InvQury6,3);
   QURY7: (InvQury7,3);
-  Stat:  (InvStat,3);
   Stale: (InvStale,3);
 }
 
