@@ -1,4 +1,10 @@
 off_on_t InvPwrS; Invalidate InvPwrS;
   { InvPwrS = (InvStat>>1)&1; Validate InvPwrS; }
-off_on_t InvErrS; Invalidate InvErrS;
+ok_fail_t InvErrS; Invalidate InvErrS;
   { InvErrS = (InvStat>>2)&1; Validate InvErrS; }
+off_on_t InvCmdS; Invalidate InvCmdS;
+  { InvCmdS = (InvQury3>>1)&1; Validate InvCmdS; }
+ok_fail_t InvFailS; Invalidate InvFailS;
+  { InvFailS = (InvQury2>>2)&1; Validate InvFailS; }
+ok_fail_t InvFailedS; Invalidate InvFailedS;
+  { InvFailedS = (InvQury0>>2)&1; Validate InvFailedS; }

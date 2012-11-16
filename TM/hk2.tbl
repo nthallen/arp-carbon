@@ -38,18 +38,18 @@ Cool {
 
 Inverter {
   HBox { +-; Title: Inverter; -+ };
-  Arm:   (InverterArm_DS,3);
-  Power: (InvPwrS,3);
-  Error: (InvErrS,3);
-  QURY0: (InvQury0,3);
-  QURY1: (InvQury1,3);
-  QURY2: (InvQury2,3);
-  QURY3: (InvQury3,3);
-  QURY4: (InvQury4,3);
-  QURY5: (InvQury5,3);
-  QURY6: (InvQury6,3);
-  QURY7: (InvQury7,3);
-  Stale: (InvStale,3);
+  Arm:     (InverterArm_DS,3);
+  Cmd:     (InvCmdS,3);
+  Power:   (InvPwrS,3);
+  Fail:    (InvFailS,4);
+  Failed:  (InvFailedS,4);
+  CommErr: (InvErrS,4);
+  Vin:     (InvQury1,3);
+  Load:    (InvQury4,3);
+  QURY5:   (InvQury5,3);
+  QURY6:   (InvQury6,3);
+  QURY7:   (InvQury7,3);
+  Stale:   (InvStale,3);
 }
 
 Altimeter {
