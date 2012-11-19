@@ -35,7 +35,7 @@
   : ISO Scroll Pump { $0 = 2; }
   : ISO Laser TEC { $0 = 6; }
   : Coolant Pump { $0 = 7; }
-  : Lab Command 2 { $0 = 8; }
+  : Inverter Arm { $0 = 8; }
   : MINI Cell Htr Ctl { $0 = 42; }
   : MINI Detector PV Htr Ctl { $0 = 43; }
   : MINI LPV TEC { $0 = 45; }
