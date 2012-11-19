@@ -128,6 +128,7 @@ int Inverter::ProcessData(int flag) {
           } else {
             if (CurReq->result)
               *(CurReq->result) = val;
+            else TMdata->Status &= ~INV_STAT_SYNERR;
             CurReq = 0;
             consume(nc);
             report_ok();
