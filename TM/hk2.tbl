@@ -43,6 +43,7 @@ Inverter {
   Power:   (InvPwrS,3);
   Fail:    (InvFailS,4);
   Failed:  (InvFailedS,4);
+  CmdErr:  (InvCmdErrS,4);
   CommErr: (InvErrS,4);
   Vin:     (InvQury1,3);
   Load:    (InvQury4,3);

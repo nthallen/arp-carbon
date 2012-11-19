@@ -19,6 +19,7 @@ InvTM::InvTM() : TM_Selectee() {
 void InvTM::init(Inverter_t *data) {
   TM_Selectee::init("Inverter", data, sizeof(Inverter_t));
   TMdata = data;
+  TMdata->Status = 0;
   TMdata->Status &= ~(INV_STAT_FRESH|INV_STAT_SYNERR);
 }
 
@@ -26,7 +27,7 @@ InvTM::~InvTM() {}
 
 int InvTM::ProcessData(int flag) {
   int rv = TM_Selectee::ProcessData(flag);
-  TMdata->Status &= ~INV_STAT_FRESH;
+  TMdata->Status |= INV_STAT_FRESH;
   return rv;
 }
 
@@ -150,6 +151,7 @@ int Inverter::ProcessData(int flag) {
   if (flag & Stor->Sel_Timeout) {
     report_err("Timeout on query: '%s'", ascii_escape(CurReq->cmdtxt));
     CurReq = 0;
+    TMdata->Status &= ~INV_STAT_FRESH;
     next_request();
   }
   return 0;
@@ -166,7 +168,7 @@ void Inverter::next_request() {
         TM_reported = false;
       }
       if (Req == Reqs.end()) {
-        TMdata->Status |= INV_STAT_FRESH;
+        // TMdata->Status |= INV_STAT_FRESH;
         TO.Clear();
       } else {
         CurReq = &(*Req);
