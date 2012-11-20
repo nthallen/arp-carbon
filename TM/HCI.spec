@@ -32,6 +32,7 @@ cmdbase = dccc.cmd
 cmdbase = qclis.cmd
 cmdbase = idx64drv.cmd
 cmdbase = subbus.cmd
+cmdbase = panel.cmd
 cmdbase = address.h
 
 colbase = Altimeter_col.tmc
