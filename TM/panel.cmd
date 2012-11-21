@@ -5,11 +5,12 @@
   void lk204_set_led(int led, int color) {
     sbwr(0x1102, 0x1FE);
     sbwr(0x1102, (color&1) ? 0x157 : 0x156);
-    sbwr(0x1102, 0x100 + 2*led);
+    sbwr(0x1102, 0x100 + 2*led+1);
     sbwr(0x1102, 0x1FE);
     sbwr(0x1102, (color&2) ? 0x157 : 0x156);
-    sbwr(0x1102, 2*led + 1);
+    sbwr(0x1102, 2*led + 2);
   }
+
   void lk204_set_gpo(int gpo, int on) {
     if (gpo >= 0 && gpo < 8) {
       sbwr(0x1102, 0x1FE);
@@ -17,7 +18,7 @@
       sbwr(0x1102, gpo);
     }
   }
-  
+
   unsigned xdig2num(unsigned char dig) {
     if (isdigit(dig)) return dig - '0';
     if (isxdigit(dig)) return tolower(dig) - 'a' + 10;
@@ -34,8 +35,8 @@
           case '\r':
           case 0:
             return;
-          case 'r': val = '\r'; break;
-          case 'n': val = '\n'; break;
+          case 'r': val = '\r'; ++str; break;
+          case 'n': val = '\n'; ++str; break;
           case 'x':
             val = 0;
             str++;
@@ -53,6 +54,17 @@
       sbwr(0x1102, val);
     }
   }
+
+  void lk204_keypad_brightness(int brightness) {
+    if (brightness < 0) lk204_seq((const unsigned char *)"\xfe\x9b");
+    else {
+      if (brightness > 255) brightness = 255;
+      sbwr(0x1102, 0x1FE);
+      sbwr(0x1102, 0x19C);
+      sbwr(0x1102, brightness);
+    }
+  }
+  
   #endif
 %}
 &command
@@ -62,6 +74,12 @@
   : Panel Set GPO %d &on_off * { lk204_set_gpo($4, $5); }
   : Panel Clear Screen * { lk204_seq( (const unsigned char*)"\xFE\x58" ); }
   : Panel Display Text %s { lk204_seq((const unsigned char*)$4); }
+  : Panel Keypad Backlight Off * {
+      lk204_seq((const unsigned char *)"\xfe\x9b");
+    }
+  : Panel Keypad Brightness %d * {
+      lk204_keypad_brightness($4);
+    }
   ;
 &lk204_led <int>
   : Top LED { $0 = 0; }
@@ -69,8 +87,8 @@
   : Bottom LED { $0 = 2; }
   ;
 &lk204_color <int>
-  : Yellow { $0 = 0; }
-  : Green { $0 = 1; }
-  : Red { $0 = 2; }
-  : Off { $0 = 3; }
+  : Yellow { $0 = 3; }
+  : Green { $0 = 2; }
+  : Red { $0 = 1; }
+  : Off { $0 = 0; }
   ;
