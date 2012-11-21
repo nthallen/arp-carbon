@@ -1,5 +1,7 @@
 %{
   #ifdef SERVER
+  #include <ctype.h>
+
   void lk204_set_led(int led, int color) {
     sbwr(0x1102, 0x1FE);
     sbwr(0x1102, (color&1) ? 0x157 : 0x156);
@@ -15,9 +17,38 @@
       sbwr(0x1102, gpo);
     }
   }
+  
+  unsigned xdig2num(unsigned char dig) {
+    if (isdigit(dig)) return dig - '0';
+    if (isxdigit(dig)) return tolower(dig) - 'a' + 10;
+    return 0;
+  }
+  
   void lk204_seq(const unsigned char *str) {
     while (*str != '\0') {
       unsigned short val = *str++;
+      if (val == '\n' || val == '\r') break;
+      if (val == '\\') {
+        switch (*str) {
+          case '\n':
+          case '\r':
+          case 0:
+            return;
+          case 'r': val = '\r'; break;
+          case 'n': val = '\n'; break;
+          case 'x':
+            val = 0;
+            str++;
+            if (isxdigit(*str)) {
+              val = xdig2num(*str++);
+              if (isxdigit(*str)) {
+                val = val*16 + xdig2num(*str++);
+              }
+            }
+            break;
+          default: val = *str++; break;
+        }
+      }
       if (*str != '\0') val |= 0x100;
       sbwr(0x1102, val);
     }
