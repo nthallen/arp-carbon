@@ -36,4 +36,5 @@
   : Time Warp { $0 = SWS_TIMEWARP; }
   : Pump Start { $0 = SWS_PUMP_START; }
   : Pump Cool Start { $0 = SWS_COOL_START; }
+  : Read File { $0 = SWS_READ_FILE; }
   ;

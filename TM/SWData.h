@@ -28,5 +28,6 @@ extern SWData_t SWData;
 #define SWS_TIMEWARP 19
 #define SWS_PUMP_START 20
 #define SWS_COOL_START 21
+#define SWS_READ_FILE 22
 
 #endif
