@@ -1041,7 +1041,7 @@ State CTControl_Shutdown {
 Partition
 State ReadFile_idle {}
 
-State ReadFile "HTW.tmas" {
+State ReadFile "HCI.tmas" {
   +5 Validate ReadFile_idle;
 }
 
