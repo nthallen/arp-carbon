@@ -2,19 +2,12 @@
 
 QCLI_M {
   HBox { +-; Title: "QCLI_M"; -+ };
+  { Wave: (QCLI_M_Wave,10) (QCLI_M_mode,7) (QCLI_M_laser,3) };
   HBox {
-    {
-      Wave: (QCLI_M_Wave,10);
-      Mode: { (QCLI_M_mode,7) (QCLI_M_laser,3) };
-    }
+    { SSP (SSP_M_Status,7); (SSP_M_Num,8); };
+    HGlue 0+1; |; HGlue 0+1;
+    { Reset: (MQCLI_Reset_DS,3); Stale: (QCLI_M_Stale,5) };
   }
-  HBox {
-    {
-      Reset: (MQCLI_Reset_DS,3);
-      Stale: (QCLI_M_Stale,5);
-    }
-  };
-  { SSP (SSP_M_Num,8) (SSP_M_Status,7); }
 }
 
 SSP_M {
@@ -72,19 +65,12 @@ QCLI_M_Col {
 
 QCLI_C {
   HBox { +-; Title: "QCLI_C"; -+ };
+  { Wave: (QCLI_C_Wave,10) (QCLI_C_mode,7) (QCLI_C_laser,3) };
   HBox {
-    {
-      Wave:  (QCLI_C_Wave,10); 
-      Mode: { (QCLI_C_mode,7) (QCLI_C_laser,3) };
-    }
+    { SSP (SSP_C_Status,7); (SSP_C_Num,8); };
+    HGlue 0+1; |; HGlue 0+1;
+    { Reset: (CQCLI_Reset_DS,3); Stale: (QCLI_C_Stale,5) };
   }
-  HBox {
-    {
-      Reset: (CQCLI_Reset_DS,3);
-      Stale: (QCLI_C_Stale,5);
-    }
-  };
-  { SSP (SSP_C_Num,8) (SSP_C_Status,7); }
 }
 
 SSP_C {
