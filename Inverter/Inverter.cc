@@ -44,6 +44,7 @@ int Cmd_Sel::ProcessData(int flag) {
   if (flag == Selector::Sel_Read) {
     cp = 0;
     if (fillbuf()) return 1;
+    if (nc == 0) return 1;
     switch (buf[cp]) {
       case 'P':
         switch (buf[++cp]) {
