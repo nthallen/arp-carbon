@@ -20,3 +20,7 @@ if (last_I_SSP != SSP_I_Num) {
   last_I_SSP = SSP_I_Num;
 }
 */
+
+ci_sendfcmd(2, "PhRTG Datum CPU_Pct %lu %s\n", itime(), text(CPU_Pct));
+ci_sendfcmd(2, "PhRTG Datum MDetT %lu %s\n", itime(), text(MDetT));
+ci_sendfcmd(2, "PhRTG Datum CDetT %lu %s\n", itime(), text(CDetT));
