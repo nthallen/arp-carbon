@@ -55,7 +55,7 @@ State Shutdown {
 }
 
 # -----------------------------------------------------------------------------
-# Partition 3: Flight Mode
+# Partition 2: Flight Mode
 # -----------------------------------------------------------------------------
 
 Partition
@@ -95,7 +95,7 @@ State LAND {
 
 
 #----------------------------------------------------------------
-# Partition 4: HCI Main Control
+# Partition 3: HCI Main Control
 #----------------------------------------------------------------
 Partition
 State HCI_Init {
@@ -113,14 +113,14 @@ State HCI_Shutdown {
       > Sample Htr Ctl Off
       Hold until valid (MINI_Is_Shutdown) or 20;
       Hold until valid (CO2_Is_Shutdown) or 20;
-      Hold until valid (Pump_Cool_Is_Shutdown);
+      Hold until valid (Pump_Cool_Is_Shutdown) or 5:00;
    +5 Validate HCI_Is_Shutdown;
 }
 
 State HCI_Is_Shutdown {}
 
 #----------------------------------------------------------------
-# Partition 5: Mini Methane Control
+# Partition 4: Mini Methane Control
 #----------------------------------------------------------------
 Partition
 
@@ -169,7 +169,7 @@ State MINI_Shutdown {
 State MINI_Is_Shutdown {}
 
 #----------------------------------------------------------------
-# Partition 6: CO2 Control
+# Partition 5: CO2 Control
 #----------------------------------------------------------------
 Partition
 
@@ -217,7 +217,7 @@ State CO2_Shutdown {
 State CO2_Is_Shutdown {}
 
 #----------------------------------------------------------------
-# Partition 7: Mini Methane Laser Control 7.7um QCL ICOS
+# Partition 6: Mini Methane Laser Control 7.7um QCL ICOS
 #----------------------------------------------------------------
 Partition
 %{
@@ -440,7 +440,7 @@ State MQCL_SelectWaveandRun_Reset {
 }
 
 #----------------------------------------------------------------
-# Partition 6: CO2 Laser Control 4.3um QCL ICOS
+# Partition 7: CO2 Laser Control 4.3um QCL ICOS
 #----------------------------------------------------------------
 Partition
 
@@ -665,7 +665,7 @@ State CQCL_SelectWaveandRun_Reset {
     Validate CQCL_SelectWaveandRun;
 }
 #----------------------------------------------------------------
-# Partition 6: Calibration Logic 
+# Partition 8: Calibration Logic 
 #----------------------------------------------------------------
 Partition
 
@@ -700,7 +700,7 @@ State Calibrate_CO2 {
 
 
 #----------------------------------------------------------------
-# Partition 7: Gas Deck Pressure Control
+# Partition 9: Gas Deck Pressure Control
 #----------------------------------------------------------------
 Partition
 
@@ -769,7 +769,7 @@ State GasDeck_Close {
 }
 
 #----------------------------------------------------------------
-# Partition 8: Pump Control
+# Partition 10: Pump Control
 #----------------------------------------------------------------
 Partition
 %{
@@ -782,6 +782,9 @@ State Pump_Init {
     > MINI Exhaust Valve Closed
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
+ +1 > Inverter Arm On
+    Hold until (InvPwrS == 1) or 5
+    else Validate Pump_Inverter_Off;
     Depending on (Shutdown) { Validate Pump_Shutdown; }
     Depending on (Record) { Validate Pump_Start; }
 
@@ -789,16 +792,18 @@ State Pump_Init {
 
 State Pump_Start {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
+    { if (!InvPwrS) Validate Pump_Inverter_Off; } 
     Hold until valid (Pump_Cool_Watch);
  +5 > CO2 Scroll Pump On
- +5 > MINI Scroll Pump On
- +5 > CO2 Exhaust Valve Open
+ +10 > MINI Scroll Pump On
+ +10 > CO2 Exhaust Valve Open
  +1 > MINI Exhaust Valve Open
     Validate Pump_Watch;
 }
 
 State Pump_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
+    { if (!InvPwrS) Validate Pump_Inverter_Off; } 
     hold until ( !PUMP_TEMP_OK(convert(CPmpT)) ||
          !PUMP_TEMP_OK(convert(MPmpT)) );
     hold until ( PUMP_TEMP_OK(convert(CPmpT)) &&
@@ -809,17 +814,27 @@ State Pump_Watch Nolog {
 
 State Pump_Hot {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
+    { if (!InvPwrS) Validate Pump_Inverter_Off; } 
     > CO2 Exhaust Valve Closed
     > MINI Exhaust Valve Closed
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
     Hold until ( PUMP_TEMP_OK(convert(CPmpT)+5) &&
          PUMP_TEMP_OK(convert(MPmpT)+5) );
- +5 > CO2 Scroll Pump On
- +5 > MINI Scroll Pump On
- +1 > CO2 Exhaust Valve Open
- +1 > MINI Exhaust Valve Open
-    Validate Pump_Watch;
+    Validate Pump_Start;
+}
+
+State Pump_Inverter_Off {
+    Depending on (Shutdown) { Validate Pump_Shutdown; }
+    > Inverter Power Off
+ +1 > CO2 Exhaust Valve Closed
+    > MINI Exhaust Valve Closed
+ +1 > CO2 Scroll Pump Off
+ +1 > MINI Scroll Pump Off
++10 > Inverter Power On
+ +5 Hold until (InvPwrS == 1) or 5
+    else Validate Pump_Inverter_Off;
+    Validate Pump_Start;
 }
 
 State Pump_Shutdown {
@@ -827,6 +842,12 @@ State Pump_Shutdown {
     > MINI Exhaust Valve Closed
     > CO2 Scroll Pump Off
     > MINI Scroll Pump Off
+    Validate Pump_Off
+}
+
+State Pump_Off {
+    Hold until valid (Pump_Cool_Is_Shutdown)
+    > Inverter arm off
     Validate Pump_Is_Shutdown;
 }
 
@@ -834,13 +855,15 @@ State Pump_Is_Shutdown {}
 
 
 # -----------------------------------------------------------------------------
-# Partition 10: Pump Cooling Control
+# Partition 11: Pump Cooling Control
 # -----------------------------------------------------------------------------
 Partition
 
 %{
  #define BATH_TEMP_COLD 25
+ #define PUMP_TEMP_COLD 35
  #define BATH_TEMP_OK(x) (x > BATH_TEMP_COLD)
+ #define PUMP_COLD_OK(x) (x < PUMP_TEMP_COLD)
 %}
 
 State Pump_Cool_Init {
@@ -852,13 +875,14 @@ State Pump_Cool_Init {
 
 State Pump_Cool_Start {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
- +1 > Inverter Power On
+    Hold until (InvPwrS == 1)
  +1 > Coolant Pump On
  +1 Validate Pump_Cool_Watch;
 }
 
 State Pump_Cool_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+    { if (!InvPwrS) Validate Pump_Cool_Inverter_Off; } 
     hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
     hold until ( BATH_TEMP_OK(convert(WTnkT)) ) or 5
     else Validate Pump_Cool_Cold;
@@ -867,16 +891,25 @@ State Pump_Cool_Watch Nolog {
 
 State Pump_Cool_Cold {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+    { if (!InvPwrS) Validate Pump_Cool_Inverter_Off; } 
     > Coolant Divert On
     Hold until ( BATH_TEMP_OK(convert(WTnkT)-5) );
  +1 > Coolant Divert Off
  +1 Validate Pump_Cool_Watch;
 }
 
+State Pump_Cool_Inverter_Off {
+    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+    > Coolant Pump Off
+ +1 > Coolant Divert Off
+ +5 Validate Pump_Cool_Start;
+}
+
 State Pump_Cool_Shutdown {
-   +1 Hold until valid (Pump_Is_Shutdown);
-+5:00 > Coolant Pump Off
-      > Inverter Power Off
+   +1 Hold until valid (Pump_Off);
+   +1 hold until ( PUMP_TEMP_COLD(convert(CPmpT)) &&
+         PUMP_TEMP_COLD(convert(MPmpT)) );
+   +1 > Coolant Pump Off
       Validate Pump_Cool_Is_Shutdown;
 }
 
@@ -884,7 +917,7 @@ State Pump_Cool_Is_Shutdown {}
 
 
 # -----------------------------------------------------------------------------
-# Partition 9: Luggage Bay Temperature Control
+# Partition 12: Luggage Bay Temperature Control
 # Throttle Valve Control and Space Heater Control
 # -----------------------------------------------------------------------------
 Partition
@@ -928,7 +961,7 @@ State LuggageBay_TCtrl_Init {
 
 
 # -----------------------------------------------------------------------------
-# Partition 10: Mini Methane Temperature Control
+# Partition 13: Mini Methane Temperature Control
 # -----------------------------------------------------------------------------
 Partition
 %{
@@ -989,7 +1022,7 @@ State MTControl_Shutdown {
 }
 
 # -----------------------------------------------------------------------------
-# Partition 11: CO2 Temperature Control
+# Partition 14: CO2 Temperature Control
 # -----------------------------------------------------------------------------
 Partition
 
@@ -1036,7 +1069,7 @@ State CTControl_Shutdown {
 }
 
 # -----------------------------------------------------------------------------
-# Partition 12: Realtime File Input
+# Partition 15: Realtime File Input
 # -----------------------------------------------------------------------------
 Partition
 State ReadFile_idle {}
@@ -1047,7 +1080,7 @@ State ReadFile "HCI.tmas" {
 
 
 #---------------------------------------------------------------
-# Partition 13: ReadFile Conditions
+# Partition 16: ReadFile Conditions
 #---------------------------------------------------------------
 # Summary:
 #   RFCond_Idle: Nothing
@@ -1064,7 +1097,7 @@ State RFCond_TimeWarp {
 
 
 #---------------------------------------------------------------
-# Partition 14: Analog Input Monitoring
+# Partition 17: Analog Input Monitoring
 #---------------------------------------------------------------
 Partition
 %{
