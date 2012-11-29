@@ -31,7 +31,7 @@ elseif strcmp(cfg.ScanDir,'SSP_M')
     PT.CellP = E10.MCelLP; %cell pressure (in Torr) to use for fit
     PT.Tavg = 273.15 + (E10.MCel1T + E10.MCel2T)/2; %gas temp (in K) to use for fit
     PT.ScanNum = round(interp1(T1,E.SSP_M_Num,T10,'linear','extrap'));
-    PT.QCLI_Wave = interp1(T1,E.QCLI_M_Wave,T2,'nearest'); %for example QCLI_C_Wave
+    PT.QCLI_Wave = interp1(T1,E.QCLI_M_Wave,T10,'nearest','extrap'); %for example QCLI_C_Wave
 else
     fprintf(1,'Unable to identify instrument from ScanDir "%s"\n', ...
         cfg.ScanDir);
