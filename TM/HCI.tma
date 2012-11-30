@@ -842,12 +842,12 @@ State Pump_Shutdown {
     > MINI Exhaust Valve Closed
     > CO2 Scroll Pump Off
     > MINI Scroll Pump Off
-    Validate Pump_Off
+    Validate Pump_Off;
 }
 
 State Pump_Off {
-    Hold until valid (Pump_Cool_Is_Shutdown)
-    > Inverter arm off
+    Hold until valid (Pump_Cool_Is_Shutdown);
+    > Inverter Arm Off
     Validate Pump_Is_Shutdown;
 }
 
@@ -875,7 +875,7 @@ State Pump_Cool_Init {
 
 State Pump_Cool_Start {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    Hold until (InvPwrS == 1)
+    Hold until (InvPwrS == 1);
  +1 > Coolant Pump On
  +1 Validate Pump_Cool_Watch;
 }
@@ -907,8 +907,8 @@ State Pump_Cool_Inverter_Off {
 
 State Pump_Cool_Shutdown {
    +1 Hold until valid (Pump_Off);
-   +1 hold until ( PUMP_TEMP_COLD(convert(CPmpT)) &&
-         PUMP_TEMP_COLD(convert(MPmpT)) );
+   +1 hold until ( PUMP_COLD_OK(convert(CPmpT)) &&
+         PUMP_COLD_OK(convert(MPmpT)) );
    +1 > Coolant Pump Off
       Validate Pump_Cool_Is_Shutdown;
 }
