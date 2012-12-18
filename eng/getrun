@@ -24,24 +24,24 @@ for run in $*; do
       echo $run
       [ $Copy_CO2 = yes -o $Copy_MM = yes ] && [ -z "$RunType" ] &&
         nl_error "Cannot retrieve CO2 or MM scans without RunType (cal/flight/data/junk)"
-      [ -d $run$flt ] || mkdir $run$flt
-      scp $gse:$HomeDir/anal/$run/*.csv $run$flt
+      [ -d RAW/$run$flt ] || mkdir RAW/$run$flt
+      scp $gse:$HomeDir/anal/$run/*.csv RAW/$run$flt
       if [ -n "$RunType" ]; then
-        scp $gse:$HomeDir/raw/$RunType/$run/$Exp.log $run$flt/$Exp.log
+        scp $gse:$HomeDir/raw/$RunType/$run/$Exp.log RAW/$run$flt/$Exp.log
         if [ $Copy_CO2 = yes ]; then
-          scp -r $gse:$HomeDir/raw/$RunType/$run/SSP_C $run$flt/SSP_C
-          scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_C.m $run$flt/QCLI_C.m
+          scp -r $gse:$HomeDir/raw/$RunType/$run/SSP_C RAW/$run$flt/SSP_C
+          scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_C.m RAW/$run$flt/QCLI_C.m
           [ -d CO2 ] || mkdir CO2
           [ -d CO2/$run$flt ] || mkdir CO2/$run$flt
        fi
         if [ $Copy_MM = yes ]; then
-          scp -r $gse:$HomeDir/raw/$RunType/$run/SSP_M $run$flt/SSP_M
-          scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_M.m $run$flt/QCLI_M.m
+          scp -r $gse:$HomeDir/raw/$RunType/$run/SSP_M RAW/$run$flt/SSP_M
+          scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_M.m RAW/$run$flt/QCLI_M.m
           [ -d MM ] || mkdir MM
-          [ -d MM/$run$flt ] || mmkdir MM/$run$flt
+          [ -d MM/$run$flt ] || mkdir MM/$run$flt
         fi
       fi
-      echo "$run$flt" >>runs.dat;;
+      echo "RAW/$run$flt" >>runs.dat;;
   esac
 done
 [ -f runs.dat ] && matlab
