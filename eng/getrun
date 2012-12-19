@@ -28,6 +28,7 @@ for run in $*; do
       scp $gse:$HomeDir/anal/$run/*.csv RAW/$run$flt
       if [ -n "$RunType" ]; then
         scp $gse:$HomeDir/raw/$RunType/$run/$Exp.log RAW/$run$flt/$Exp.log
+        scp $gse:$HomeDir/raw/$RunType/$run/saverun.log RAW/$run$flt/saverun.log
         if [ $Copy_CO2 = yes ]; then
           scp -r $gse:$HomeDir/raw/$RunType/$run/SSP_C RAW/$run$flt/SSP_C
           scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_C.m RAW/$run$flt/QCLI_C.m
