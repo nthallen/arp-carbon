@@ -31,5 +31,7 @@ extern SWData_t SWData;
 #define SWS_PUMP_START 20
 #define SWS_COOL_START 21
 #define SWS_READ_FILE 22
+#define SWS_MQCL_IDLE 25
+#define SWS_CQCL_IDLE 26
 
 #endif
