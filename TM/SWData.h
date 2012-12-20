@@ -13,6 +13,7 @@ extern SWData_t SWData;
 #define SWS_MQCL_SELECT 4
 #define SWS_MQCL_START 5
 #define SWS_MQCL_STOP 6
+#define SWS_MQCL_DISABLE 23
 #define SWS_MT_START 7
 #define SWS_MT_STOP 8
 #define SWS_MCALIBRATE 9
@@ -21,6 +22,7 @@ extern SWData_t SWData;
 #define SWS_CQCL_SELECT 12
 #define SWS_CQCL_START 13
 #define SWS_CQCL_STOP 14
+#define SWS_CQCL_DISABLE 24
 #define SWS_CT_START 15
 #define SWS_CT_STOP 16
 #define SWS_CCALIBRATE 17

@@ -26,6 +26,13 @@ ICOS Waveform C2Cd_10Hz {
   Ramp from 700 mA to 850 mA in 1 msec;
 }
 
+ICOS Waveform C1Dd_800Hz {
+  SampleRate = 50 MHz/28;
+  Ncoadd = 900;
+  Tz = 10%;
+  Ramp from 800 mA to 950 mA in 1 msec;
+}
+
 ICOS Waveform QCLI_C_ConstantI {
   Tz = 10 msec;
   Iz = 850 mA;

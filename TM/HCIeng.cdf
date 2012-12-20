@@ -12,7 +12,7 @@ csv HCIeng_1 172
   10 CLPVTSt 
   11 CLPV_P 
   12 CLPV_RHC 
-  13 CLPV_S 
+  13 CLPV_S %.0lf
   14 CLPV_T1C 
   15 CLPV_T2C 
   16 CLTE4R3T 
@@ -24,7 +24,7 @@ csv HCIeng_1 172
   22 CPmpT 
   23 CQCL_P 
   24 CQCL_RHC 
-  25 CQCL_S 
+  25 CQCL_S %.0lf
   26 CQCL_T1C 
   27 CQCL_T2C 
   28 CRv1T 
@@ -42,7 +42,7 @@ csv HCIeng_1 172
   40 CoolT 
   41 DACS_P 
   42 DACS_RHC 
-  43 DACS_S 
+  43 DACS_S %.0lf
   44 DACS_T1C 
   45 DACS_T2C 
   46 DS842 
@@ -91,7 +91,7 @@ csv HCIeng_1 172
   89 MDPVTSt 
   90 MDPV_P 
   91 MDPV_RHC 
-  92 MDPV_S 
+  92 MDPV_S %.0lf
   93 MDPV_T1C 
   94 MDPV_T2C 
   95 MDetT 
@@ -100,7 +100,7 @@ csv HCIeng_1 172
   98 MLPVTSt 
   99 MLPV_P 
   100 MLPV_RHC 
-  101 MLPV_S 
+  101 MLPV_S %.0lf
   102 MLPV_T1C 
   103 MLPV_T2C 
   104 MLTE7R7T 
@@ -111,7 +111,7 @@ csv HCIeng_1 172
   109 MPmpT 
   110 MQCL_P 
   111 MQCL_RHC 
-  112 MQCL_S 
+  112 MQCL_S %.0lf
   113 MQCL_T1C 
   114 MQCL_T2C 
   115 MRv1T 

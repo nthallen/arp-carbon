@@ -21,6 +21,7 @@
   : MINI Laser Select Waveform and Run { $0 = SWS_MQCL_SELECT; }
   : MINI Laser Start { $0 = SWS_MQCL_START; }
   : MINI Laser Stop { $0 = SWS_MQCL_STOP; }
+  : MINI Laser Disable { $0 = SWS_MQCL_DISABLE; }
   : MINI Temperature Ctrl Start { $0 = SWS_MT_START; }
   : MINI Temperature Ctrl Stop { $0 = SWS_MT_STOP; }
   : MINI Calibrate { $0 = SWS_MCALIBRATE; }
@@ -29,6 +30,7 @@
   : CO2 Laser Select Waveform and Run { $0 = SWS_CQCL_SELECT; }
   : CO2 Laser Start { $0 = SWS_CQCL_START; }
   : CO2 Laser Stop { $0 = SWS_CQCL_STOP; }
+  : CO2 Laser Disable { $0 = SWS_CQCL_DISABLE; }
   : CO2 Temperature Ctrl Start { $0 = SWS_CT_START; }
   : CO2 Temperature Ctrl Stop { $0 = SWS_CT_STOP; }
   : CO2 Calibrate { $0 = SWS_CCALIBRATE; }

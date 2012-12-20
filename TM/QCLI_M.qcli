@@ -39,16 +39,16 @@ ICOS Waveform QCLI_M_ConstantI {
 
 Ringdown Waveform M3Df_rConstant {
   SampleRate = 25 MHz;
-  Toff = 20 usec;
-  Ton = 100 msec;
+  Toff = 50 msec;
+  Ton =  50 msec;
   Tpre = 2 usec;
   I = 750 mA;
 }
 
 Ringdown Waveform M3Df_rRamp {
   SampleRate = 25 MHz;
-  Toff = 20 usec;
-  Ton = 100 msec;
+  Toff = 50 msec;
+  Ton =  50 msec;
   Tpre = 2 usec;
   I = 650 mA to 780 mA in 1000 Steps;
 }
