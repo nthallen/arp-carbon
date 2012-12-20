@@ -839,10 +839,10 @@ State Pump_Inverter_Off {
 
 State Pump_Shutdown {
     > CO2 Exhaust Valve Closed
-    > MINI Exhaust Valve Closed
-    > CO2 Scroll Pump Off
-    > MINI Scroll Pump Off
-    Validate Pump_Off;
+ +1 > MINI Exhaust Valve Closed
+ +1 > CO2 Scroll Pump Off
+ +1 > MINI Scroll Pump Off
+ +1 Validate Pump_Off;
 }
 
 State Pump_Off {
@@ -883,8 +883,8 @@ State Pump_Cool_Start {
 State Pump_Cool_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     { if (!InvPwrS) Validate Pump_Cool_Inverter_Off; } 
-    hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
-    hold until ( BATH_TEMP_OK(convert(WTnkT)) ) or 5
+ +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
+ +1 hold until ( BATH_TEMP_OK(convert(WTnkT)) ) or 5
     else Validate Pump_Cool_Cold;
     Validate Pump_Watch;
 }
@@ -910,7 +910,7 @@ State Pump_Cool_Shutdown {
    +1 hold until ( PUMP_COLD_OK(convert(CPmpT)) &&
          PUMP_COLD_OK(convert(MPmpT)) );
    +1 > Coolant Pump Off
-      Validate Pump_Cool_Is_Shutdown;
+   +1 Validate Pump_Cool_Is_Shutdown;
 }
 
 State Pump_Cool_Is_Shutdown {}
