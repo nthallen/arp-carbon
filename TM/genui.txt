@@ -367,17 +367,18 @@ ROWS 25
  1 CoolPump_DS:DS851:7 Coolant Status
  1 CoolDivert_DS:DS848:4 Coolant Status
 
- 1 InvQury0 Inverter Qury
- 1 InvQury1 Inverter Qury
- 1 InvQury2 Inverter Qury
- 1 InvQury3 Inverter Qury
- 1 InvQury4 Inverter Qury
+ 1 InvQury1 Inverter Vin Vin
+ 1 InvQury4 Inverter Load Load
+ 1 ICmd:InvQury3:1 Inverter Status
+ 1 IFail:InvQury2:2 Inverter Status
+ 1 IFailed:InvQury0:0 Inverter Status
+ 1 DCmdErr:InvStat:3 Inverter Status
+ 1 DError:InvStat:2 Inverter Status
+ 1 DPower:InvStat:1 Inverter Status
+ 1 Arm:DS842:0 Inverter Status
  1 InvQury5 Inverter Qury
  1 InvQury6 Inverter Qury
  1 InvQury7 Inverter Qury
- 1 Error:InvStat:2 Inverter Status
- 1 Power:InvStat:1 Inverter Status
- 1 Arm:DS842:0 Inverter Status
  1 InvStale Inverter Stale
 
 #1 Sp1AI SPARE_SPARE AI
