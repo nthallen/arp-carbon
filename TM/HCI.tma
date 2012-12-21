@@ -146,7 +146,7 @@ State MINI_Start {
 State MINI_Sample {
      Depending on (Shutdown) { Validate MINI_Shutdown; }
      > MINI Set Cell Pressure Setpoint 40
-     Hold until (convert(MCelLP) < 40);
+     Hold until (convert(MCelLP) < 10);
   +1 > MINI Pressure Reg On
 +30:00 Validate MINI_Calibrate;
 }
@@ -194,7 +194,7 @@ State CO2_Start {
 State CO2_Sample {
      Depending on (Shutdown) { Validate CO2_Shutdown; }
      > CO2 Set Cell Pressure Setpoint 40
-     Hold until (convert(CCelLP) < 40);
+     Hold until (convert(CCelLP) < 10);
   +1 > CO2 Pressure Reg On
 +30:00 Validate CO2_Calibrate;
 }
@@ -724,7 +724,7 @@ State GasDeck_Idle {
 }
 
 State GasDeck_PI_Init {
-  { P_sum = 0; Gp = 1; Gi = 0.5; }
+  { P_sum = 0; Gp = 0.5; Gi = 0.2; }
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
@@ -762,10 +762,10 @@ State GasDeck_PI {
 
 State GasDeck_Close {
      > Gas Deck Flow Controller Closed On
-     > Gas Deck Valve Closed
-     > MINI Gas Valve Closed
+  +1 > Gas Deck Valve Closed
+  +5 > MINI Gas Valve Closed
      > CO2 Gas Valve Closed
-  +1 Validate GasDeck_Idle;
+  +2 Validate GasDeck_Idle;
 }
 
 #----------------------------------------------------------------
