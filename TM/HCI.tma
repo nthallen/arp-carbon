@@ -708,7 +708,7 @@ Partition
   double P_sum = 0., Gp, Gi;
   int Cell_Ctrl;
   #define US_CAST(x) ((unsigned short)(x))
-  #define MAX_CAL_BITS 2047
+  #define MAX_CAL_BITS 32768
   #include <math.h> /* for fabs */
 %}
 
@@ -745,6 +745,7 @@ State GasDeck_PI {
     if (dstep<0) dstep = 0;
     else if (dstep > MAX_CAL_BITS) dstep = MAX_CAL_BITS;
     ustep = US_CAST(dstep);
+    ustep = ustep / 32768 * 5;
     ci_sendfcmd(2, "Gas Deck Set Gas Flow Setpoint %u\n", ustep);
   }
 }
