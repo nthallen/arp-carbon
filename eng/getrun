@@ -6,43 +6,123 @@ function nl_error {
 
 flt=''
 gse=htwgse.arp.harvard.edu
+relay=fugue.arp.harvard.edu
+use_relay=no
 HomeDir=/home/hci
 Exp=HCI
 RunType=''
+Copy_CSV=yes
 Copy_CO2=no
 Copy_MM=no
+Decimate=no
+Matlab=yes
+SCPOPTS=-Cp
+
+function usage {
+  echo "./getrun [options] [axis] [ [runtype] <run> ]+"
+  echo " options:"
+  echo "   relay: Relay through gateway machine: $relay"
+  echo "   nocsv: Don't copy csv files or start matlab"
+  echo "   decimate: Retrieve only every 10th scan"
+  echo " runtype: flight, cal, data, junk"
+  echo "   runtype selection stays in effect until another runtype is selected"
+  echo " axis: MM, CO2"
+  echo "   axis selections are 'sticky' and apply to all runs"
+  exit 0
+}
+
+function do_scp {
+  RC=''
+  [ $use_relay = yes ] && RC="-o 'ProxyCommand /usr/bin/ssh $relay /usr/bin/nc $gse 22'"
+  eval time scp $SCPOPTS $RC $*
+}
+
+function do_tar {
+  # do_tar $run $dir
+  # Accesses globals:
+  #   use_relay gse relay flt HomeDir RunType Decimate
+  run=$1
+  src=$2
+  PC="ProxyCommand /usr/bin/ssh $relay /usr/bin/nc $gse 22"
+  RC=''
+  DC=''
+  [ $use_relay = yes ] && RC="-o 'ProxyCommand /usr/bin/ssh $relay /usr/bin/nc $gse 22'"
+  [ $Decimate = yes ] && DC='--exclude="*[1-9].dat"'
+  echo Retrieving $HomeDir/raw/$RunType/$run/$src
+  eval time ssh $RC $gse tar -czf- -C $HomeDir/raw/$RunType/$run $DC SSP_M | tar -C RAW/$run$flt -xzf-
+}
+
 for run in $*; do
   case $run in
     -f) flt=F; RunType=flight;;
+    nocsv) Copy_CSV=no;;
     [Cc][Oo]2) Copy_CO2=yes;;
     [Mm][Mm]) Copy_MM=yes;;
-    cal) RunType=cal;;
+    relay) use_relay=yes;;
+    decimate) Decimate=yes;;
+    nomatlab) Matlab=no;;
+    help) usage;;
+    --help) usage;;
+    cal) flt=''; RunType=cal;;
     flight) flt=F; RunType=flight;;
-    data) RunType=data;;
-    junk) RunType=junk;;
-    *)
+    data) flt=''; RunType=data;;
+    junk) flt=''; RunType=junk;;
+    [1-9][0-9][0-9][0-9][0-9][0-9].[0-9]*)
       echo $run
       [ $Copy_CO2 = yes -o $Copy_MM = yes ] && [ -z "$RunType" ] &&
         nl_error "Cannot retrieve CO2 or MM scans without RunType (cal/flight/data/junk)"
       [ -d RAW/$run$flt ] || mkdir RAW/$run$flt
-      scp $gse:$HomeDir/anal/$run/*.csv RAW/$run$flt
+      if [ $Copy_CSV = yes ]; then
+        [ $Matlab = yes -a ! -f startup.m ] &&
+          nl_error "startup.m is missing: copy from HCI eng or select nomatlab"
+        do_scp $gse:$HomeDir/anal/$run/*.csv RAW/$run$flt
+        [ $Matlab = yes ] && echo "RAW/$run$flt" >>runs.dat
+      fi
       if [ -n "$RunType" ]; then
-        scp $gse:$HomeDir/raw/$RunType/$run/$Exp.log RAW/$run$flt/$Exp.log
-        scp $gse:$HomeDir/raw/$RunType/$run/saverun.log RAW/$run$flt/saverun.log
+        [ -f RAW/$run$flt/$Exp.log ] ||
+          do_scp $gse:$HomeDir/raw/$RunType/$run/$Exp.log RAW/$run$flt/$Exp.log
+        [ -f RAW/$run$flt/saverun.log ] ||
+          do_scp $gse:$HomeDir/raw/$RunType/$run/saverun.log RAW/$run$flt/saverun.log
+      fi;;
+    *) nl_error "Unrecognized option: '$run'";;
+  esac
+done
+
+[ -f runs.dat ] && matlab
+for run in $*; do
+  case $run in
+    -f) :;;
+    [Cc][Oo]2) :;;
+    [Mm][Mm]) :;;
+    relay) :;;
+    nocsv) :;;
+    decimate) :;;
+    nomatlab) :;;
+    cal) flt=''; RunType=cal;;
+    flight) flt=F; RunType=flight;;
+    data) flt=''; RunType=data;;
+    junk) flt=''; RunType=junk;;
+    *)
+      echo $run
+      if [ -n "$RunType" ]; then
+        [ -f RAW/$run$flt/QCLI_C.m ] ||
+          do_scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_C.m RAW/$run$flt/QCLI_C.m
+        [ -f RAW/$run$flt/QCLI_M.m ] ||
+          do_scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_M.m RAW/$run$flt/QCLI_M.m
         if [ $Copy_CO2 = yes ]; then
-          scp -r $gse:$HomeDir/raw/$RunType/$run/SSP_C RAW/$run$flt/SSP_C
-          scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_C.m RAW/$run$flt/QCLI_C.m
           [ -d CO2 ] || mkdir CO2
           [ -d CO2/$run$flt ] || mkdir CO2/$run$flt
-       fi
+        fi
         if [ $Copy_MM = yes ]; then
-          scp -r $gse:$HomeDir/raw/$RunType/$run/SSP_M RAW/$run$flt/SSP_M
-          scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_M.m RAW/$run$flt/QCLI_M.m
           [ -d MM ] || mkdir MM
           [ -d MM/$run$flt ] || mkdir MM/$run$flt
         fi
+        if [ $Copy_CO2 = yes ]; then
+          do_tar $run SSP_C
+        fi
+        if [ $Copy_MM = yes ]; then
+          do_tar $run SSP_M
+        fi
       fi
-      echo "RAW/$run$flt" >>runs.dat;;
   esac
 done
-[ -f runs.dat ] && matlab
