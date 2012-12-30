@@ -1,6 +1,6 @@
 function pHCIhktstatus(varargin);
 % pHCIhktstatus( [...] );
-% HK_ Throttle Status
+% HK Throttle Status
 h = ne_dstat({
   'A', 'TVStat', 4; ...
 	'B', 'TVStat', 5; ...

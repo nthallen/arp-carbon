@@ -1,6 +1,6 @@
 function pHCIlabls(varargin);
 % pHCIlabls( [...] );
-% LAB_ Lab Status
+% LAB Lab Status
 h = ne_dstat({
   'L1_DS', 'DS851', 7; ...
 	'L1_S', 'DS86A', 7; ...

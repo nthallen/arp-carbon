@@ -1,6 +1,6 @@
 function pHCIcosspo(varargin);
 % pHCIcosspo( [...] );
-% CO2_SSP Overflow
+% CO2 SSP Overflow
 h = ne_dstat({
   'CAOVF1', 'SSP_C_Flags', 0; ...
 	'CAOVF2', 'SSP_C_Flags', 1; ...

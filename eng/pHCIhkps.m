@@ -1,6 +1,6 @@
 function pHCIhkps(varargin);
 % pHCIhkps( [...] );
-% HK_ Power Status
+% HK Power Status
 h = ne_dstat({
   'PM0I1_S', 'PM0Stat', 0; ...
 	'PM0I2_S', 'PM0Stat', 2; ...

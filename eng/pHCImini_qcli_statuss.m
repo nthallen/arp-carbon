@@ -1,6 +1,6 @@
 function pHCImini_qcli_statuss(varargin);
 % pHCImini_qcli_statuss( [...] );
-% MINI_QCLI_ Status Status
+% MINI QCLI Status Status
 h = ne_dstat({
   'FIFOOvf', 'QCLI_M_CS', 12; ...
 	'MQCLI_Reset_DS', 'DS868', 1; ...

@@ -1,6 +1,6 @@
 function pHCIco2_qcli_statuss(varargin);
 % pHCIco2_qcli_statuss( [...] );
-% CO2_QCLI_ Status Status
+% CO2 QCLI Status Status
 h = ne_dstat({
   'CQCLI_Reset_DS', 'DS84C', 1; ...
 	'FIFOOvf', 'QCLI_C_CS', 12; ...

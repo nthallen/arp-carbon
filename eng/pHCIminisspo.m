@@ -1,6 +1,6 @@
 function pHCIminisspo(varargin);
 % pHCIminisspo( [...] );
-% MINI_SSP Overflow
+% MINI SSP Overflow
 h = ne_dstat({
   'CAOVF1', 'SSP_M_Flags', 0; ...
 	'CAOVF2', 'SSP_M_Flags', 1; ...

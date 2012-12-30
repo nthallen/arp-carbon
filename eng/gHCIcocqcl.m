@@ -1,5 +1,5 @@
 function fig = gHCIcocqcl(varargin);
 % gHCIcocqcl(...)
-% CO2_CQCL
-ffig = ne_group(varargin,'CO2_CQCL','pHCIcocqclp','pHCIcocqclt','pHCIcocqclrh');
+% CO2 CQCL
+ffig = ne_group(varargin,'CO2 CQCL','pHCIcocqclp','pHCIcocqclt','pHCIcocqclrh');
 if nargout > 0 fig = ffig; end

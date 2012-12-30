@@ -1,6 +1,6 @@
 function pHCIminics(varargin);
 % pHCIminics( [...] );
-% MINI_ Cell Status
+% MINI Cell Status
 h = ne_dstat({
   'MCell_HC_DS', 'DS868', 2; ...
 	'MGas_Ex_Vlv_DS', 'DS84C', 0; ...
