@@ -42,7 +42,8 @@ ROWS 25
 
  1 QCLI_C_Wave CO2_QCLI Wave %.0lf
  1 QCLI_C_fifodep CO2_QCLI FIFO
- 1 QCLI_C_Stale CO2_QCLI Stale
+ 1 QCLI_C_Stale CO2_QCLI Stale QCLI
+ 1 SSP_C_Stale CO2_QCLI Stale SSP
  1 CQCLI_Reset_DS:DS84C:1 CO2_QCLI_Status Status
  1 FIFOOvf:QCLI_C_CS:12 CO2_QCLI_Status Status
  1 QCLI_C_Busy:QCLI_C_s:15 CO2_QCLI_Status Status
@@ -62,12 +63,6 @@ ROWS 25
  1 RWConflict:QCLI_C_CS:13 CO2_QCLI_Status Status
  1 WQPending:QCLI_C_CS:10 CO2_QCLI_Status Status
 
- 1 C24VT CO2_SSP Temp
- 1 CPampT CO2_SSP Temp
- 1 CSSPT CO2_SSP Temp
- 1 SSP_C_T_FPGA CO2_SSP Temp
- 1 SSP_C_T_HtSink CO2_SSP Temp
- 1 SSP_C_Num CO2_SSP Files
  1 CAOVF1:SSP_C_Flags:0 CO2_SSP Overflow
  1 CAOVF2:SSP_C_Flags:1 CO2_SSP Overflow
  1 CAOVF3:SSP_C_Flags:2 CO2_SSP Overflow
@@ -77,11 +72,17 @@ ROWS 25
  1 ADOVF1:SSP_C_Flags:6 CO2_SSP Overflow
  1 ADOVF2:SSP_C_Flags:7 CO2_SSP Overflow
  1 ADOVF3:SSP_C_Flags:8 CO2_SSP Overflow
+ 1 SSP_C_Num CO2_SSP Files
  1 SSP_C_SN CO2_SSP Scans
  1 SSP_C_TS CO2_SSP Skipped
+ 1 QCLI_C_Wave CO2_SSP Wave %.0lf
  1 SSP_C_Status CO2_SSP Status %.0lf
- 1 SSP_C_Stale CO2_SSP Stale
 
+ 1 C24VT CO2_Temps SSP
+ 1 CPampT CO2_Temps SSP
+ 1 CSSPT CO2_Temps SSP
+ 1 SSP_C_T_FPGA CO2_Temps SSP
+ 1 SSP_C_T_HtSink CO2_Temps SSP
  1 CRv1T CO2_Temps Roving
  1 CRv2T CO2_Temps Roving
  1 CRv3T CO2_Temps Roving
@@ -92,6 +93,105 @@ ROWS 25
  1 CSk1T CO2_Temps Skin
  1 CSk2T CO2_Temps Skin
  1 CSk3T CO2_Temps Skin
+
+ 1 MCelHP MINI_Cell P
+10 MCelLP MINI_Cell P
+ 1 MCelP MINI_Cell P
+ 1 MCelPSt MINI_Cell P
+10 MCel1T MINI_Cell Temp
+10 MCel2T MINI_Cell Temp
+ 1 MCelCT MINI_Cell T_ctrl
+ 1 MCelTSt MINI_Cell T_ctrl
+ 1 MCell_HC_DS:DS868:2 MINI_Cell Status
+ 1 MGas_Ex_Vlv_DS:DS84C:0 MINI_Cell Status
+ 1 MGas_Vlv_DS:DS868:7 MINI_Cell Status
+ 1 MPrs_Reg_DS:DS868:6 MINI_Cell Status
+
+ 1 MDetT MINI_Detector Temp
+ 1 MDPVCT MINI_Detector T_ctrl
+ 1 MDPVTSt MINI_Detector T_ctrl
+ 1 MDPV_HC_DS:DS868:3 MINI_Detector Status
+
+ 1 MLasI MINI_Laser Current
+ 1 MLH_T MINI_Laser Temp
+ 1 MLPVCT MINI_Laser T_ctrl
+ 1 MLPVTSt MINI_Laser T_ctrl
+ 1 MLTE7R7T MINI_Laser T_ctrl
+ 1 MLTETSt MINI_Laser T_ctrl
+ 1 MLPV_TEC_DS:DS868:5 MINI_Laser Status
+ 1 MLTEC_DS:DS868:4 MINI_Laser Status
+
+ 1 MDPV_P MINI_MDPV P
+ 1 MDPV_T1C MINI_MDPV Temp
+ 1 MDPV_T2C MINI_MDPV Temp
+ 1 MDPV_RHC MINI_MDPV RH
+ 1 MLPV_P MINI_MLPV P
+ 1 MLPV_T1C MINI_MLPV Temp
+ 1 MLPV_T2C MINI_MLPV Temp
+ 1 MLPV_RHC MINI_MLPV RH
+ 1 MQCL_P MINI_MQCL P
+ 1 MQCL_T1C MINI_MQCL Temp
+ 1 MQCL_T2C MINI_MQCL Temp
+ 1 MQCL_RHC MINI_MQCL RH
+
+ 1 MPmpT MINI_Pump Temp
+ 1 MPMtT MINI_Pump Temp
+ 1 MM_Pump_DS:DS851:0 MINI_Pump Status
+ 1 MM_Pump_S:DS86A:0 MINI_Pump Status
+
+ 1 QCLI_M_Wave MINI_QCLI Wave %.0lf
+ 1 QCLI_M_fifodep MINI_QCLI FIFO
+ 1 QCLI_M_Stale MINI_QCLI Stale
+ 1 SSP_M_Stale MINI_QCLI Stale
+ 1 FIFOOvf:QCLI_M_CS:12 MINI_QCLI_Status Status
+ 1 MQCLI_Reset_DS:DS868:1 MINI_QCLI_Status Status
+ 1 QCLI_M_Busy:QCLI_M_s:15 MINI_QCLI_Status Status
+ 1 QCLI_M_cksum:QCLI_M_s:14 MINI_QCLI_Status Status
+ 1 QCLI_M_cmderr:QCLI_M_s:13 MINI_QCLI_Status Status
+ 1 QCLI_M_dot:QCLI_M_s:5 MINI_QCLI_Status Status
+ 1 QCLI_M_InvCmd:QCLI_M_s:11 MINI_QCLI_Status Status
+ 1 QCLI_M_laser:QCLI_M_s:12 MINI_QCLI_Status Status
+ 1 QCLI_M_loc:QCLI_M_s:3 MINI_QCLI_Status Status
+ 1 QCLI_M_lot:QCLI_M_s:4 MINI_QCLI_Status Status
+ 1 QCLI_M_ready:QCLI_M_s:9 MINI_QCLI_Status Status
+ 1 QCLI_M_waveerr:QCLI_M_s:8 MINI_QCLI_Status Status
+ 1 QCLIResponding:QCLI_M_CS:11 MINI_QCLI_Status Status
+ 1 RBComplete:QCLI_M_CS:9 MINI_QCLI_Status Status
+ 1 RBPending:QCLI_M_CS:8 MINI_QCLI_Status Status
+ 1 Reading:QCLI_M_CS:14 MINI_QCLI_Status Status
+ 1 RWConflict:QCLI_M_CS:13 MINI_QCLI_Status Status
+ 1 WQPending:QCLI_M_CS:10 MINI_QCLI_Status Status
+
+ 1 CAOVF1:SSP_M_Flags:0 MINI_SSP Overflow
+ 1 CAOVF2:SSP_M_Flags:1 MINI_SSP Overflow
+ 1 CAOVF3:SSP_M_Flags:2 MINI_SSP Overflow
+ 1 PAOVF1:SSP_M_Flags:3 MINI_SSP Overflow
+ 1 PAOVF2:SSP_M_Flags:4 MINI_SSP Overflow
+ 1 PAOVF3:SSP_M_Flags:5 MINI_SSP Overflow
+ 1 ADOVF1:SSP_M_Flags:6 MINI_SSP Overflow
+ 1 ADOVF2:SSP_M_Flags:7 MINI_SSP Overflow
+ 1 ADOVF3:SSP_M_Flags:8 MINI_SSP Overflow
+ 1 SSP_M_Num MINI_SSP Files
+ 1 SSP_M_SN MINI_SSP Scans
+ 1 SSP_M_TS MINI_SSP Skipped
+ 1 QCLI_M_Wave MINI_SSP Wave %.0lf
+ 1 SSP_M_Status MINI_SSP Status %.0lf
+
+ 1 M24VT MINI_Temps SSP_Temp
+ 1 MPampT MINI_Temps SSP_Temp
+ 1 MSSPT MINI_Temps SSP_Temp
+ 1 SSP_M_T_FPGA MINI_Temps SSP_Temp
+ 1 SSP_M_T_HtSink MINI_Temps SSP_Temp
+ 1 MRv1T MINI_Temps Roving
+ 1 MRv2T MINI_Temps Roving
+ 1 MRv3T MINI_Temps Roving
+ 1 MRv4T MINI_Temps Roving
+ 1 MRv5T MINI_Temps Roving
+ 1 MSG1T MINI_Temps Sample
+ 1 MSG2T MINI_Temps Sample
+ 1 MSk1T MINI_Temps Skin
+ 1 MSk2T MINI_Temps Skin
+ 1 MSk3T MINI_Temps Skin
 
  1 GasHP GD_GD P
  1 GasLP GD_GD P
@@ -261,104 +361,6 @@ ROWS 25
  1 L1_S:DS86A:7 LAB_Lab Status
  1 L2_DS:DS84A:0 LAB_Lab Status
  1 L2_S:DS873:0 LAB_Lab Status
-
- 1 MCelHP MINI_Cell P
-10 MCelLP MINI_Cell P
- 1 MCelP MINI_Cell P
- 1 MCelPSt MINI_Cell P
-10 MCel1T MINI_Cell Temp
-10 MCel2T MINI_Cell Temp
- 1 MCelCT MINI_Cell T_ctrl
- 1 MCelTSt MINI_Cell T_ctrl
- 1 MCell_HC_DS:DS868:2 MINI_Cell Status
- 1 MGas_Ex_Vlv_DS:DS84C:0 MINI_Cell Status
- 1 MGas_Vlv_DS:DS868:7 MINI_Cell Status
- 1 MPrs_Reg_DS:DS868:6 MINI_Cell Status
-
- 1 MDetT MINI_Detector Temp
- 1 MDPVCT MINI_Detector T_ctrl
- 1 MDPVTSt MINI_Detector T_ctrl
- 1 MDPV_HC_DS:DS868:3 MINI_Detector Status
-
- 1 MLasI MINI_Laser Current
- 1 MLH_T MINI_Laser Temp
- 1 MLPVCT MINI_Laser T_ctrl
- 1 MLPVTSt MINI_Laser T_ctrl
- 1 MLTE7R7T MINI_Laser T_ctrl
- 1 MLTETSt MINI_Laser T_ctrl
- 1 MLPV_TEC_DS:DS868:5 MINI_Laser Status
- 1 MLTEC_DS:DS868:4 MINI_Laser Status
-
- 1 MDPV_P MINI_MDPV P
- 1 MDPV_T1C MINI_MDPV Temp
- 1 MDPV_T2C MINI_MDPV Temp
- 1 MDPV_RHC MINI_MDPV RH
- 1 MLPV_P MINI_MLPV P
- 1 MLPV_T1C MINI_MLPV Temp
- 1 MLPV_T2C MINI_MLPV Temp
- 1 MLPV_RHC MINI_MLPV RH
- 1 MQCL_P MINI_MQCL P
- 1 MQCL_T1C MINI_MQCL Temp
- 1 MQCL_T2C MINI_MQCL Temp
- 1 MQCL_RHC MINI_MQCL RH
-
- 1 MPmpT MINI_Pump Temp
- 1 MPMtT MINI_Pump Temp
- 1 MM_Pump_DS:DS851:0 MINI_Pump Status
- 1 MM_Pump_S:DS86A:0 MINI_Pump Status
-
- 1 QCLI_M_Wave MINI_QCLI Wave %.0lf
- 1 QCLI_M_fifodep MINI_QCLI FIFO
- 1 QCLI_M_Stale MINI_QCLI Stale
- 1 FIFOOvf:QCLI_M_CS:12 MINI_QCLI_Status Status
- 1 MQCLI_Reset_DS:DS868:1 MINI_QCLI_Status Status
- 1 QCLI_M_Busy:QCLI_M_s:15 MINI_QCLI_Status Status
- 1 QCLI_M_cksum:QCLI_M_s:14 MINI_QCLI_Status Status
- 1 QCLI_M_cmderr:QCLI_M_s:13 MINI_QCLI_Status Status
- 1 QCLI_M_dot:QCLI_M_s:5 MINI_QCLI_Status Status
- 1 QCLI_M_InvCmd:QCLI_M_s:11 MINI_QCLI_Status Status
- 1 QCLI_M_laser:QCLI_M_s:12 MINI_QCLI_Status Status
- 1 QCLI_M_loc:QCLI_M_s:3 MINI_QCLI_Status Status
- 1 QCLI_M_lot:QCLI_M_s:4 MINI_QCLI_Status Status
- 1 QCLI_M_ready:QCLI_M_s:9 MINI_QCLI_Status Status
- 1 QCLI_M_waveerr:QCLI_M_s:8 MINI_QCLI_Status Status
- 1 QCLIResponding:QCLI_M_CS:11 MINI_QCLI_Status Status
- 1 RBComplete:QCLI_M_CS:9 MINI_QCLI_Status Status
- 1 RBPending:QCLI_M_CS:8 MINI_QCLI_Status Status
- 1 Reading:QCLI_M_CS:14 MINI_QCLI_Status Status
- 1 RWConflict:QCLI_M_CS:13 MINI_QCLI_Status Status
- 1 WQPending:QCLI_M_CS:10 MINI_QCLI_Status Status
-
- 1 M24VT MINI_SSP Temp
- 1 MPampT MINI_SSP Temp
- 1 MSSPT MINI_SSP Temp
- 1 SSP_M_T_FPGA MINI_SSP Temp
- 1 SSP_M_T_HtSink MINI_SSP Temp
- 1 SSP_M_Num MINI_SSP Files
- 1 CAOVF1:SSP_M_Flags:0 MINI_SSP Overflow
- 1 CAOVF2:SSP_M_Flags:1 MINI_SSP Overflow
- 1 CAOVF3:SSP_M_Flags:2 MINI_SSP Overflow
- 1 PAOVF1:SSP_M_Flags:3 MINI_SSP Overflow
- 1 PAOVF2:SSP_M_Flags:4 MINI_SSP Overflow
- 1 PAOVF3:SSP_M_Flags:5 MINI_SSP Overflow
- 1 ADOVF1:SSP_M_Flags:6 MINI_SSP Overflow
- 1 ADOVF2:SSP_M_Flags:7 MINI_SSP Overflow
- 1 ADOVF3:SSP_M_Flags:8 MINI_SSP Overflow
- 1 SSP_M_SN MINI_SSP Scans
- 1 SSP_M_TS MINI_SSP Skipped
- 1 SSP_M_Stale MINI_SSP Stale
- 1 SSP_M_Status MINI_SSP Status %.0lf
-
- 1 MRv1T MINI_Temps Roving
- 1 MRv2T MINI_Temps Roving
- 1 MRv3T MINI_Temps Roving
- 1 MRv4T MINI_Temps Roving
- 1 MRv5T MINI_Temps Roving
- 1 MSG1T MINI_Temps Sample
- 1 MSG2T MINI_Temps Sample
- 1 MSk1T MINI_Temps Skin
- 1 MSk2T MINI_Temps Skin
- 1 MSk3T MINI_Temps Skin
 
  1 WPmpT Coolant Temp
  1 WTnkT Coolant Temp
