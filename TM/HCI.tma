@@ -1144,3 +1144,31 @@ State AI_Reset {
 }
 
 State AI_Fail {}
+
+# -----------------------------------------------------------------------------
+# Partition for MINI Laser TEC Ramping
+# -----------------------------------------------------------------------------
+Partition
+%{
+  double MLTE_crnt, MLTE_limit;
+  #define MLTE_ramp_length .08
+  #define MLTE_increment .001
+%}
+
+State MINI_Laser_TEC_Ramp_Idle {}
+
+State MINI_Laser_TEC_Ramp {
+  { MLTE_crnt = convert(MLTETSt);
+    MLTE_limit = MLTE_crnt + MLTE_ramp_length;
+    Validate MINI_Laser_TEC_Ramp_Loop;
+  }
+}
+
+State MINI_Laser_TEC_Ramp_Loop NoLog {
+  { if (MLTE_crnt >= MLTE_limit) Validate MINI_Laser_TEC_Ramp_Idle;
+    MLTE_crnt += MLTE_increment;
+    ci_sendfcmd(2, "MINI Set Laser TEC Temp Setpoint %.3lf\n", MLTE_crnt);
+  }
+}
+
+  
