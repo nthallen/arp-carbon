@@ -224,7 +224,7 @@ Partition
  int num_MQCL_recovers=0;
  #define M_LOW_CURRENT 0.02
  #define MQCL_TEMP_LIMIT 1.3
- #define MQCL_TEMP_OK(x,y) (x > MQCL_TEMP_LIMIT && fabs(x - y) < 0.2)
+ #define MQCL_TEMP_OK(x,y) (x > MQCL_TEMP_LIMIT && fabs(x - y) < 0.1)
 %}
 # Mini Starting and Stopping
 
@@ -839,7 +839,7 @@ State Pump_Inverter_Off {
 }
 
 State Pump_Shutdown {
-    > CO2 Exhaust Valve Closed
+ +1 > CO2 Exhaust Valve Closed
  +1 > MINI Exhaust Valve Closed
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
@@ -966,7 +966,7 @@ State LuggageBay_TCtrl_Init {
 # -----------------------------------------------------------------------------
 Partition
 %{
-  #define TEMP_OK(x,y) ( y-x < 0.5 )
+  #define TEMP_OK(x,y) ( y-x < 0.25 )
 %}
 
 State MTControl_Init {
@@ -975,9 +975,9 @@ Depending on (Shutdown) { Validate MTControl_Shutdown; }
 
 State MTControl_Start {
 Depending on (Shutdown) { Validate MTControl_Shutdown; }
-    +1 > MINI Set LPV External TEC Setpoint 1.25
-    +1 > MINI Set DPV Temp Setpoint 1.25
-    +1 > MINI Set Cell Temp Setpoint 1.25
+    +1 > MINI Set LPV External TEC Setpoint 1.12
+    +1 > MINI Set DPV Temp Setpoint 1.39
+    +1 > MINI Set Cell Temp Setpoint 1.39
     +1 > MINI Cell Htr Ctl On
    +10 > MINI Detector PV Htr Ctl On
    +10 > MINI LPV TEC On
@@ -1010,6 +1010,9 @@ State MTControl_Not_OK {
     hold until (TEMP_OK(convert(MCelTSt),convert(MCelCT)))
     or 1 else > MINI Cell Htr Ctl Off
 
+    +1 > MINI Set LPV External TEC Setpoint 1.12
+    +1 > MINI Set DPV Temp Setpoint 1.39
+    +1 > MINI Set Cell Temp Setpoint 1.39
    +10 > MINI Cell Htr Ctl On
     +1 > MINI Detector PV Htr Ctl On
     +1 > MINI LPV TEC On
