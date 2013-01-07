@@ -707,7 +707,6 @@ Partition
 %{
   double P_sum = 0., Gp, Gi;
   int Cell_Ctrl;
-  #define US_CAST(x) ((unsigned short)(x))
   #define MAX_CAL_BITS 32768
   #include <math.h> /* for fabs */
 %}
@@ -724,7 +723,7 @@ State GasDeck_Idle {
 }
 
 State GasDeck_PI_Init {
-  { P_sum = 0; Gp = 0.5; Gi = 0.2; }
+  { P_sum = 0; Gp = 5; Gi = 2; }
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
@@ -733,7 +732,6 @@ State GasDeck_PI_Init {
 
 State GasDeck_PI {
   { double P, P_set, P_diff, dstep; 
-    unsigned short ustep;
     P = Cell_Ctrl ? convert(CCelP):convert(MCelP);
     P_set = Cell_Ctrl ? convert(CCelPSt):convert(MCelPSt);
     P_diff = P_set - P;
@@ -744,9 +742,8 @@ State GasDeck_PI {
     dstep = P_diff * Gp + P_sum;
     if (dstep<0) dstep = 0;
     else if (dstep > MAX_CAL_BITS) dstep = MAX_CAL_BITS;
-    ustep = US_CAST(dstep);
-    ustep = ustep / 32768 * 5;
-    ci_sendfcmd(2, "Gas Deck Set Gas Flow Setpoint %u\n", ustep);
+    dstep = dstep / 32768 * 5;
+    ci_sendfcmd(2, "Gas Deck Set Gas Flow Setpoint %.3lf\n", dstep);
   }
 }
 
@@ -1165,7 +1162,7 @@ State MINI_Laser_TEC_Ramp {
 }
 
 State MINI_Laser_TEC_Ramp_Loop NoLog {
-  { if (MLTE_crnt >= MLTE_limit) Validate MINI_Laser_TEC_Ramp_Idle;
+  { if (convert(MLTETSt) >= MLTE_limit) Validate MINI_Laser_TEC_Ramp_Idle;
     MLTE_crnt += MLTE_increment;
     ci_sendfcmd(2, "MINI Set Laser TEC Temp Setpoint %.3lf\n", MLTE_crnt);
   }
