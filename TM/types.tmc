@@ -45,8 +45,8 @@ TM typedef AI16 AI_VigoT
   { text "%6.2lf"; convert KELVIN; }
   /* Calibration in VigoT.tmc */
 
-TM typedef AI16_5V AI_5000psig { text "%6.1lf"; convert PSIG; }
-  Calibration (AI_5000psig, PSIG) { 6155, 0, 30720, 5000 }
+TM typedef AI16_5V AI_2500psig { text "%6.1lf"; convert PSIG; }
+  Calibration (AI_2500psig, PSIG) { 6155, 0, 30720, 2500 }
 
 TM typedef AI16_5V AI_100psig { text "%6.1lf"; convert PSIG; }
   Calibration (AI_100psig, PSIG) { 6155, 0, 30720, 100 }
@@ -73,7 +73,7 @@ TM typedef unsigned short AO16 {
 }
   Calibration (AO16, VOLTS) { 0, 0, 65536, 10 }
 
-TM typedef AO16 AO_20SLM { text "%6.3lf"; }
+TM typedef AO16 AO_20SLM { text "%6.3lf"; convert SLM; }
   Calibration (AO_20SLM, SLM) { 0, 0, 32768, 20 }
 
 TM typedef AO16 AO_PSt { text "%7.3lf"; convert TORR; }
