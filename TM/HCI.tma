@@ -747,21 +747,42 @@ State GasDeck_PI {
   }
 }
 
-#State GasDeck_Fill_Cell {
-#  +1 > Bench Flow 1 Setpoint 400
-#  Hold Until ( convert(HCInP) > convert(PV_SetP)-10 ) or 5:00;
-#     > Bench Flow 1 Setpoint 100
-#  Hold Until ( convert(HCInP) > convert(PV_SetP)-2 ) or 5:00;
-#     > Bench Flow 1 Setpoint 50
-#  Hold Until ( convert(HCInP) > convert(PV_SetP)-0.2 ) or 5:00;
-#     > Bench Flow 1 Setpoint 0
-#  Validate Bench_Idle;
-#}
+State GasDeck_Fill_MINI_Cell {
+  +1 > CO2 Gas Valve Close
+  +1 > MINI Gas Valve Open
+  +2 > MINI Exhaust Valve Close
+     > Gas Deck Set Gas Flow Setpoint 0
+     > Gas Deck Flow Controller Closed Off
+  +1 > Gas Deck Valve Open
+  +1 > Gas Deck Set Gas Flow Setpoint 4
+  Hold Until ( convert(MCelHP) > 600 ) or 2:00;
+  +1 > Gas Deck Set Gas Flow Setpoint 2
+  Hold Until ( convert(MCelHP) > 700 ) or 2:00;
+  +1 > Gas Deck Set Gas Flow Setpoint 1
+  Hold Until ( convert(MCelHP) > 760 ) or 2:00;
+  Validate GasDeck_Close;
+}
+
+State GasDeck_Fill_CO2_Cell {
+  +1 > MINI Gas Valve Close
+  +1 > CO2 Gas Valve Open
+  +2 > CO2 Exhaust Valve Close
+     > Gas Deck Set Gas Flow Setpoint 0
+     > Gas Deck Flow Controller Closed Off
+  +1 > Gas Deck Valve Open
+  +1 > Gas Deck Set Gas Flow Setpoint 2
+  Hold Until ( convert(CCelHP) > 600 ) or 2:00;
+  +1 > Gas Deck Set Gas Flow Setpoint 1
+  Hold Until ( convert(CCelHP) > 700 ) or 2:00;
+  +1 > Gas Deck Set Gas Flow Setpoint 0.5
+  Hold Until ( convert(CCelHP) > 760 ) or 2:00;
+  Validate GasDeck_Close;
+}
 
 State GasDeck_Close {
      > Gas Deck Flow Controller Closed On
   +1 > Gas Deck Valve Closed
-  +5 > MINI Gas Valve Closed
+  +2 > MINI Gas Valve Closed
      > CO2 Gas Valve Closed
   +2 Validate GasDeck_Idle;
 }
