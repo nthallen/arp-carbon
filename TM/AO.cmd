@@ -18,13 +18,16 @@
 %}
 &Command
   : &AO_volts %f (Enter 0-10 Volts) * { sbwr( $1, ao_scale($2, 1.0, 10.0) ); }
+  : &AO_5volts %f (Enter 0-5 Volts) * { sbwr( $1, ao_scale($2, 1.0, 5.0) ); }
   : &AO_pset %f (Enter 0-100 Torr) * { sbwr( $1, ao_scale($2, 1/30., 100.0) ); }
+  ;
+&AO_5volts <unsigned short>
+  : Gas Deck Set Gas Flow Setpoint { $0 = GsFlSt_Address; }
   ;
 &AO_volts <unsigned short>
   : CO2 Set Cell Temp Setpoint { $0 = CCelTSt_Address; }
   : CO2 Set Laser TEC Temp Setpoint { $0 = CLTETSt_Address; }
   : CO2 Set LPV Temp Setpoint { $0 = CLPVTSt_Address; }
-  : Gas Deck Set Gas Flow Setpoint { $0 = GsFlSt_Address; }
   : HK Set Sample Heater Temp Setpoint { $0 = SHTSt_Address; }
   : HK Set Space Heater Temp Setpoint { $0 = SpHtTSt_Address; }
 # : ISO Set Cell Temp Setpoint { $0 = ICelTSt_Address; }

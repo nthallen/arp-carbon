@@ -31,7 +31,7 @@ TM typedef AI16 AI16_5V { text "%7.4lf"; convert VOLTS; }
   Calibration (AI16_5V, VOLTS) { 0, 0, 32768, 5.3333 }
 
 TM typedef AI16_5V AI_20SLM { text "%6.3lf"; convert SLM; }
-  Calibration (AI_20SLM, SLM) { 0, 0, 32768, 20 }
+  Calibration (AI_20SLM, SLM) { 0, 0, 30720, 20 }
   
 TM typedef AI16 AI_T30K
   { text "%6.2lf"; convert CELCIUS; }
