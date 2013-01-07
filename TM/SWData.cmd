@@ -41,4 +41,5 @@
   : Read File { $0 = SWS_READ_FILE; }
   : MINI Laser Idle { $0 = SWS_MQCL_IDLE; }
   : CO2 Laser Idle { $0 = SWS_CQCL_IDLE; }
+  : MINI Laser TEC Ramp { $0 = SWS_MQCL_RAMP; }
   ;
