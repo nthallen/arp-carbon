@@ -114,6 +114,7 @@ State HCI_Shutdown {
       Hold until valid (MINI_Is_Shutdown) or 20;
       Hold until valid (CO2_Is_Shutdown) or 20;
       Hold until valid (Pump_Cool_Is_Shutdown) or 5:00;
+      Hold until valid (GasDeck_Is_Shutdown) or 1:00;
    +5 Validate HCI_Is_Shutdown;
 }
 
@@ -716,6 +717,7 @@ State GasDeck_Init {
      > Gas Deck Valve Closed
      > MINI Gas Valve Closed
      > CO2 Gas Valve Closed
+     > Gas Deck Set Gas Flow Setpoint 0
  +1  Validate GasDeck_Idle;
 }
 
@@ -723,7 +725,7 @@ State GasDeck_Idle {
 }
 
 State GasDeck_PI_Init {
-  { P_sum = 0; Gp = 5; Gi = 2; }
+  { P_sum = 0; Gp = 150; Gi = 60; }
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
@@ -748,33 +750,37 @@ State GasDeck_PI {
 }
 
 State GasDeck_Fill_MINI_Cell {
-  +1 > CO2 Gas Valve Close
+  +1 > CO2 Gas Valve Closed
   +1 > MINI Gas Valve Open
-  +2 > MINI Exhaust Valve Close
+  +2 > MINI Exhaust Valve Closed
+  Hold Until ( convert(MCelHP) < 740 ) or 2
+     else  Validate GasDeck_Close;
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
-  +1 > Gas Deck Set Gas Flow Setpoint 4
-  Hold Until ( convert(MCelHP) > 600 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 2
-  Hold Until ( convert(MCelHP) > 700 ) or 2:00;
   +1 > Gas Deck Set Gas Flow Setpoint 1
+  Hold Until ( convert(MCelHP) > 600 ) or 2:00;
+  +1 > Gas Deck Set Gas Flow Setpoint 0.5
+  Hold Until ( convert(MCelHP) > 700 ) or 2:00;
+  +1 > Gas Deck Set Gas Flow Setpoint 0.2
   Hold Until ( convert(MCelHP) > 760 ) or 2:00;
   Validate GasDeck_Close;
 }
 
 State GasDeck_Fill_CO2_Cell {
-  +1 > MINI Gas Valve Close
+  +1 > MINI Gas Valve Closed
   +1 > CO2 Gas Valve Open
-  +2 > CO2 Exhaust Valve Close
+  +2 > CO2 Exhaust Valve Closed
+  Hold Until ( convert(CCelHP) < 740 ) or 2
+     else  Validate GasDeck_Close;
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
-  +1 > Gas Deck Set Gas Flow Setpoint 2
-  Hold Until ( convert(CCelHP) > 600 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 1
-  Hold Until ( convert(CCelHP) > 700 ) or 2:00;
   +1 > Gas Deck Set Gas Flow Setpoint 0.5
+  Hold Until ( convert(CCelHP) > 600 ) or 2:00;
+  +1 > Gas Deck Set Gas Flow Setpoint 0.25
+  Hold Until ( convert(CCelHP) > 700 ) or 2:00;
+  +1 > Gas Deck Set Gas Flow Setpoint 0.1
   Hold Until ( convert(CCelHP) > 760 ) or 2:00;
   Validate GasDeck_Close;
 }
@@ -782,10 +788,30 @@ State GasDeck_Fill_CO2_Cell {
 State GasDeck_Close {
      > Gas Deck Flow Controller Closed On
   +1 > Gas Deck Valve Closed
-  +2 > MINI Gas Valve Closed
+  +5 > MINI Gas Valve Closed
      > CO2 Gas Valve Closed
   +2 Validate GasDeck_Idle;
 }
+
+#_______________________________________________________________
+# Partition 9.5: GasDeck Shutdown
+#_______________________________________________________________
+
+State GasDeck_WaitForShutdown {
+     Depending on (Shutdown) { Validate GasDeck_Shutdown; }
+}
+
+State GasDeck_Shutdown {
+  +1 Validate GasDeck_Close;
+      Hold until valid (GasDeck_Idle);
+  +1 Validate GasDeck_Fill_MINI_Cell;
+     Hold until valid (GasDeck_Idle);
+  +1 Validate GasDeck_Fill_CO2_Cell;
+      Hold until valid (GasDeck_Idle);
+  +1 Validate GasDeck_Is_Shutdown;
+}
+
+State GasDeck_Is_Shutdown {}
 
 #----------------------------------------------------------------
 # Partition 10: Pump Control

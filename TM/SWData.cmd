@@ -42,4 +42,6 @@
   : MINI Laser Idle { $0 = SWS_MQCL_IDLE; }
   : CO2 Laser Idle { $0 = SWS_CQCL_IDLE; }
   : MINI Laser TEC Ramp { $0 = SWS_MQCL_RAMP; }
+  : MINI Fill Cell { $0 = SWS_FILLMINI; }
+  : CO2 Fill Cell { $0 = SWS_FILLCO2; }
   ;

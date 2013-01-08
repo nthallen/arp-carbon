@@ -34,5 +34,7 @@ extern SWData_t SWData;
 #define SWS_MQCL_IDLE 25
 #define SWS_CQCL_IDLE 26
 #define SWS_MQCL_RAMP 27
+#define SWS_FILLMINI 28
+#define SWS_FILLCO2 29
 
 #endif
