@@ -105,7 +105,7 @@ State HCI_Init {
 State HCI_Start {
       Depending on (Shutdown) { Validate HCI_Shutdown; }
    +5 > HK Set Sample Heater Temp Setpoint 1.25
-   +1 > HK HK Sample Htr Ctl On
+   +1 > HK Sample Htr Ctl On
 }
 
 State HCI_Shutdown {
@@ -984,15 +984,15 @@ State LuggageBay_TCtrl_Start {
 
 State LuggageBay_TCtrl_Watch Nolog {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
-    Hold until (convert(SpHCT) > 1.3)
-    Validate LuggageBay_TCtrl_Hot;
+    Hold until (convert(SpHCT) > 1.3);
+ +1 Validate LuggageBay_TCtrl_Hot;
 }
 
 State LuggageBay_TCtrl_Hot {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
  +1 > HK Space Htr Ctl Off
  +1 > HK Set Space Heater Temp Setpoint 1.25
-    Hold until (convert(SpHCT) < 1.24)
+    Hold until (convert(SpHCT) < 1.24);
  +1 > HK Space Htr Ctl On
      Validate LuggageBay_TCtrl_Watch;
 } 
