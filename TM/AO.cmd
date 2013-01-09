@@ -14,12 +14,25 @@
       else bits = (unsigned short)N;
       return bits;
     }
+
+    void reprogram_dacs() {
+      unsigned i;
+      for (i = 0; i < 16; ++i) {
+        unsigned short addr = 0x420 + 2*i;
+        unsigned short value = sbrwa(addr);
+        if (!sbwr(addr, value)) {
+          nl_error(2, "No acknowledge writing to DAC (0x%04X, 0x%04X)",
+            addr, value);
+        }
+      }
+    }
   #endif
 %}
 &Command
   : &AO_volts %f (Enter 0-10 Volts) * { sbwr( $1, ao_scale($2, 1.0, 10.0) ); }
   : &AO_5volts %f (Enter 0-5 Volts) * { sbwr( $1, ao_scale($2, 1.0, 5.0) ); }
   : &AO_pset %f (Enter 0-100 Torr) * { sbwr( $1, ao_scale($2, 1/30., 100.0) ); }
+  : Reprogram CB2 DACs * { reprogram_dacs(); }
   ;
 &AO_5volts <unsigned short>
   : Gas Deck Set Gas Flow Setpoint { $0 = GsFlSt_Address; }
