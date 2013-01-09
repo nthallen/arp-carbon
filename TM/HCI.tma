@@ -29,7 +29,7 @@
 # INITIALIZE
 State Init {
        > Telemetry Start
-#  +1   > Fail Light Off
+  +1   > Fail Light Off
   +2   Validate Standby;
 }
 
@@ -74,21 +74,20 @@ Partition
 
 State In_FLIGHT {
   { using_swp = 0; }
-  { if (using_swp)
+  { if ((using_swp == SWS_TAKE_DATA) || (PP_Land_Req == 0))
       Validate TAKE_DATA;
   }
 }
 
 State TAKE_DATA {
-  { if (using_swp == 2)
+  { if ((using_swp == SWS_LAND) || (using_swp == 0 && PP_Land_Req))
       Validate LAND;
   }
+  > Panel Data LED On
 }
 
 State LAND {
-  { if (using_swp == 3) 
-      Validate IN_FLIGHT;
-  }
+  > Panel Data LED Off
 }
 
 
