@@ -50,7 +50,7 @@ State Record {
 # SHUTDOWN
 State Shutdown {
       Hold until valid (HCI_Is_Shutdown);
-# +5   > Fail Light On
+ +5   > Fail Light On
       > quit
 }
 
@@ -105,11 +105,11 @@ State HCI_Init {
 State HCI_Start {
       Depending on (Shutdown) { Validate HCI_Shutdown; }
    +5 > HK Set Sample Heater Temp Setpoint 1.25
-   +1 > Sample Htr Ctl On
+   +1 > HK HK Sample Htr Ctl On
 }
 
 State HCI_Shutdown {
-      > Sample Htr Ctl Off
+      > HK Sample Htr Ctl Off
       Hold until valid (MINI_Is_Shutdown) or 20;
       Hold until valid (CO2_Is_Shutdown) or 20;
       Hold until valid (Pump_Cool_Is_Shutdown) or 5:00;
@@ -355,7 +355,8 @@ State MQCL_Out_Spec {
 State MQCL_Out_TSpec {
     > QCLI_M Stop
  +1 > MINI Laser TEC Off
- +5 > MINI Laser TEC On
+# +1 > Reprogram CB2 DACs
+ +2 > MINI Laser TEC On
     Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) ) or 10
     else Validate MQCL_Out_TSpec;
  +1 Validate MQCL_Start;
@@ -421,13 +422,13 @@ State MQCL_SelectWaveandRun {
     Depending on (Shutdown) { Validate MQCL_Shutdown; }
     > SSP_M Stop
     Hold until ( SSP_M_Status == SSP_STATUS_READY ) or 5
-    else { nl_error( 2, "Not Ready in M3Df_800Hz" ); }
+    else { nl_error( 2, "Not Ready in M3Df_600Hz" ); }
     > QCLI_M Stop
     Hold until ( !(QCLI_M_s & 0x1000) ) or 2
     else Validate MQCL_SelectWaveandRun_Reset;
- +1 > MINI Set Laser TEC Temp Setpoint 1.65
+ +1 > MINI Set Laser TEC Temp Setpoint 1.38
  +1 > MINI Laser TEC On
- +5 > Select QCLI_M Waveform M3Df_800Hz
+ +5 > Select QCLI_M Waveform M3Df_600Hz
  +2 Validate MQCL_Start;
 }
 
@@ -906,7 +907,7 @@ State Pump_Is_Shutdown {}
 Partition
 
 %{
- #define BATH_TEMP_COLD 25
+ #define BATH_TEMP_COLD 20
  #define PUMP_TEMP_COLD 35
  #define BATH_TEMP_OK(x) (x > BATH_TEMP_COLD)
  #define PUMP_COLD_OK(x) (x < PUMP_TEMP_COLD)
@@ -969,16 +970,44 @@ State Pump_Cool_Is_Shutdown {}
 Partition
 
 State LuggageBay_TCtrl_Init {
+   +1 > HK Space Htr Ctl Off
+    Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
+    Depending on (Record) { Validate LuggageBay_TCtrl_Start; }
 } 
+
+State LuggageBay_TCtrl_Start {
+    Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
+  +1 > HK Set Space Heater Temp Setpoint 1.25
+  +1 > HK Space Htr Ctl On
+     Validate LuggageBay_TCtrl_Watch;
+} 
+
+State LuggageBay_TCtrl_Watch Nolog {
+    Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
+    Hold until (convert(SpHCT) > 1.3)
+    Validate LuggageBay_TCtrl_Hot;
+}
+
+State LuggageBay_TCtrl_Hot {
+    Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
+ +1 > HK Space Htr Ctl Off
+ +1 > HK Set Space Heater Temp Setpoint 1.25
+    Hold until (convert(SpHCT) < 1.24)
+ +1 > HK Space Htr Ctl On
+     Validate LuggageBay_TCtrl_Watch;
+} 
+
+State LuggageBay_TCtrl_Shutdown {
+     > HK Space Htr Ctl Off
+} 
+
 # State Throttle_Standby {
 #   +5
 #   depending on (OFF_GROUND) { Validate Throttle_init; }
 #   depending on (IN_AIR) { Validate Throttle_init; }
 # }
 # 
-# Space heater control should get moved with throttle to luggage bay heater control
-#  +10 > HK Set Space Heater Temp Setpoint 1.25
-#   +1 > Space Heater Controller On
+
 #-------------------
 # # INITIALIZE
 # State Throttle_init     {
@@ -1024,8 +1053,8 @@ Depending on (Shutdown) { Validate MTControl_Shutdown; }
     +1 > MINI Set DPV Temp Setpoint 1.39
     +1 > MINI Set Cell Temp Setpoint 1.39
     +1 > MINI Cell Htr Ctl On
-   +10 > MINI Detector PV Htr Ctl On
-   +10 > MINI LPV TEC On
+   +10 > MINI DPV Htr Ctl On
+   +10 > MINI LPV Ext TEC On
    +1  Validate MTControl_Watch;
 }
 
@@ -1047,10 +1076,10 @@ State MTControl_Not_OK {
     Depending on (Shutdown) { Validate MTControl_Shutdown; }
 
     hold until (TEMP_OK(convert(MLPVTSt),convert(MLPVCT)))
-    or 1 else > MINI LPV TEC Off
+    or 1 else > MINI LPV Ext TEC Off
 
     hold until (TEMP_OK(convert(MDPVTSt),convert(MDPVCT)))
-    or 1 else > MINI Detector PV Htr Ctl Off
+    or 1 else > MINI DPV Htr Ctl Off
 
     hold until (TEMP_OK(convert(MCelTSt),convert(MCelCT)))
     or 1 else > MINI Cell Htr Ctl Off
@@ -1059,15 +1088,15 @@ State MTControl_Not_OK {
     +1 > MINI Set DPV Temp Setpoint 1.39
     +1 > MINI Set Cell Temp Setpoint 1.39
    +10 > MINI Cell Htr Ctl On
-    +1 > MINI Detector PV Htr Ctl On
-    +1 > MINI LPV TEC On
+    +1 > MINI DPV Htr Ctl On
+    +1 > MINI LPV Ext TEC On
     +1 Validate MTControl_Watch;
 }
 
 State MTControl_Shutdown {
     > MINI Cell Htr Ctl Off
-    > MINI Detector PV Htr Ctl Off
-    > MINI LPV TEC Off
+    > MINI DPV Htr Ctl Off
+    > MINI LPV Ext TEC Off
 }
 
 # -----------------------------------------------------------------------------
@@ -1084,7 +1113,7 @@ Depending on (Shutdown) { Validate CTControl_Shutdown; }
     +1 > CO2 Set LPV Temp Setpoint 1.25
     +1 > CO2 Set Cell Temp Setpoint 1.25
     +1 > CO2 Cell Htr Ctl On
-   +10 > CO2 Laser PV Htr Ctl On
+   +10 > CO2 LPV Htr Ctl On
    +1  Validate CTControl_Watch;
 }
 
@@ -1102,19 +1131,19 @@ State CTControl_Not_OK {
     Depending on (Shutdown) { Validate CTControl_Shutdown; }
 
     hold until (TEMP_OK(convert(CLPVTSt),convert(CLPVCT)))
-    or 1 else > CO2 Laser PV Htr Ctl Off
+    or 1 else > CO2 LPV Htr Ctl Off
 
     hold until (TEMP_OK(convert(CCelTSt),convert(CCelCT)))
     or 1 else > CO2 Cell Htr Ctl Off
 
    +10 > CO2 Cell Htr Ctl On
-    +1 > CO2 Laser PV Htr Ctl On
+    +1 > CO2 LPV Htr Ctl On
     +1 Validate CTControl_Watch;
 }
 
 State CTControl_Shutdown {
     > CO2 Cell Htr Ctl Off
-    > CO2 Laser PV Htr Ctl Off
+    > CO2 LPV Htr Ctl Off
 }
 
 # -----------------------------------------------------------------------------
