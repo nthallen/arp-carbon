@@ -1,0 +1,16 @@
+<package> Altimeter
+<include> msg
+<include> "Altimeter.h"
+
+<opts> "p:"
+<sort>
+	-p <serial device> Serial port for Altimeter
+
+<switch>
+  case 'p':
+    MRA_port = optarg;
+    break;
+
+<package> msghdr_init
+<init>
+  msg_hdr_default = "Alt";

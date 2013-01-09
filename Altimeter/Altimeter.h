@@ -7,17 +7,18 @@ extern const char *MRA_port;
 
 #ifdef __cplusplus
 #include <termios.h>
+#include "SerSelector.h"
 
 class MRA_Serial : public Ser_Sel {
   public:
     MRA_Serial();
     ~MRA_Serial();
-    void init(const char *port);
+    void init(const char *port, unsigned short *MRA_Alt);
     int ProcessData(int flag);
   private:
-    unsigned char *MRA_Altitude;
+    unsigned short *MRA_Altitude;
     unsigned char reverse[128];
-    unsigned char reverse(unsigned char);
+    unsigned char reverse7(unsigned char);
     termios termios_m;
 };
 
