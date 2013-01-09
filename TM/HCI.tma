@@ -686,7 +686,7 @@ State Calibrate_MINI {
    +1 Validate GasDeck_PI_Init;
 +2:00 Validate GasDeck_Close;
       { MINI_Ready_To_Calibrate = 0; }
-   +1 Validate Calibrate_Logic;
+   +9 Validate Calibrate_Logic;
 }
 
 State Calibrate_CO2 {
@@ -696,7 +696,7 @@ State Calibrate_CO2 {
    +1 Validate GasDeck_PI_Init;
 +2:00 Validate GasDeck_Close;
       { CO2_Ready_To_Calibrate = 0; }
-   +1 Validate Calibrate_Logic;
+   +9 Validate Calibrate_Logic;
 }
 
 
@@ -725,7 +725,7 @@ State GasDeck_Idle {
 }
 
 State GasDeck_PI_Init {
-  { P_sum = 0; Gp = 150; Gi = 60; }
+  { P_sum = 0; Gp = 300; Gi = 90; }
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
@@ -758,11 +758,11 @@ State GasDeck_Fill_MINI_Cell {
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
-  +1 > Gas Deck Set Gas Flow Setpoint 1
-  Hold Until ( convert(MCelHP) > 600 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 0.5
+  +1 > Gas Deck Set Gas Flow Setpoint .75
+  Hold Until ( convert(MCelHP) > 500 ) or 2:00;
+  +1 > Gas Deck Set Gas Flow Setpoint 0.4
   Hold Until ( convert(MCelHP) > 700 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 0.2
+  +1 > Gas Deck Set Gas Flow Setpoint 0.1
   Hold Until ( convert(MCelHP) > 760 ) or 2:00;
   Validate GasDeck_Close;
 }
@@ -776,11 +776,11 @@ State GasDeck_Fill_CO2_Cell {
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
-  +1 > Gas Deck Set Gas Flow Setpoint 0.5
+  +1 > Gas Deck Set Gas Flow Setpoint 0.32
   Hold Until ( convert(CCelHP) > 600 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 0.25
+  +1 > Gas Deck Set Gas Flow Setpoint 0.2
   Hold Until ( convert(CCelHP) > 700 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 0.1
+  +1 > Gas Deck Set Gas Flow Setpoint 0.05
   Hold Until ( convert(CCelHP) > 760 ) or 2:00;
   Validate GasDeck_Close;
 }
@@ -796,6 +796,7 @@ State GasDeck_Close {
 #_______________________________________________________________
 # Partition 9.5: GasDeck Shutdown
 #_______________________________________________________________
+Partition
 
 State GasDeck_WaitForShutdown {
      Depending on (Shutdown) { Validate GasDeck_Shutdown; }
@@ -885,6 +886,7 @@ State Pump_Inverter_Off {
 State Pump_Shutdown {
  +1 > CO2 Exhaust Valve Closed
  +1 > MINI Exhaust Valve Closed
+    Hold until valid (GasDeck_Is_Shutdown) or 2:00;
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
  +1 Validate Pump_Off;
