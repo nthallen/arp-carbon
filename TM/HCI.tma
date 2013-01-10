@@ -1,6 +1,6 @@
 # =============================================================================
 # Centaur Flights, 2012/2013; Manassas, VA, Test Flights.
-# Flight HTW.tma.
+# Flight HCI.tma.
 # =============================================================================
 
 
@@ -1245,4 +1245,42 @@ State MINI_Laser_TEC_Ramp_Loop NoLog {
   }
 }
 
-  
+
+# -----------------------------------------------------------------------------
+# Partition for CO2 Laser TEC Ramping
+# -----------------------------------------------------------------------------
+Partition
+%{
+  double CLTE_crnt, CLTE_limit;
+  #define CLTE_ramp_length .15
+  #define CLTE_increment .001875
+%}
+
+State CO2_Laser_TEC_Ramp_Idle {}
+
+State CO2_Laser_TEC_Ramp {
+  { CLTE_crnt = convert(CLTETSt);
+    CLTE_limit = CLTE_crnt + CLTE_ramp_length;
+  }
+    > CO2 Set Laser TEC Temp Setpoint 1.3
+    > Panel Clear Screen
+    > Panel Display Text Wait for settle\n
+ +3 Hold Until (convert(CLTE4R3T) - convert(CLTETSt) > 0 &&
+                convert(CLTE4R3T) - convert(CLTETSt) < 0.07) or 3:00;
+    > Panel Display Text Ramping\n
+    Validate CO2_Laser_TEC_Ramp_Loop;
+}
+
+State CO2_Laser_TEC_Ramp_Loop NoLog {
+  { if (convert(CLTETSt) >= CLTE_limit) Validate CO2_Laser_TEC_Ramp_Done;
+    CLTE_crnt += CLTE_increment;
+    ci_sendfcmd(2, "CO2 Set Laser TEC Temp Setpoint %.3lf\n", CLTE_crnt);
+  }
+}
+
+State CO2_Laser_TEC_Ramp_Done NoLog {
+  > Panel Clear Screen
+  > Panel Display Text CO2 Laser TEC Ramp\nCompleted\n
+  Validate CO2_Laser_TEC_Ramp_Idle;
+}
+

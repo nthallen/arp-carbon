@@ -31,3 +31,4 @@ SWS_CQCL_IDLE   26      CO2 Laser Idle: Validate CQCL_Idle; break;
 SWS_MQCL_RAMP   27      MINI Laser TEC Ramp: Validate MINI_Laser_TEC_Ramp; break;
 SWS_FILLMINI    28      MINI Fill Cell: Validate GasDeck_Fill_MINI_Cell; break;
 SWS_FILLCO2     29      CO2 Fill Cell: Validate GasDeck_Fill_CO2_Cell; break;
+SWS_CQCL_RAMP   30      CO2 Laser TEC Ramp: Validate CO2_Laser_TEC_Ramp; break;
