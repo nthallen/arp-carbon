@@ -52,7 +52,7 @@ function do_tar {
   [ $use_relay = yes ] && RC="-o 'ProxyCommand /usr/bin/ssh $relay /usr/bin/nc $gse 22'"
   [ $Decimate = yes ] && DC='--exclude="*[1-9].dat"'
   echo Retrieving $HomeDir/raw/$RunType/$run/$src
-  eval time ssh $RC $gse tar -czf- -C $HomeDir/raw/$RunType/$run $DC SSP_M | tar -C $RAW_Dir/$run$flt -xzf-
+  eval time ssh $RC $gse tar -czf- -C $HomeDir/raw/$RunType/$run $DC $src | tar -C $RAW_Dir/$run$flt -xzf-
 }
 
 for run in $*; do
