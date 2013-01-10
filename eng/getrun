@@ -5,7 +5,7 @@ function nl_error {
 }
 
 flt=''
-gse=htwgse.arp.harvard.edu
+gse=hcigse.arp.harvard.edu
 relay=fugue.arp.harvard.edu
 MM_Dir=MM
 CO2_Dir=CO2
