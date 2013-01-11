@@ -65,10 +65,6 @@ Partition
 # (ON_GROUND, OFF_GROUND, IN_AIR). \
 
 %{ /* Altitude definitions */
-    double P_ground_up = 525.;
-    double P_ground_dn = 575.;
-    double P_clouds_up = 280.;
-    double P_clouds_dn = 370.;
     int using_swp = 0;
 %}
 
@@ -106,6 +102,15 @@ State HCI_Start {
       Depending on (Shutdown) { Validate HCI_Shutdown; }
    +5 > HK Set Sample Heater Temp Setpoint 1.25
    +1 > HK Sample Htr Ctl On
+   +1 Validate HCI_SampleHtr_Watch;
+}
+
+State HCI_SampleHtr_Watch {
+     Depending on (Shutdown) { Validate HCI_Shutdown; }
+     Hold until (convert(SH_CT) > 1.35)
+   +1 > HK Sample Htr Ctl Off
+   +5 Hold until (convert(SH_CT) < 1.25)
+   +1 Validate HCI_Start;
 }
 
 State HCI_Shutdown {
@@ -137,17 +142,21 @@ State MINI_Init {
 State MINI_Start {
       Depending on (Shutdown) { Validate MINI_Shutdown; }
    +1 Validate MTControl_Start;
-   +5 Validate MQCL_SelectWaveandRun;
+   +5 Validate MQCL_SelectICOSandRun;
    +5 Hold until valid (MQCL_Watch);
    +1 Hold until valid (Pump_Watch);
    +1 Validate MINI_Sample;
 }
 
 State MINI_Sample {
-     Depending on (Shutdown) { Validate MINI_Shutdown; }
-     > MINI Set Cell Pressure Setpoint 40
-     Hold until (convert(MCelLP) < 10);
-  +1 > MINI Pressure Reg On
+       Depending on (Shutdown) { Validate MINI_Shutdown; }
+       > MINI Set Cell Pressure Setpoint 40
+       Hold until (convert(MCelLP) < 10);
+    +1 > MINI Pressure Reg On
+    +1 Validate MINI_Laser_TEC_Ramp;
+       Hold until valid (MINI_Laser_TEC_Ramp_Idle);
+    +1 Validate MQCL_SelectRingandRun;
+ +1:00 Validate MQCL_SelectICOSandRun;
 +30:00 Validate MINI_Calibrate;
 }
 
@@ -185,17 +194,20 @@ State CO2_Init {
 State CO2_Start {
       Depending on (Shutdown) { Validate CO2_Shutdown; }
    +1 Validate CTControl_Start;
-   +5 Validate CQCL_SelectWaveandRun;
+   +5 Validate CQCL_SelectICOSandRun;
    +5 Hold until valid (CQCL_Watch);
    +1 Hold until valid (Pump_Watch);
    +1 Validate CO2_Sample;
 }
 
 State CO2_Sample {
-     Depending on (Shutdown) { Validate CO2_Shutdown; }
-     > CO2 Set Cell Pressure Setpoint 40
-     Hold until (convert(CCelLP) < 10);
-  +1 > CO2 Pressure Reg On
+       Depending on (Shutdown) { Validate CO2_Shutdown; }
+       > CO2 Set Cell Pressure Setpoint 40
+       Hold until (convert(CCelLP) < 10);
+    +1 > CO2 Pressure Reg On
+    +1 Validate CO2_Laser_TEC_Ramp;
+       Hold until valid (CO2_Laser_TEC_Ramp_Idle);
+    +1 Validate CQCL_SelectICOSandRun;
 +30:00 Validate CO2_Calibrate;
 }
 
@@ -274,7 +286,6 @@ State MQCL_Watch NoLog {
         Validate MQCL_SSP_M_Recover;
       }
     }
-         # convert(HNano_I) < M_LOW_CURRENT ||
     hold until ( SSP_M_Status != SSP_STATUS_TRIG ||
          !MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) ||
 	 convert(MLasI) <= M_LOW_CURRENT );
@@ -418,26 +429,48 @@ State MQCL_Stop_Reset {
 
 #Running Waveforms
 
-State MQCL_SelectWaveandRun {
+State MQCL_SelectICOSandRun {
     Depending on (Shutdown) { Validate MQCL_Shutdown; }
     > SSP_M Stop
     Hold until ( SSP_M_Status == SSP_STATUS_READY ) or 5
     else { nl_error( 2, "Not Ready in M3Df_600Hz" ); }
     > QCLI_M Stop
     Hold until ( !(QCLI_M_s & 0x1000) ) or 2
-    else Validate MQCL_SelectWaveandRun_Reset;
+    else Validate MQCL_SelectICOSandRun_Reset;
  +1 > MINI Set Laser TEC Temp Setpoint 1.38
  +1 > MINI Laser TEC On
  +5 > Select QCLI_M Waveform M3Df_600Hz
  +2 Validate MQCL_Start;
 }
 
-State MQCL_SelectWaveandRun_Reset {
+State MQCL_SelectICOSandRun_Reset {
     > MINI QCLI Reset On
  +1 > MINI QCLI Reset Off
     Hold until ( !(QCLI_M_s & 0x1000) ) or 2
-    else Validate MQCL_SelectWaveandRun_Reset;
-    Validate MQCL_SelectWaveandRun;
+    else Validate MQCL_SelectICOSandRun_Reset;
+    Validate MQCL_SelectICOSandRun;
+}
+
+State MQCL_SelectRingandRun {
+    Depending on (Shutdown) { Validate MQCL_Shutdown; }
+    > SSP_M Stop
+    Hold until ( SSP_M_Status == SSP_STATUS_READY ) or 5
+    else { nl_error( 2, "Not Ready in M3Df_rRamp" ); }
+    > QCLI_M Stop
+    Hold until ( !(QCLI_M_s & 0x1000) ) or 2
+    else Validate MQCL_SelectRingandRun_Reset;
+ +1 > MINI Set Laser TEC Temp Setpoint 1.38
+ +1 > MINI Laser TEC On
+ +5 > Select QCLI_M Waveform M3Df_rRamp
+ +2 Validate MQCL_Start;
+}
+
+State MQCL_SelectRingandRun_Reset {
+    > MINI QCLI Reset On
+ +1 > MINI QCLI Reset Off
+    Hold until ( !(QCLI_M_s & 0x1000) ) or 2
+    else Validate MQCL_SelectRingandRun_Reset;
+    Validate MQCL_SelectRingandRun;
 }
 
 #----------------------------------------------------------------
@@ -500,7 +533,6 @@ State CQCL_Watch NoLog {
         Validate CQCL_SSP_C_Recover;
       }
     }
-         # convert(HNano_I) < C_LOW_CURRENT ||
     hold until ( SSP_C_Status != SSP_STATUS_TRIG ||
          !CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)) ||
 	 convert(CLasI) <= C_LOW_CURRENT );
@@ -644,26 +676,26 @@ State CQCL_Stop_Reset {
 
 #Running Waveforms
 
-State CQCL_SelectWaveandRun {
+State CQCL_SelectICOSandRun {
     Depending on (Shutdown) { Validate CQCL_Shutdown; }
     > SSP_C Stop
     Hold until ( SSP_C_Status == SSP_STATUS_READY ) or 5
     else { nl_error( 2, "Not Ready in C2Cd_800Hz" ); }
     > QCLI_C Stop
     Hold until ( !(QCLI_C_s & 0x1000) ) or 2
-    else Validate CQCL_SelectWaveandRun_Reset;
+    else Validate CQCL_SelectICOSandRun_Reset;
  +1 > CO2 Set Laser TEC Temp Setpoint 1.45
  +1 > CO2 Laser TEC On
  +5 > Select QCLI_C Waveform C2Cd_800Hz
  +2 Validate CQCL_Start;
 }
 
-State CQCL_SelectWaveandRun_Reset {
+State CQCL_SelectICOSandRun_Reset {
     > CO2 QCLI Reset On
  +1 > CO2 QCLI Reset Off
     Hold until ( !(QCLI_C_s & 0x1000) ) or 2
-    else Validate CQCL_SelectWaveandRun_Reset;
-    Validate CQCL_SelectWaveandRun;
+    else Validate CQCL_SelectICOSandRun_Reset;
+    Validate CQCL_SelectICOSandRun;
 }
 #----------------------------------------------------------------
 # Partition 8: Calibration Logic 
@@ -753,7 +785,7 @@ State GasDeck_Fill_MINI_Cell {
   +1 > CO2 Gas Valve Closed
   +1 > MINI Gas Valve Open
   +2 > MINI Exhaust Valve Closed
-  Hold Until ( convert(MCelHP) < 740 ) or 2
+  Hold Until ( convert(MCelHP) < 740 ) or 1
      else  Validate GasDeck_Close;
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
@@ -771,7 +803,7 @@ State GasDeck_Fill_CO2_Cell {
   +1 > MINI Gas Valve Closed
   +1 > CO2 Gas Valve Open
   +2 > CO2 Exhaust Valve Closed
-  Hold Until ( convert(CCelHP) < 740 ) or 2
+  Hold Until ( convert(CCelHP) < 740 ) or 1
      else  Validate GasDeck_Close;
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
@@ -788,7 +820,7 @@ State GasDeck_Fill_CO2_Cell {
 State GasDeck_Close {
      > Gas Deck Flow Controller Closed On
   +1 > Gas Deck Valve Closed
-  +5 > MINI Gas Valve Closed
+  +2 > MINI Gas Valve Closed
      > CO2 Gas Valve Closed
   +2 Validate GasDeck_Idle;
 }
@@ -969,6 +1001,13 @@ State Pump_Cool_Is_Shutdown {}
 # -----------------------------------------------------------------------------
 Partition
 
+%{
+#define HEATER_HOT 1.4
+#define HEATER_TEMP_OK(x) (x<HEATER_HOT)
+#define BAY_HOT 30
+#define BAY_TEMP_OK(x) (X<BAY_HOT)
+%}
+
 State LuggageBay_TCtrl_Init {
    +1 > HK Space Htr Ctl Off
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
@@ -984,8 +1023,10 @@ State LuggageBay_TCtrl_Start {
 
 State LuggageBay_TCtrl_Watch Nolog {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
-    Hold until (convert(SpHCT) > 1.3);
- +1 Validate LuggageBay_TCtrl_Hot;
+    Hold until (!HEATER_TEMP_OK(convert(SpHCT));
+    Hold until (HEATER_TEMP_OK(convert(SpHCT)) or 2
+      else Validate LuggageBay_TCtrl_Hot;
+ +1 Validate LuggageBay_TCtrl_Watch;
 }
 
 State LuggageBay_TCtrl_Hot {
@@ -1040,7 +1081,7 @@ State LuggageBay_TCtrl_Shutdown {
 # -----------------------------------------------------------------------------
 Partition
 %{
-  #define TEMP_OK(x,y) ( y-x < 0.25 )
+  #define TEMP_OK(x,y) ( y-x < 0.1 )
 %}
 
 State MTControl_Init {
@@ -1060,22 +1101,21 @@ Depending on (Shutdown) { Validate MTControl_Shutdown; }
 
 State MTControl_Watch NoLog {
 Depending on (Shutdown) { Validate MTControl_Shutdown; }
-    Hold until (!TEMP_OK(convert(MLPVTSt),convert(MLPVCT))
+    Hold until (!TEMP_OK(convert(MLPVCT),convert(MLPVTSt))
         || !TEMP_OK(convert(MDPVTSt),convert(MDPVCT))
         || !TEMP_OK(convert(MCelTSt),convert(MCelCT)) );
 
-    Hold until (TEMP_OK(convert(MLPVTSt),convert(MLPVCT))
+    Hold until (TEMP_OK(convert(MLPVCT),convert(MLPVTSt))
         && TEMP_OK(convert(MDPVTSt),convert(MDPVCT))
         && TEMP_OK(convert(MCelTSt),convert(MCelCT)) ) or 2
     else Validate MTControl_Not_OK;
-
     Validate MTControl_Watch;
 }
 
 State MTControl_Not_OK {
     Depending on (Shutdown) { Validate MTControl_Shutdown; }
 
-    hold until (TEMP_OK(convert(MLPVTSt),convert(MLPVCT)))
+    hold until ( TEMP_OK( convert(MLPVCT),convert(MLPVTSt) ) )
     or 1 else > MINI LPV Ext TEC Off
 
     hold until (TEMP_OK(convert(MDPVTSt),convert(MDPVCT)))
@@ -1084,9 +1124,7 @@ State MTControl_Not_OK {
     hold until (TEMP_OK(convert(MCelTSt),convert(MCelCT)))
     or 1 else > MINI Cell Htr Ctl Off
 
-    +1 > MINI Set LPV External TEC Setpoint 1.12
-    +1 > MINI Set DPV Temp Setpoint 1.39
-    +1 > MINI Set Cell Temp Setpoint 1.39
+    +1 > Reprogram CB2 DACs
    +10 > MINI Cell Htr Ctl On
     +1 > MINI DPV Htr Ctl On
     +1 > MINI LPV Ext TEC On
@@ -1135,7 +1173,7 @@ State CTControl_Not_OK {
 
     hold until (TEMP_OK(convert(CCelTSt),convert(CCelCT)))
     or 1 else > CO2 Cell Htr Ctl Off
-
+    +1 > Reprogram CB2 DACs
    +10 > CO2 Cell Htr Ctl On
     +1 > CO2 LPV Htr Ctl On
     +1 Validate CTControl_Watch;
