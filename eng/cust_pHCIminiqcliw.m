@@ -15,7 +15,7 @@ function cust_pHCIminiqcliw(h)
 
 set(h,'LineStyle','none','Marker','.');
 ax = get(h,'parent');
-waves = load_waves(1);
+waves = load_wavespecs('QCLI_M.m');
 ydata = get(h,'ydata');
 if ~isempty(waves)
     wvnos = unique(ydata)+1;
@@ -28,3 +28,16 @@ if ~isempty(waves)
 else
     set(ax,'ylim', [ min(ydata)-0.1 max(ydata)+0.1]);
 end
+
+function WaveSpecs = load_wavespecs(filename)
+HCIdir = HCI_Data_Dir;
+rundir = getrun(1);
+dirs = { filesep [filesep 'Base' filesep] };
+for i=1:length(dirs)
+    path = [HCIdir filesep rundir dirs{i} filename];
+    if exist(path,'file')
+        eval(['run ' path ';'])
+        return;
+    end
+end
+WaveSpecs = [];
