@@ -849,12 +849,13 @@ State GasDeck_Shutdown {
 State GasDeck_Is_Shutdown {}
 
 #----------------------------------------------------------------
-# Partition 10: Pump Control
+# Partition 10: Pumpkin Troll
 #----------------------------------------------------------------
 Partition
 %{
  #define PUMP_TEMP_HOT 50
  #define PUMP_TEMP_OK(x) (x < PUMP_TEMP_HOT)
+ int Pump_Ground_Power = 0;
 %}
 
 State Pump_Init {
@@ -863,16 +864,30 @@ State Pump_Init {
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
  +1 > Inverter Arm On
-    Hold until (InvPwrS == 1) or 5
-    else Validate Pump_Inverter_Off;
+    Hold until (InvPwrS == 1 && InvErrS == 0) or 5
+    else Validate Pump_Init_Inverter_Off;
+    Validate Pump_Init_Ready;
+}
+
+State Pump_Init_Inverter_Off {
+    Depending on (Shutdown) { Validate Pump_Shutdown; }
+    Hold until (Pump_Ground_Power || (InvPwrS && !InvErrS));
+    Validate Pump_Init_Ready;
+}
+
+State Pump_Init_Ready {
+    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
+        Validate Pump_Init_Inverter_Off;
+    } 
     Depending on (Shutdown) { Validate Pump_Shutdown; }
     Depending on (Record) { Validate Pump_Start; }
-
 }
 
 State Pump_Start {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
-    { if (!InvPwrS) Validate Pump_Inverter_Off; } 
+    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
+        Validate Pump_Inverter_Off;
+    } 
     Hold until valid (Pump_Cool_Watch);
  +5 > CO2 Scroll Pump On
  +10 > MINI Scroll Pump On
@@ -883,7 +898,9 @@ State Pump_Start {
 
 State Pump_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
-    { if (!InvPwrS) Validate Pump_Inverter_Off; } 
+    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
+        Validate Pump_Inverter_Off;
+    } 
     hold until ( !PUMP_TEMP_OK(convert(CPmpT)) ||
          !PUMP_TEMP_OK(convert(MPmpT)) );
     hold until ( PUMP_TEMP_OK(convert(CPmpT)) &&
@@ -894,7 +911,9 @@ State Pump_Watch Nolog {
 
 State Pump_Hot {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
-    { if (!InvPwrS) Validate Pump_Inverter_Off; } 
+    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
+        Validate Pump_Inverter_Off;
+    } 
     > CO2 Exhaust Valve Closed
     > MINI Exhaust Valve Closed
  +1 > CO2 Scroll Pump Off
@@ -912,7 +931,7 @@ State Pump_Inverter_Off {
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
 +10 > Inverter Power On
- +5 Hold until (InvPwrS == 1) or 5
+ +5 Hold until (InvPwrS == 1 && InvErrS == 0) or 5
     else Validate Pump_Inverter_Off;
     Validate Pump_Start;
 }
@@ -956,14 +975,16 @@ State Pump_Cool_Init {
 
 State Pump_Cool_Start {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    Hold until (InvPwrS == 1);
+    Hold until (Pump_Ground_Power || (InvPwrS && !InvErrS));
  +1 > Coolant Pump On
  +1 Validate Pump_Cool_Watch;
 }
 
 State Pump_Cool_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    { if (!InvPwrS) Validate Pump_Cool_Inverter_Off; } 
+    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
+        Validate Pump_Cool_Inverter_Off;
+    } 
  +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
  +1 hold until ( BATH_TEMP_OK(convert(WTnkT)) ) or 5
     else Validate Pump_Cool_Cold;
@@ -972,7 +993,9 @@ State Pump_Cool_Watch Nolog {
 
 State Pump_Cool_Cold {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    { if (!InvPwrS) Validate Pump_Cool_Inverter_Off; } 
+    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
+        Validate Pump_Cool_Inverter_Off;
+    } 
     > Coolant Divert On
     Hold until ( BATH_TEMP_OK(convert(WTnkT)-5) );
  +1 > Coolant Divert Off

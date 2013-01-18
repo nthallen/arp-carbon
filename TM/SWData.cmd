@@ -46,4 +46,6 @@
   : MINI Fill Cell { $0 = SWS_FILLMINI; }
   : CO2 Fill Cell { $0 = SWS_FILLCO2; }
   : CO2 Laser TEC Ramp { $0 = SWS_CQCL_RAMP; }
+  : Ground Power On { $0 = SWS_GROUND_PWR; }
+  : Ground Power Off { $0 = SWS_AIRCRAFT_PWR; }
   ;
