@@ -10,7 +10,8 @@ extern SWData_t SWData;
 #define SWS_SHUTDOWN 1
 #define SWS_TAKE_DATA 2
 #define SWS_LAND 3
-#define SWS_MQCL_SELECT 4
+#define SWS_MQCL_SELICOS 4
+#define SWS_MQCL_SELRING 31
 #define SWS_MQCL_START 5
 #define SWS_MQCL_STOP 6
 #define SWS_MQCL_DISABLE 23
@@ -36,5 +37,6 @@ extern SWData_t SWData;
 #define SWS_MQCL_RAMP 27
 #define SWS_FILLMINI 28
 #define SWS_FILLCO2 29
+#define SWS_CQCL_RAMP 30
 
 #endif

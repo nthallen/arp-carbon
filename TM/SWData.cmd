@@ -18,7 +18,8 @@
   : Set %d { $0 = $2; }
   : Flight Take Data { $0 = SWS_TAKE_DATA; }
   : Flight Land { $0 = SWS_LAND; }
-  : MINI Laser Select Waveform and Run { $0 = SWS_MQCL_SELECT; }
+  : MINI Laser Select ICOS and Run { $0 = SWS_MQCL_SELICOS; }
+  : MINI Laser Select Ring and Run { $0 = SWS_MQCL_SELRING; }
   : MINI Laser Start { $0 = SWS_MQCL_START; }
   : MINI Laser Stop { $0 = SWS_MQCL_STOP; }
   : MINI Laser Disable { $0 = SWS_MQCL_DISABLE; }
@@ -27,7 +28,7 @@
   : MINI Calibrate { $0 = SWS_MCALIBRATE; }
   : MINI Start { $0 = SWS_MSTART; }
   : HCI Start { $0 = SWS_HCISTART; }
-  : CO2 Laser Select Waveform and Run { $0 = SWS_CQCL_SELECT; }
+  : CO2 Laser Select ICOS and Run { $0 = SWS_CQCL_SELECT; }
   : CO2 Laser Start { $0 = SWS_CQCL_START; }
   : CO2 Laser Stop { $0 = SWS_CQCL_STOP; }
   : CO2 Laser Disable { $0 = SWS_CQCL_DISABLE; }
@@ -44,4 +45,5 @@
   : MINI Laser TEC Ramp { $0 = SWS_MQCL_RAMP; }
   : MINI Fill Cell { $0 = SWS_FILLMINI; }
   : CO2 Fill Cell { $0 = SWS_FILLCO2; }
+  : CO2 Laser TEC Ramp { $0 = SWS_CQCL_RAMP; }
   ;
