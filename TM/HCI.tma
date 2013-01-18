@@ -107,9 +107,9 @@ State HCI_Start {
 
 State HCI_SampleHtr_Watch {
      Depending on (Shutdown) { Validate HCI_Shutdown; }
-     Hold until (convert(SH_CT) > 1.35)
+     Hold until (convert(SH_CT) > 1.35);
    +1 > HK Sample Htr Ctl Off
-   +5 Hold until (convert(SH_CT) < 1.25)
+     Hold until (convert(SH_CT) < 1.25);
    +1 Validate HCI_Start;
 }
 
@@ -185,6 +185,7 @@ Partition
 %{
   int CO2_Ready_To_Calibrate;
 %}
+
 State CO2_Init {
    +1 > CO2 Pressure Reg Off
       Depending on (Shutdown) { Validate CO2_Shutdown; }
@@ -236,7 +237,7 @@ Partition
  int num_MQCL_recovers=0;
  #define M_LOW_CURRENT 0.02
  #define MQCL_TEMP_LIMIT 1.3
- #define MQCL_TEMP_OK(x,y) (x > MQCL_TEMP_LIMIT && fabs(x - y) < 0.1)
+ #define MQCL_TEMP_OK(x,y) (x > MQCL_TEMP_LIMIT && fabs(x - y) < 0.2)
 %}
 # Mini Starting and Stopping
 
@@ -462,6 +463,7 @@ State MQCL_SelectRingandRun {
  +1 > MINI Set Laser TEC Temp Setpoint 1.38
  +1 > MINI Laser TEC On
  +5 > Select QCLI_M Waveform M3Df_rRamp
+ +1 > SSP_M Set NSample 500
  +2 Validate MQCL_Start;
 }
 
@@ -939,10 +941,10 @@ State Pump_Is_Shutdown {}
 Partition
 
 %{
- #define BATH_TEMP_COLD 20
- #define PUMP_TEMP_COLD 35
- #define BATH_TEMP_OK(x) (x > BATH_TEMP_COLD)
- #define PUMP_COLD_OK(x) (x < PUMP_TEMP_COLD)
+#define BATH_TEMP_COLD 20
+#define PUMP_TEMP_COLD 35
+#define BATH_TEMP_OK(x) (x > BATH_TEMP_COLD)
+#define PUMP_COLD_OK(x) (x < PUMP_TEMP_COLD)
 %}
 
 State Pump_Cool_Init {
@@ -1005,7 +1007,7 @@ Partition
 #define HEATER_HOT 1.4
 #define HEATER_TEMP_OK(x) (x<HEATER_HOT)
 #define BAY_HOT 30
-#define BAY_TEMP_OK(x) (X<BAY_HOT)
+#define BAY_TEMP_OK(x) (x<BAY_HOT)
 %}
 
 State LuggageBay_TCtrl_Init {
@@ -1023,8 +1025,8 @@ State LuggageBay_TCtrl_Start {
 
 State LuggageBay_TCtrl_Watch Nolog {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
-    Hold until (!HEATER_TEMP_OK(convert(SpHCT));
-    Hold until (HEATER_TEMP_OK(convert(SpHCT)) or 2
+    Hold until (!HEATER_TEMP_OK(convert(SpHCT)));
+    Hold until (HEATER_TEMP_OK(convert(SpHCT))) or 2
       else Validate LuggageBay_TCtrl_Hot;
  +1 Validate LuggageBay_TCtrl_Watch;
 }
@@ -1090,7 +1092,7 @@ Depending on (Shutdown) { Validate MTControl_Shutdown; }
 
 State MTControl_Start {
 Depending on (Shutdown) { Validate MTControl_Shutdown; }
-    +1 > MINI Set LPV External TEC Setpoint 1.12
+    +1 > MINI Set LPV External TEC Setpoint 1.20
     +1 > MINI Set DPV Temp Setpoint 1.39
     +1 > MINI Set Cell Temp Setpoint 1.39
     +1 > MINI Cell Htr Ctl On
@@ -1148,8 +1150,8 @@ State CTControl_Init {
 
 State CTControl_Start {
 Depending on (Shutdown) { Validate CTControl_Shutdown; }
-    +1 > CO2 Set LPV Temp Setpoint 1.25
-    +1 > CO2 Set Cell Temp Setpoint 1.25
+    +1 > CO2 Set LPV Temp Setpoint 1.39
+    +1 > CO2 Set Cell Temp Setpoint 1.39
     +1 > CO2 Cell Htr Ctl On
    +10 > CO2 LPV Htr Ctl On
    +1  Validate CTControl_Watch;
@@ -1167,10 +1169,8 @@ State CTControl_Watch NoLog {
 
 State CTControl_Not_OK {
     Depending on (Shutdown) { Validate CTControl_Shutdown; }
-
     hold until (TEMP_OK(convert(CLPVTSt),convert(CLPVCT)))
     or 1 else > CO2 LPV Htr Ctl Off
-
     hold until (TEMP_OK(convert(CCelTSt),convert(CCelCT)))
     or 1 else > CO2 Cell Htr Ctl Off
     +1 > Reprogram CB2 DACs
@@ -1272,8 +1272,9 @@ State MINI_Laser_TEC_Ramp_Idle {}
 State MINI_Laser_TEC_Ramp {
   { MLTE_crnt = convert(MLTETSt);
     MLTE_limit = MLTE_crnt + MLTE_ramp_length;
-    Validate MINI_Laser_TEC_Ramp_Loop;
   }
+    > MINI Set Laser TEC Temp Setpoint 1.3
+ +5 Validate MINI_Laser_TEC_Ramp_Loop;
 }
 
 State MINI_Laser_TEC_Ramp_Loop NoLog {
