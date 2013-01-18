@@ -371,12 +371,12 @@ ROWS 25
 
  1 InvQury1 Inverter Vin Vin
  1 InvQury4 Inverter Load Load
- 1 ICmd:InvQury3:1 Inverter Status
- 1 IFail:InvQury2:2 Inverter Status
- 1 IFailed:InvQury0:0 Inverter Status
- 1 DCmdErr:InvStat:3 Inverter Status
- 1 DError:InvStat:2 Inverter Status
- 1 DPower:InvStat:1 Inverter Status
+ 1 InvCmdS:InvQury3:1 Inverter Status
+ 1 InvFailS:InvQury2:2 Inverter Status
+ 1 InvFailedS:InvQury0:0 Inverter Status
+ 1 InvCmdErrS:InvStat:3 Inverter Status
+ 1 InvErrS:InvStat:2 Inverter Status
+ 1 InvPwrS:InvStat:1 Inverter Status
  1 Arm:DS842:0 Inverter Status
  1 InvQury5 Inverter Qury
  1 InvQury6 Inverter Qury
