@@ -65,5 +65,6 @@
   ;
 &dccc_set <int>
   : Coolant Divert { $0 = 100; }
+  : BAT Purge { $0 = 101; }
   ;
 

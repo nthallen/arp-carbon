@@ -60,6 +60,8 @@ SCRIPT = idx64.idx64 interact dccc.dccc
 SCRIPT = runfile.FF
 DISTRIB = ../BAT/BAT_SPAN ../BAT/BS2cdfext
 DISTRIB = ../Inverter/Inverter
+DISTRIB = ../Altimeter/Altimeter
+SRCDIST = HCI.sws $qclibase
 
 HCIcol : -lsubbus
 HCIsrvr : -lsubbus
@@ -80,3 +82,5 @@ HCIeng.cdf : genui.txt
 	cd ../BAT && make
 ../Inverter/Inverter :
 	cd ../Inverter && make
+../Altimeter/Altimeter :
+	cd ../Altimeter && make

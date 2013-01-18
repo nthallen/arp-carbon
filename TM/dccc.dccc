@@ -16,7 +16,7 @@
   0x0835, 0
   0x0848, 0
 
-101
+102
   STRB,  0, 0x0001 ;  0: Cmd 0 On
   STRB,  0, 0x0002 ;  1: Cmd 0 Off
   STRB,  0, 0x0004 ;  2: Cmd 1 On
@@ -117,4 +117,5 @@
   STRB, 12, 0x0002 ; 97: Cmd 48 Off
   STRB, 12, 0x0004 ; 98: Cmd 49 On
   STRB, 12, 0x0008 ; 99: Cmd 49 Off
-  SET,  12, 0x0010 ;100; Spare Command
+  SET,  12, 0x0010 ;100; DIO2Sp/Coolant Divert
+  SET,  12, 0x0020 ;101; DIO6Sp/BAT Purge

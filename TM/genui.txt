@@ -383,6 +383,19 @@ ROWS 25
  1 InvQury7 Inverter Qury
  1 InvStale Inverter Stale
 
+ 1 lk204_init:PPstat:0 PilotPanel Status %.0lf
+ 1 pca9554_init:PPstat:1 PilotPanel Status %.0lf
+ 1 lk204_ack:PPstat:2 PilotPanel Status %.0lf
+ 1 pca9554_ack:PPstat:3 PilotPanel Status %.0lf
+ 1 Key_Pressed:PPstat:4 PilotPanel Status %.0lf
+ 1 WQ_NonEmpty:PPstat:5 PilotPanel Status %.0lf
+ 1 WQ_Full:PPstat:6 PilotPanel Status %.0lf
+ 1 LKWrEn:PPstat:7 PilotPanel Status %.0lf
+ 1 BAT_Purge_Req:PPstat:8 PilotPanel Statu%.0lfs 
+ 1 Land_Req:PPstat:9 PilotPanel Status %.0lf
+ 1 BAT_Purge_LED:PPstat:12 PilotPanel Status %.0lf
+ 1 Data_LED:PPstat:13 PilotPanel Status %.0lf
+
 #1 Sp1AI SPARE_SPARE AI
 #1 Sp2AI SPARE_SPARE AI
 #1 Sp3AI SPARE_SPARE AI

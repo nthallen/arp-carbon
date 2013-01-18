@@ -1,4 +1,4 @@
-csv HCIeng_1 172
+csv HCIeng_1 173
   0 THCIeng_1 %.3lf
   1 C24VT 
   2 CCelCT 
@@ -126,51 +126,52 @@ csv HCIeng_1 172
   124 MSk2T 
   125 MSk3T 
   126 PC__T 
-  127 PS__T 
-  128 QCLI_C_CS 
-  129 QCLI_C_Stale 
-  130 QCLI_C_Wave %.0lf
-  131 QCLI_C_fifodep 
-  132 QCLI_C_s 
-  133 QCLI_M_CS 
-  134 QCLI_M_Stale 
-  135 QCLI_M_Wave %.0lf
-  136 QCLI_M_fifodep 
-  137 QCLI_M_s 
-  138 SHTSt 
-  139 SH_CT 
-  140 SSP_C_Flags 
-  141 SSP_C_Num 
-  142 SSP_C_SN 
-  143 SSP_C_Stale 
-  144 SSP_C_Status %.0lf
-  145 SSP_C_TS 
-  146 SSP_C_T_FPGA 
-  147 SSP_C_T_HtSink 
-  148 SSP_M_Flags 
-  149 SSP_M_Num 
-  150 SSP_M_SN 
-  151 SSP_M_Stale 
-  152 SSP_M_Status %.0lf
-  153 SSP_M_TS 
-  154 SSP_M_T_FPGA 
-  155 SSP_M_T_HtSink 
-  156 SWStat 
-  157 Sp5AI 
-  158 Sp6AI 
-  159 Sp7AI 
-  160 Sp8AI 
-  161 SpAI9 
-  162 SpHCT 
-  163 SpHtTSt 
-  164 TVPos 
-  165 TVStat 
-  166 TVStep 
-  167 WPmpT 
-  168 WTnkT 
-  169 freemem 
-  170 vl_bdT 
-  171 vl_cpuT 
+  127 PPstat %.0lf
+  128 PS__T 
+  129 QCLI_C_CS 
+  130 QCLI_C_Stale 
+  131 QCLI_C_Wave %.0lf
+  132 QCLI_C_fifodep 
+  133 QCLI_C_s 
+  134 QCLI_M_CS 
+  135 QCLI_M_Stale 
+  136 QCLI_M_Wave %.0lf
+  137 QCLI_M_fifodep 
+  138 QCLI_M_s 
+  139 SHTSt 
+  140 SH_CT 
+  141 SSP_C_Flags 
+  142 SSP_C_Num 
+  143 SSP_C_SN 
+  144 SSP_C_Stale 
+  145 SSP_C_Status %.0lf
+  146 SSP_C_TS 
+  147 SSP_C_T_FPGA 
+  148 SSP_C_T_HtSink 
+  149 SSP_M_Flags 
+  150 SSP_M_Num 
+  151 SSP_M_SN 
+  152 SSP_M_Stale 
+  153 SSP_M_Status %.0lf
+  154 SSP_M_TS 
+  155 SSP_M_T_FPGA 
+  156 SSP_M_T_HtSink 
+  157 SWStat 
+  158 Sp5AI 
+  159 Sp6AI 
+  160 Sp7AI 
+  161 Sp8AI 
+  162 SpAI9 
+  163 SpHCT 
+  164 SpHtTSt 
+  165 TVPos 
+  166 TVStat 
+  167 TVStep 
+  168 WPmpT 
+  169 WTnkT 
+  170 freemem 
+  171 vl_bdT 
+  172 vl_cpuT 
 csv HCIeng_10 7
   0 THCIeng_10 %.3lf
   1 CCel1T 
