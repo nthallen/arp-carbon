@@ -61,7 +61,7 @@ SCRIPT = runfile.FF
 DISTRIB = ../BAT/BAT_SPAN ../BAT/BS2cdfext
 DISTRIB = ../Inverter/Inverter
 DISTRIB = ../Altimeter/Altimeter
-SRCDIST = HCI.sws $qclibase
+SRCDIST = HCI.sws $(qclibase)
 
 HCIcol : -lsubbus
 HCIsrvr : -lsubbus
