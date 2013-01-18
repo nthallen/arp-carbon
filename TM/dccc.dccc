@@ -1,7 +1,7 @@
 0
 
 
-13
+14
   0x0808, 0
   0x0811, 0
   0x080A, 0
@@ -15,6 +15,7 @@
   0x082C, 0
   0x0835, 0
   0x0848, 0
+  0x0881, 0
 
 102
   STRB,  0, 0x0001 ;  0: Cmd 0 On
@@ -118,4 +119,4 @@
   STRB, 12, 0x0004 ; 98: Cmd 49 On
   STRB, 12, 0x0008 ; 99: Cmd 49 Off
   SET,  12, 0x0010 ;100; DIO2Sp/Coolant Divert
-  SET,  12, 0x0020 ;101; DIO6Sp/BAT Purge
+  SET,  13, 0x0100 ;101; DIO_5Sp/BAT Purge (actually port 25 bit 0)
