@@ -1,4 +1,4 @@
-# Makefile Generated Fri Jan 18 11:39:23 EST 2013
+# Makefile Generated Fri Jan 18 18:27:51 EST 2013
 MNC=HCI
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
@@ -33,8 +33,8 @@ OBJ+=HCIcltncoui.c HCIcltncoui.o
 TGT=HCIcol HCIsrvr HCIdisp HCIdispnc BSdisp BSdispnc HCIalgo
 TGT+=HCIengext doit HCIclt HCIcltnc
 DISTRIB=QCLI_C.out QCLI_M.out QCLI_I.out ../BAT/BAT_SPAN
-DISTRIB+=../BAT/BS2cdfext ../Inverter/Inverter ../Altimeter/Altimeter
-DISTRIB+=HCI.pcm tm.dac
+DISTRIB+=../BAT/BS2cdfext ../BAT/BSlogger ../Inverter/Inverter
+DISTRIB+=../Altimeter/Altimeter HCI.pcm tm.dac
 IDISTRIB=Experiment.config VERSION doit
 SRCDIST=QCLI_C.m QCLI_M.m QCLI_I.m HCI.sws $(qclibase) hk.tbl
 SRCDIST+=qcli.tbl Cells.tbl BAT_SPAN.tbl hk2.tbl HCI.tma
@@ -252,7 +252,7 @@ COLFLAGS = -H address.h
 address.h : HCIcol.cc
 HCIeng.cdf : genui.txt
 	genui -d ../eng -c genui.txt
-../BAT/BAT_SPAN ../BAT/BS2cdfext :
+../BAT/BAT_SPAN ../BAT/BS2cdfext ../BAT/BSlogger :
 	cd ../BAT && make
 ../Inverter/Inverter :
 	cd ../Inverter && make

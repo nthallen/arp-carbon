@@ -58,7 +58,7 @@ SRC = pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc
 SRC = PTRH_conv.tmc
 SCRIPT = idx64.idx64 interact dccc.dccc
 SCRIPT = runfile.FF
-DISTRIB = ../BAT/BAT_SPAN ../BAT/BS2cdfext
+DISTRIB = ../BAT/BAT_SPAN ../BAT/BS2cdfext ../BAT/BSlogger
 DISTRIB = ../Inverter/Inverter
 DISTRIB = ../Altimeter/Altimeter
 SRCDIST = HCI.sws $(qclibase)
@@ -78,7 +78,7 @@ COLFLAGS = -H address.h
 address.h : HCIcol.cc
 HCIeng.cdf : genui.txt
 	genui -d ../eng -c genui.txt
-../BAT/BAT_SPAN ../BAT/BS2cdfext :
+../BAT/BAT_SPAN ../BAT/BS2cdfext ../BAT/BSlogger :
 	cd ../BAT && make
 ../Inverter/Inverter :
 	cd ../Inverter && make
