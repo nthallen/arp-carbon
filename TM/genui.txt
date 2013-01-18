@@ -391,7 +391,7 @@ ROWS 25
  1 WQ_NonEmpty:PPstat:5 PilotPanel Status %.0lf
  1 WQ_Full:PPstat:6 PilotPanel Status %.0lf
  1 LKWrEn:PPstat:7 PilotPanel Status %.0lf
- 1 BAT_Purge_Req:PPstat:8 PilotPanel Statu%.0lfs 
+ 1 BAT_Purge_Req:PPstat:8 PilotPanel Status %.0lf 
  1 Land_Req:PPstat:9 PilotPanel Status %.0lf
  1 BAT_Purge_LED:PPstat:12 PilotPanel Status %.0lf
  1 Data_LED:PPstat:13 PilotPanel Status %.0lf
