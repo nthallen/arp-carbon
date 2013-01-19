@@ -1346,3 +1346,28 @@ State CO2_Laser_TEC_Ramp_Done NoLog {
   Validate CO2_Laser_TEC_Ramp_Idle;
 }
 
+# -----------------------------------------------------------------------------
+# Partition for BAT Purge
+# -----------------------------------------------------------------------------
+Partition
+
+State BAT_Purge_Watch {
+  Hold until (PP_BAT_Purge_LED);
+  Hold until (!PP_BAT_Purge_Req) or 2
+  else Validate BAT_Purge_Cancel;
+  > BAT Purge On
+  Hold until (PP_BAT_Purge_Req || (SWStat == SWS_TIMEWARP)) or 2:00;
+  > BAT Purge Off
+  Hold until (!PP_BAT_Purge_Req);
+  > Panel Purge LED Off
+  Validate BAT_Purge_Watch;
+}
+
+State BAT_Purge_Cancel {
+  > BAT Purge Off
+  Hold until (!PP_BAT_Purge_Req);
+  > Panel Purge LED Off
+  Validate BAT_Purge_Watch;
+}
+
+
