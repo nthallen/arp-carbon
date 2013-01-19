@@ -1,24 +1,38 @@
 README.txt for Harvard Carbon Isotopes instrument
 
 CPU Configuration:
+  Versalogic Mamba VL-EBX-37F
+    Manual says in order to use IRQs on the ISA bus, they must
+    first be enabled in the BIOS setup, but there is no option
+    to enable or disable IRQs in the BIOS setup.
+    Only IRQs 3, 4, 5 and 10 go to ISA bus. We will use IRQ5,
+    which is consistent with the Python config below.
+    
+    Apparently we have no need for the Firmbase support, so
+    I have disabled it in the BIOS.
+    
+    [x] Check to see if CPU temp and board temp info is accessible
+        in the same way as on Python: No it is not.
+    [y] Test Xtreme/104 as RS-232
+  
   Versalogic Python VL-EBX-11
-  BIOS requires PS/2 keyboard, not USB
-    Actually, the VL-EBX-11 currently in /net/hci responds to USB keyboard.
-    Probably smart to install the connector in case another board has to
-    be swapped in at some point and does not respond to USB for some reason.
-  Drive C: Secondary/Slave (for compact flash)
-  PCI INT B => IRQ10 (instead of IRQ5)
-  ISA IRQ 5 Enabled (for Xtreme/104 board)
-  COM1 => IRQ4 (for use with inverter)
-  COM2 => IRQ3 (default, for use with SPAN)
-  COM3 => IRQ7 (for use with laser altimeter) (need to test this)
-  COM4 => Disabled
+    BIOS requires PS/2 keyboard, not USB
+      Actually, the VL-EBX-11 currently in /net/hci responds to USB keyboard.
+      Probably smart to install the connector in case another board has to
+      be swapped in at some point and does not respond to USB for some reason.
+    Drive C: Secondary/Slave (for compact flash)
+    PCI INT B => IRQ10 (instead of IRQ5)
+    ISA IRQ 5 Enabled (for Xtreme/104 board)
+    COM1 => IRQ4 (for use with inverter)
+    COM2 => IRQ3 (default, for use with SPAN)
+    COM3 => IRQ7 (for use with laser altimeter) (need to test this)
+    COM4 => Disabled
   
   Xtreme/104:
     J1.6 Jumpered to select fast clock
     J1.* open for I/O address selection 0x300
     C5 Jumpered for IRQ5 (Mode 1, one IRQ)
-    J5 P1 RX & TX Jumpered for RS422 on Port 1
+    J5.P1.RX & .TX Jumpered for RS422 on Port 1
     
     /sbin/devc-ser8250 Driver needs to be invoked with -c option
     to note fast input clock.
@@ -67,3 +81,21 @@ LK204:
    2 012 Anderson Group
    3 345 Harvard SEAS
    4  6  
+   
+                               R   G
+  Top LED is controlled by GPO 1 & 2
+  Middle LED               GPO 3 & 4
+  Bottom LED               GPO 5 & 6
+  The first GPO is the Red LED, the second is green
+  
+  Turn on GPO:  FE 57 n
+  Turn off GPO: FE 56 n
+  Set Startup:  FE C3 n s (where s=1 for on, s=0 for off)
+  
+  Want to initialize all of these LEDs to be off, so:
+  > Panel display text \xfe\xc3\x01\x00
+  > Panel display text \xfe\xc3\x02\x00
+  > Panel display text \xfe\xc3\x03\x00
+  > Panel display text \xfe\xc3\x04\x00
+  > Panel display text \xfe\xc3\x05\x00
+  > Panel display text \xfe\xc3\x06\x00
