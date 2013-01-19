@@ -1360,6 +1360,7 @@ State BAT_Purge_Watch {
   > BAT Purge Off
   Hold until (!PP_BAT_Purge_Req);
   > Panel Purge LED Off
+  Hold until (!PP_BAT_Purge_LED);
   Validate BAT_Purge_Watch;
 }
 
@@ -1367,6 +1368,7 @@ State BAT_Purge_Cancel {
   > BAT Purge Off
   Hold until (!PP_BAT_Purge_Req);
   > Panel Purge LED Off
+  Hold until (!PP_BAT_Purge_LED);
   Validate BAT_Purge_Watch;
 }
 
