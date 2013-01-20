@@ -35,7 +35,8 @@ CPU Configuration:
     J5.P1.RX & .TX Jumpered for RS422 on Port 1
     
     /sbin/devc-ser8250 Driver needs to be invoked with -c option
-    to note fast input clock.
+    to note fast input clock:
+      /sbin/devc-ser8250 -c 7372800/16 -u4 300,5
 
 Need PS/2 keyboard Connector for BIOS, but not for QNX6. Or maybe not.
 
@@ -99,3 +100,5 @@ LK204:
   > Panel display text \xfe\xc3\x04\x00
   > Panel display text \xfe\xc3\x05\x00
   > Panel display text \xfe\xc3\x06\x00
+
+Mamba CPU Die Temperature
