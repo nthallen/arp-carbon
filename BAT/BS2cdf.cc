@@ -186,14 +186,16 @@ void BS2cdf::nc_setup(const char *data_path, const char *setup_path) {
   if (nc_err != NC_NOERR)
     nl_error(3, "Error creating unlimited scan dimension");
   
-  if (setup_path == NULL) {
-    if (data_path == NULL) data_path = ".";
-    snprintf(setup, 160, "%s/BAT_setup.txt", data_path);
-    setup_path = &setup[0];
-  }
+  if (setup_path == NULL) setup_path = "BAT_setup.txt";
+  if (data_path == NULL) data_path = ".";
   ifp = fopen(setup_path, "r");
+  if (ifp == NULL) {
+    snprintf(setup, 160, "%s/Base/%s", data_path, setup_path);
+    ifp = fopen(setup, "r");
+  }
   if (ifp == NULL)
-    nl_error(3, "Unable to read setup file: '%s'", setup_path);
+    nl_error(3, "Unable to read setup file: '%s' or '%s'",
+      setup_path, setup);
   line_num = 1;
   if (fgets(title, sizeof(title), ifp) == NULL)
     nl_error(3, "%s:%d Unexpected EOF reading title", setup_path, line_num);
