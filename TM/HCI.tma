@@ -784,11 +784,11 @@ State GasDeck_PI {
 }
 
 State GasDeck_Fill_MINI_Cell {
-  +1 > CO2 Gas Valve Closed
-  +1 > MINI Gas Valve Open
-  +2 > MINI Exhaust Valve Closed
   Hold Until ( convert(MCelHP) < 740 ) or 1
      else  Validate GasDeck_Close;
+  +1 > CO2 Gas Valve Closed
+  +1 > MINI Gas Valve Open
+  +1 > MINI Exhaust Valve Closed
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
@@ -802,11 +802,11 @@ State GasDeck_Fill_MINI_Cell {
 }
 
 State GasDeck_Fill_CO2_Cell {
-  +1 > MINI Gas Valve Closed
-  +1 > CO2 Gas Valve Open
-  +2 > CO2 Exhaust Valve Closed
   Hold Until ( convert(CCelHP) < 740 ) or 1
      else  Validate GasDeck_Close;
+  +1 > MINI Gas Valve Closed
+  +1 > CO2 Gas Valve Open
+  +1 > CO2 Exhaust Valve Closed
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
@@ -822,9 +822,9 @@ State GasDeck_Fill_CO2_Cell {
 State GasDeck_Close {
      > Gas Deck Flow Controller Closed On
   +1 > Gas Deck Valve Closed
-  +2 > MINI Gas Valve Closed
+  +1 > MINI Gas Valve Closed
      > CO2 Gas Valve Closed
-  +2 Validate GasDeck_Idle;
+  +1 Validate GasDeck_Idle;
 }
 
 #_______________________________________________________________
