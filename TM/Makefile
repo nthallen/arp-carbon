@@ -1,4 +1,4 @@
-# Makefile Generated Sat Jan 19 09:59:45 EST 2013
+# Makefile Generated Mon Jan 21 08:59:53 EST 2013
 MNC=HCI
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
@@ -37,8 +37,9 @@ DISTRIB+=../BAT/BS2cdfext ../BAT/BSlogger ../Inverter/Inverter
 DISTRIB+=../Altimeter/Altimeter HCI.pcm tm.dac
 IDISTRIB=Experiment.config VERSION doit
 SRCDIST=QCLI_C.m QCLI_M.m QCLI_I.m HCI.sws $(qclibase)
-SRCDIST+=Thermistors.txt hk.tbl qcli.tbl Cells.tbl BAT_SPAN.tbl
-SRCDIST+=hk2.tbl HCI.tma /usr/local/share/huarp/freemem.tmc
+SRCDIST+=Thermistors.txt ../BAT/N51AU.txt hk.tbl qcli.tbl Cells.tbl
+SRCDIST+=BAT_SPAN.tbl hk2.tbl HCI.tma
+SRCDIST+=/usr/local/share/huarp/freemem.tmc
 SRCDIST+=/usr/local/share/huarp/cpu_usage.tmc
 SRCDIST+=/usr/local/share/huarp/vl_temp.tmc
 SRCDIST+=/usr/local/share/huarp/tmdf.tmc

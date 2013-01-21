@@ -62,6 +62,7 @@ DISTRIB = ../BAT/BAT_SPAN ../BAT/BS2cdfext ../BAT/BSlogger
 DISTRIB = ../Inverter/Inverter
 DISTRIB = ../Altimeter/Altimeter
 SRCDIST = HCI.sws $(qclibase) Thermistors.txt
+SRCDIST = ../BAT/N51AU.txt
 
 HCIcol : -lsubbus
 HCIsrvr : -lsubbus
