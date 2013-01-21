@@ -30,4 +30,4 @@ BS2cdfoui.c : BS2cdf.oui
 	oui -o BS2cdfoui.c BS2cdf.oui
 
 clean :
-	rm -f *.o BAT_SPANoui.c BAT_SPAN BSloggeroui.c BSlogger
+	rm -f *.o BAT_SPANoui.c BAT_SPAN BSloggeroui.c BSlogger BS2cdfext BS2cdfoui.c
