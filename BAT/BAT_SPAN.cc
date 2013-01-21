@@ -42,18 +42,18 @@ void BSDataRecord::init(Selector &S) {
 
 void BSDataRecord::BAT_data(unsigned char *data) {
   if (LogEnbl) BSloggerport->BAT_data(data);
-  BAT_SPAN.BAT_Px = ushort_swap(&data[3]); // 0
-  BAT_SPAN.BAT_Py = ushort_swap(&data[5]); // 1
-  BAT_SPAN.BAT_Pz = ushort_swap(&data[7]); // 2
-  BAT_SPAN.BAT_Ps = ushort_swap(&data[9]); // 3
-  BAT_SPAN.BAT_Ax = ushort_swap(&data[11]); // 4
-  BAT_SPAN.BAT_Ay = ushort_swap(&data[13]); // 5
-  BAT_SPAN.BAT_Az = ushort_swap(&data[15]); // 6
-  BAT_SPAN.BAT_FOTemp = ushort_swap(&data[25]); // 11
-  BAT_SPAN.BAT_Pump = ushort_swap(&data[27]); // 12
-  BAT_SPAN.BAT_Axb = ushort_swap(&data[29]); // 13
-  BAT_SPAN.BAT_Ayb = ushort_swap(&data[31]); // 14
-  BAT_SPAN.BAT_Azb = ushort_swap(&data[33]); // 15
+  BAT_SPAN.BAT_Px = ushort_swap(&data[3]) - 32768; // 0
+  BAT_SPAN.BAT_Py = ushort_swap(&data[5]) - 32768; // 1
+  BAT_SPAN.BAT_Pz = ushort_swap(&data[7]) - 32768; // 2
+  BAT_SPAN.BAT_Ps = ushort_swap(&data[9]) - 32768; // 3
+  BAT_SPAN.BAT_Ax = ushort_swap(&data[11]) - 32768; // 4
+  BAT_SPAN.BAT_Ay = ushort_swap(&data[13]) - 32768; // 5
+  BAT_SPAN.BAT_Az = ushort_swap(&data[15]) - 32768; // 6
+  BAT_SPAN.BAT_FOTemp = ushort_swap(&data[25]) - 32768; // 11
+  BAT_SPAN.BAT_Pump = ushort_swap(&data[27]) - 32768; // 12
+  BAT_SPAN.BAT_Axb = ushort_swap(&data[29]) - 32768; // 13
+  BAT_SPAN.BAT_Ayb = ushort_swap(&data[31]) - 32768; // 14
+  BAT_SPAN.BAT_Azb = ushort_swap(&data[33]) - 32768; // 15
   ++BAT_SPAN.n_bat_records;
 }
 

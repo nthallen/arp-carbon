@@ -39,18 +39,18 @@ typedef struct __attribute__((__packed__)) {
   unsigned char NGGL1L2;
   unsigned char ExtSolnStatus;
   unsigned char SigMask;
-  unsigned short BAT_Px; // 0
-  unsigned short BAT_Py; // 1
-  unsigned short BAT_Pz; // 2
-  unsigned short BAT_Ps; // 3
-  unsigned short BAT_Ax; // 4
-  unsigned short BAT_Ay; // 5
-  unsigned short BAT_Az; // 6
-  unsigned short BAT_FOTemp; // 11
-  unsigned short BAT_Pump; // 12
-  unsigned short BAT_Axb; // 13
-  unsigned short BAT_Ayb; // 14
-  unsigned short BAT_Azb; // 15
+  short BAT_Px; // 0
+  short BAT_Py; // 1
+  short BAT_Pz; // 2
+  short BAT_Ps; // 3
+  short BAT_Ax; // 4
+  short BAT_Ay; // 5
+  short BAT_Az; // 6
+  short BAT_FOTemp; // 11
+  short BAT_Pump; // 12
+  short BAT_Axb; // 13
+  short BAT_Ayb; // 14
+  short BAT_Azb; // 15
   unsigned char INS_Status;
   unsigned char n_span_records;
   unsigned char n_bp_records;

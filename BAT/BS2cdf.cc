@@ -420,7 +420,7 @@ void BS2cdf::Parse_Rec(const unsigned char *SPAN_rec,
 
 void BS2cdf::Parse_BAT_data(BS2Cchan *var, const unsigned char *rec) {
   int offset = 3+2*var->physicalChannel;
-  short val = (rec[offset]<<8) + rec[offset+1];
+  short val = ((rec[offset]<<8) + rec[offset+1]) - 32768;
   if (var->cFormat_code != NC_SHORT)
     nl_error(3, "Unexpected format '%s' for BAT Channel", var->cFormat);
   int status = nc_put_var1_short(ncid, var->var_id, index, &val);
