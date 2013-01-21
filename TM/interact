@@ -23,5 +23,5 @@
   Launch - tmdf
   Launch - BAT_SPAN -S /dev/ser2 -B /dev/ser4 -N `mlf_find BAT_SPAN`
   Launch - Inverter -p /dev/ser1
-# Launch - Altimeter -p /dev/ser3
+  Launch - Altimeter -p /dev/ser3
   Launch - HCIalgo -v

@@ -91,6 +91,9 @@ int MRA_Serial::ProcessData(int flag) {
 MRA_Driver::MRA_Driver(const char *MRA_port) {
   MRA_TM.init("MRA_Altitude", &MRA_Altitude, sizeof(MRA_Altitude));
   MRA.init(MRA_port, &MRA_Altitude);
+  add_child(&MRA_TM);
+  add_child(&MRA);
+  add_child(&MRA_Cmd);
 }
 
 MRA_Driver::~MRA_Driver() {}
