@@ -7,9 +7,13 @@ echo "==> Checking file system"
 echo "==> Cleaning out huarp run dir"
 rm -rf /var/huarp/run/*
 
+echo "==> Starting ser driver for BAT"
+/sbin/devc-ser8250 -c 7372800/16 -u4 300,5
+
 echo "==> Starting serusb driver for DACS"
 /sbin/devc-serusb -d vid=0x0403,did=0x6010,module=ftdi
 
 # echo "==> Starting Network Daemons"
+# /usr/bin/pdebug 8000
 # /usr/sbin/sshd
 # /usr/sbin/ntpd
