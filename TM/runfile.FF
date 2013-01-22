@@ -5,9 +5,9 @@
   echo "Running script interact" >$memo
 
 # Verify and/or Program QCLIs
-  qclidprog -h QCLI_M -d0 -cccwcwc $TMBINDIR/QCLI_M.out
-  qclidprog -h QCLI_C -d1 -cccwcwc $TMBINDIR/QCLI_C.out
-# qclidprog -h QCLI_I -d2 -cccwcwc $TMBINDIR/QCLI_I.out
+  qclidprog -h QCLI_M -d0 -cwcwc $TMBINDIR/QCLI_M.out
+  qclidprog -h QCLI_C -d1 -cwcwc $TMBINDIR/QCLI_C.out
+# qclidprog -h QCLI_I -d2 -cwcwc $TMBINDIR/QCLI_I.out
 
   Launch dccc   dccc -f $TMBINDIR/dccc.dccc
   Launch DG/cmd HCIcol
@@ -21,7 +21,7 @@
 # Launch - sspdrv -H 10.0.0.212 -hSSP_I -N `mlf_find SSP_I`
 # Launch - qclidacsd -h QCLI_I -d 2
   Launch - tmdf
-# Launch - BAT_SPAN -S /dev/ser2 -B /dev/ser4 -N `mlf_find BAT_SPAN`
+  Launch - BAT_SPAN -S /dev/ser2 -B /dev/ser4 -N `mlf_find BAT_SPAN`
   Launch - Inverter -p /dev/ser1
-# Launch - Altimeter -p /dev/ser3
+  Launch - Altimeter -p /dev/ser3
   Launch - HCIalgo -v
