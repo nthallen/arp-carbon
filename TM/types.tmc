@@ -13,7 +13,7 @@ TM typedef unsigned char  UCHAR { text "%3d"; }
 TM typedef unsigned short UINT { text "%5d"; }
 TM typedef unsigned short AIC  { text "%4x"; }
 TM typedef unsigned char  DStat {
-  text "%3x";
+  text "%3u";
   collect x = sbrba(x.address);
 }
 

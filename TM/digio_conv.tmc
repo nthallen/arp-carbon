@@ -86,3 +86,9 @@ off_on_t L1_S; Invalidate L1_S;
   { L1_S = (DS86A>>7)&1; Validate L1_S; }
 off_on_t L2_S; Invalidate L2_S;
   { L2_S = (DS873>>0)&1; Validate L2_S; }
+off_on_t SW0; Invalidate SW0;
+  { SW0 = (IOSwS>>0)&1; Validate SW0; }
+off_on_t SW1; Invalidate SW1;
+  { SW1 = (IOSwS>>1)&1; Validate SW1; }
+off_on_t FltMd; Invalidate FltMd;
+  { FltMd = (IOSwS>>2)&1; Validate FltMd; }

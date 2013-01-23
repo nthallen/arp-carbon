@@ -61,7 +61,7 @@ Altimeter {
 
 Status {
   HBox { +-; Title: Status; -+ };
-  IOSwS: (IOSwS,3);
+  { IO: (FltMd,3) (SW0,3) (SW1,3) };
   >{ (flttime,9) }<;
   MFCtr: (MFCtr,5);
 }
