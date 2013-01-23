@@ -1,6 +1,19 @@
 echo "==> Adding /usr/pkg/lib to LIBPATH"
 setconf LIBPATH $(getconf LIBPATH):/usr/pkg/lib
 
+if /sbin/ifconfig -l | grep -q fxp0; then
+  echo "==> Network driver already started"
+else
+  echo "==> Starting network driver"
+  mount -T io-pkt devnp-speedo.so
+  netmanager
+fi
+
+if [ ! -d /net ]; then
+  echo "==> Starting QNET driver"
+  mount -T io-pkt lsm-qnet.so
+fi
+
 echo "==> Checking file system"
 /sbin/chkfsys -Pqru /
 
