@@ -100,16 +100,16 @@ State HCI_Init {
 
 State HCI_Start {
       Depending on (Shutdown) { Validate HCI_Shutdown; }
-   +5 > HK Set Sample Heater Temp Setpoint 1.25
+   +5 > HK Set Sample Heater Temp Setpoint 1.39
    +1 > HK Sample Htr Ctl On
    +1 Validate HCI_SampleHtr_Watch;
 }
 
 State HCI_SampleHtr_Watch {
      Depending on (Shutdown) { Validate HCI_Shutdown; }
-     Hold until (convert(SH_CT) > 1.35);
+     Hold until (convert(SH_CT) > 1.45);
    +1 > HK Sample Htr Ctl Off
-     Hold until (convert(SH_CT) < 1.25);
+     Hold until (convert(SH_CT) < 1.35);
    +1 Validate HCI_Start;
 }
 
@@ -1110,6 +1110,7 @@ Partition
 
 State MTControl_Init {
 Depending on (Shutdown) { Validate MTControl_Shutdown; }
+Depending on (Record) { Validate MTControl_Start; }
 }
 
 State MTControl_Start {
