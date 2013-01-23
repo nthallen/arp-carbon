@@ -101,6 +101,7 @@ f = ne_dialg(f, 'add', 0, 1, 'gHCIhkdacs', 'HK DACS' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIhkdacsp', 'P' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIhkdacst', 'Temp' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIhkdacsrh', 'RH' );
+f = ne_dialg(f, 'add', 1, 0, 'pHCIhkdacss', 'Status' );
 f = ne_dialg(f, 'add', 0, 1, 'gHCIhkhk', 'HK HK' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIhkhkcpu', 'CPU' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIhkhkd', 'Disk' );
