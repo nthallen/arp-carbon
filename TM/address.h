@@ -116,5 +116,3 @@
 #define CCel2T_Address 0xCF4
 #define CCel1T_Address 0xCB4
 #define C24VT_Address 0xCB0
-#define vl_bdT_Address 0x26
-#define vl_cpuT_Address 0x25

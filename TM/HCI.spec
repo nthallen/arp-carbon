@@ -1,6 +1,11 @@
 tmcbase = /usr/local/share/huarp/freemem.tmc
-tmcbase = /usr/local/share/huarp/cpu_usage.tmc
+tmcbase = cpu_usage.tmc
 tmcbase = /usr/local/share/huarp/vl_temp.tmc
+
+# Pick one of these two:
+tmcbase = /usr/local/share/huarp/ebx11_temp.tmc
+# tmcbase = /usr/local/share/huarp/ebx37f_temp.tmc
+
 tmcbase = /usr/local/share/huarp/tmdf.tmc
 tmcbase = /usr/local/share/huarp/ptrhm.cc
 tmcbase = /usr/local/share/huarp/flttime.tmc
@@ -43,10 +48,14 @@ colbase = idx64col.tmc
 colbase = PTRH_col.tmc
 colbase = qcli_col.tmc
 colbase = /usr/local/share/huarp/DACS_ID.tmc
+
+# Pick one of these two:
 colbase = /usr/local/share/huarp/vl_temp_col.tmc
+# colbase = /usr/local/share/huarp/ebx37f_temp_col.tmc
+
 colbase = /usr/local/share/huarp/tmdf_col.tmc
 colbase = /usr/local/share/huarp/ptrhm_col.cc
-colbase = /usr/local/share/huarp/cpu_usage_col.tmc
+colbase = cpu_usage_col.tmc
 colbase = /usr/local/share/huarp/freemem_col.tmc
 
 swsbase = HCI.sws

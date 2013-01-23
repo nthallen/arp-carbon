@@ -1,0 +1,5 @@
+%{
+  #include "cpu_usage.h"
+  cpu_usage CPU;
+%}
+TM INITFUNC CPU.init(2);
