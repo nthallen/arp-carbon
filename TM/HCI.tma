@@ -13,14 +13,7 @@
 # For Flight, 2 Switches in the Off (Zero) Position.
 # If either switch in On (1, raised), most algo processing is suspended.
 # If both switches are On (1, raised) Shutdown begins immediately.
-
-# { tma_hold( ( (IOSwS & 3) == 1) || ( (IOSwS & 3) == 2) ); }
-#{ depending on (Shutdown) {} 
-#   else {
-#      if ( (IOSwS & 3) == 3)
-#          Validate Shutdown;
-#   }
-#}
+# (IOSwS & 3) == 3 - Flight Mode (both switches up)
 
 %{
   #include "msg.h"
@@ -140,7 +133,6 @@ State MINI_Init {
 
 State MINI_Start {
       Depending on (Shutdown) { Validate MINI_Shutdown; }
-   +1 Validate MTControl_Start;
    +5 Validate MQCL_SelectICOSandRun;
    +5 Hold until valid (MQCL_Watch);
    +1 Hold until valid (Pump_Watch);
@@ -193,7 +185,6 @@ State CO2_Init {
 
 State CO2_Start {
       Depending on (Shutdown) { Validate CO2_Shutdown; }
-   +1 Validate CTControl_Start;
    +5 Validate CQCL_SelectICOSandRun;
    +5 Hold until valid (CQCL_Watch);
    +1 Hold until valid (Pump_Watch);
@@ -421,7 +412,7 @@ State MQCL_Stop_Reset {
     Hold until ( (QCLI_M_s & 0x3938) == 0 ) or 2
     else > QCLI_M clear errors
     Hold until ( (QCLI_M_s & 0x3938) == 0 ) or 2
-    else Validate MQCL_Stop_Reset;
+    else { nl_error( 2, "M_QCLI Not Responding" ); }
     { ci_sendfcmd( 0, "Select QCLI_M Waveform Number %d\n", QCLI_M_Wave );
       Validate MQCL_Idle;
     }
@@ -669,7 +660,7 @@ State CQCL_Stop_Reset {
     Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 2
     else > QCLI_C clear errors
     Hold until ( (QCLI_C_s & 0x3938) == 0 ) or 2
-    else Validate CQCL_Stop_Reset;
+    else { nl_error( 2, "C_QCLI Not Responding" ); }
     { ci_sendfcmd( 0, "Select QCLI_C Waveform Number %d\n", QCLI_C_Wave );
       Validate CQCL_Idle;
     }
@@ -1111,6 +1102,8 @@ Partition
 State MTControl_Init {
 Depending on (Shutdown) { Validate MTControl_Shutdown; }
 Depending on (Record) { Validate MTControl_Start; }
+    Hold until ((IOSwS & 3) == 3) ;
+    Validate MTControl_Start; 
 }
 
 State MTControl_Start {
@@ -1169,6 +1162,9 @@ Partition
 
 State CTControl_Init {
   Depending on (Shutdown) { Validate CTControl_Shutdown; }
+  Depending on (Record) { Validate CTControl_Start; }
+    Hold until ((IOSwS & 3) == 3) ;
+    Validate CTControl_Start; 
 }
 
 State CTControl_Start {
