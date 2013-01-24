@@ -2,10 +2,18 @@ echo "==> Checking file system"
 /sbin/chkfsys -Pqru /
 
 # Mount ethernet driver and start qnet
-echo "==> Starting ethernet and qnet"
-mount -T io-pkt devnp-e1000.so
-mount -T io-pkt lsm-qnet.so
-netmanager
+if /sbin/ifconfig -l | grep -q wm0; then
+  echo "==> Ethernet already started"
+else
+  echo "==> Starting ethernet"
+  mount -T io-pkt devnp-e1000.so
+  netmanager
+fi
+
+if [ ! -d /net ]; then
+  echo "==> Starting QNET driver"
+  mount -T io-pkt lsm-qnet.so
+fi
 
 echo "==> Adding /usr/pkg/lib to LIBPATH"
 setconf LIBPATH $(getconf LIBPATH):/usr/pkg/lib
