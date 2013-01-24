@@ -978,7 +978,7 @@ State Pump_Cool_Watch Nolog {
  +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
  +1 hold until ( BATH_TEMP_OK(convert(WTnkT)) ) or 5
     else Validate Pump_Cool_Cold;
-    Validate Pump_Watch;
+    Validate Pump_Cool_Watch;
 }
 
 State Pump_Cool_Cold {
