@@ -227,7 +227,7 @@ csv HCIeng_1 228
   225 n_span_records 
   226 vl_bdT 
   227 vl_cpuT 
-csv HCIeng_10 9
+csv HCIeng_10 10
   0 THCIeng_10 %.3lf
   1 CCel1T 
   2 CCel2T 
@@ -236,7 +236,8 @@ csv HCIeng_10 9
   5 MCel2T 
   6 MCelLP 
   7 MRA_Alt 
-  8 MRA_Stale 
+  8 MRA_Alt_a 
+  9 MRA_Stale 
 csv HCIeng_5 8
   0 THCIeng_5 %.3lf
   1 PM0I1 

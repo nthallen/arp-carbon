@@ -1,5 +1,5 @@
 %{
-  static char *MRA_Status_text[] = { " ", "x", "s", "*" };
+  static const char *MRA_Status_text[] = { " ", "x", "s", "*" };
 %}
 
 TM typedef unsigned char MRA_Status_t { text "%1d" MRA_Status_text[]; }
