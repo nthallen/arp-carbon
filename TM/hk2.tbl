@@ -55,7 +55,7 @@ Inverter {
 
 Altimeter {
   HBox { +-; Title: Altimeter; -+ };
-  Altitude: >{(MRA_Status,1)(MRA_Alt_a,6)} m;
+  Altitude: >HBox { (MRA_Alt_a,6); (MRA_Status,1) } m;
   Stale:    (MRA_Stale,3);
 }
 

@@ -2,8 +2,8 @@
   static const char *MRA_Status_text[] = { " ", "x", "s", "*" };
 %}
 
-TM typedef unsigned char MRA_Status_t { text "%1d" MRA_Status_text[]; }
+TM typedef unsigned short MRA_Status_t { text "%1d" MRA_Status_text[]; }
 MRA_t MRA_Alt_a; Invalidate MRA_Alt_a;
   { MRA_Alt_a = MRA_Alt & 0x3FFF; Validate MRA_Alt_a; }
 MRA_Status_t MRA_Status; Invalidate MRA_Status;
-  { MRA_Status = (MRA_Alt >> 14) & 3; }
+  { MRA_Status = (MRA_Alt >> 14) & 3; Validate MRA_Status; }
