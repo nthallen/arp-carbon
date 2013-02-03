@@ -439,7 +439,7 @@ ROWS 25
  1 BP_DatumID BestPos DatumID
  1 BP_Lat SPAN Lat
  1 BP_Lon SPAN Lon
- 1 BP_Ht Span Ht
+ 1 BP_Ht SPAN Ht
  1 BP_undulation BestPos undulation
  1 BP_LatStd BestPos LatStd
  1 BP_LonStd BestPos LonStd
