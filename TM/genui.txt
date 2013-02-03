@@ -18,22 +18,22 @@ ROWS 25
  1 CLPV_P CO2_CLPV P
  1 CLPV_T1C CO2_CLPV Temp
  1 CLPV_T2C CO2_CLPV Temp
+ 1 CLPVCT CO2_CLPV T_ctrl
+ 1 CLPVTSt CO2_CLPV T_ctrl
  1 CLPV_RHC CO2_CLPV RH
- 1 CQCL_P CO2_CQCL P
- 1 CQCL_T1C CO2_CQCL Temp
- 1 CQCL_T2C CO2_CQCL Temp
- 1 CQCL_RHC CO2_CQCL RH
-
- 1 CDetT CO2_Detector Temp
-
+ 
  1 CLasI CO2_Laser Current
  1 CLH_T CO2_Laser Temp
- 1 CLPVCT CO2_Laser T_ctrl
- 1 CLPVTSt CO2_Laser T_ctrl
+ 1 CQCL_T1C CO2_Laser Temp
+ 1 CQCL_T2C CO2_Laser Temp
  1 CLTE4R3T CO2_Laser T_ctrl
  1 CLTETSt CO2_Laser T_ctrl
  1 CLPV_HC_DS:DS84C:2 CO2_Laser Status
  1 CLTEC_DS:DS84C:4 CO2_Laser Status
+ 1 CQCL_P CO2_Laser P
+ 1 CQCL_RHC CO2_Laser RH
+
+ 1 CDetT CO2_Detector Temp
 
  1 CPmpT CO2_Pump Temp
  1 CPMtT CO2_Pump Temp
@@ -112,6 +112,11 @@ ROWS 25
  1 MDPVTSt MINI_Detector T_ctrl
  1 MDPV_HC_DS:DS868:3 MINI_Detector Status
 
+ 1 MLPV_P MINI_MLPV P
+ 1 MLPV_T1C MINI_MLPV Temp
+ 1 MLPV_T2C MINI_MLPV Temp
+ 1 MLPV_RHC MINI_MLPV RH
+
  1 MLasI MINI_Laser Current
  1 MLH_T MINI_Laser Temp
  1 MLPVCT MINI_Laser T_ctrl
@@ -120,20 +125,16 @@ ROWS 25
  1 MLTETSt MINI_Laser T_ctrl
  1 MLPV_TEC_DS:DS868:5 MINI_Laser Status
  1 MLTEC_DS:DS868:4 MINI_Laser Status
+ 1 MQCL_P MINI_Laser P
+ 1 MQCL_T1C MINI_Laser Temp
+ 1 MQCL_T2C MINI_Laser Temp
+ 1 MQCL_RHC MINI_Laser RH
 
  1 MDPV_P MINI_MDPV P
  1 MDPV_T1C MINI_MDPV Temp
  1 MDPV_T2C MINI_MDPV Temp
  1 MDPV_RHC MINI_MDPV RH
- 1 MLPV_P MINI_MLPV P
- 1 MLPV_T1C MINI_MLPV Temp
- 1 MLPV_T2C MINI_MLPV Temp
- 1 MLPV_RHC MINI_MLPV RH
- 1 MQCL_P MINI_MQCL P
- 1 MQCL_T1C MINI_MQCL Temp
- 1 MQCL_T2C MINI_MQCL Temp
- 1 MQCL_RHC MINI_MQCL RH
-
+ 
  1 MPmpT MINI_Pump Temp
  1 MPMtT MINI_Pump Temp
  1 MM_Pump_DS:DS851:0 MINI_Pump Status
@@ -453,7 +454,9 @@ ROWS 25
  1 ExtSolnStatus BestPos ESStat
  1 SigMask BestPos SigMask
  1 n_bp_records BestPos N
- 10 MRA_Alt Altimeter Ht
+ 10 MRA_Alt_a Altimeter Ht
+ 10 Stale:MRA_Alt:15 Altimeter Status
+ 10 Invalid:MRA_Alt:14 Altimeter Status
  10 MRA_Stale Altimeter Stale
 
 #1 Sp1AI SPARE_SPARE AI

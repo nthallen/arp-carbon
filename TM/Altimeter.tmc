@@ -4,7 +4,7 @@ TM typedef unsigned short MRA_t { text "%6.2lf"; convert METERS; }
 Calibration (MRA_t, METERS) { 0, 0, 16383, 327.66 }
 
 TM "Receive" MRA_Altitude 1;
-TM 10 Hz MRA_t MRA_Alt;
+TM 10 Hz UINT MRA_Alt;
 TM 10 Hz UCHAR MRA_Stale;
 Group MRA (MRA_Alt, MRA_Stale) {
   MRA_Alt = MRA_Altitude;
