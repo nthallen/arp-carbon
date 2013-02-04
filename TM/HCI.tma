@@ -896,9 +896,9 @@ State Pump_Start {
        Depending on (Shutdown) { Validate Pump_Shutdown; }
        Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
        # Don't necessarily need to wait here
-       Depending on (Pump_Cool_Watch) Validate Pump_Turn_On;
-       Depending on (Pump_Cool_Cold) Validate Pump_Turn_On;
-       Depending on (Pump_Cool_HiP_Watch) Validate Pump_Turn_On;
+       Depending on (Pump_Cool_Watch) { Validate Pump_Turn_On; }
+       Depending on (Pump_Cool_Cold) { Validate Pump_Turn_On; }
+       Depending on (Pump_Cool_HiP_Watch) { Validate Pump_Turn_On; }
 }
 
 State Pump_Turn_On {
