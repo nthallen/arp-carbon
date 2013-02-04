@@ -897,6 +897,7 @@ State Pump_Start {
        Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
        # Don't necessarily need to wait here
        Depending on (Pump_Cool_Watch) Validate Pump_Turn_On;
+       Depending on (Pump_Cool_Cold) Validate Pump_Turn_On;
        Depending on (Pump_Cool_HiP_Watch) Validate Pump_Turn_On;
 }
 
@@ -1010,7 +1011,7 @@ State Pump_Cool_Cold {
     { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
     { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
     > Coolant Divert On
-    Hold until ( BATH_TEMP_OK(convert(WTnkT)-5));
+    Hold until (BATH_TEMP_OK(convert(WTnkT)-5));
  +1 > Coolant Divert Off
  +1 Validate Pump_Cool_Watch;
 }
