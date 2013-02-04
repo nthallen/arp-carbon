@@ -111,6 +111,7 @@ State HCI_Shutdown {
       Hold until valid (MINI_Is_Shutdown) or 20;
       Hold until valid (CO2_Is_Shutdown) or 20;
       Hold until valid (Pump_Is_Shutdown) or 5:00;
+      Hold until valid (Inverter_Is_Shutdown) or 10;
    +1 Validate HCI_Is_Shutdown;
 }
 
@@ -838,9 +839,9 @@ State GasDeck_Close {
   +1 Validate GasDeck_Idle;
 }
 
-#_______________________________________________________________
+#---------------------------------------------------------------
 # Partition 9.5: GasDeck Shutdown
-#_______________________________________________________________
+#---------------------------------------------------------------
 Partition
 
 State GasDeck_WaitForShutdown {
@@ -874,94 +875,82 @@ State Pump_Init {
     > MINI Exhaust Valve Closed
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
- +1 > Inverter Arm On
-    Hold until (InvPwrS == 1 && InvErrS == 0) or 5
+    Hold until valid (Inverter_On) or 5
     else Validate Pump_Init_Inverter_Off;
     Validate Pump_Init_Ready;
 }
 
 State Pump_Init_Inverter_Off {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
-    Hold until (Pump_Ground_Power || (InvPwrS && !InvErrS));
+    Hold until valid (Inverter_On);
     Validate Pump_Init_Ready;
 }
 
 State Pump_Init_Ready {
-    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
-        Validate Pump_Init_Inverter_Off;
-    } 
+    Depending on (Inverter_Off) { Validate Pump_Init_Inverter_Off; }
     Depending on (Shutdown) { Validate Pump_Shutdown; }
     Depending on (Record) { Validate Pump_Start; }
 }
 
 State Pump_Start {
-    Depending on (Shutdown) { Validate Pump_Shutdown; }
-    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
-        Validate Pump_Inverter_Off;
-    } 
-    Hold until valid (Pump_Cool_Watch);
- +5 > MINI Scroll Pump On
- +10 > CO2 Scroll Pump On
- +10 > MINI Exhaust Valve Open
- +1 > CO2 Exhaust Valve Open
-    Validate Pump_Watch;
+       Depending on (Shutdown) { Validate Pump_Shutdown; }
+       Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
+       # Don't necessarily need to wait here
+       Hold until valid (Pump_Cool_Watch);
+    +5 > MINI Scroll Pump On
+   +10 > CO2 Scroll Pump On
+   +10 > MINI Exhaust Valve Open
+    +1 > CO2 Exhaust Valve Open
+       Validate Pump_Watch;
 }
 
 State Pump_Watch Nolog {
-    Depending on (Shutdown) { Validate Pump_Shutdown; }
-    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
-        Validate Pump_Inverter_Off;
-    } 
-    hold until ( !PUMP_TEMP_OK(convert(CPmpT)) ||
-         !PUMP_TEMP_OK(convert(MPmpT)) );
-    hold until ( PUMP_TEMP_OK(convert(CPmpT)) &&
-         PUMP_TEMP_OK(convert(MPmpT)) ) or 5
-    else Validate Pump_Hot;
-    Validate Pump_Watch;
+      Depending on (Shutdown) { Validate Pump_Shutdown; }
+      Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
+      hold until ( !PUMP_TEMP_OK(convert(CPmpT)) ||
+           !PUMP_TEMP_OK(convert(MPmpT)) );
+      hold until ( PUMP_TEMP_OK(convert(CPmpT)) &&
+           PUMP_TEMP_OK(convert(MPmpT)) ) or 5
+      else Validate Pump_Hot;
+      Validate Pump_Watch;
 }
 
 State Pump_Hot {
-    Depending on (Shutdown) { Validate Pump_Shutdown; }
-    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
-        Validate Pump_Inverter_Off;
-    } 
-    > CO2 Exhaust Valve Closed
-    > MINI Exhaust Valve Closed
- +1 > CO2 Scroll Pump Off
- +1 > MINI Scroll Pump Off
-    Hold until ( PUMP_TEMP_OK(convert(CPmpT)+5) &&
-         PUMP_TEMP_OK(convert(MPmpT)+5) );
-    Validate Pump_Start;
+      Depending on (Shutdown) { Validate Pump_Shutdown; }
+      Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
+      > CO2 Exhaust Valve Closed
+      > MINI Exhaust Valve Closed
+   +1 > CO2 Scroll Pump Off
+   +1 > MINI Scroll Pump Off
+      Hold until ( PUMP_TEMP_OK(convert(CPmpT)+5) &&
+           PUMP_TEMP_OK(convert(MPmpT)+5) );
+      Validate Pump_Start;
 }
 
 State Pump_Inverter_Off {
-    Depending on (Shutdown) { Validate Pump_Shutdown; }
-    > Inverter Power Off
-    > CO2 Exhaust Valve Closed
-    > MINI Exhaust Valve Closed
- +1 > CO2 Scroll Pump Off
- +1 > MINI Scroll Pump Off
-+10 > Inverter Power On
- +5 Hold until (Pump_Ground_Power || (InvPwrS == 1 && InvErrS == 0)) or 5
-    else Validate Pump_Inverter_Off;
-    Validate Pump_Start;
+      Depending on (Shutdown) { Validate Pump_Shutdown; }
+      > CO2 Exhaust Valve Closed
+      > MINI Exhaust Valve Closed
+   +1 > CO2 Scroll Pump Off
+   +1 > MINI Scroll Pump Off
+      Hold until (Inverter_On);
+      Validate Pump_Start;
 }
 
 State Pump_Shutdown {
- +1 > CO2 Exhaust Valve Closed
- +1 > MINI Exhaust Valve Closed
-    # Wait until cell is filled to 1 Atm before shutting down
-    # pumps since Exhaust valves do not hold against reverse
-    # pressure
-    Hold until valid (GasDeck_Is_Shutdown) or 2:00;
- +1 > CO2 Scroll Pump Off
- +1 > MINI Scroll Pump Off
- +1 Validate Pump_Off;
+   +1 > CO2 Exhaust Valve Closed
+   +1 > MINI Exhaust Valve Closed
+      # Wait until cell is filled to 1 Atm before shutting down
+      # pumps since Exhaust valves do not hold against reverse
+      # pressure
+      Hold until valid (GasDeck_Is_Shutdown) or 2:00;
+   +1 > CO2 Scroll Pump Off
+   +1 > MINI Scroll Pump Off
+   +1 Validate Pump_Off;
 }
 
 State Pump_Off {
     Hold until valid (Pump_Cool_Is_Shutdown);
-    > Inverter Arm Off
     Validate Pump_Is_Shutdown;
 }
 
@@ -974,15 +963,17 @@ State Pump_Is_Shutdown {}
 Partition
 
 %{
-#define BATH_TEMP_COLD 20
-#define PUMP_TEMP_COLD 35
-#define BATH_TEMP_OK(x) (x > BATH_TEMP_COLD)
-#define PUMP_COLD_OK(x) (x < PUMP_TEMP_COLD)
+  #define BATH_TEMP_COLD 20
+  #define PUMP_TEMP_COLD 35
+  #define BATH_TEMP_OK(x) (x > BATH_TEMP_COLD)
+  #define PUMP_COLD_OK(x) (x < PUMP_TEMP_COLD)
 %}
 
 State Pump_Cool_Init {
     > Coolant Pump Off
     > Coolant Divert Off
+    > Panel Top LED Off
+    > Panel Keypad Backlight Off
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Record) { Validate Pump_Cool_Start; }
 }
@@ -1431,4 +1422,44 @@ State BAT_Purge_Cancel {
   Validate BAT_Purge_Watch;
 }
 
+#----------------------------------------------------------------
+# Partition for Inverter
+#----------------------------------------------------------------
+Partition
 
+State Inverter_Init {
+     depending on (Shutdown) { Validate Inverter_Shutdown; }
+  +3 > Inverter Arm On
+     Hold until (InvPwrS == 1 && InvErrS == 0) or 5
+     else Validate Inverter_Off;
+     
+}
+
+State Inverter_On {
+    depending on (Shutdown) { Validate Inverter_Shutdown; }
+    { if (!Pump_Ground_Power &&
+          (!InvPwrS || InvErrS ||
+           (convert(PM1V1) < 26.5 && convert(PM1I1) < 1)))
+        Validate Inverter_Off;
+    } 
+}
+
+State Inverter_Off {
+    depending on (Shutdown) { Validate Inverter_Shutdown; }
+    depending on (1 Hz) { if (Pump_Ground_Power) Validate Inverter_On; }
+    > Inverter Power Off
+ +2 Hold until (convert(PM1V1) > 27);
+    > Inverter Power On
+    Hold until (InvPwrS == 1 && !InvErrS) or 5
+    else Validate Inverter_Off;
+    Validate Inverter_On;
+}
+
+State Inverter_Shutdown {
+      Hold until valid (Pump_Is_Shutdown);
+   +1 > Inverter Power Off
+   +1 > Inverter Arm Off
+      Validate Inverter_Is_Shutdown;
+}
+
+State Inverter_Is_Shutdown {}
