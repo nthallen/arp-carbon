@@ -31,7 +31,7 @@
 &Command
   : &AO_volts %f (Enter 0-10 Volts) * { sbwr( $1, ao_scale($2, 1.0, 10.0) ); }
   : &AO_5volts %f (Enter 0-5 Volts) * { sbwr( $1, ao_scale($2, 1.0, 5.0) ); }
-  : &AO_pset %f (Enter 0-100 Torr) * { sbwr( $1, ao_scale($2, 1/30., 100.0) ); }
+  : &AO_pset %f (Enter 0-100 Torr) * { sbwr( $1, ao_scale($2, 1/30., 120.0) ); }
   : Reprogram CB2 DACs * { reprogram_dacs(); }
   ;
 &AO_5volts <unsigned short>

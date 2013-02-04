@@ -93,17 +93,17 @@ State HCI_Init {
 
 State HCI_Start {
       Depending on (Shutdown) { Validate HCI_Shutdown; }
-   +5 > HK Set Sample Heater Temp Setpoint 1.39
-   +1 > HK Sample Htr Ctl On
    +1 Validate HCI_SampleHtr_Watch;
 }
 
 State HCI_SampleHtr_Watch {
-     Depending on (Shutdown) { Validate HCI_Shutdown; }
-     Hold until (convert(SH_CT) > 1.45);
+      Depending on (Shutdown) { Validate HCI_Shutdown; }
+   +5 > HK Set Sample Heater Temp Setpoint 1.39
+   +1 > HK Sample Htr Ctl On
+      Hold until (convert(SH_CT) > 1.45);
    +1 > HK Sample Htr Ctl Off
-     Hold until (convert(SH_CT) < 1.35);
-   +1 Validate HCI_Start;
+      Hold until (convert(SH_CT) < 1.35);
+   +1 Validate HCI_SampleHtr_Watch;
 }
 
 State HCI_Shutdown {
@@ -141,6 +141,7 @@ State MINI_Start {
 
 State MINI_Sample {
        Depending on (Shutdown) { Validate MINI_Shutdown; }
+       { if (!M_Pump_S || !M_Pump_DS) Validate MINI_Fill_To_Ambient; }
        > MINI Set Cell Pressure Setpoint 40
        Hold until (convert(MCelLP) < 10);
     +1 > MINI Pressure Reg On
@@ -153,11 +154,20 @@ State MINI_Sample {
 
 State MINI_Calibrate {
      Depending on (Shutdown) { Validate MINI_Shutdown; }
+     { if (!M_Pump_S || !M_Pump_DS) Validate MINI_Fill_To_Ambient; }
      { MINI_Ready_To_Calibrate = 1; }
      Depending on (1Hz) {
        if ( MINI_Ready_To_Calibrate == 0 )
          Validate MINI_Sample;
      }
+}
+
+State MINI_Fill_to_Ambient {
+    { MINI_Ready_To_Calibrate = 0; }
+    > MINI Set Cell Pressure Setpoint 120
+    > MINI Pressure Reg On
+    { if (M_Pump_S && M_Pump_DS) Validate MINI_Sample; }
+    Depending on (Shutdown) { Validate MINI_Shutdown; }
 }
 
 State MINI_Shutdown {
@@ -193,6 +203,7 @@ State CO2_Start {
 
 State CO2_Sample {
        Depending on (Shutdown) { Validate CO2_Shutdown; }
+       { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
        > CO2 Set Cell Pressure Setpoint 40
        Hold until (convert(CCelLP) < 10);
     +1 > CO2 Pressure Reg On
@@ -204,11 +215,20 @@ State CO2_Sample {
 
 State CO2_Calibrate {
     Depending on (Shutdown) { Validate CO2_Shutdown; }
+    { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
     { CO2_Ready_To_Calibrate = 1; }
     Depending on (1Hz) {
       if ( CO2_Ready_To_Calibrate == 0 )
         Validate CO2_Sample;
     }
+}
+
+State CO2_Fill_to_Ambient {
+    { CO2_Ready_To_Calibrate = 0; }
+    > CO2 Set Cell Pressure Setpoint 120
+    > CO2 Pressure Reg On
+    { if (C_Pump_S && C_Pump_DS) Validate CO2_Sample; }
+    Depending on (Shutdown) { Validate CO2_Shutdown; }
 }
 
 State CO2_Shutdown {
@@ -708,7 +728,8 @@ State Calibrate_MINI {
    +1 > MINI Pressure Reg Off 
    +1 > MINI Gas Valve Open
    +1 Validate GasDeck_PI_Init;
-+2:00 Validate GasDeck_Close;
+      Hold until (MINI_Ready_To_Calibrate == 0) or 2:00;
+      Validate GasDeck_Close;
       { MINI_Ready_To_Calibrate = 0; }
    +9 Validate Calibrate_Logic;
 }
@@ -718,7 +739,8 @@ State Calibrate_CO2 {
    +1 > CO2 Pressure Reg Off 
    +1 > CO2 Gas Valve Open
    +1 Validate GasDeck_PI_Init;
-+2:00 Validate GasDeck_Close;
+      Hold until (CO2_Ready_To_Calibrate == 0) or 2:00;
+      > Validate GasDeck_Close;
       { CO2_Ready_To_Calibrate = 0; }
    +9 Validate Calibrate_Logic;
 }
@@ -916,7 +938,7 @@ State Pump_Hot {
 State Pump_Inverter_Off {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
     > Inverter Power Off
- +1 > CO2 Exhaust Valve Closed
+    > CO2 Exhaust Valve Closed
     > MINI Exhaust Valve Closed
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
@@ -929,6 +951,9 @@ State Pump_Inverter_Off {
 State Pump_Shutdown {
  +1 > CO2 Exhaust Valve Closed
  +1 > MINI Exhaust Valve Closed
+    # Wait until cell is filled to 1 Atm before shutting down
+    # pumps since Exhaust valves do not hold against reverse
+    # pressure
     Hold until valid (GasDeck_Is_Shutdown) or 2:00;
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
@@ -974,9 +999,11 @@ State Pump_Cool_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
         Validate Pump_Cool_Inverter_Off;
-    } 
+    }
+    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
+    { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
  +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
- +1 hold until ( BATH_TEMP_OK(convert(WTnkT)) ) or 5
+ +1 hold until ( BATH_TEMP_OK(convert(WTnkT))) or 5
     else Validate Pump_Cool_Cold;
     Validate Pump_Cool_Watch;
 }
@@ -985,9 +1012,11 @@ State Pump_Cool_Cold {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
         Validate Pump_Cool_Inverter_Off;
-    } 
+    }
+    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
+    { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
     > Coolant Divert On
-    Hold until ( BATH_TEMP_OK(convert(WTnkT)-5) );
+    Hold until ( BATH_TEMP_OK(convert(WTnkT)-5));
  +1 > Coolant Divert Off
  +1 Validate Pump_Cool_Watch;
 }
@@ -997,6 +1026,34 @@ State Pump_Cool_Inverter_Off {
     > Coolant Pump Off
  +1 > Coolant Divert Off
  +5 Validate Pump_Cool_Start;
+}
+
+State Pump_Cool_LowP {
+   +1 { msg( 2, "Low Coolant Pressure: %.1lf", convert(CoolP)); }
+   +1 > Panel Top LED Red
+      > Coolant Pump Off
+      # Remain off
+    Depending on (Shutdown) { Validate Pump_Cool_Is_Shutdown; }
+}
+
+State Pump_Cool_HiP {
+      > Coolant Divert On
+      { msg( 2, "High Coolant Pressure: %.1lf", convert(CoolP)); }
+   +1 Validate Pump_Cool_HiP_Watch;
+}
+
+State Pump_Cool_HiP_Watch {
+    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
+   +1 Hold until (convert(CoolP) < 75) or 10
+      else Validate Pump_Cool_HiP_Fail;
+      Hold until (convert(CoolP) > 75);
+      Validate Pump_Cool_HiP_Watch;
+}
+
+State Pump_Cool_HiP_Fail {
+    { msg( 2, "High Coolant Pressure Fail: %.1lf", convert(CoolP)); }
+    > Coolant Pump Off
+    Depending on (Shutdown) { Validate Pump_Cool_Is_Shutdown; }
 }
 
 State Pump_Cool_Shutdown {
