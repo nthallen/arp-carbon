@@ -1017,9 +1017,9 @@ State Pump_Cool_Is_Shutdown {}
 Partition
 
 %{
-#define HEATER_HOT 1.4
+#define HEATER_HOT 1.6
 #define HEATER_TEMP_OK(x) (x<HEATER_HOT)
-#define BAY_HOT 30
+#define BAY_HOT 25
 #define BAY_TEMP_OK(x) (x<BAY_HOT)
 %}
 
@@ -1031,23 +1031,29 @@ State LuggageBay_TCtrl_Init {
 
 State LuggageBay_TCtrl_Start {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
-  +1 > HK Set Space Heater Temp Setpoint 1.25
+  +1 > HK Set Space Heater Temp Setpoint 1.45
   +1 > HK Space Htr Ctl On
      Validate LuggageBay_TCtrl_Watch;
 } 
 
 State LuggageBay_TCtrl_Watch Nolog {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
-    Hold until (!HEATER_TEMP_OK(convert(SpHCT)));
-    Hold until (HEATER_TEMP_OK(convert(SpHCT))) or 2
+    Hold until (!HEATER_TEMP_OK(convert(SpHCT)) 
+	|| (!BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 ) );
+    Hold until (HEATER_TEMP_OK(convert(SpHCT)) ) or 2
       else Validate LuggageBay_TCtrl_Hot;
+ +1 > HK Set Space Heater Temp Setpoint 1.25
+    Hold until (!HEATER_TEMP_OK(convert(SpHCT)) 
+	|| (BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 ) );
+    Hold until (HEATER_TEMP_OK(convert(SpHCT)) ) or 2
+      else Validate LuggageBay_TCtrl_Hot;
+ +1 > HK Set Space Heater Temp Setpoint 1.39
  +1 Validate LuggageBay_TCtrl_Watch;
 }
 
 State LuggageBay_TCtrl_Hot {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
  +1 > HK Space Htr Ctl Off
- +1 > HK Set Space Heater Temp Setpoint 1.25
     Hold until (convert(SpHCT) < 1.24);
  +1 > HK Space Htr Ctl On
      Validate LuggageBay_TCtrl_Watch;
