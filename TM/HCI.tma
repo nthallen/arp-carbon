@@ -896,7 +896,11 @@ State Pump_Start {
        Depending on (Shutdown) { Validate Pump_Shutdown; }
        Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
        # Don't necessarily need to wait here
-       Hold until valid (Pump_Cool_Watch);
+       Depending on (Pump_Cool_Watch) Validate Pump_Turn_On;
+       Depending on (Pump_Cool_HiP_Watch) Validate Pump_Turn_On;
+}
+
+State Pump_Turn_On {
     +5 > MINI Scroll Pump On
    +10 > CO2 Scroll Pump On
    +10 > MINI Exhaust Valve Open
