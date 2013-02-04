@@ -900,10 +900,10 @@ State Pump_Start {
         Validate Pump_Inverter_Off;
     } 
     Hold until valid (Pump_Cool_Watch);
- +5 > CO2 Scroll Pump On
- +10 > MINI Scroll Pump On
- +10 > CO2 Exhaust Valve Open
- +1 > MINI Exhaust Valve Open
+ +5 > MINI Scroll Pump On
+ +10 > CO2 Scroll Pump On
+ +10 > MINI Exhaust Valve Open
+ +1 > CO2 Exhaust Valve Open
     Validate Pump_Watch;
 }
 
