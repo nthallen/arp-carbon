@@ -141,7 +141,7 @@ State MINI_Start {
 
 State MINI_Sample {
        Depending on (Shutdown) { Validate MINI_Shutdown; }
-       { if (!M_Pump_S || !M_Pump_DS) Validate MINI_Fill_To_Ambient; }
+       { if (!MM_Pump_S || !MM_Pump_DS) Validate MINI_Fill_To_Ambient; }
        > MINI Set Cell Pressure Setpoint 40
        Hold until (convert(MCelLP) < 10);
     +1 > MINI Pressure Reg On
@@ -154,7 +154,7 @@ State MINI_Sample {
 
 State MINI_Calibrate {
      Depending on (Shutdown) { Validate MINI_Shutdown; }
-     { if (!M_Pump_S || !M_Pump_DS) Validate MINI_Fill_To_Ambient; }
+     { if (!MM_Pump_S || !MM_Pump_DS) Validate MINI_Fill_To_Ambient; }
      { MINI_Ready_To_Calibrate = 1; }
      Depending on (1Hz) {
        if ( MINI_Ready_To_Calibrate == 0 )
@@ -166,7 +166,7 @@ State MINI_Fill_to_Ambient {
     { MINI_Ready_To_Calibrate = 0; }
     > MINI Set Cell Pressure Setpoint 120
     > MINI Pressure Reg On
-    { if (M_Pump_S && M_Pump_DS) Validate MINI_Sample; }
+    { if (MM_Pump_S && MM_Pump_DS) Validate MINI_Sample; }
     Depending on (Shutdown) { Validate MINI_Shutdown; }
 }
 
@@ -740,11 +740,10 @@ State Calibrate_CO2 {
    +1 > CO2 Gas Valve Open
    +1 Validate GasDeck_PI_Init;
       Hold until (CO2_Ready_To_Calibrate == 0) or 2:00;
-      > Validate GasDeck_Close;
+      Validate GasDeck_Close;
       { CO2_Ready_To_Calibrate = 0; }
    +9 Validate Calibrate_Logic;
 }
-
 
 #----------------------------------------------------------------
 # Partition 9: Gas Deck Pressure Control
@@ -1096,12 +1095,12 @@ State LuggageBay_TCtrl_Start {
 State LuggageBay_TCtrl_Watch Nolog {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
     Hold until (!HEATER_TEMP_OK(convert(SpHCT)) 
-	|| (!BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 ) );
+	|| (!BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 )) );
     Hold until (HEATER_TEMP_OK(convert(SpHCT)) ) or 2
       else Validate LuggageBay_TCtrl_Hot;
  +1 > HK Set Space Heater Temp Setpoint 1.25
     Hold until (!HEATER_TEMP_OK(convert(SpHCT)) 
-	|| (BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 ) );
+	|| (BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 )) );
     Hold until (HEATER_TEMP_OK(convert(SpHCT)) ) or 2
       else Validate LuggageBay_TCtrl_Hot;
  +1 > HK Set Space Heater Temp Setpoint 1.39
