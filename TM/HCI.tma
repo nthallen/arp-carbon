@@ -933,7 +933,7 @@ State Pump_Inverter_Off {
       > MINI Exhaust Valve Closed
    +1 > CO2 Scroll Pump Off
    +1 > MINI Scroll Pump Off
-      Hold until (Inverter_On);
+      Hold until valid (Inverter_On);
       Validate Pump_Start;
 }
 
