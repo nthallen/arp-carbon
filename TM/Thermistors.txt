@@ -1,14 +1,14 @@
 # Thermistors.txt stores locations of roving, skin, and gas sample thermistors
-MSG1T
-MSG2T
-MSkn1T
-MSkn2T
-MSkn3T
-MRov1T
-MRov2T
-MRov3T
-MRov4T
-MRov5T
+MSG1T   Cell Inlet
+MSG2T   Manifold Outlet
+MSkn1T  Cell Htr Connector Plate
+MSkn2T  Thermostat on Cell
+MSkn3T  Middle of Cell Fin
+MRov1T  On Cell Minco Htr
+MRov2T  DPV Back Access Panel
+MRov3T  LPV Side Near Cell
+MRov4T  Exhaust Valve
+MRov5T  Luggage Bay Air Temp
 
 CSG1T
 CSG2T
@@ -17,9 +17,9 @@ CSkn2T
 CSkn3T
 CRov1T
 CRov2T
-CRov3T
+CRov3T  Outlet Side Mirror Holder
 CRov4T
-CRov5T
+CRov5T  Luggage Bay Air Temp
 
 ISG1T
 ISG2T
