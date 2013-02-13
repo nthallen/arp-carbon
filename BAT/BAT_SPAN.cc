@@ -161,10 +161,10 @@ int BAT::ProcessData(int flag) {
     }
   }
   if (nc >= nb_rec) {
-    flags &= ~Selector::SEL_READ;
+    flags &= ~Selector::Sel_Read;
     Stor->set_gflag(2);
   } else {
-    flags |= Selector::SEL_READ;
+    flags |= Selector::Sel_Read;
     min = nb_rec - nc;
     if (min != termios_m.c_cc[VMIN]) {
       termios_m.c_cc[VMIN] = min;
@@ -239,10 +239,10 @@ int SPAN::ProcessData(int flag) {
     }
   }
   if (nc >= nb_rec) {
-    flags &= ~Selector::SEL_READ;
+    flags &= ~Selector::Sel_Read;
     Stor->set_gflag(1);
   } else {
-    flags |= Selector::SEL_READ;
+    flags |= Selector::Sel_Read;
     min = nb_rec - nc;
     if (min != termios_m.c_cc[VMIN]) {
       termios_m.c_cc[VMIN] = min;
