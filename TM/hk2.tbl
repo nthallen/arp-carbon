@@ -38,7 +38,7 @@ Cool {
 
 Inverter {
   HBox { +-; Title: Inverter; -+ };
-  Arm:     (InverterArm_DS,3);
+  { Arm:  (InverterArm_DS,3) (InverterArm_S,3); };
   Cmd:     (InvCmdS,3);
   Power:   (InvPwrS,3);
   Fail:    (InvFailS,4);

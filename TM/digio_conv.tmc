@@ -82,8 +82,8 @@ off_on_t ILTEC_S; Invalidate ILTEC_S;
   { ILTEC_S = (DS86A>>6)&1; Validate ILTEC_S; }
 off_on_t L1_S; Invalidate L1_S;
   { L1_S = (DS86A>>7)&1; Validate L1_S; }
-off_on_t Inverter_S; Invalidate Inverter_S;
-  { Inverter_S = (DS873>>0)&1; Validate Inverter_S; }
+off_on_t InverterArm_S; Invalidate InverterArm_S;
+  { InverterArm_S = (DS873>>0)&1; Validate InverterArm_S; }
 off_on_t SW0; Invalidate SW0;
   { SW0 = (IOSwS>>0)&1; Validate SW0; }
 off_on_t SW1; Invalidate SW1;
