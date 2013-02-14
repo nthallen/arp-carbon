@@ -363,8 +363,8 @@ ROWS 25
 
  1 L1_DS:DS851:7 LAB_Lab Status
  1 L1_S:DS86A:7 LAB_Lab Status
- 1 L2_DS:DS84A:0 LAB_Lab Status
- 1 L2_S:DS873:0 LAB_Lab Status
+#1 L2_DS:DS84A:0 LAB_Lab Status
+#1 L2_S:DS873:0 LAB_Lab Status
 
  1 RadInT Coolant Temp
  1 WTnkT Coolant Temp
@@ -381,7 +381,8 @@ ROWS 25
  1 InvCmdErrS:InvStat:3 Inverter Status
  1 InvErrS:InvStat:2 Inverter Status
  1 InvPwrS:InvStat:1 Inverter Status
- 1 Arm:DS842:0 Inverter Status
+ 1 Arm_DS:DS84A:0 Inverter Status
+ 1 Arm_S:DS873:0 Inverter Status
  1 InvQury5 Inverter Qury
  1 InvQury6 Inverter Qury
  1 InvQury7 Inverter Qury
