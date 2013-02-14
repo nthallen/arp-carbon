@@ -30,9 +30,9 @@ Cool {
   HBox { +-; Title: Coolant; -+ };
   Pump:   (CoolPump_DS,3);
   Divert: (CoolDivert_DS,3);
-  WPmpT:  (WPmpT,6) C;
   WTnkT:  (WTnkT,6) C;
-  CoolT:  (CoolT,6) C;
+  RadInT:  (RadInT,6) C;
+  RadOutT:  (RadOutT,6) C;
   CoolP:  (CoolP,6) psig;
 }
 
