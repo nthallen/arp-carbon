@@ -131,12 +131,11 @@ BAT::BAT(const char *path, BSDataRecord *data_in) :
     nl_error(2, "Error from tcgetattr: %s", strerror(errno));
   }
   flush_input();
-  flags |= Stor->gflag(2);
 }
 
 int BAT::ProcessData(int flag) {
   unsigned min;
-  if (flag & (Selector::Sel_Read | Selector::gflag(2))) {
+  if (flag & Selector::Sel_Read) {
     unsigned int start;
     if (fillbuf()) return 1;
     cp = 0;
@@ -157,20 +156,13 @@ int BAT::ProcessData(int flag) {
       BSData->BAT_data(&buf[start]);
       report_ok();
       consume(start+nb_rec);
-      break;
     }
   }
-  if (nc >= nb_rec) {
-    flags &= ~Selector::Sel_Read;
-    Stor->set_gflag(2);
-  } else {
-    flags |= Selector::Sel_Read;
-    min = nb_rec - nc;
-    if (min != termios_m.c_cc[VMIN]) {
-      termios_m.c_cc[VMIN] = min;
-      if (tcsetattr(fd, TCSANOW, &termios_m)) {
-        nl_error(2, "Error from tcsetattr: %s", strerror(errno));
-      }
+  min = nb_rec - nc;
+  if (min != termios_m.c_cc[VMIN]) {
+    termios_m.c_cc[VMIN] = min;
+    if (tcsetattr(fd, TCSANOW, &termios_m)) {
+      nl_error(2, "Error from tcsetattr: %s", strerror(errno));
     }
   }
   return 0;
@@ -179,13 +171,12 @@ int BAT::ProcessData(int flag) {
 SPAN::SPAN( const char *path, BSDataRecord *data_in ) :
     Ser_Sel(path, O_RDONLY | O_NONBLOCK, 10240) {
   BSData = data_in;
-  setup(115200, 8, 'n', 1, 104, 0);
+  setup (115200, 8, 'n', 1, 104, 0);
   if (tcgetattr(fd, &termios_m)) {
     nl_error(2, "Error from tcgetattr: %s", strerror(errno));
   }
   max_nc = 0;
   flush_input();
-  flags |= Stor->gflag(1);
 }
 
 SPAN::~SPAN() {
@@ -194,7 +185,7 @@ SPAN::~SPAN() {
 
 int SPAN::ProcessData(int flag) {
   unsigned min;
-  if (flag & (Selector::Sel_Read | Selector::gflag(1))) {
+  if (flag & Selector::Sel_Read) {
     int start;
     if (fillbuf()) return 1;
     if (nc > max_nc) max_nc = nc;
@@ -213,7 +204,7 @@ int SPAN::ProcessData(int flag) {
       // cp is now positioned past first 2 chars
       // coincidentally, the two messages we are interested in have the
       // exact same length
-      if (cp + nb_rec - 2 > nc ) {
+      if (cp + 104 - 2 > nc ) {
         consume(start);
         break;
       }
@@ -230,25 +221,18 @@ int SPAN::ProcessData(int flag) {
           BSData->BP_data(&buf[start]);
           report_ok();
         }
-        consume(start+nb_rec);
-        break;
+        consume(start+104);
       } else {
         // report_err("CRC Error: calc: %X reported: %X", crc_calc, crc_rep);
         consume(start+50);
       }
     }
   }
-  if (nc >= nb_rec) {
-    flags &= ~Selector::Sel_Read;
-    Stor->set_gflag(1);
-  } else {
-    flags |= Selector::Sel_Read;
-    min = nb_rec - nc;
-    if (min != termios_m.c_cc[VMIN]) {
-      termios_m.c_cc[VMIN] = min;
-      if (tcsetattr(fd, TCSANOW, &termios_m)) {
-        nl_error(2, "Error from tcsetattr: %s", strerror(errno));
-      }
+  min = nb_rec - nc;
+  if (min != termios_m.c_cc[VMIN]) {
+    termios_m.c_cc[VMIN] = min;
+    if (tcsetattr(fd, TCSANOW, &termios_m)) {
+      nl_error(2, "Error from tcsetattr: %s", strerror(errno));
     }
   }
   return 0;
