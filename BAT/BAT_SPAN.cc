@@ -124,7 +124,7 @@ void BSDataRecord::Logging(bool on) {
 }
 
 BAT::BAT(const char *path, BSDataRecord *data_in) :
-        Ser_Sel(path, O_RDONLY | O_NONBLOCK, 350) {
+        Ser_Sel(path, O_RDONLY | O_NONBLOCK, nb_rec) {
   BSData = data_in;
   setup (460800, 8, 'n', 1, 35, 0);
   if (tcgetattr(fd, &termios_m)) {
@@ -169,7 +169,7 @@ int BAT::ProcessData(int flag) {
 }
 
 SPAN::SPAN( const char *path, BSDataRecord *data_in ) :
-    Ser_Sel(path, O_RDONLY | O_NONBLOCK, 10240) {
+    Ser_Sel(path, O_RDONLY | O_NONBLOCK, nb_rec) {
   BSData = data_in;
   setup (115200, 8, 'n', 1, 104, 0);
   if (tcgetattr(fd, &termios_m)) {
