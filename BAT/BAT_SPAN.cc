@@ -218,7 +218,7 @@ int SPAN::ProcessData(int flag) {
         break;
       }
       // Now check the CRC
-      crc_calc = CalculateBlockCRC32(100, &buf[cp]);
+      crc_calc = CalculateBlockCRC32(100, &buf[start]);
       crc_rep = ulong_unpack(&buf[start+100]);
       if (crc_calc == crc_rep) {
         if (buf[cp] == 0x13 && buf[cp+1] == 0x58 &&
@@ -232,8 +232,10 @@ int SPAN::ProcessData(int flag) {
         }
         consume(start+104);
       } else {
-        nl_error(2, "SPAN: CRC Error: calc: %X reported: %X", crc_calc, crc_rep);
-        // report_err("SPAN: CRC Error: calc: %X reported: %X", crc_calc, crc_rep);
+        nl_error(2, "SPAN: CRC Error: calc: %X reported: %X",
+          crc_calc, crc_rep);
+        // report_err("SPAN: CRC Error: calc: %X reported: %X, start=%d",
+        //   crc_calc, crc_rep, start);
         ++cp;
       }
     }
@@ -302,11 +304,12 @@ BScmd::BScmd(BSDataRecord *data_in) : Ser_Sel(NULL, 0, 20) {
 int BScmd::ProcessData(int flag) {
   // Will ultimately handle logging enable/disable commands
   // BSData->Logging(bool on);
+  int rv = 0;
   if (flag & Selector::Sel_Read) {
     if (fillbuf()) return 1;
     if (nc == 0) return 1;
     switch (buf[cp]) {
-      case 'Q': return 1;
+      case 'Q': rv = 1; break;
       case 'L': BSData->Logging(true); break;
       case 'N': BSData->Logging(false); break;
       default: report_err("Invalid command"); return 0;
@@ -314,7 +317,7 @@ int BScmd::ProcessData(int flag) {
     consume(nc);
     report_ok();
   }
-  return 0;
+  return rv;
 }
 
 BSlogger::BSlogger() : Selectee() {
