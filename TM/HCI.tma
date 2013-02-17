@@ -50,7 +50,7 @@ State Shutdown {
 }
 
 State Shutdown_Fast {
-      > Fail Light On
+  +4  > Fail Light On
       > Quit
 }
 
@@ -73,6 +73,7 @@ State In_FLIGHT {
   { if ((using_swp == SWS_TAKE_DATA) || (PP_Land_Req == 0))
       Validate TAKE_DATA;
   }
+  > Panel Data LED Off
 }
 
 State TAKE_DATA {
@@ -902,6 +903,7 @@ State Pump_Init_Ready {
 State Pump_Start {
        Depending on (Shutdown) { Validate Pump_Shutdown; }
        Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
+       Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
        # Don't necessarily need to wait here
        Depending on (Pump_Cool_Watch) { Validate Pump_Turn_On; }
        Depending on (Pump_Cool_Cold) { Validate Pump_Turn_On; }
@@ -909,6 +911,9 @@ State Pump_Start {
 }
 
 State Pump_Turn_On {
+       Depending on (Shutdown) { Validate Pump_Shutdown; }
+       Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
+       Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
     +5 > CO2 Scroll Pump On
    +10 > MINI Scroll Pump On
    +10 > CO2 Exhaust Valve Open
@@ -919,6 +924,7 @@ State Pump_Turn_On {
 State Pump_Watch Nolog {
       Depending on (Shutdown) { Validate Pump_Shutdown; }
       Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
+      Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
       hold until ( !PUMP_TEMP_OK(convert(CPmpT)) ||
            !PUMP_TEMP_OK(convert(MPmpT)) );
       hold until ( PUMP_TEMP_OK(convert(CPmpT)) &&
@@ -930,6 +936,7 @@ State Pump_Watch Nolog {
 State Pump_Hot {
       Depending on (Shutdown) { Validate Pump_Shutdown; }
       Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
+      Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
       > CO2 Exhaust Valve Closed
       > MINI Exhaust Valve Closed
    +1 > CO2 Scroll Pump Off
@@ -993,6 +1000,7 @@ State Pump_Cool_Init {
 State Pump_Cool_Start {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
+    Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
  +1 > Coolant Pump On
  +1 Validate Pump_Cool_Watch;
 }
@@ -1000,6 +1008,7 @@ State Pump_Cool_Start {
 State Pump_Cool_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
+    Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
     { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
     { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
  +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
@@ -1011,6 +1020,7 @@ State Pump_Cool_Watch Nolog {
 State Pump_Cool_Cold {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
+    Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
     { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
     { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
     > Coolant Divert On
@@ -1480,4 +1490,7 @@ State Inverter_Shutdown {
 
 State Inverter_Is_Shutdown {}
 
-State Inverter_Fail {}
+State Inverter_Fail {
+      > Inverter Power Off
+      > Inverter Arm Off
+}
