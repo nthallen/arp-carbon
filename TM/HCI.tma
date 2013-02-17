@@ -31,12 +31,14 @@ State Standby {
         depending on (TAKE_DATA) { Validate Record; }
         depending on (LAND)      { Validate Shutdown; }
         depending on (AI_Fail)   { Validate Shutdown; }
+        depending on (Inverter_Fail) { Validate Shutdown_Fast; }
 }
 
 # RECORD  
 State Record {
         depending on (LAND)      { Validate Shutdown; }
         depending on (AI_Fail)   { Validate Shutdown; }
+        depending on (Inverter_Fail) { Validate Shutdown_Fast; }
         "In Record";
 }
 
@@ -44,7 +46,12 @@ State Record {
 State Shutdown {
       Hold until valid (HCI_Is_Shutdown);
  +2   > Fail Light On
-      > quit
+      > Quit
+}
+
+State Shutdown_Fast {
+      > Fail Light On
+      > Quit
 }
 
 # -----------------------------------------------------------------------------
@@ -985,16 +992,14 @@ State Pump_Cool_Init {
 
 State Pump_Cool_Start {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    Hold until (Pump_Ground_Power || (InvPwrS && !InvErrS));
+    Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
  +1 > Coolant Pump On
  +1 Validate Pump_Cool_Watch;
 }
 
 State Pump_Cool_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
-        Validate Pump_Cool_Inverter_Off;
-    }
+    Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
     { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
     { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
  +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
@@ -1005,9 +1010,7 @@ State Pump_Cool_Watch Nolog {
 
 State Pump_Cool_Cold {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    { if (!Pump_Ground_Power && (!InvPwrS || InvErrS))
-        Validate Pump_Cool_Inverter_Off;
-    }
+    Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
     { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
     { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
     > Coolant Divert On
@@ -1020,6 +1023,7 @@ State Pump_Cool_Inverter_Off {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     > Coolant Pump Off
  +1 > Coolant Divert Off
+    Hold Until (Inverter_On);
  +5 Validate Pump_Cool_Start;
 }
 
@@ -1038,6 +1042,8 @@ State Pump_Cool_HiP {
 }
 
 State Pump_Cool_HiP_Watch {
+    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+    Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
     { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
    +1 Hold until (convert(CoolP) < 75) or 10
       else Validate Pump_Cool_HiP_Fail;
@@ -1091,12 +1097,12 @@ State LuggageBay_TCtrl_Start {
 State LuggageBay_TCtrl_Watch Nolog {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
     Hold until (!HEATER_TEMP_OK(convert(SpHCT)) 
-	|| (!BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 )) );
+        || (!BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 )) );
     Hold until (HEATER_TEMP_OK(convert(SpHCT)) ) or 2
       else Validate LuggageBay_TCtrl_Hot;
  +1 > HK Set Space Heater Temp Setpoint 1.25
     Hold until (!HEATER_TEMP_OK(convert(SpHCT)) 
-	|| (BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 )) );
+        || (BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 )) );
     Hold until (HEATER_TEMP_OK(convert(SpHCT)) ) or 2
       else Validate LuggageBay_TCtrl_Hot;
  +1 > HK Set Space Heater Temp Setpoint 1.39
@@ -1302,18 +1308,18 @@ Partition
 %}
 State AI_Watch {
     { if ( PC__T == Last_PC__T ) {
-	if ( ++PC__T_static_count >= 5 ) {
-	  msg(2, "PC__T has not changed in 5 seconds");
-	  PC__T_delta_count = 0;
-	  Validate AI_Reset;
-	}
+        if ( ++PC__T_static_count >= 5 ) {
+          msg(2, "PC__T has not changed in 5 seconds");
+          PC__T_delta_count = 0;
+          Validate AI_Reset;
+        }
       } else {
-	Last_PC__T = PC__T;
-	PC__T_static_count = 0;
-	if ( ++PC__T_delta_count > 5 ) {
-	  PC__T_delta_count = 0;
-	  AI_Reset_count = 0;
-	}
+        Last_PC__T = PC__T;
+        PC__T_static_count = 0;
+        if ( ++PC__T_delta_count > 5 ) {
+          PC__T_delta_count = 0;
+          AI_Reset_count = 0;
+        }
       }
     }
 }
@@ -1322,10 +1328,10 @@ State AI_Reset {
       > AI Reset
   +1  > AI Double Convert Row Zero
       { if ( AI_Reset_limit > 0 &&
-	     ++AI_Reset_count >= AI_Reset_limit ) {
-	  msg(2,"AI Max Reset Count Reached");
-	  Validate AI_Fail;
-	}
+             ++AI_Reset_count >= AI_Reset_limit ) {
+          msg(2,"AI Max Reset Count Reached");
+          Validate AI_Fail;
+        }
       }
       Hold until ( PC__T != Last_PC__T ) OR 5
       else Validate AI_Reset;
@@ -1446,7 +1452,12 @@ State Inverter_On {
           (!InvPwrS || InvErrS ||
            (convert(PM1V1) < 26.5 && convert(PM1I1) < 1)))
         Validate Inverter_Off;
-    } 
+    }
+    { if (!Pump_Ground_Power && !InverterArm_S) {
+        msg(2, "!InverterArm_S implies Power Bus 1 Off");
+        Validate Inverter_Fail;
+      }
+    }
 }
 
 State Inverter_Off {
@@ -1468,3 +1479,5 @@ State Inverter_Shutdown {
 }
 
 State Inverter_Is_Shutdown {}
+
+State Inverter_Fail {}
