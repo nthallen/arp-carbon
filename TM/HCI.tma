@@ -1023,7 +1023,7 @@ State Pump_Cool_Inverter_Off {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     > Coolant Pump Off
  +1 > Coolant Divert Off
-    Hold Until (Inverter_On);
+    Hold until valid (Inverter_On);
  +5 Validate Pump_Cool_Start;
 }
 
