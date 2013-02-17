@@ -186,26 +186,34 @@ SPAN::~SPAN() {
 int SPAN::ProcessData(int flag) {
   unsigned min;
   if (flag & Selector::Sel_Read) {
-    int start;
     if (fillbuf()) return 1;
     if (nc > max_nc) max_nc = nc;
     cp = 0;
     while (cp < nc) {
+      int start = 0;
       unsigned long crc_calc, crc_rep;
       
-      if (not_found('\xAA')) break;
-      start = cp-1;
-      if (not_str("\x44", 1)) {
-        if (cp == nc) {
-          consume(start);
+      while (cp < nc) {
+        for (cp = 0; cp < nc && buf[cp] != 0xAA; ++cp);
+        start = cp;
+        if (cp+1 >= nc) {
           break;
-        } else continue;
+        } else if (buf[cp+1] == 0x44) {
+          if (cp+2 >= nc || buf[cp+2] == 0x12 || buf[cp+2] == 0x13) {
+            break;
+          }
+        }
       }
+      if (start > 0) {
+        nl_error(2, "SPAN: Discarding %d bytes", start);
+        consume(start);
+        start = 0;
+      }
+      cp = 2;
       // cp is now positioned past first 2 chars
       // coincidentally, the two messages we are interested in have the
       // exact same length
       if (cp + 104 - 2 > nc ) {
-        consume(start);
         break;
       }
       // Now check the CRC
@@ -223,8 +231,8 @@ int SPAN::ProcessData(int flag) {
         }
         consume(start+104);
       } else {
-        // report_err("CRC Error: calc: %X reported: %X", crc_calc, crc_rep);
-        consume(start+50);
+        nl_error(2, "SPAN: CRC Error: calc: %X reported: %X", crc_calc, crc_rep);
+        ++cp;
       }
     }
   }
