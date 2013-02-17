@@ -194,7 +194,7 @@ int SPAN::ProcessData(int flag) {
       unsigned long crc_calc, crc_rep;
       
       while (cp < nc) {
-        for (cp = 0; cp < nc && buf[cp] != 0xAA; ++cp);
+        for (; cp < nc && buf[cp] != 0xAA; ++cp);
         start = cp;
         if (cp+1 >= nc) {
           break;
@@ -208,6 +208,7 @@ int SPAN::ProcessData(int flag) {
         nl_error(2, "SPAN: Discarding %d bytes", start);
         consume(start);
         start = 0;
+        cp = 0;
       }
       cp = 2;
       // cp is now positioned past first 2 chars
@@ -217,7 +218,7 @@ int SPAN::ProcessData(int flag) {
         break;
       }
       // Now check the CRC
-      crc_calc = CalculateBlockCRC32(100, &buf[start]);
+      crc_calc = CalculateBlockCRC32(100, &buf[cp]);
       crc_rep = ulong_unpack(&buf[start+100]);
       if (crc_calc == crc_rep) {
         if (buf[cp] == 0x13 && buf[cp+1] == 0x58 &&
@@ -232,6 +233,7 @@ int SPAN::ProcessData(int flag) {
         consume(start+104);
       } else {
         nl_error(2, "SPAN: CRC Error: calc: %X reported: %X", crc_calc, crc_rep);
+        // report_err("SPAN: CRC Error: calc: %X reported: %X", crc_calc, crc_rep);
         ++cp;
       }
     }
