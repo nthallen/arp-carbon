@@ -141,19 +141,26 @@ int BAT::ProcessData(int flag) {
     cp = 0;
     while (cp < nc) {
       if (not_found('\xF8')) {
+        nl_error(-2, "BAT: Discarding %d chars", cp);
         consume(cp);
         break;
       }
       start = cp-1;
       if (not_str("\x08\xF8", 2)) {
         if (cp == nc) {
-          consume(start);
+          if (start > 0) {
+            nl_error(-2, "BAT: Discarding %d chars(a)", start);
+            consume(start);
+          }
           break;
         } else continue;
       }
       // cp is now positioned past first 3 chars
       if (start + nb_rec > nc ) {
-        consume(start);
+        if (start > 0) {
+          nl_error(-2, "BAT: Discarding %d chars(b)", start);
+          consume(start);
+        }
         break;
       }
       BSData->BAT_data(&buf[start]);
@@ -208,7 +215,7 @@ int SPAN::ProcessData(int flag) {
         }
       }
       if (start > 0) {
-        nl_error(2, "SPAN: Discarding %d bytes", start);
+        nl_error(-2, "SPAN: Discarding %d bytes", start);
         consume(start);
         start = 0;
         cp = 0;
