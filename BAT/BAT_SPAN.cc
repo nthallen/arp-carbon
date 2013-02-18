@@ -140,7 +140,10 @@ int BAT::ProcessData(int flag) {
     if (fillbuf()) return 1;
     cp = 0;
     while (cp < nc) {
-      if (not_found('\xF8')) break;
+      if (not_found('\xF8')) {
+        consume(cp);
+        break;
+      }
       start = cp-1;
       if (not_str("\x08\xF8", 2)) {
         if (cp == nc) {
