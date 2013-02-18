@@ -1095,6 +1095,8 @@ State LuggageBay_TCtrl_Init {
    +1 > HK Space Htr Ctl Off
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
     Depending on (Record) { Validate LuggageBay_TCtrl_Start; }
+    Hold until ((IOSwS & 3) == 3) ;
+    Validate LuggageBay_TCtrl_Start; 
 } 
 
 State LuggageBay_TCtrl_Start {
