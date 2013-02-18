@@ -213,11 +213,11 @@ int SPAN::ProcessData(int flag) {
       
       while (cp < nc) {
         for (; cp < nc && buf[cp] != 0xAA; ++cp);
-        start = cp;
-        if (cp+1 >= nc) {
+        start = cp++;
+        if (cp >= nc) {
           break;
-        } else if (buf[cp+1] == 0x44) {
-          if (cp+2 >= nc || buf[cp+2] == 0x12 || buf[cp+2] == 0x13) {
+        } else if (buf[cp] == 0x44) {
+          if (cp+1 >= nc || buf[cp+1] == 0x12 || buf[cp+1] == 0x13) {
             break;
           }
         }
