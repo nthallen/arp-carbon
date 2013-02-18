@@ -137,6 +137,10 @@ int BAT::ProcessData(int flag) {
   unsigned min;
   if (flag & Selector::Sel_Read) {
     unsigned int start;
+    if (nc >= nb_rec) {
+      nl_error(2, "BAT: Buffer full on entry");
+      consume(nc);
+    }
     if (fillbuf()) return 1;
     cp = 0;
     while (cp < nc) {
@@ -196,6 +200,10 @@ SPAN::~SPAN() {
 int SPAN::ProcessData(int flag) {
   unsigned min;
   if (flag & Selector::Sel_Read) {
+    if (nc >= nb_rec) {
+      nl_error(2, "SPAN: Buffer full on entry");
+      consume(nc);
+    }
     if (fillbuf()) return 1;
     if (nc > max_nc) max_nc = nc;
     cp = 0;
