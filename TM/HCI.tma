@@ -1001,6 +1001,7 @@ State Pump_Cool_Start {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
+    Hold until valid (Inverter_On);
  +1 > Coolant Pump On
  +1 Validate Pump_Cool_Watch;
 }
