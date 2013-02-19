@@ -199,7 +199,7 @@ Partition
 State CO2_Init {
    +1 > CO2 Pressure Reg Off
       Depending on (Shutdown) { Validate CO2_Shutdown; }
-    # Depending on (Record) { Validate CO2_Start; }
+      Depending on (Record) { Validate CO2_Start; }
 }
 
 State CO2_Start {

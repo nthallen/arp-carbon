@@ -1,0 +1,28 @@
+#! /bin/sh
+#ifdef __USAGE
+# BSext [-A] <srcdir> <destdir>
+#endif
+
+function nl_error {
+  echo "BSext: $*" >&2
+  exit 1
+}
+
+BSopt=''
+if [ "$1" = "-A" ]; then
+  BSopt='-A'
+  shift
+fi
+srcdir=$1
+destdir=$2
+
+[ -z "$srcdir" -o ! -d "$srcdir" ] &&
+  nl_error Must specify destination directory
+[ -z "$destdir" -o ! -d "$destdir" ] &&
+  nl_error Must specify destination directory
+VERSION=1.0
+[ -f $srcdir/VERSION ] && VERSION=`cat $srcdir/VERSION`
+[ -x bin/$VERSION/BS2cdfext ] || nl_error Cannot locate bin/$VERSION/BS2cdfext
+bin/$VERSION/BS2cdfext $BSopt -P $srcdir -S N51AU.txt
+[ -r BAT_SPAN.ncr ] || nl_error BAT_SPAN.ncr not generated
+mv BAT_SPAN.ncr $destdir
