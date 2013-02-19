@@ -27,4 +27,5 @@ SRoll      14  7  50 deg      2   0.0000000  1.0000000   -80.00     80.00 NC_SHO
 SHdg       14  8  50 deg      2   0.0000000  1.0000000     0.00    360.00 NC_SHORT 0.0100000  180.0000000  NovAtel SPAN GPS/INS heading measurement (deg wrt Earth)
 SStatus    14  9  50 -        2   0.0000000  1.0000000     0.00      8.00 NC_SHORT 1.0000000    0.0000000  NovAtel SPAN GPS/INS INS status
 STime      14 10  50 sec      2   0.0000000  1.0000000     0.00 604800.00 NC_INT   0.0100000    0.0000000  NovAtel SPAN GPS/INS time (sec since midnight Sat GMT)
+Shifted    14 12  50 -        2   0.0000000  1.0000000     0.00      1.00 NC_SHORT 1.0000000    0.0000000  BAT data arrived before SPAN
 End       -99
