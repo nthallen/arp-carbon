@@ -23,6 +23,8 @@
 State Init {
        > Telemetry Start
   +1   > Fail Light Off
+       > Panel Keypad Backlight Off
+       > Panel Display Text \xFE\x47\x00\x04
   +2   Validate Standby;
 }
 
@@ -31,6 +33,7 @@ State Standby {
         depending on (TAKE_DATA) { Validate Record; }
         depending on (LAND)      { Validate Shutdown; }
         depending on (AI_Fail)   { Validate Shutdown; }
+        depending on (BAT_SPAN_Fail) { Validate Shutdown; }
         depending on (Inverter_Fail) { Validate Shutdown_Fast; }
 }
 
@@ -38,19 +41,24 @@ State Standby {
 State Record {
         depending on (LAND)      { Validate Shutdown; }
         depending on (AI_Fail)   { Validate Shutdown; }
+        depending on (BAT_SPAN_Fail) { Validate Shutdown; }
         depending on (Inverter_Fail) { Validate Shutdown_Fast; }
         "In Record";
 }
 
 # SHUTDOWN
 State Shutdown {
+      > Panel Display Text \nShutting Down...
       Hold until valid (HCI_Is_Shutdown);
  +2   > Fail Light On
+      > Panel Display Text Done
       > Quit
 }
 
 State Shutdown_Fast {
+      > Panel Display Text \nFast Shutdown...
   +4  > Fail Light On
+      > Panel Display Text Done
       > Quit
 }
 
@@ -992,7 +1000,6 @@ State Pump_Cool_Init {
     > Coolant Pump Off
     > Coolant Divert Off
     > Panel Top LED Off
-    > Panel Keypad Backlight Off
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Record) { Validate Pump_Cool_Start; }
 }
@@ -1041,6 +1048,7 @@ State Pump_Cool_Inverter_Off {
 State Pump_Cool_LowP {
    +1 { msg( 2, "Low Coolant Pressure: %.1lf", convert(CoolP)); }
    +1 > Panel Top LED Red
+      > Panel Display Text \nLow Coolant Pressure
       > Coolant Pump Off
       # Remain off
     Depending on (Shutdown) { Validate Pump_Cool_Is_Shutdown; }
@@ -1494,6 +1502,32 @@ State Inverter_Shutdown {
 State Inverter_Is_Shutdown {}
 
 State Inverter_Fail {
+      > Panel Display Text \nBus 1 Power Failure
       > Inverter Power Off
       > Inverter Arm Off
+}
+
+# -----------------------------------------------------------------------------
+# Partition GPS/INS/BAT 
+# -----------------------------------------------------------------------------
+Partition
+
+State BAT_SPAN_Init {
+  Hold Until (SWStat == SWS_TIMEWARP) or 15:00;
+  { if ((IOSwS & 3) == 3) Validate BAT_SPAN_Watch; }
+}
+
+State BAT_SPAN_Watch {
+  Hold Until (((IOSwS & 3) == 3) &&
+              ((BSstale > 5) || (INS_status != 3) ||
+                (n_bat_records < 45) || (n_span_records < 45)));
+  Hold Until (!(((IOSwS & 3) == 3) &&
+               ((BSstale > 5) || (INS_status != 3) ||
+                (n_bat_records < 45) || (n_span_records < 45)))) or 30
+  else Validate BAT_SPAN_Fail;
+  Validate BAT_SPAN_Watch;
+}
+
+State BAT_SPAN_Fail {
+  > Panel Display Text \nBAT/GPS Failure
 }
