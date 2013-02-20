@@ -36,3 +36,5 @@ SWS_FILLCO2     29      CO2 Fill Cell: Validate GasDeck_Fill_CO2_Cell; break;
 SWS_CQCL_RAMP   30      CO2 Laser TEC Ramp: Validate CO2_Laser_TEC_Ramp; break;
 SWS_GROUND_PWR  32      Ground Power On: Pump_Ground_Power = 1; break;
 SWS_AIRCRAFT_PWR 33      Ground Power Off: Pump_Ground_Power = 0; break;
+SWS_SHORTSHUT   34      Shortcircuit Shutdown: Validate HCI_Is_Shutdown; break;
+

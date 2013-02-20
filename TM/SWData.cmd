@@ -48,4 +48,5 @@
   : CO2 Laser TEC Ramp { $0 = SWS_CQCL_RAMP; }
   : Ground Power On { $0 = SWS_GROUND_PWR; }
   : Ground Power Off { $0 = SWS_AIRCRAFT_PWR; }
+  : Shortcircuit Shutdown { $0 = SWS_SHORTSHUT; }
   ;

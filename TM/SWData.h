@@ -40,5 +40,6 @@ extern SWData_t SWData;
 #define SWS_CQCL_RAMP 30
 #define SWS_GROUND_PWR 32
 #define SWS_AIRCRAFT_PWR 33
+#define SWS_SHORTSHUT 34
 
 #endif

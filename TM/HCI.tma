@@ -24,7 +24,7 @@ State Init {
        > Telemetry Start
   +1   > Fail Light Off
        > Panel Keypad Backlight Off
-       > Panel Display Text \xFE\x47\x00\x04
+       > Panel Display Text \\xFE\\x47\\x00\\x04
   +2   Validate Standby;
 }
 
@@ -48,7 +48,7 @@ State Record {
 
 # SHUTDOWN
 State Shutdown {
-      > Panel Display Text \nShutting Down...
+ +1   > Panel Display Text \\nShutting Down...
       Hold until valid (HCI_Is_Shutdown);
  +2   > Fail Light On
       > Panel Display Text Done
@@ -56,7 +56,7 @@ State Shutdown {
 }
 
 State Shutdown_Fast {
-      > Panel Display Text \nFast Shutdown...
+      > Panel Display Text \\nFast Shutdown...
   +4  > Fail Light On
       > Panel Display Text Done
       > Quit
@@ -1048,7 +1048,7 @@ State Pump_Cool_Inverter_Off {
 State Pump_Cool_LowP {
    +1 { msg( 2, "Low Coolant Pressure: %.1lf", convert(CoolP)); }
    +1 > Panel Top LED Red
-      > Panel Display Text \nLow Coolant Pressure
+      > Panel Display Text \\nLow Coolant Pressure
       > Coolant Pump Off
       # Remain off
     Depending on (Shutdown) { Validate Pump_Cool_Is_Shutdown; }
@@ -1502,7 +1502,7 @@ State Inverter_Shutdown {
 State Inverter_Is_Shutdown {}
 
 State Inverter_Fail {
-      > Panel Display Text \nBus 1 Power Failure
+      > Panel Display Text \\nBus 1 Power Failure
       > Inverter Power Off
       > Inverter Arm Off
 }
@@ -1513,8 +1513,9 @@ State Inverter_Fail {
 Partition
 
 State BAT_SPAN_Init {
-  Hold Until (SWStat == SWS_TIMEWARP) or 15:00;
-  { if ((IOSwS & 3) == 3) Validate BAT_SPAN_Watch; }
+  Hold Until (SWStat == SWS_TIMEWARP) or 5:00;
+  Hold Until (PP_Land_LED || SWS_TIMEWARP) or 10:00;
+  Validate BAT_SPAN_Watch;
 }
 
 State BAT_SPAN_Watch {
@@ -1529,5 +1530,5 @@ State BAT_SPAN_Watch {
 }
 
 State BAT_SPAN_Fail {
-  > Panel Display Text \nBAT/GPS Failure
+  > Panel Display Text \\nBAT/GPS Failure
 }
