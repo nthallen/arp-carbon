@@ -174,10 +174,6 @@ State MINI_Calibrate {
      Depending on (Shutdown) { Validate MINI_Shutdown; }
      { if (!MM_Pump_S || !MM_Pump_DS) Validate MINI_Fill_To_Ambient; }
      { MINI_Ready_To_Calibrate = 1; }
-     Validate MQCL_Stop;
-     Hold Until Valid (MQCL_Idle);
- +1  > SSP_M Set Ncoadd 1
- +1  Validate MQCL_Start;
 
      Depending on (1Hz) {
        if ( MINI_Ready_To_Calibrate == 0 )
@@ -186,10 +182,13 @@ State MINI_Calibrate {
 }
 
 State MINI_End_Calibrate {
-     Validate MQCL_Stop;
-     Hold Until Valid (MQCL_Idle);
-     Validate MQCL_SelectRingandRun;
-     Validate MINI_Sample;
+       Validate MQCL_Stop;
+       Hold Until Valid (MQCL_Idle);
+    +1 > SSP_M Set Ncoadd 1
+    +1 Validate MQCL_Start;
+ +2:00 Validate MQCL_Stop;
+       Hold Until Valid (MQCL_Idle);
+       Validate MINI_Sample;
 }
 
 State MINI_Fill_to_Ambient {
@@ -248,11 +247,6 @@ State CO2_Calibrate {
     Depending on (Shutdown) { Validate CO2_Shutdown; }
     { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
     { CO2_Ready_To_Calibrate = 1; }
-    Validate CQCL_Stop;
-    Hold Until Valid (CQCL_Idle);
-    
- +1 > SSP_C Set NCoadd 1
- +1 Validate CQCL_Start;
    
     Depending on (1Hz) {
       if ( CO2_Ready_To_Calibrate == 0 )
@@ -261,10 +255,15 @@ State CO2_Calibrate {
 }
 
 State CO2_End_Calibrate {
-    Validate CQCL_Stop;
-    Hold Until Valid (CQCL_Idle);
-    Validate CQCL_SelectICOSandRun;
-    Validate CO2_Sample;
+        Validate CQCL_Stop;
+        Hold Until Valid (CQCL_Idle);
+    
+    +1  > SSP_C Set NCoadd 1
+    +1  Validate CQCL_Start;
+ +2:00  Validate CQCL_Stop;
+        Hold Until Valid (CQCL_Idle);
+        Validate CQCL_SelectICOSandRun;
+        Validate CO2_Sample;
 }
 
 State CO2_Fill_to_Ambient {
@@ -1261,7 +1260,7 @@ State MTControl_Not_OK {
    +10 > MINI Cell Htr Ctl On
     +1 > MINI DPV Htr Ctl On
     +1 > MINI LPV Ext TEC On
-    +1 Validate MTControl_Watch;
+ +1:00 Validate MTControl_Watch;
 }
 
 State MTControl_Shutdown {
