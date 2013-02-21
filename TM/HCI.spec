@@ -13,6 +13,7 @@ tmcbase = types.tmc
 tmcbase = AIO.tmc
 tmcbase = Altimeter.tmc
 tmcbase = BAT_SPAN.tmc
+tmcbase = BAT_SPAN_cal.tmc
 tmcbase = Inverter.tmc
 tmcbase = T30K75KU.tmc
 tmcbase = T1M250KU.tmc
@@ -95,3 +96,5 @@ HCIeng.cdf : genui.txt
 	cd ../Inverter && make
 ../Altimeter/Altimeter :
 	cd ../Altimeter && make
+BAT_SPAN_cal.tmc : ../BAT/N51AU.txt
+	../BAT/BS2tmc.pl ../BAT/N51AU.txt >BAT_SPAN_cal.tmc

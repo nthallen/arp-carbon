@@ -345,6 +345,8 @@ void BS2cdf::Parse_Record(const unsigned char *rec) {
     nl_error(2, "Empty record");
     return;
   }
+  Parse_Rec(SPAN_rec, BAT_new, 0);
+#ifdef SHIFT_IN_EXTRACTION
   if (BAT_saved) {
     Parse_Rec(SPAN_rec, &BAT_rec[0], 1);
     if (BAT_new) {
@@ -359,6 +361,7 @@ void BS2cdf::Parse_Record(const unsigned char *rec) {
     memcpy(&BAT_rec[0], BAT_new, BAT_nb_rec);
     BAT_saved = true;
   }
+#endif
 }
 
 void BS2cdf::Parse_Rec(const unsigned char *SPAN_rec,

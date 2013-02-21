@@ -33,18 +33,6 @@ TM typedef unsigned long SolnStatus_t { text "%3lu"; }
 TM typedef unsigned long PosType_t { text "%3lu"; }
 TM typedef unsigned long BP_DatumID_t { text "%3lu"; }
 
-Calibration ( BAT_Px_t, MBAR) { -32768, -0.27876, 32767, 23.84995 }
-Calibration ( BAT_Py_t, MBAR) { -32768, -17.56082, 32767, 17.66867 }
-Calibration ( BAT_Pz_t, MBAR) { -32768, -17.64273, 32767, 17.70477 }
-Calibration ( BAT_Ps_t, MBAR) { -32768, 473.236, 32767, 1057.92631 }
-Calibration ( BAT_Ax_t, M_S2) { -32768, -20.07689, 32767, 20.11795 }
-Calibration ( BAT_Ay_t, M_S2) { -32768, -19.70348, 32767, 19.6493 }
-Calibration ( BAT_Az_t, M_S2) { -32768, -10.92286, 32767, 30.52107 }
-Calibration ( BAT_FOTemp_t, CELCIUS) { -32768, -49.99153, 32767, 50.015533 }
-Calibration ( BAT_Pump_t, mVOLTS) { -32768, -4999.15327, 32767, 5001.55327 }
-Calibration ( BAT_Axb_t, M_S2) { -32768, -18.36088, 32767, 18.28451 }
-Calibration ( BAT_Ayb_t, M_S2) { -32768, 18.78692, 32767, -18.93704 }
-Calibration ( BAT_Azb_t, M_S2) { -32768, -9.11474, 32767, 28.98142 }
 Calibration ( BP_Idle_t, PERCENT) { 0, 0, 200, 100 }
 
 TM 1 HZ GPS_msecs_t GPS_msecs; /* msecs since start of week */
