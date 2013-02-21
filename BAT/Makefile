@@ -29,5 +29,8 @@ BS2cdfext : $(BSCOBJ)
 BS2cdfoui.c : BS2cdf.oui
 	oui -o BS2cdfoui.c BS2cdf.oui
 
+BS_recovery : BS_recovery.o
+	$(LINK.cc) -o BS_recovery BS_recovery.o $(LIBS)
+
 clean :
 	rm -f *.o BAT_SPANoui.c BAT_SPAN BSloggeroui.c BSlogger BS2cdfext BS2cdfoui.c
