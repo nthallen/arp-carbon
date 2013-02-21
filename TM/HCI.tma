@@ -162,8 +162,8 @@ State MINI_Sample {
        > MINI Set Cell Pressure Setpoint 40
        Hold until (convert(MCelLP) < 10);
     +1 > MINI Pressure Reg On
-    +1 Validate MINI_Laser_TEC_Ramp;
-       Hold until valid (MINI_Laser_TEC_Ramp_Idle);
+#   +1 Validate MINI_Laser_TEC_Ramp;
+#      Hold until valid (MINI_Laser_TEC_Ramp_Idle);
     +1 Validate MQCL_SelectRingandRun;
  +1:00 Validate MQCL_SelectICOSandRun;
 +30:00 Validate MINI_Calibrate;
@@ -224,8 +224,8 @@ State CO2_Sample {
        > CO2 Set Cell Pressure Setpoint 40
        Hold until (convert(CCelLP) < 10);
     +1 > CO2 Pressure Reg On
-    +1 Validate CO2_Laser_TEC_Ramp;
-       Hold until valid (CO2_Laser_TEC_Ramp_Idle);
+#   +1 Validate CO2_Laser_TEC_Ramp;
+#      Hold until valid (CO2_Laser_TEC_Ramp_Idle);
     +1 Validate CQCL_SelectICOSandRun;
 +30:00 Validate CO2_Calibrate;
 }
@@ -1010,7 +1010,7 @@ State Pump_Cool_Start {
     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
     Hold until valid (Inverter_On);
  +1 > Coolant Pump On
- +1 Validate Pump_Cool_Watch;
+ +5 Validate Pump_Cool_Watch;
 }
 
 State Pump_Cool_Watch Nolog {
@@ -1019,6 +1019,7 @@ State Pump_Cool_Watch Nolog {
     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
     { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
     { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
+ +1 > Coolant Divert Off
  +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
  +1 hold until ( BATH_TEMP_OK(convert(WTnkT))) or 5
     else Validate Pump_Cool_Cold;
@@ -1046,6 +1047,8 @@ State Pump_Cool_Inverter_Off {
 }
 
 State Pump_Cool_LowP {
+      Hold Until (convert(CoolP) >= 25) or 10
+      else Validate Pump_Cool_Watch;
    +1 { msg( 2, "Low Coolant Pressure: %.1lf", convert(CoolP)); }
    +1 > Panel Top LED Red
       > Panel Display Text \\nLow Coolant Pressure
