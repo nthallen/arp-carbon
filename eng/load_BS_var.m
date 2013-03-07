@@ -1,4 +1,8 @@
 function val = load_BS_var(var, v)
+% val = load_BS_var(varname);
+% val = load_BS_var(varname, v);
+%  v is a logical vector specifying which of the raw values to include
+%  in the output vector.
 fi = 'BAT_SPAN.ncr';
 val = double(ncread(fi,var));
 val = val(:);
