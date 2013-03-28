@@ -4,6 +4,7 @@ CPPFLAGS= -I /usr/local/include -I /usr/pkg/include
 CFLAGS=-Wall -g
 CXXFLAGS= -Wall -g
 LIBS=-ltmpp -ltm -lnort -lnetcdf
+RECLIBS=-lnort
 
 .PHONY : all clean
 all : BAT_SPAN BSlogger BS2cdfext
@@ -30,7 +31,10 @@ BS2cdfoui.c : BS2cdf.oui
 	oui -o BS2cdfoui.c BS2cdf.oui
 
 BS_recovery : BS_recovery.o
-	$(LINK.cc) -o BS_recovery BS_recovery.o $(LIBS)
+	$(LINK.cc) -o BS_recovery BS_recovery.o $(RECLIBS)
+
+BS_rewrite : BS_rewrite.o
+	$(LINK.cc) -o BS_rewrite BS_rewrite.o $(RECLIBS)
 
 clean :
 	rm -f *.o BAT_SPANoui.c BAT_SPAN BSloggeroui.c BSlogger BS2cdfext BS2cdfoui.c

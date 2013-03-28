@@ -13,6 +13,7 @@
 #include "BAT_SPAN_int.h"
 #include "nortlib.h"
 #include "nl_assert.h"
+#include "mlf.h"
 
 #ifdef __USAGE
 %C <index_file> <disk_image>
@@ -38,6 +39,7 @@ int main(int argc, char **argv) {
     nl_assert(n < 4 || (mlf_block != cur_mlf_block && mlf_block >= 1 && mlf_block <= 136));
     if (n < 4 || mlf_block < cur_mlf_block) {
       /* Need to close out cur_mlf_block and close the file */
+      nl_assert(ofp != 0);
       if (cur_mlf_block == 136) {
         fwrite(block, 1, 380, ofp);
       } else {
@@ -46,11 +48,13 @@ int main(int argc, char **argv) {
       }
       fclose(ofp);
       ofp = NULL;
+      if (n<4) break;
     } else if (mlf_block > cur_mlf_block+1) {
       /* Zero out last partial record */
+      nl_assert(ofp != 0);
       int zeros = (cur_mlf_block*512)%139;
       nl_assert(zeros > 0 && zeros < 512);
-      memset(block[512-zeros], 0, zeros);
+      memset(&block[512-zeros], 0, zeros);
       fwrite(block, 1, 512, ofp);
       memset(block, 0, 512);
       while (cur_mlf_block+1 < mlf_block) {
@@ -66,7 +70,7 @@ int main(int argc, char **argv) {
       if (ofp) {
         fclose(ofp);
       }
-      fp = mlf_next_file(mlf);
+      ofp = mlf_next_file(mlf);
       cur_mlf_index = mlf_index;
     }
     fseeko64(img, ((off64_t)disk_block)*512, SEEK_SET);
