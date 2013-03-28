@@ -38,8 +38,8 @@
   devb-eide blk auto=none qnx6 sync=optional cam quiet
   waitfor /dev/hd0
   mount -e /dev/hd0
-  waitfor /dev/hd0t79
-  mount -t qnx4 /dev/hd0t79 /
+  waitfor /dev/hd0t179
+  mount -t qnx6 /dev/hd0t179 /
 
   display_msg "==> Emulating /etc/system/sysinit"
   getconf -s CS_TIMEZONE UTC
