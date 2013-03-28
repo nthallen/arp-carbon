@@ -1,0 +1,16 @@
+# nto network config file v1.2
+version v1.2
+
+[global]
+hostname hci
+domain arp.harvard.edu
+
+[wm0]
+type ethernet
+mode manual
+
+[wm1]
+type ethernet
+mode manual
+manual_ip 10.0.0.1
+manual_netmask 255.255.255.0
