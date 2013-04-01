@@ -1,4 +1,4 @@
-# Makefile Generated Thu Mar 28 14:59:49 EDT 2013
+# Makefile Generated Mon Apr 01 14:15:08 EDT 2013
 MNC=HCI
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
@@ -71,9 +71,8 @@ CMDBASE+=panel.cmd address.h SWData.cmd QCLI_C.cmd QCLI_M.cmd
 CMDBASE+=QCLI_I.cmd
 COLBASE=Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc
 COLBASE+=Inverter_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc
-COLBASE+=/usr/local/share/huarp/ebx37f_temp_col.tmc
 COLBASE+=/usr/local/share/huarp/DACS_ID.tmc
-COLBASE+=/usr/local/share/huarp/vl_temp_col.tmc
+COLBASE+=/usr/local/share/huarp/ebx37f_temp_col.tmc
 COLBASE+=/usr/local/share/huarp/tmdf_col.tmc
 COLBASE+=/usr/local/share/huarp/ptrhm_col.cc cpu_usage_col.tmc
 COLBASE+=/usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
@@ -142,8 +141,8 @@ HCIclt : HCIclt.o HCIcltoui.o
 HCIcltnc : HCIcltnc.o HCIcltncoui.o
 	$(LINK.normCXX) HCIcltnc.o HCIcltncoui.o -ltmnc -lncurses -ltmpp -ltm -lnort
 	$(OUIUSE) HCIcltncoui.c
-HCIcol.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc Inverter_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc /usr/local/share/huarp/ebx37f_temp_col.tmc /usr/local/share/huarp/DACS_ID.tmc /usr/local/share/huarp/vl_temp_col.tmc /usr/local/share/huarp/tmdf_col.tmc cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
-	$(TMC.col) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc Inverter_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc /usr/local/share/huarp/ebx37f_temp_col.tmc /usr/local/share/huarp/DACS_ID.tmc /usr/local/share/huarp/vl_temp_col.tmc /usr/local/share/huarp/tmdf_col.tmc cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
+HCIcol.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc Inverter_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc /usr/local/share/huarp/DACS_ID.tmc /usr/local/share/huarp/ebx37f_temp_col.tmc /usr/local/share/huarp/tmdf_col.tmc cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
+	$(TMC.col) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc Inverter_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc /usr/local/share/huarp/DACS_ID.tmc /usr/local/share/huarp/ebx37f_temp_col.tmc /usr/local/share/huarp/tmdf_col.tmc cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
 HCIcoloui.c : $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 HCIcoloui.o : HCIcoloui.c SWData.h

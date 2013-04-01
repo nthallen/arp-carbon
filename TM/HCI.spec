@@ -48,12 +48,11 @@ colbase = Inverter_col.tmc
 colbase = idx64col.tmc
 colbase = PTRH_col.tmc
 colbase = qcli_col.tmc
-colbase = /usr/local/share/huarp/ebx37f_temp_col.tmc
 colbase = /usr/local/share/huarp/DACS_ID.tmc
 
 # Pick one of these two:
-colbase = /usr/local/share/huarp/vl_temp_col.tmc
-# colbase = /usr/local/share/huarp/ebx37f_temp_col.tmc
+# colbase = /usr/local/share/huarp/vl_temp_col.tmc
+colbase = /usr/local/share/huarp/ebx37f_temp_col.tmc
 
 colbase = /usr/local/share/huarp/tmdf_col.tmc
 colbase = /usr/local/share/huarp/ptrhm_col.cc
