@@ -6,9 +6,9 @@ Effective Frame Dimensions:
   20 Rows 43 Columns
   20 rows/sec
   6880 bits/sec
-  Data:  6192 bits/sec  90 %
+  Data:  6184 bits/sec  90 %
   Synch: 640 bits/sec  9 %
-  Empty: 48 bits/sec  1 %
+  Empty: 56 bits/sec  1 %
 -------End of Frame Statistics-----
 
 
@@ -283,7 +283,6 @@ Effective Frame Dimensions:
 1/1 Hz 1 bytes Datum SSP_M_Status (20,19,30,1)
 1/1 Hz 1 bytes Datum SWStat (20,19,31,1)
 1/1 Hz 1 bytes Datum TVStat (20,19,32,1)
-1/1 Hz 1 bytes Datum vl_bdT (20,19,33,1)
-1/1 Hz 1 bytes Datum vl_cpuT (20,19,34,1)
+1/1 Hz 1 bytes Datum vl_cpuT (20,19,33,1)
 -------End of PCM Definition-------
 

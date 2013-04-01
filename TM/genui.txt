@@ -208,7 +208,7 @@ ROWS 25
  1 DACS_T2C HK_DACS Temp
  1 PC__T HK_DACS Temp
  1 PS__T HK_DACS Temp
- 1 vl_bdT HK_DACS Temp
+#1 vl_bdT HK_DACS Temp
  1 vl_cpuT HK_DACS Temp
  1 DACS_RHC HK_DACS RH
  1 SW0:IOSwS:0 HK_DACS Status

@@ -1,6 +1,6 @@
 #! /bin/sh
 #ifdef __USAGE
-# BSext [-A] <srcdir> <destdir>
+# BSext [-A] <srcdir> <destdir> [ <cfgfile> ]
 #endif
 
 function nl_error {
@@ -15,6 +15,7 @@ if [ "$1" = "-A" ]; then
 fi
 srcdir=$1
 destdir=$2
+cfgfile=${3:-N51AU.txt}
 
 [ -z "$srcdir" -o ! -d "$srcdir" ] &&
   nl_error Must specify destination directory
@@ -23,6 +24,6 @@ destdir=$2
 VERSION=1.0
 [ -f $srcdir/VERSION ] && VERSION=`cat $srcdir/VERSION`
 [ -x bin/$VERSION/BS2cdfext ] || nl_error Cannot locate bin/$VERSION/BS2cdfext
-bin/$VERSION/BS2cdfext $BSopt -P $srcdir -S N51AU.txt
+bin/$VERSION/BS2cdfext $BSopt -P $srcdir -S $cfgfile
 [ -r BAT_SPAN.ncr ] || nl_error BAT_SPAN.ncr not generated
 mv BAT_SPAN.ncr $destdir

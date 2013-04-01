@@ -41,7 +41,7 @@ State Standby {
 State Record {
         depending on (LAND)      { Validate Shutdown; }
         depending on (AI_Fail)   { Validate Shutdown; }
-        depending on (BAT_SPAN_Fail) { Validate Shutdown; }
+#        depending on (BAT_SPAN_Fail) { Validate Shutdown; }
         depending on (Inverter_Fail) { Validate Shutdown_Fast; }
         "In Record";
 }
@@ -189,7 +189,7 @@ State MINI_End_Calibrate {
     +1 > MINI Pressure Reg On
     +1 > SSP_M Set Ncoadd 1
     +1 Validate MQCL_Start;
- +2:00 Validate MQCL_Stop;
+ +5:00 Validate MQCL_Stop;
        Hold Until Valid (MQCL_Idle);
     +1 > MINI Pressure Reg Off
        Validate MINI_Sample;
@@ -267,7 +267,7 @@ State CO2_End_Calibrate {
     +1  > CO2 Pressure Reg On
     +1  > SSP_C Set NCoadd 1
     +1  Validate CQCL_Start;
- +2:00  Validate CQCL_Stop;
+ +5:00  Validate CQCL_Stop;
         Hold Until Valid (CQCL_Idle);
         Validate CQCL_SelectICOSandRun;
     +1  > CO2 Pressure Reg Off

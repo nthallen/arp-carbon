@@ -6,7 +6,7 @@ DACS {
   T2: (DACS_T2C,5) C;
   PC: (PC__T,6) C;
   PS: (PS__T,6) C;
-  VL: (vl_bdT,4) C;
+  #VL: (vl_bdT,4) C;
   CPU: (vl_cpuT,4) C;
 }
 
@@ -27,10 +27,10 @@ TV { HBox { +-; Title: Throttle; -+ };
 Status {
   HBox { +-; Title: status; -+ };
   >{
-    CPU: (CPU_Pct,3) %
-    Disk: (Disk,5) %
-    FreeMem: (freemem,7) MB
-    SWStat: (SWStat,3)
+    CPU: HBox { (CPU_Pct,3); % } HBox { (CPU2_Pct,3); % }
+    Disk: HBox { (Disk,5); % }
+    Mem: (freemem,7) MB
+    SWS: (SWStat,3)
     (flttime,9)
     MFCtr: (MFCtr,5)
   }
