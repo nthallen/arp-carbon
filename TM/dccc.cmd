@@ -23,6 +23,7 @@
   : On { $0 = 1; }
   ;
 &dccc_off_on <int>
+  : BAT Power { $0 = 13; }
   : CO2 Cell Htr Ctl { $0 = 27; }
   : CO2 LPV Htr Ctl { $0 = 26; }
   : CO2 QCLI Reset { $0 = 25; }
