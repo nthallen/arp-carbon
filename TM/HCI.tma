@@ -177,7 +177,8 @@ State MINI_Calibrate {
 
      Depending on (1Hz) {
        if ( MINI_Ready_To_Calibrate == 0 )
-         Validate MINI_End_Calibrate;
+#         Validate MINI_End_Calibrate;
+	Validate MINI_Sample;
      }
 }
 
@@ -254,7 +255,8 @@ State CO2_Calibrate {
    
     Depending on (1Hz) {
       if ( CO2_Ready_To_Calibrate == 0 )
-        Validate CO2_End_Calibrate;
+#        Validate CO2_End_Calibrate;
+	Validate CO2_Sample;
     }
 }
 
