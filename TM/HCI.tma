@@ -188,7 +188,7 @@ State MINI_End_Calibrate {
        > MINI Set Cell Pressure Setpoint 40
        Hold until (convert(MCelLP) < 10);
     +1 > MINI Pressure Reg On
-    +1 > SSP_M Set Ncoadd 1
+#   +1 > SSP_M Set Ncoadd 1
     +1 Validate MQCL_Start;
  +5:00 Validate MQCL_Stop;
        Hold Until Valid (MQCL_Idle);
@@ -254,9 +254,7 @@ State CO2_Calibrate {
     { CO2_Ready_To_Calibrate = 1; }
    
     Depending on (1Hz) {
-      if ( CO2_Ready_To_Calibrate == 0 )
-#        Validate CO2_End_Calibrate;
-	Validate CO2_Sample;
+      if ( CO2_Ready_To_Calibrate == 0 ) Validate CO2_End_Calibrate;
     }
 }
 
@@ -267,7 +265,7 @@ State CO2_End_Calibrate {
         > CO2 Set Cell Pressure Setpoint 40
         Hold until (convert(CCelLP) < 10);
     +1  > CO2 Pressure Reg On
-    +1  > SSP_C Set NCoadd 1
+#   +1  > SSP_C Set NCoadd 1
     +1  Validate CQCL_Start;
  +5:00  Validate CQCL_Stop;
         Hold Until Valid (CQCL_Idle);

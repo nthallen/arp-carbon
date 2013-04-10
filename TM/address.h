@@ -52,7 +52,7 @@
 #define MRv4T_Address 0xC2A
 #define MRv3T_Address 0xCE8
 #define MRv2T_Address 0xCA8
-#define MRv1T_Address 0xC68
+#define MRv1T_Address 0xC26
 #define MPMtT_Address 0xCDA
 #define MPmpT_Address 0xC9A
 #define MPampT_Address 0xCE0
@@ -67,7 +67,7 @@
 #define MCelHP_Address 0xCA2
 #define MCelCT_Address 0xCEA
 #define MCel2T_Address 0xC66
-#define MCel1T_Address 0xC26
+#define MCel1T_Address 0xC68
 #define M24VT_Address 0xC22
 #define ISSPT_Address 0xC1A
 #define ISk3T_Address 0xC82
@@ -99,7 +99,7 @@
 #define CRv4T_Address 0xCB8
 #define CRv3T_Address 0xC78
 #define CRv2T_Address 0xC38
-#define CRv1T_Address 0xCF6
+#define CRv1T_Address 0xCB4
 #define CPMtT_Address 0xC5C
 #define CPmpT_Address 0xC1C
 #define CPampT_Address 0xC70
@@ -113,5 +113,5 @@
 #define CCelHP_Address 0xC32
 #define CCelCT_Address 0xC7A
 #define CCel2T_Address 0xCF4
-#define CCel1T_Address 0xCB4
+#define CCel1T_Address 0xCF6
 #define C24VT_Address 0xCB0
