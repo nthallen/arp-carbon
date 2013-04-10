@@ -177,8 +177,8 @@ State MINI_Calibrate {
 
      Depending on (1Hz) {
        if ( MINI_Ready_To_Calibrate == 0 )
-#         Validate MINI_End_Calibrate;
-	Validate MINI_Sample;
+         /* Validate MINI_End_Calibrate; */
+	 Validate MINI_Sample;
      }
 }
 
