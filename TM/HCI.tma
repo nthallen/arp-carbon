@@ -50,7 +50,8 @@ State Record {
 State Shutdown {
  +1   > Panel Display Text \\nShutting Down...
       Hold until valid (MINI_Is_Shutdown, CO2_Is_Shutdown,
-        Pump_Is_Shutdown, Inverter_Is_Shutdown) or 5:00;
+        Pump_Is_Shutdown, Inverter_Is_Shutdown,
+        SampleHtr_Shutdown) or 5:00;
  +2   > Panel Display Text Done
       > Fail Light On
       > Quit
@@ -372,12 +373,12 @@ State MQCL_SSP_M_Recover NoLog {
     { if ( ++num_MQCL_recovers > 20 ) {
         nl_error( 2, "Exceeded num_MQCL_recovers. Trying reset" );
         num_MQCL_recovers = 0;
-        Validate MQCL_QCLI_M_Reset;
+        Validate MQCLI_Stop_Reset;
       }
     }
     Hold until ( SSP_M_Status == SSP_STATUS_READY ) or 10
     else Validate MQCL_SSP_M_Not_Talking;
- +2 Validate MQCLI_Stop
+ +2 Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle);
     Validate MQCL_Start;
 }
@@ -398,7 +399,7 @@ State MQCL_Fail {
 
 State MQCL_Shutdown {
     > SSP_M Stop
- +1 Validate MQCLI_Stop
+ +1 Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle) or 20;
     > Log Laser MQCL Has Shutdown
     > MINI Laser TEC Off
@@ -427,7 +428,7 @@ State MQCL_Out_TSpec {
 State MQCL_Stop {
     Depending on (Shutdown) { Validate MQCL_Shutdown; }
     > SSP_M Stop
- +1 Validate MQCLI_Stop
+ +1 Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle);
     Validate MQCL_Idle;
 }
