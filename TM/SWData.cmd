@@ -27,7 +27,7 @@
   : MINI Temperature Ctrl Stop { $0 = SWS_MT_STOP; }
   : MINI Calibrate { $0 = SWS_MCALIBRATE; }
   : MINI Start { $0 = SWS_MSTART; }
-  : HCI Start { $0 = SWS_HCISTART; }
+  : HCI Start { $0 = SWS_SMPLHTRWTCH; }
   : CO2 Laser Select ICOS and Run { $0 = SWS_CQCL_SELECT; }
   : CO2 Laser Start { $0 = SWS_CQCL_START; }
   : CO2 Laser Stop { $0 = SWS_CQCL_STOP; }

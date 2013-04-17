@@ -549,7 +549,7 @@ Partition
 State CQCL_Init {
     Depending on (Shutdown) { Validate CQCL_Shutdown; }
   +1  > SSP_C Stop
-  +1  Validate CQLI_Stop;
+  +1  Validate CQCLI_Stop;
       Hold until valid (CQCLI_Idle);
       Validate CQCL_Idle;
 }
@@ -590,7 +590,7 @@ State CQCL_NC_1 {
    +1 > SSP_C Stop
       Hold until (SSP_C_Status == SSP_STATUS_READY) or 2 else {
         nl_error( 2, "SSP_C Not Ready in CQCL_NC_1" );
-        Validate MQCL_SSP_C_Recover;
+        Validate CQCL_SSP_C_Recover;
       }
    +1 > SSP_C Set NCoadd 1
       > SSP_C Start
@@ -637,12 +637,12 @@ State CQCL_SSP_C_Recover NoLog {
     { if ( ++num_CQCL_recovers > 20 ) {
         nl_error( 2, "Exceeded num_CQCL_recovers. Trying reset" );
         num_CQCL_recovers = 0;
-        Validate CQCL_QCLI_C_Reset;
+        Validate CQCLI_Stop_Reset;
       }
     }
     Hold until ( SSP_C_Status == SSP_STATUS_READY ) or 10
     else Validate CQCL_SSP_C_Not_Talking;
- +2 Validate CQCLI_Stop
+ +2 Validate CQCLI_Stop;
     Hold until valid (CQCLI_Idle);
     Validate CQCL_Start;
 }
@@ -663,8 +663,8 @@ State CQCL_Fail {
 
 State CQCL_Shutdown {
     > SSP_C Stop
- +1 Validate QCLI_Stop
-    Hold until valid (CQLI_Idle) or 20;
+ +1 Validate CQCLI_Stop;
+    Hold until valid (CQCLI_Idle) or 20;
     > Log Laser CQCL Has Shutdown
     > CO2 Laser TEC Off
     Validate CQCL_Is_Shutdown;
@@ -674,8 +674,8 @@ State CQCL_Is_Shutdown {}
 
 State CQCL_Out_Spec {
     Validate CQCLI_Stop;
-    Hold until valid (CQCLI_Idle);
- +1 Validate CQCL_QCLI_C_Recover;
+    Hold until Valid (CQCLI_Idle);
+    Validate CQCL_Start;
 }
 
 State CQCL_Out_TSpec {
@@ -691,7 +691,7 @@ State CQCL_Out_TSpec {
 State CQCL_Stop {
     Depending on (Shutdown) { Validate CQCL_Shutdown; }
     > SSP_C Stop
- +1 Validate QCLII_Stop;
+ +1 Validate CQCLI_Stop;
     Hold until valid (CQCLI_Idle);
     Validate CQCL_Idle;
 }

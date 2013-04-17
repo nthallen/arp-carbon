@@ -19,7 +19,7 @@ extern SWData_t SWData;
 #define SWS_MT_STOP 8
 #define SWS_MCALIBRATE 9
 #define SWS_MSTART 10
-#define SWS_HCISTART 11
+#define SWS_SMPLHTRWTCH 11
 #define SWS_CQCL_SELECT 12
 #define SWS_CQCL_START 13
 #define SWS_CQCL_STOP 14
