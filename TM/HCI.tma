@@ -247,9 +247,7 @@ State CO2_End_Calibrate {
     +1  > CO2 Pressure Reg On
    +20  Validate CQCL_NC_1;
     +1  Hold until valid (CQCL_Watch);
-   +10  Validate CQCL_Stop;
-        Hold Until Valid (CQCL_Idle);
-        Validate CQCL_SelectICOSandRun;
+   +10  Validate CQCL_NC_Restore;
     +1  > CO2 Pressure Reg Off
         Validate CO2_Sample;
 }
@@ -584,7 +582,8 @@ State CQCL_Start {
     Validate CQCL_Watch;
 }
 
-# CQCL_NC_1: stop SSP, set NCoadd to 1 and restart SSP without shutting down QCLI
+# CQCL_NC_1: stop SSP, set NCoadd to 1 and restart SSP
+# without shutting down QCLI
 State CQCL_NC_1 {
     Depending on (Shutdown) { Validate CQCL_Shutdown; }
    +1 > SSP_C Stop
@@ -594,6 +593,28 @@ State CQCL_NC_1 {
       }
    +1 > SSP_C Set NCoadd 1
       > SSP_C Start
+      Hold until (SSP_C_Status == SSP_STATUS_ARMED ||
+                  SSP_C_Status == SSP_STATUS_TRIG) or 20 else {
+        nl_error(2, "Not starting in CQCL_NC_1");
+        Validate CQCL_SSP_C_Recover;
+      }
+   +1 Validate CQCL_Watch;
+}
+
+# CQCL_NC_Restore: stop SSP, reset NCoadd and restart SSP
+# without shutting down QCLI
+State CQCL_NC_Restore {
+    Depending on (Shutdown) { Validate CQCL_Shutdown; }
+   +1 > SSP_C Stop
+      Hold until (SSP_C_Status == SSP_STATUS_READY) or 2 else {
+        nl_error( 2, "SSP_C Not Ready in CQCL_NC_1" );
+        Validate CQCL_SSP_C_Recover;
+      }
+   +1 Depending on (QCLI_C_Wave once) {
+        ci_sendfcmd( 0, "Select SSP_C Waveform Number %d\n",
+          QCLI_C_Wave );
+      }
+   +2 > SSP_C Start
       Hold until (SSP_C_Status == SSP_STATUS_ARMED ||
                   SSP_C_Status == SSP_STATUS_TRIG) or 20 else {
         nl_error(2, "Not starting in CQCL_NC_1");
