@@ -1,472 +1,473 @@
 HEADER Harvard Carbon Isotopes
 MNEMONIC HCI
 HOMEDIR HCI_Data_Dir
-ROWS 25
- 1 CCelHP CO2_Cell P
-10 CCelLP CO2_Cell P
- 1 CCelP CO2_Cell P
- 1 CCelPSt CO2_Cell P
-10 CCel1T CO2_Cell Temp
-10 CCel2T CO2_Cell Temp
- 1 CCelCT CO2_Cell T_ctrl
- 1 CCelTSt CO2_Cell T_ctrl
- 1 CCell_HC_DS:DS84C:3 CO2_Cell Status
- 1 CGas_Ex_Vlv_DS:DS84C:7 CO2_Cell Status
- 1 CGas_Vlv_DS:DS84C:6 CO2_Cell Status
- 1 CPrs_Reg_DS:DS84C:5 CO2_Cell Status
+ROWS 15
+ 1 CCelHP CO2:CO2_Cell P
+10 CCelLP CO2:CO2_Cell P
+ 1 CCelP CO2:CO2_Cell P
+ 1 CCelPSt CO2:CO2_Cell P
+10 CCel1T CO2:CO2_Cell Temp
+10 CCel2T CO2:CO2_Cell Temp
+ 1 CCelCT CO2:CO2_Cell T_ctrl
+ 1 CCelTSt CO2:CO2_Cell T_ctrl
+ 1 CCell_HC_DS:DS84C:3 CO2:CO2_Cell Status
+ 1 CGas_Ex_Vlv_DS:DS84C:7 CO2:CO2_Cell Status
+ 1 CGas_Vlv_DS:DS84C:6 CO2:CO2_Cell Status
+ 1 CPrs_Reg_DS:DS84C:5 CO2:CO2_Cell Status
 
- 1 CLPV_P CO2_CLPV P
- 1 CLPV_T1C CO2_CLPV Temp
- 1 CLPV_T2C CO2_CLPV Temp
- 1 CLPVCT CO2_CLPV T_ctrl
- 1 CLPVTSt CO2_CLPV T_ctrl
- 1 CLPV_RHC CO2_CLPV RH
+ 1 CLPV_P CO2:CO2_CLPV P
+ 1 CLPV_T1C CO2:CO2_CLPV Temp
+ 1 CLPV_T2C CO2:CO2_CLPV Temp
+ 1 CLPVCT CO2:CO2_CLPV T_ctrl
+ 1 CLPVTSt CO2:CO2_CLPV T_ctrl
+ 1 CLPV_RHC CO2:CO2_CLPV RH
  
- 1 CLasI CO2_Laser Current
- 1 CLH_T CO2_Laser Temp
- 1 CQCL_T1C CO2_Laser Temp
- 1 CQCL_T2C CO2_Laser Temp
- 1 CLTE4R3T CO2_Laser T_ctrl
- 1 CLTETSt CO2_Laser T_ctrl
- 1 CLPV_HC_DS:DS84C:2 CO2_Laser Status
- 1 CLTEC_DS:DS84C:4 CO2_Laser Status
- 1 CQCL_P CO2_Laser P
- 1 CQCL_RHC CO2_Laser RH
+ 1 CLasI CO2:CO2_Laser Current
+ 1 CLH_T CO2:CO2_Laser Temp
+ 1 CQCL_T1C CO2:CO2_Laser Temp
+ 1 CQCL_T2C CO2:CO2_Laser Temp
+ 1 CLTE4R3T CO2:CO2_Laser T_ctrl
+ 1 CLTETSt CO2:CO2_Laser T_ctrl
+ 1 CLPV_HC_DS:DS84C:2 CO2:CO2_Laser Status
+ 1 CLTEC_DS:DS84C:4 CO2:CO2_Laser Status
+ 1 CQCL_P CO2:CO2_Laser P
+ 1 CQCL_RHC CO2:CO2_Laser RH
 
- 1 CDetT CO2_Detector Temp
+ 1 CDetT CO2:CO2_Detector Temp
 
- 1 CPmpT CO2_Pump Temp
- 1 CPMtT CO2_Pump Temp
- 1 C_Pump_DS:DS851:1 CO2_Pump Status
- 1 C_Pump_S:DS86A:1 CO2_Pump Status
+ 1 CPmpT CO2:CO2_Pump Temp
+ 1 CPMtT CO2:CO2_Pump Temp
+ 1 C_Pump_DS:DS851:1 CO2:CO2_Pump Status
+ 1 C_Pump_S:DS86A:1 CO2:CO2_Pump Status
 
- 1 QCLI_C_Wave CO2_QCLI Wave %.0lf
- 1 QCLI_C_fifodep CO2_QCLI FIFO
- 1 QCLI_C_Stale CO2_QCLI Stale QCLI
- 1 SSP_C_Stale CO2_QCLI Stale SSP
- 1 CQCLI_Reset_DS:DS84C:1 CO2_QCLI_Status Status
- 1 FIFOOvf:QCLI_C_CS:12 CO2_QCLI_Status Status
- 1 QCLI_C_Busy:QCLI_C_s:15 CO2_QCLI_Status Status
- 1 QCLI_C_cksum:QCLI_C_s:14 CO2_QCLI_Status Status
- 1 QCLI_C_cmderr:QCLI_C_s:13 CO2_QCLI_Status Status
- 1 QCLI_C_dot:QCLI_C_s:5 CO2_QCLI_Status Status
- 1 QCLI_C_InvCmd:QCLI_C_s:11 CO2_QCLI_Status Status
- 1 QCLI_C_laser:QCLI_C_s:12 CO2_QCLI_Status Status
- 1 QCLI_C_loc:QCLI_C_s:3 CO2_QCLI_Status Status
- 1 QCLI_C_lot:QCLI_C_s:4 CO2_QCLI_Status Status
- 1 QCLI_C_ready:QCLI_C_s:9 CO2_QCLI_Status Status
- 1 QCLI_C_waveerr:QCLI_C_s:8 CO2_QCLI_Status Status
- 1 QCLIResponding:QCLI_C_CS:11 CO2_QCLI_Status Status
- 1 RBComplete:QCLI_C_CS:9 CO2_QCLI_Status Status
- 1 RBPending:QCLI_C_CS:8 CO2_QCLI_Status Status
- 1 Reading:QCLI_C_CS:14 CO2_QCLI_Status Status
- 1 RWConflict:QCLI_C_CS:13 CO2_QCLI_Status Status
- 1 WQPending:QCLI_C_CS:10 CO2_QCLI_Status Status
+ 1 QCLI_C_Wave CO2:CO2_QCLI Wave %.0lf
+ 1 QCLI_C_fifodep CO2:CO2_QCLI FIFO
+ 1 QCLI_C_Stale CO2:CO2_QCLI Stale QCLI
+ 1 SSP_C_Stale CO2:CO2_QCLI Stale SSP
+ 1 CQCLI_Reset_DS:DS84C:1 CO2:CO2_QCLI_Status Status
+ 1 FIFOOvf:QCLI_C_CS:12 CO2:CO2_QCLI_Status Status
+ 1 QCLI_C_Busy:QCLI_C_s:15 CO2:CO2_QCLI_Status Status
+ 1 QCLI_C_cksum:QCLI_C_s:14 CO2:CO2_QCLI_Status Status
+ 1 QCLI_C_cmderr:QCLI_C_s:13 CO2:CO2_QCLI_Status Status
+ 1 QCLI_C_dot:QCLI_C_s:5 CO2:CO2_QCLI_Status Status
+ 1 QCLI_C_InvCmd:QCLI_C_s:11 CO2:CO2_QCLI_Status Status
+ 1 QCLI_C_laser:QCLI_C_s:12 CO2:CO2_QCLI_Status Status
+ 1 QCLI_C_loc:QCLI_C_s:3 CO2:CO2_QCLI_Status Status
+ 1 QCLI_C_lot:QCLI_C_s:4 CO2:CO2_QCLI_Status Status
+ 1 QCLI_C_ready:QCLI_C_s:9 CO2:CO2_QCLI_Status Status
+ 1 QCLI_C_waveerr:QCLI_C_s:8 CO2:CO2_QCLI_Status Status
+ 1 QCLIResponding:QCLI_C_CS:11 CO2:CO2_QCLI_Status Status
+ 1 RBComplete:QCLI_C_CS:9 CO2:CO2_QCLI_Status Status
+ 1 RBPending:QCLI_C_CS:8 CO2:CO2_QCLI_Status Status
+ 1 Reading:QCLI_C_CS:14 CO2:CO2_QCLI_Status Status
+ 1 RWConflict:QCLI_C_CS:13 CO2:CO2_QCLI_Status Status
+ 1 WQPending:QCLI_C_CS:10 CO2:CO2_QCLI_Status Status
 
- 1 CAOVF1:SSP_C_Flags:0 CO2_SSP Overflow
- 1 CAOVF2:SSP_C_Flags:1 CO2_SSP Overflow
- 1 CAOVF3:SSP_C_Flags:2 CO2_SSP Overflow
- 1 PAOVF1:SSP_C_Flags:3 CO2_SSP Overflow
- 1 PAOVF2:SSP_C_Flags:4 CO2_SSP Overflow
- 1 PAOVF3:SSP_C_Flags:5 CO2_SSP Overflow
- 1 ADOVF1:SSP_C_Flags:6 CO2_SSP Overflow
- 1 ADOVF2:SSP_C_Flags:7 CO2_SSP Overflow
- 1 ADOVF3:SSP_C_Flags:8 CO2_SSP Overflow
- 1 SSP_C_Num CO2_SSP Files
- 1 SSP_C_SN CO2_SSP Scans
- 1 SSP_C_TS CO2_SSP Skipped
- 1 QCLI_C_Wave CO2_SSP Wave %.0lf
- 1 SSP_C_Status CO2_SSP Status %.0lf
+ 1 CAOVF1:SSP_C_Flags:0 CO2:CO2_SSP Overflow
+ 1 CAOVF2:SSP_C_Flags:1 CO2:CO2_SSP Overflow
+ 1 CAOVF3:SSP_C_Flags:2 CO2:CO2_SSP Overflow
+ 1 PAOVF1:SSP_C_Flags:3 CO2:CO2_SSP Overflow
+ 1 PAOVF2:SSP_C_Flags:4 CO2:CO2_SSP Overflow
+ 1 PAOVF3:SSP_C_Flags:5 CO2:CO2_SSP Overflow
+ 1 ADOVF1:SSP_C_Flags:6 CO2:CO2_SSP Overflow
+ 1 ADOVF2:SSP_C_Flags:7 CO2:CO2_SSP Overflow
+ 1 ADOVF3:SSP_C_Flags:8 CO2:CO2_SSP Overflow
+ 1 SSP_C_Num CO2:CO2_SSP Files
+ 1 SSP_C_SN CO2:CO2_SSP Scans
+ 1 SSP_C_TS CO2:CO2_SSP Skipped
+ 1 QCLI_C_Wave CO2:CO2_SSP Wave %.0lf
+ 1 SSP_C_Status CO2:CO2_SSP Status %.0lf
 
- 1 C24VT CO2_Temps SSP
- 1 CPampT CO2_Temps SSP
- 1 CSSPT CO2_Temps SSP
- 1 SSP_C_T_FPGA CO2_Temps SSP
- 1 SSP_C_T_HtSink CO2_Temps SSP
- 1 CRv1T CO2_Temps Roving
- 1 CRv2T CO2_Temps Roving
- 1 CRv3T CO2_Temps Roving
- 1 CRv4T CO2_Temps Roving
- 1 CRv5T CO2_Temps Roving
- 1 CSG1T CO2_Temps Sample
- 1 CSG2T CO2_Temps Sample
- 1 CSk1T CO2_Temps Skin
- 1 CSk2T CO2_Temps Skin
- 1 CSk3T CO2_Temps Skin
+ 1 C24VT CO2:CO2_Temps SSP
+ 1 CPampT CO2:CO2_Temps SSP
+ 1 CSSPT CO2:CO2_Temps SSP
+ 1 SSP_C_T_FPGA CO2:CO2_Temps SSP
+ 1 SSP_C_T_HtSink CO2:CO2_Temps SSP
+ 1 CRv1T CO2:CO2_Temps Roving
+ 1 CRv2T CO2:CO2_Temps Roving
+ 1 CRv3T CO2:CO2_Temps Roving
+ 1 CRv4T CO2:CO2_Temps Roving
+ 1 CRv5T CO2:CO2_Temps Roving
+ 1 CSG1T CO2:CO2_Temps Sample
+ 1 CSG2T CO2:CO2_Temps Sample
+ 1 CSk1T CO2:CO2_Temps Skin
+ 1 CSk2T CO2:CO2_Temps Skin
+ 1 CSk3T CO2:CO2_Temps Skin
 
- 1 MCelHP MINI_Cell P
-10 MCelLP MINI_Cell P
- 1 MCelP MINI_Cell P
- 1 MCelPSt MINI_Cell P
-10 MCel1T MINI_Cell Temp
-10 MCel2T MINI_Cell Temp
- 1 MCelCT MINI_Cell T_ctrl
- 1 MCelTSt MINI_Cell T_ctrl
- 1 MCell_HC_DS:DS868:2 MINI_Cell Status
- 1 MGas_Ex_Vlv_DS:DS84C:0 MINI_Cell Status
- 1 MGas_Vlv_DS:DS868:7 MINI_Cell Status
- 1 MPrs_Reg_DS:DS868:6 MINI_Cell Status
+ 1 MCelHP MINI:MINI_Cell P
+10 MCelLP MINI:MINI_Cell P
+ 1 MCelP MINI:MINI_Cell P
+ 1 MCelPSt MINI:MINI_Cell P
+10 MCel1T MINI:MINI_Cell Temp
+10 MCel2T MINI:MINI_Cell Temp
+ 1 MCelCT MINI:MINI_Cell T_ctrl
+ 1 MCelTSt MINI:MINI_Cell T_ctrl
+ 1 MCell_HC_DS:DS868:2 MINI:MINI_Cell Status
+ 1 MGas_Ex_Vlv_DS:DS84C:0 MINI:MINI_Cell Status
+ 1 MGas_Vlv_DS:DS868:7 MINI:MINI_Cell Status
+ 1 MPrs_Reg_DS:DS868:6 MINI:MINI_Cell Status
 
- 1 MDetT MINI_Detector Temp
- 1 MDPVCT MINI_Detector T_ctrl
- 1 MDPVTSt MINI_Detector T_ctrl
- 1 MDPV_HC_DS:DS868:3 MINI_Detector Status
+ 1 MDetT MINI:MINI_Detector Temp
+ 1 MDPVCT MINI:MINI_Detector T_ctrl
+ 1 MDPVTSt MINI:MINI_Detector T_ctrl
+ 1 MDPV_HC_DS:DS868:3 MINI:MINI_Detector Status
 
- 1 MLPV_P MINI_MLPV P
- 1 MLPV_T1C MINI_MLPV Temp
- 1 MLPV_T2C MINI_MLPV Temp
- 1 MLPV_RHC MINI_MLPV RH
+ 1 MLPV_P MINI:MINI_MLPV P
+ 1 MLPV_T1C MINI:MINI_MLPV Temp
+ 1 MLPV_T2C MINI:MINI_MLPV Temp
+ 1 MLPV_RHC MINI:MINI_MLPV RH
 
- 1 MLasI MINI_Laser Current
- 1 MLH_T MINI_Laser Temp
- 1 MLPVCT MINI_Laser T_ctrl
- 1 MLPVTSt MINI_Laser T_ctrl
- 1 MLTE7R7T MINI_Laser T_ctrl
- 1 MLTETSt MINI_Laser T_ctrl
- 1 MLPV_TEC_DS:DS868:5 MINI_Laser Status
- 1 MLTEC_DS:DS868:4 MINI_Laser Status
- 1 MQCL_P MINI_Laser P
- 1 MQCL_T1C MINI_Laser Temp
- 1 MQCL_T2C MINI_Laser Temp
- 1 MQCL_RHC MINI_Laser RH
+ 1 MLasI MINI:MINI_Laser Current
+ 1 MLH_T MINI:MINI_Laser Temp
+ 1 MLPVCT MINI:MINI_Laser T_ctrl
+ 1 MLPVTSt MINI:MINI_Laser T_ctrl
+ 1 MLTE7R7T MINI:MINI_Laser T_ctrl
+ 1 MLTETSt MINI:MINI_Laser T_ctrl
+ 1 MLPV_TEC_DS:DS868:5 MINI:MINI_Laser Status
+ 1 MLTEC_DS:DS868:4 MINI:MINI_Laser Status
+ 1 MQCL_P MINI:MINI_Laser P
+ 1 MQCL_T1C MINI:MINI_Laser Temp
+ 1 MQCL_T2C MINI:MINI_Laser Temp
+ 1 MQCL_RHC MINI:MINI_Laser RH
 
- 1 MDPV_P MINI_MDPV P
- 1 MDPV_T1C MINI_MDPV Temp
- 1 MDPV_T2C MINI_MDPV Temp
- 1 MDPV_RHC MINI_MDPV RH
+ 1 MDPV_P MINI:MINI_MDPV P
+ 1 MDPV_T1C MINI:MINI_MDPV Temp
+ 1 MDPV_T2C MINI:MINI_MDPV Temp
+ 1 MDPV_RHC MINI:MINI_MDPV RH
  
- 1 MPmpT MINI_Pump Temp
- 1 MPMtT MINI_Pump Temp
- 1 MM_Pump_DS:DS851:0 MINI_Pump Status
- 1 MM_Pump_S:DS86A:0 MINI_Pump Status
+ 1 MPmpT MINI:MINI_Pump Temp
+ 1 MPMtT MINI:MINI_Pump Temp
+ 1 MM_Pump_DS:DS851:0 MINI:MINI_Pump Status
+ 1 MM_Pump_S:DS86A:0 MINI:MINI_Pump Status
 
- 1 QCLI_M_Wave MINI_QCLI Wave %.0lf
- 1 QCLI_M_fifodep MINI_QCLI FIFO
- 1 QCLI_M_Stale MINI_QCLI Stale
- 1 SSP_M_Stale MINI_QCLI Stale
- 1 FIFOOvf:QCLI_M_CS:12 MINI_QCLI_Status Status
- 1 MQCLI_Reset_DS:DS868:1 MINI_QCLI_Status Status
- 1 QCLI_M_Busy:QCLI_M_s:15 MINI_QCLI_Status Status
- 1 QCLI_M_cksum:QCLI_M_s:14 MINI_QCLI_Status Status
- 1 QCLI_M_cmderr:QCLI_M_s:13 MINI_QCLI_Status Status
- 1 QCLI_M_dot:QCLI_M_s:5 MINI_QCLI_Status Status
- 1 QCLI_M_InvCmd:QCLI_M_s:11 MINI_QCLI_Status Status
- 1 QCLI_M_laser:QCLI_M_s:12 MINI_QCLI_Status Status
- 1 QCLI_M_loc:QCLI_M_s:3 MINI_QCLI_Status Status
- 1 QCLI_M_lot:QCLI_M_s:4 MINI_QCLI_Status Status
- 1 QCLI_M_ready:QCLI_M_s:9 MINI_QCLI_Status Status
- 1 QCLI_M_waveerr:QCLI_M_s:8 MINI_QCLI_Status Status
- 1 QCLIResponding:QCLI_M_CS:11 MINI_QCLI_Status Status
- 1 RBComplete:QCLI_M_CS:9 MINI_QCLI_Status Status
- 1 RBPending:QCLI_M_CS:8 MINI_QCLI_Status Status
- 1 Reading:QCLI_M_CS:14 MINI_QCLI_Status Status
- 1 RWConflict:QCLI_M_CS:13 MINI_QCLI_Status Status
- 1 WQPending:QCLI_M_CS:10 MINI_QCLI_Status Status
+ 1 QCLI_M_Wave MINI:MINI_QCLI Wave %.0lf
+ 1 QCLI_M_fifodep MINI:MINI_QCLI FIFO
+ 1 QCLI_M_Stale MINI:MINI_QCLI Stale
+ 1 SSP_M_Stale MINI:MINI_QCLI Stale
+ 1 FIFOOvf:QCLI_M_CS:12 MINI:MINI_QCLI_Status Status
+ 1 MQCLI_Reset_DS:DS868:1 MINI:MINI_QCLI_Status Status
+ 1 QCLI_M_Busy:QCLI_M_s:15 MINI:MINI_QCLI_Status Status
+ 1 QCLI_M_cksum:QCLI_M_s:14 MINI:MINI_QCLI_Status Status
+ 1 QCLI_M_cmderr:QCLI_M_s:13 MINI:MINI_QCLI_Status Status
+ 1 QCLI_M_dot:QCLI_M_s:5 MINI:MINI_QCLI_Status Status
+ 1 QCLI_M_InvCmd:QCLI_M_s:11 MINI:MINI_QCLI_Status Status
+ 1 QCLI_M_laser:QCLI_M_s:12 MINI:MINI_QCLI_Status Status
+ 1 QCLI_M_loc:QCLI_M_s:3 MINI:MINI_QCLI_Status Status
+ 1 QCLI_M_lot:QCLI_M_s:4 MINI:MINI_QCLI_Status Status
+ 1 QCLI_M_ready:QCLI_M_s:9 MINI:MINI_QCLI_Status Status
+ 1 QCLI_M_waveerr:QCLI_M_s:8 MINI:MINI_QCLI_Status Status
+ 1 QCLIResponding:QCLI_M_CS:11 MINI:MINI_QCLI_Status Status
+ 1 RBComplete:QCLI_M_CS:9 MINI:MINI_QCLI_Status Status
+ 1 RBPending:QCLI_M_CS:8 MINI:MINI_QCLI_Status Status
+ 1 Reading:QCLI_M_CS:14 MINI:MINI_QCLI_Status Status
+ 1 RWConflict:QCLI_M_CS:13 MINI:MINI_QCLI_Status Status
+ 1 WQPending:QCLI_M_CS:10 MINI:MINI_QCLI_Status Status
 
- 1 CAOVF1:SSP_M_Flags:0 MINI_SSP Overflow
- 1 CAOVF2:SSP_M_Flags:1 MINI_SSP Overflow
- 1 CAOVF3:SSP_M_Flags:2 MINI_SSP Overflow
- 1 PAOVF1:SSP_M_Flags:3 MINI_SSP Overflow
- 1 PAOVF2:SSP_M_Flags:4 MINI_SSP Overflow
- 1 PAOVF3:SSP_M_Flags:5 MINI_SSP Overflow
- 1 ADOVF1:SSP_M_Flags:6 MINI_SSP Overflow
- 1 ADOVF2:SSP_M_Flags:7 MINI_SSP Overflow
- 1 ADOVF3:SSP_M_Flags:8 MINI_SSP Overflow
- 1 SSP_M_Num MINI_SSP Files
- 1 SSP_M_SN MINI_SSP Scans
- 1 SSP_M_TS MINI_SSP Skipped
- 1 QCLI_M_Wave MINI_SSP Wave %.0lf
- 1 SSP_M_Status MINI_SSP Status %.0lf
+ 1 CAOVF1:SSP_M_Flags:0 MINI:MINI_SSP Overflow
+ 1 CAOVF2:SSP_M_Flags:1 MINI:MINI_SSP Overflow
+ 1 CAOVF3:SSP_M_Flags:2 MINI:MINI_SSP Overflow
+ 1 PAOVF1:SSP_M_Flags:3 MINI:MINI_SSP Overflow
+ 1 PAOVF2:SSP_M_Flags:4 MINI:MINI_SSP Overflow
+ 1 PAOVF3:SSP_M_Flags:5 MINI:MINI_SSP Overflow
+ 1 ADOVF1:SSP_M_Flags:6 MINI:MINI_SSP Overflow
+ 1 ADOVF2:SSP_M_Flags:7 MINI:MINI_SSP Overflow
+ 1 ADOVF3:SSP_M_Flags:8 MINI:MINI_SSP Overflow
+ 1 SSP_M_Num MINI:MINI_SSP Files
+ 1 SSP_M_SN MINI:MINI_SSP Scans
+ 1 SSP_M_TS MINI:MINI_SSP Skipped
+ 1 QCLI_M_Wave MINI:MINI_SSP Wave %.0lf
+ 1 SSP_M_Status MINI:MINI_SSP Status %.0lf
 
- 1 M24VT MINI_Temps SSP_Temp
- 1 MPampT MINI_Temps SSP_Temp
- 1 MSSPT MINI_Temps SSP_Temp
- 1 SSP_M_T_FPGA MINI_Temps SSP_Temp
- 1 SSP_M_T_HtSink MINI_Temps SSP_Temp
- 1 MRv1T MINI_Temps Roving
- 1 MRv2T MINI_Temps Roving
- 1 MRv3T MINI_Temps Roving
- 1 MRv4T MINI_Temps Roving
- 1 MRv5T MINI_Temps Roving
- 1 MSG1T MINI_Temps Sample
- 1 MSG2T MINI_Temps Sample
- 1 MSk1T MINI_Temps Skin
- 1 MSk2T MINI_Temps Skin
- 1 MSk3T MINI_Temps Skin
+ 1 M24VT MINI:MINI_Temps SSP_Temp
+ 1 MPampT MINI:MINI_Temps SSP_Temp
+ 1 MSSPT MINI:MINI_Temps SSP_Temp
+ 1 SSP_M_T_FPGA MINI:MINI_Temps SSP_Temp
+ 1 SSP_M_T_HtSink MINI:MINI_Temps SSP_Temp
+ 1 MRv1T MINI:MINI_Temps Roving
+ 1 MRv2T MINI:MINI_Temps Roving
+ 1 MRv3T MINI:MINI_Temps Roving
+ 1 MRv4T MINI:MINI_Temps Roving
+ 1 MRv5T MINI:MINI_Temps Roving
+ 1 MSG1T MINI:MINI_Temps Sample
+ 1 MSG2T MINI:MINI_Temps Sample
+ 1 MSk1T MINI:MINI_Temps Skin
+ 1 MSk2T MINI:MINI_Temps Skin
+ 1 MSk3T MINI:MINI_Temps Skin
 
- 1 GasHP GD_GD P
- 1 GasLP GD_GD P
- 1 GD__T GD_GD Temp
- 1 GasFl GD_GD Flow
- 1 GsFlSt GD_GD Flow
- 1 Gas_Flw_Clsd_DS:DS868:0 GD_GD Status
- 1 Gas_Flw_Open_DS:DS855:7 GD_GD Status
- 1 GD_Vlv_Clsed_S:DS855:1 GD_GD Status
+ 1 GasHP  HK:GD P
+ 1 GasLP  HK:GD P
+ 1 GD__T  HK:GD Temp
+ 1 GasFl  HK:GD Flow
+ 1 GsFlSt  HK:GD Flow
+ 1 Gas_Flw_Clsd_DS:DS868:0  HK:GD Status
+ 1 Gas_Flw_Open_DS:DS855:7  HK:GD Status
+ 1 GD_Vlv_Clsed_S:DS855:1  HK:GD Status
 
- 1 DACS_P HK_DACS P
- 1 DACS_T1C HK_DACS Temp
- 1 DACS_T2C HK_DACS Temp
- 1 PC__T HK_DACS Temp
- 1 PS__T HK_DACS Temp
-#1 vl_bdT HK_DACS Temp
- 1 vl_cpuT HK_DACS Temp
- 1 DACS_RHC HK_DACS RH
- 1 SW0:IOSwS:0 HK_DACS Status
- 1 SW1:IOSwS:1 HK_DACS Status
- 1 FltMd:IOSwS:2 HK_DACS Status
+ 1 DACS_P  HK:DACS P
+ 1 DACS_T1C  HK:DACS Temp
+ 1 DACS_T2C  HK:DACS Temp
+ 1 PC__T  HK:DACS Temp
+ 1 PS__T  HK:DACS Temp
+#1 vl_bdT  HK:DACS Temp
+ 1 vl_cpuT  HK:DACS Temp
+ 1 DACS_RHC  HK:DACS RH
+ 1 SW0:IOSwS:0  HK:DACS Status
+ 1 SW1:IOSwS:1  HK:DACS Status
+ 1 FltMd:IOSwS:2  HK:DACS Status
 
- 1 CPU_Pct HK_HK CPU
- 1 CPU2_Pct HK_HK CPU
- 1 Disk HK_HK Disk
- 1 freemem HK_HK Memory
- 1 SWStat HK_HK SWStat
+ 1 CPU_Pct  HK:HK CPU
+ 1 CPU2_Pct  HK:HK CPU
+ 1 Disk  HK:HK Disk
+ 1 freemem  HK:HK Memory
+ 1 SWStat  HK:HK SWStat
 
- 5 PM0V1 HK_Power Voltage
- 5 PM0V2 HK_Power Voltage
- 5 PM1V1 HK_Power Voltage
- 5 PM0I1 HK_Power Current
- 5 PM0I2 HK_Power Current
- 5 PM1I1 HK_Power Current
- 5 PM0I1_S:PM0Stat:0 HK_Power Status
- 5 PM0I2_S:PM0Stat:2 HK_Power Status
- 5 PM0TO_S:PM0Stat:4 HK_Power Status
- 5 PM0V1_S:PM0Stat:1 HK_Power Status
- 5 PM0V2_S:PM0Stat:3 HK_Power Status
- 5 PM1I1_S:PM0Stat:0 HK_Power Status
- 5 PM1I2_S:PM0Stat:2 HK_Power Status
- 5 PM1TO_S:PM0Stat:4 HK_Power Status
+ 5 PM0V1  HK:Power Voltage
+ 5 PM0V2  HK:Power Voltage
+ 5 PM1V1  HK:Power Voltage
+ 5 PM0I1  HK:Power Current
+ 5 PM0I2  HK:Power Current
+ 5 PM1I1  HK:Power Current
+ 5 PM0I1_S:PM0Stat:0  HK:Power Status
+ 5 PM0I2_S:PM0Stat:2  HK:Power Status
+ 5 PM0TO_S:PM0Stat:4  HK:Power Status
+ 5 PM0V1_S:PM0Stat:1  HK:Power Status
+ 5 PM0V2_S:PM0Stat:3  HK:Power Status
+ 5 PM1I1_S:PM0Stat:0  HK:Power Status
+ 5 PM1I2_S:PM0Stat:2  HK:Power Status
+ 5 PM1TO_S:PM0Stat:4  HK:Power Status
 
- 1 CLPV_S HK_PTRH CLPV %.0lf
- 1 CQCL_S HK_PTRH CQCL %.0lf
- 1 DACS_S HK_PTRH DACS %.0lf
-#1 IDPV_S HK_PTRH IDPV %.0lf
-#1 ILPV_S HK_PTRH ILPV %.0lf
-#1 IQCL_S HK_PTRH IQCL %.0lf
- 1 MDPV_S HK_PTRH MDPV %.0lf
- 1 MLPV_S HK_PTRH MLPV %.0lf
- 1 MQCL_S HK_PTRH MQCL %.0lf
+ 1 CLPV_S  HK:PTRH CLPV %.0lf
+ 1 CQCL_S  HK:PTRH CQCL %.0lf
+ 1 DACS_S  HK:PTRH DACS %.0lf
+#1 IDPV_S  HK:PTRH IDPV %.0lf
+#1 ILPV_S  HK:PTRH ILPV %.0lf
+#1 IQCL_S  HK:PTRH IQCL %.0lf
+ 1 MDPV_S  HK:PTRH MDPV %.0lf
+ 1 MLPV_S  HK:PTRH MLPV %.0lf
+ 1 MQCL_S  HK:PTRH MQCL %.0lf
 
- 1 SH_CT HK_SampleHt T_ctrl
- 1 SHTSt HK_SampleHt T_ctrl
- 1 SH_HC_DS:DS855:5 HK_SampleHt Status
+ 1 SH_CT  HK:SampleHt T_ctrl
+ 1 SHTSt  HK:SampleHt T_ctrl
+ 1 SH_HC_DS:DS855:5  HK:SampleHt Status
 
- 1 SpHCT HK_SpaceHt T_ctrl
- 1 SpHtTSt HK_SpaceHt T_ctrl
- 1 SpHt_HC_DS:DS855:6 HK_SpaceHt Status
+ 1 SpHCT  HK:SpaceHt T_ctrl
+ 1 SpHtTSt  HK:SpaceHt T_ctrl
+ 1 SpHt_HC_DS:DS855:6  HK:SpaceHt Status
 
- 1 TVStep HK_Throttle Step
- 1 TVPos HK_Throttle Pot
- 1 IXStt HK_Throttle Scan
- 1 A:TVStat:4 HK_Throttle Status
- 1 B:TVStat:5 HK_Throttle Status
- 1 C:TVStat:7 HK_Throttle Status
- 1 D:TVStat:2 HK_Throttle Status
- 1 I:TVStat:0 HK_Throttle Status
- 1 O:TVStat:1 HK_Throttle Status
- 1 R:TVStat:3 HK_Throttle Status
- 1 Z:TVStat:6 HK_Throttle Status
+ 1 TVStep  HK:Throttle Step
+ 1 TVPos  HK:Throttle Pot
+ 1 IXStt  HK:Throttle Scan
+ 1 A:TVStat:4  HK:Throttle Status
+ 1 B:TVStat:5  HK:Throttle Status
+ 1 C:TVStat:7  HK:Throttle Status
+ 1 D:TVStat:2  HK:Throttle Status
+ 1 I:TVStat:0  HK:Throttle Status
+ 1 O:TVStat:1  HK:Throttle Status
+ 1 R:TVStat:3  HK:Throttle Status
+ 1 Z:TVStat:6  HK:Throttle Status
 
-# 1 ICelHP ISO_Cell P
-#10 ICelLP ISO_Cell P
-# 1 ICelP ISO_Cell P
-# 1 ICelPSt ISO_Cell P
-# 1 ICelTSt ISO_Cell T_ctrl
-# 1 ICel1T ISO_Cell Temp
-# 1 ICel2T ISO_Cell Temp
-# 1 ICelCT ISO_Cell Temp
-# 1 ICell_HC_DS:DS851:3 ISO_Cell Status
-# 1 ICell_HC_S:DS86A:3 ISO_Cell Status
-# 1 IGas_Ex_Vlv_DS:DS855:4 ISO_Cell Status
-# 1 IGas_Vlv_DS:DS855:3 ISO_Cell Status
-# 1 IPrs_Reg_DS:DS855:2 ISO_Cell Status
+# 1 ICelHP ISO:ISO_Cell P
+#10 ICelLP ISO:ISO_Cell P
+# 1 ICelP ISO:ISO_Cell P
+# 1 ICelPSt ISO:ISO_Cell P
+# 1 ICelTSt ISO:ISO_Cell T_ctrl
+# 1 ICel1T ISO:ISO_Cell Temp
+# 1 ICel2T ISO:ISO_Cell Temp
+# 1 ICelCT ISO:ISO_Cell Temp
+# 1 ICell_HC_DS:DS851:3 ISO:ISO_Cell Status
+# 1 ICell_HC_S:DS86A:3 ISO:ISO_Cell Status
+# 1 IGas_Ex_Vlv_DS:DS855:4 ISO:ISO_Cell Status
+# 1 IGas_Vlv_DS:DS855:3 ISO:ISO_Cell Status
+# 1 IPrs_Reg_DS:DS855:2 ISO:ISO_Cell Status
 #
-# 1 IDPVCT ISO_Detector T_ctrl
-# 1 IDPVTSt ISO_Detector T_ctrl
-# 1 IDetT ISO_Detector Temp
+# 1 IDPVCT ISO:ISO_Detector T_ctrl
+# 1 IDPVTSt ISO:ISO_Detector T_ctrl
+# 1 IDetT ISO:ISO_Detector Temp
 #
-# 1 IDPV_P ISO_DPV P
-# 1 IDPV_T1C ISO_DPV Temp
-# 1 IDPV_T2C ISO_DPV Temp
-# 1 IDPV_RHC ISO_DPV RH
-# 1 IDPV_HC_DS:DS851:4 ISO_DPV Status
-# 1 IDPV_HC_S:DS86A:4 ISO_DPV Status
+# 1 IDPV_P ISO:ISO_DPV P
+# 1 IDPV_T1C ISO:ISO_DPV Temp
+# 1 IDPV_T2C ISO:ISO_DPV Temp
+# 1 IDPV_RHC ISO:ISO_DPV RH
+# 1 IDPV_HC_DS:DS851:4 ISO:ISO_DPV Status
+# 1 IDPV_HC_S:DS86A:4 ISO:ISO_DPV Status
 #
-# 1 ILPV_P ISO_ILPV P
-# 1 ILPV_T1C ISO_ILPV Temp
-# 1 ILPV_T2C ISO_ILPV Temp
-# 1 ILPV_RHC ISO_ILPV RH
+# 1 ILPV_P ISO:ISO_ILPV P
+# 1 ILPV_T1C ISO:ISO_ILPV Temp
+# 1 ILPV_T2C ISO:ISO_ILPV Temp
+# 1 ILPV_RHC ISO:ISO_ILPV RH
 #
-# 1 IQCL_P ISO_IQCL P
-# 1 IQCL_T1C ISO_IQCL Temp
-# 1 IQCL_T2C ISO_IQCL Temp
-# 1 IQCL_RHC ISO_IQCL RH
+# 1 IQCL_P ISO:ISO_IQCL P
+# 1 IQCL_T1C ISO:ISO_IQCL Temp
+# 1 IQCL_T2C ISO:ISO_IQCL Temp
+# 1 IQCL_RHC ISO:ISO_IQCL RH
 #
-# 1 ILasI ISO_Laser Current
-# 1 ILPVCT ISO_Laser P
-# 1 ILH_T ISO_Laser Temp
-# 1 ILPVTSt ISO_Laser T_ctrl
-# 1 ILTE7R7T ISO_Laser T_ctrl
-# 1 ILTETSt ISO_Laser T_ctrl
-# 1 ILPV_HC_DS:DS851:5 ISO_Laser Status
-# 1 ILPV_HC_S:DS86A:5 ISO_Laser Status
-# 1 ILTEC_DS:DS851:6 ISO_Laser Status
-# 1 ILTEC_S:DS86A:6 ISO_Laser Status
-# 1 I_Pump_DS:DS851:2 ISO_Pump Status
-# 1 I_Pump_S:DS86A:2 ISO_Pump Status
+# 1 ILasI ISO:ISO_Laser Current
+# 1 ILPVCT ISO:ISO_Laser P
+# 1 ILH_T ISO:ISO_Laser Temp
+# 1 ILPVTSt ISO:ISO_Laser T_ctrl
+# 1 ILTE7R7T ISO:ISO_Laser T_ctrl
+# 1 ILTETSt ISO:ISO_Laser T_ctrl
+# 1 ILPV_HC_DS:DS851:5 ISO:ISO_Laser Status
+# 1 ILPV_HC_S:DS86A:5 ISO:ISO_Laser Status
+# 1 ILTEC_DS:DS851:6 ISO:ISO_Laser Status
+# 1 ILTEC_S:DS86A:6 ISO:ISO_Laser Status
+# 1 I_Pump_DS:DS851:2 ISO:ISO_Pump Status
+# 1 I_Pump_S:DS86A:2 ISO:ISO_Pump Status
 #
-# 1 IPmpT ISO_Pump Temp
-# 1 IPMtT ISO_Pump Temp
+# 1 IPmpT ISO:ISO_Pump Temp
+# 1 IPMtT ISO:ISO_Pump Temp
 #
-# 1 QCLI_I_fifodep ISO_QCLI FIFO
-# 1 QCLI_I_Wave ISO_QCLI Wave %.0lf
-# 1 QCLI_I_Stale ISO_QCLI Stale
-# 1 FIFOOvf:QCLI_I_CS:12 ISO_QCLI Status
-# 1 IQCLI_Reset_DS:DS855:0 ISO_QCLI Status
-# 1 QCLI_I_Busy:QCLI_I_s:15 ISO_QCLI Status
-# 1 QCLI_I_cksum:QCLI_I_s:14 ISO_QCLI Status
-# 1 QCLI_I_cmderr:QCLI_I_s:13 ISO_QCLI Status
-# 1 QCLI_I_dot:QCLI_I_s:5 ISO_QCLI Status
-# 1 QCLI_I_InvCmd:QCLI_I_s:11 ISO_QCLI Status
-# 1 QCLI_I_laser:QCLI_I_s:12 ISO_QCLI Status
-# 1 QCLI_I_loc:QCLI_I_s:3 ISO_QCLI Status
-# 1 QCLI_I_lot:QCLI_I_s:4 ISO_QCLI Status
-# 1 QCLI_I_ready:QCLI_I_s:9 ISO_QCLI Status
-# 1 QCLI_I_waveerr:QCLI_I_s:8 ISO_QCLI Status
-# 1 QCLIResponding:QCLI_I_CS:11 ISO_QCLI Status
-# 1 RBComplete:QCLI_I_CS:9 ISO_QCLI Status
-# 1 RBPending:QCLI_I_CS:8 ISO_QCLI Status
-# 1 Reading:QCLI_I_CS:14 ISO_QCLI Status
-# 1 RWConflict:QCLI_I_CS:13 ISO_QCLI Status
-# 1 WQPending:QCLI_I_CS:10 ISO_QCLI Status
+# 1 QCLI_I_fifodep ISO:ISO_QCLI FIFO
+# 1 QCLI_I_Wave ISO:ISO_QCLI Wave %.0lf
+# 1 QCLI_I_Stale ISO:ISO_QCLI Stale
+# 1 FIFOOvf:QCLI_I_CS:12 ISO:ISO_QCLI Status
+# 1 IQCLI_Reset_DS:DS855:0 ISO:ISO_QCLI Status
+# 1 QCLI_I_Busy:QCLI_I_s:15 ISO:ISO_QCLI Status
+# 1 QCLI_I_cksum:QCLI_I_s:14 ISO:ISO_QCLI Status
+# 1 QCLI_I_cmderr:QCLI_I_s:13 ISO:ISO_QCLI Status
+# 1 QCLI_I_dot:QCLI_I_s:5 ISO:ISO_QCLI Status
+# 1 QCLI_I_InvCmd:QCLI_I_s:11 ISO:ISO_QCLI Status
+# 1 QCLI_I_laser:QCLI_I_s:12 ISO:ISO_QCLI Status
+# 1 QCLI_I_loc:QCLI_I_s:3 ISO:ISO_QCLI Status
+# 1 QCLI_I_lot:QCLI_I_s:4 ISO:ISO_QCLI Status
+# 1 QCLI_I_ready:QCLI_I_s:9 ISO:ISO_QCLI Status
+# 1 QCLI_I_waveerr:QCLI_I_s:8 ISO:ISO_QCLI Status
+# 1 QCLIResponding:QCLI_I_CS:11 ISO:ISO_QCLI Status
+# 1 RBComplete:QCLI_I_CS:9 ISO:ISO_QCLI Status
+# 1 RBPending:QCLI_I_CS:8 ISO:ISO_QCLI Status
+# 1 Reading:QCLI_I_CS:14 ISO:ISO_QCLI Status
+# 1 RWConflict:QCLI_I_CS:13 ISO:ISO_QCLI Status
+# 1 WQPending:QCLI_I_CS:10 ISO:ISO_QCLI Status
 #
-# 1 I24VT ISO_SSP Temp
-# 1 IPampT ISO_SSP Temp
-# 1 ISSPT ISO_SSP Temp
-# 1 SSP_I_T_FPGA ISO_SSP Temp
-# 1 SSP_I_T_HtSink ISO_SSP Temp
-# 1 SSP_I_Num ISO_SSP Files
-# 1 SSP_I_Flags ISO_SSP Overflow
-# 1 SSP_I_SN ISO_SSP Scans
-# 1 SSP_I_TS ISO_SSP Skipped
-# 1 SSP_I_Status ISO_SSP Status %.0lf
-# 1 SSP_I_Stale ISO_SSP Stale
-# 
- 1 IRv1T ISO_Temps Roving
- 1 IRv2T ISO_Temps Roving
- 1 IRv3T ISO_Temps Roving
- 1 IRv4T ISO_Temps Roving
- 1 IRv5T ISO_Temps Roving
- 1 ISG1T ISO_Temps Sample
- 1 ISG2T ISO_Temps Sample
- 1 ISk1T ISO_Temps Skin
- 1 ISk2T ISO_Temps Skin
- 1 ISk3T ISO_Temps Skin
+# 1 I24VT ISO:ISO_SSP Temp
+# 1 IPampT ISO:ISO_SSP Temp
+# 1 ISSPT ISO:ISO_SSP Temp
+# 1 SSP_I_T_FPGA ISO:ISO_SSP Temp
+# 1 SSP_I_T_HtSink ISO:ISO_SSP Temp
+# 1 SSP_I_Num ISO:ISO_SSP Files
+# 1 SSP_I_Flags ISO:ISO_SSP Overflow
+# 1 SSP_I_SN ISO:ISO_SSP Scans
+# 1 SSP_I_TS ISO:ISO_SSP Skipped
+# 1 SSP_I_Status ISO:ISO_SSP Status %.0lf
+# 1 SSP_I_Stale ISO:ISO_SSP Stale
 
- 1 L1_DS:DS851:7 LAB_Lab Status
- 1 L1_S:DS86A:7 LAB_Lab Status
-#1 L2_DS:DS84A:0 LAB_Lab Status
-#1 L2_S:DS873:0 LAB_Lab Status
+# These should switch over to ISO:
+ 1 IRv1T  HK:Temps Roving
+ 1 IRv2T  HK:Temps Roving
+ 1 IRv3T  HK:Temps Roving
+ 1 IRv4T  HK:Temps Roving
+ 1 IRv5T  HK:Temps Roving
+ 1 ISG1T  HK:Temps Sample
+ 1 ISG2T  HK:Temps Sample
+ 1 ISk1T  HK:Temps Skin
+ 1 ISk2T  HK:Temps Skin
+ 1 ISk3T  HK:Temps Skin
 
- 1 RadInT Coolant Temp
- 1 WTnkT Coolant Temp
- 1 RadOutT Coolant Temp
- 1 CoolP Coolant Pressure
- 1 CoolPump_DS:DS851:7 Coolant Status
- 1 CoolDivert_DS:DS848:4 Coolant Status
+ 1 L1_DS:DS851:7  HK:Lab Status
+ 1 L1_S:DS86A:7  HK:Lab Status
+#1 L2_DS:DS84A:0  HK:Lab Status
+#1 L2_S:DS873:0  HK:Lab Status
 
- 1 InvQury1 Inverter Vin Vin
- 1 InvQury4 Inverter Load Load
- 1 InvCmdS:InvQury3:1 Inverter Status
- 1 InvFailS:InvQury2:2 Inverter Status
- 1 InvFailedS:InvQury0:0 Inverter Status
- 1 InvCmdErrS:InvStat:3 Inverter Status
- 1 InvErrS:InvStat:2 Inverter Status
- 1 InvPwrS:InvStat:1 Inverter Status
- 1 Arm_DS:DS84A:0 Inverter Status
- 1 Arm_S:DS873:0 Inverter Status
- 1 InvQury5 Inverter Qury
- 1 InvQury6 Inverter Qury
- 1 InvQury7 Inverter Qury
- 1 InvStale Inverter Stale
+ 1 RadInT  HK:Coolant Temp
+ 1 WTnkT  HK:Coolant Temp
+ 1 RadOutT  HK:Coolant Temp
+ 1 CoolP  HK:Coolant Pressure
+ 1 CoolPump_DS:DS851:7  HK:Coolant Status
+ 1 CoolDivert_DS:DS848:4  HK:Coolant Status
 
- 1 lk204_init:PPstat:0 PilotPanel Status %.0lf
- 1 pca9554_init:PPstat:1 PilotPanel Status %.0lf
- 1 lk204_ack:PPstat:2 PilotPanel Status %.0lf
- 1 pca9554_ack:PPstat:3 PilotPanel Status %.0lf
- 1 Key_Pressed:PPstat:4 PilotPanel Status %.0lf
- 1 WQ_NonEmpty:PPstat:5 PilotPanel Status %.0lf
- 1 WQ_Full:PPstat:6 PilotPanel Status %.0lf
- 1 LKWrEn:PPstat:7 PilotPanel Status %.0lf
- 1 BAT_Purge_Req:PPstat:8 PilotPanel Status %.0lf 
- 1 Land_Req:PPstat:9 PilotPanel Status %.0lf
- 1 BAT_Purge_LED:PPstat:12 PilotPanel Status %.0lf
- 1 Data_LED:PPstat:13 PilotPanel Status %.0lf
+ 1 InvQury1  HK:Inverter Vin Vin
+ 1 InvQury4  HK:Inverter Load Load
+ 1 InvCmdS:InvQury3:1  HK:Inverter Status
+ 1 InvFailS:InvQury2:2  HK:Inverter Status
+ 1 InvFailedS:InvQury0:0  HK:Inverter Status
+ 1 InvCmdErrS:InvStat:3  HK:Inverter Status
+ 1 InvErrS:InvStat:2  HK:Inverter Status
+ 1 InvPwrS:InvStat:1  HK:Inverter Status
+ 1 Arm_DS:DS84A:0  HK:Inverter Status
+ 1 Arm_S:DS873:0  HK:Inverter Status
+ 1 InvQury5  HK:Inverter Qury
+ 1 InvQury6  HK:Inverter Qury
+ 1 InvQury7  HK:Inverter Qury
+ 1 InvStale  HK:Inverter Stale
+
+ 1 lk204_init:PPstat:0  HK:Pilot_Panel Status %.0lf
+ 1 pca9554_init:PPstat:1  HK:Pilot_Panel Status %.0lf
+ 1 lk204_ack:PPstat:2  HK:Pilot_Panel Status %.0lf
+ 1 pca9554_ack:PPstat:3  HK:Pilot_Panel Status %.0lf
+ 1 Key_Pressed:PPstat:4  HK:Pilot_Panel Status %.0lf
+ 1 WQ_NonEmpty:PPstat:5  HK:Pilot_Panel Status %.0lf
+ 1 WQ_Full:PPstat:6  HK:Pilot_Panel Status %.0lf
+ 1 LKWrEn:PPstat:7  HK:Pilot_Panel Status %.0lf
+ 1 BAT_Purge_Req:PPstat:8  HK:Pilot_Panel Status %.0lf 
+ 1 Land_Req:PPstat:9  HK:Pilot_Panel Status %.0lf
+ 1 BAT_Purge_LED:PPstat:12  HK:Pilot_Panel Status %.0lf
+ 1 Data_LED:PPstat:13  HK:Pilot_Panel Status %.0lf
  
- 1 Latitude  SPAN Lat
- 1 Longitude SPAN Lon
- 1 Ellipsoidal_Ht SPAN Ht
- 1 N_Velocity SPAN N_Vel
- 1 E_Velocity SPAN E_Vel
- 1 Up_Velocity SPAN Up_Vel
- 1 Roll SPAN Attitude
- 1 Pitch SPAN Attitude
- 1 Azimuth SPAN Attitude
- 1 GPS_msecs SPAN_HK msecs
- 1 GPS_weekl SPAN_HK week
- 1 GPS_week  SPAN_HK week
- 1 GPS_secs  SPAN_HK secs
- 1 INS_Status SPAN_HK INS_Status
- 1 n_span_records SPAN_HK N_Recs
- 1 max_span_nc SPAN_HK N_Recs
- 1 n_bat_records SPAN_HK N_Recs
- 1 BAT_Px BAT P
- 1 BAT_Py BAT P
- 1 BAT_Pz BAT P
- 1 BAT_Ps BAT P
- 1 BAT_Ax BAT A
- 1 BAT_Ay BAT A
- 1 BAT_Az BAT A
- 1 BAT_FOTemp BAT T
- 1 BAT_Pump BAT Pump
- 1 BAT_Axb BAT A
- 1 BAT_Ayb BAT A
- 1 BAT_Azb BAT A
- 1 BSstale SPAN_HK stale
- 1 SPAN_IdleTime SPAN_HK Idle
- 1 SPAN_TimeStatus SPAN_HK TStat
- 1 BP_Week  SPAN_HK week
- 1 BP_msecs SPAN_HK msecs
- 1 GPS_Rxvr_Status BestPos RXStat
- 1 SolnStatus BestPos SolnStat
- 1 PosType BestPos PosType
- 1 BP_DatumID BestPos DatumID
- 1 BP_Lat SPAN Lat
- 1 BP_Lon SPAN Lon
- 1 BP_Ht SPAN Ht
- 1 BP_undulation BestPos undulation
- 1 BP_LatStd BestPos LatStd
- 1 BP_LonStd BestPos LonStd
- 1 BP_HtStd  BestPos HtStd
- 1 BP_DiffAge BestPos Age
- 1 BP_SolAge  BestPos Age
- 1 NSVs  BestPos N
- 1 NSVsSol BestPos N
- 1 NGGL1 BestPos N
- 1 NGGL1L2 BestPos N
- 1 ExtSolnStatus BestPos ESStat
- 1 SigMask BestPos SigMask
- 1 n_bp_records BestPos N
- 10 MRA_Alt_a Altimeter Ht
- 10 Stale:MRA_Alt:15 Altimeter Status
- 10 Invalid:MRA_Alt:14 Altimeter Status
- 10 MRA_Stale Altimeter Stale
+ 1 Latitude  BAT_SPAN:SPAN Lat
+ 1 Longitude BAT_SPAN:SPAN Lon
+ 1 Ellipsoidal_Ht BAT_SPAN:SPAN Ht
+ 1 N_Velocity BAT_SPAN:SPAN N_Vel
+ 1 E_Velocity BAT_SPAN:SPAN E_Vel
+ 1 Up_Velocity BAT_SPAN:SPAN Up_Vel
+ 1 Roll BAT_SPAN:SPAN Attitude
+ 1 Pitch BAT_SPAN:SPAN Attitude
+ 1 Azimuth BAT_SPAN:SPAN Attitude
+ 1 GPS_msecs BAT_SPAN:SPAN_HK msecs
+ 1 GPS_weekl BAT_SPAN:SPAN_HK week
+ 1 GPS_week  BAT_SPAN:SPAN_HK week
+ 1 GPS_secs  BAT_SPAN:SPAN_HK secs
+ 1 INS_Status BAT_SPAN:SPAN_HK INS_Status
+ 1 n_span_records BAT_SPAN:SPAN_HK N_Recs
+ 1 max_span_nc BAT_SPAN:SPAN_HK N_Recs
+ 1 n_bat_records BAT_SPAN:SPAN_HK N_Recs
+ 1 BAT_Px BAT_SPAN:BAT P
+ 1 BAT_Py BAT_SPAN:BAT P
+ 1 BAT_Pz BAT_SPAN:BAT P
+ 1 BAT_Ps BAT_SPAN:BAT P
+ 1 BAT_Ax BAT_SPAN:BAT A
+ 1 BAT_Ay BAT_SPAN:BAT A
+ 1 BAT_Az BAT_SPAN:BAT A
+ 1 BAT_FOTemp BAT_SPAN:BAT T
+ 1 BAT_Pump BAT_SPAN:BAT Pump
+ 1 BAT_Axb BAT_SPAN:BAT A
+ 1 BAT_Ayb BAT_SPAN:BAT A
+ 1 BAT_Azb BAT_SPAN:BAT A
+ 1 BSstale BAT_SPAN:SPAN_HK stale
+ 1 SPAN_IdleTime BAT_SPAN:SPAN_HK Idle
+ 1 SPAN_TimeStatus BAT_SPAN:SPAN_HK TStat
+ 1 BP_Week  BAT_SPAN:SPAN_HK week
+ 1 BP_msecs BAT_SPAN:SPAN_HK msecs
+ 1 GPS_Rxvr_Status BAT_SPAN:BestPos RXStat
+ 1 SolnStatus BAT_SPAN:BestPos SolnStat
+ 1 PosType BAT_SPAN:BestPos PosType
+ 1 BP_DatumID BAT_SPAN:BestPos DatumID
+ 1 BP_Lat BAT_SPAN:SPAN Lat
+ 1 BP_Lon BAT_SPAN:SPAN Lon
+ 1 BP_Ht BAT_SPAN:SPAN Ht
+ 1 BP_undulation BAT_SPAN:BestPos undulation
+ 1 BP_LatStd BAT_SPAN:BestPos LatStd
+ 1 BP_LonStd BAT_SPAN:BestPos LonStd
+ 1 BP_HtStd  BAT_SPAN:BestPos HtStd
+ 1 BP_DiffAge BAT_SPAN:BestPos Age
+ 1 BP_SolAge  BAT_SPAN:BestPos Age
+ 1 NSVs  BAT_SPAN:BestPos N
+ 1 NSVsSol BAT_SPAN:BestPos N
+ 1 NGGL1 BAT_SPAN:BestPos N
+ 1 NGGL1L2 BAT_SPAN:BestPos N
+ 1 ExtSolnStatus BAT_SPAN:BestPos ESStat
+ 1 SigMask BAT_SPAN:BestPos SigMask
+ 1 n_bp_records BAT_SPAN:BestPos N
+ 10 MRA_Alt_a BAT_SPAN:Altimeter Ht
+ 10 Stale:MRA_Alt:15 BAT_SPAN:Altimeter Status
+ 10 Invalid:MRA_Alt:14 BAT_SPAN:Altimeter Status
+ 10 MRA_Stale BAT_SPAN:Altimeter Stale
 
-#1 Sp1AI SPARE_SPARE AI
-#1 Sp2AI SPARE_SPARE AI
-#1 Sp3AI SPARE_SPARE AI
-#1 Sp4AI SPARE_SPARE AI
- 1 Sp5AI SPARE_SPARE AI
- 1 Sp6AI SPARE_SPARE AI
- 1 Sp7AI SPARE_SPARE AI
- 1 Sp8AI SPARE_SPARE AI
- 1 SpAI9 SPARE_SPARE AI
+#1 Sp1AI  HK:SPARE AI
+#1 Sp2AI  HK:SPARE AI
+#1 Sp3AI  HK:SPARE AI
+#1 Sp4AI  HK:SPARE AI
+ 1 Sp5AI  HK:SPARE AI
+ 1 Sp6AI  HK:SPARE AI
+ 1 Sp7AI  HK:SPARE AI
+ 1 Sp8AI  HK:SPARE AI
+ 1 SpAI9  HK:SPARE AI
