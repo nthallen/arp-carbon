@@ -84,7 +84,6 @@ PTRHP_t CLPV_P; invalidate CLPV_P;
     CLPV.MS5607P(CLPV_Pa, CLPV_Pb) * 760./1013.;
   Validate CLPV_P; }
 
-/*
 PTRHT_t IDPV_T1C; invalidate IDPV_T1C;
 { IDPV_T1C = IDPV.SHT21T(IDPV_T1);
   Validate IDPV_T1C; }
@@ -126,4 +125,3 @@ PTRHP_t IQCL_P; invalidate IQCL_P;
 { IQCL_P =
     IQCL.MS5607P(IQCL_Pa, IQCL_Pb) * 760./1013.;
   Validate IQCL_P; }
-*/

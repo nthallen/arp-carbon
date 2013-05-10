@@ -4,11 +4,30 @@ QCLIConfig StandardxP33;
 Digitizer SSP;
 Prefix QCLI_M;
 
+ICOS Waveform M3Df_200Hz {
+  SampleRate = 50 MHz/111;
+  Ncoadd = 227;
+  Tz = 5%;
+  Ramp from 650 mA to 780 mA in 4 msec;
+}
+ICOS Waveform M3Df_300Hz {
+  SampleRate = 50 MHz/72;
+  Ncoadd = 327;
+  Tz = 5%;
+  Ramp from 650 mA to 780 mA in 2.7 msec;
+}
 ICOS Waveform M3Df_400Hz {
   SampleRate = 50 MHz/56;
   Ncoadd = 429;
   Tz = 5%;
   Ramp from 650 mA to 780 mA in 2 msec;
+}
+
+ICOS Waveform M3Df_500Hz {
+  SampleRate = 50 MHz/50;
+  Ncoadd = 500;
+  Tz = 5%;
+  Ramp from 650 mA to 780 mA in 1.75 msec;
 }
 
 ICOS Waveform M3Df_600Hz {
@@ -53,8 +72,18 @@ Ringdown Waveform M3Df_rConstant {
 
 Ringdown Waveform M3Df_rRamp {
   SampleRate = 25 MHz;
-  Toff = 50 msec;
-  Ton =  50 msec;
+  Toff = 5 msec;
+  Ton =  5 msec;
+  Tpre = 2 usec;
+  I = 650 mA to 780 mA in 1000 Steps;
+}
+
+Ringdown Waveform M3Df_rRamp_NC10 {
+  SampleRate = 25 MHz/10;
+  Nsample = 350;
+  Ncoadd = 10;
+  Toff = 500 usec;
+  Ton =  500 usec;
   Tpre = 2 usec;
   I = 650 mA to 780 mA in 1000 Steps;
 }

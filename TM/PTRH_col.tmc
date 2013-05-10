@@ -5,8 +5,6 @@ TM INITFUNC MLPV.check_coeffs();
 TM INITFUNC MDPV.check_coeffs();
 TM INITFUNC CQCL.check_coeffs();
 TM INITFUNC CLPV.check_coeffs();
-/*
 TM INITFUNC IDPV.check_coeffs();
 TM INITFUNC ILPV.check_coeffs();
 TM INITFUNC IQCL.check_coeffs();
-*/

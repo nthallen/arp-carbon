@@ -138,60 +138,58 @@ qclierr_t QCLI_M_err; invalidate QCLI_M_err;
     validate QCLI_M_err;
   }
 
-/*
-  no_yes_t QCLI_I_busy; invalidate QCLI_I_busy;
-    { QCLI_I_busy = (QCLI_I_s & 0x8000) ? 1 : 0;
-      validate QCLI_I_busy; }
-  onebit_t QCLI_I_cksum; invalidate QCLI_I_cksum;
-    { QCLI_I_cksum = (QCLI_I_s & 0x4000) ? 1 : 0;
-      validate QCLI_I_cksum; }
-  ok_fail_t QCLI_I_cmderr; invalidate QCLI_I_cmderr;
-    { QCLI_I_cmderr = (QCLI_I_s & 0x2000) ? 1 : 0;
-      validate QCLI_I_cmderr; }
-  off_on_t QCLI_I_laser; invalidate QCLI_I_laser;
-    { QCLI_I_laser = (QCLI_I_s & 0x1000) ? 1 : 0;
-      validate QCLI_I_laser; }
-  ok_fail_t QCLI_I_cordte; invalidate QCLI_I_cordte;
-    { QCLI_I_cordte = (QCLI_I_s & 0x0800) ? 1 : 0;
-      validate QCLI_I_cordte; }
-  no_yes_t QCLI_I_ready; invalidate QCLI_I_ready;
-    { QCLI_I_ready = (QCLI_I_s & 0x0200) ? 1 : 0;
-      validate QCLI_I_ready; }
-  ok_fail_t QCLI_I_waveerr; invalidate QCLI_I_waveerr;
-    { QCLI_I_waveerr = (QCLI_I_s & 0x0100) ? 1 : 0;
-      validate QCLI_I_waveerr; }
-  twobits_t QCLI_I_flash; invalidate QCLI_I_flash;
-    { QCLI_I_flash = (QCLI_I_s & 0x00C0) >> 6;
-      validate QCLI_I_flash; }
-  ok_fail_t QCLI_I_dot; invalidate QCLI_I_dot;
-    { QCLI_I_dot = (QCLI_I_s & 0x0020) ? 1 : 0;
-      validate QCLI_I_dot; }
-  ok_fail_t QCLI_I_lot; invalidate QCLI_I_lot;
-    { QCLI_I_lot = (QCLI_I_s & 0x0010) ? 1 : 0;
-      validate QCLI_I_lot; }
-  ok_fail_t QCLI_I_loc; invalidate QCLI_I_loc;
-    { QCLI_I_loc = (QCLI_I_s & 0x0008) ? 1 : 0;
-      validate QCLI_I_loc; }
-  qclimode_t QCLI_I_mode; invalidate QCLI_I_mode;
-    { QCLI_I_mode = QCLI_I_s & 0x7; validate QCLI_I_mode; }
-  rw_t QCLI_I_rw; invalidate QCLI_I_rw;
-    { QCLI_I_rw = ((QCLI_I_CS & 0x4000) ? 2 : 0) +
-                  ((QCLI_I_CS & 0x400) ? 1 : 0);
-      validate QCLI_I_rw;
-    }
-  ok_fail_t QCLI_I_present; invalidate QCLI_I_present;
-    { QCLI_I_present = (QCLI_I_CS & 0x800) ? 0 : 1;
-      validate QCLI_I_present;
-    }
-  fifodep_t QCLI_I_fifodep; invalidate QCLI_I_fifodep;
-    { QCLI_I_fifodep = QCLI_I_CS & 0xFF;
-      validate QCLI_I_fifodep;
-    }
-  qclierr_t QCLI_I_err; invalidate QCLI_I_err;
-    { QCLI_I_err = ((QCLI_I_CS >> 8) & 0xBB) ^ 0x8;
-      validate QCLI_I_err;
-    }
-*/
+no_yes_t QCLI_I_busy; invalidate QCLI_I_busy;
+  { QCLI_I_busy = (QCLI_I_s & 0x8000) ? 1 : 0;
+    validate QCLI_I_busy; }
+onebit_t QCLI_I_cksum; invalidate QCLI_I_cksum;
+  { QCLI_I_cksum = (QCLI_I_s & 0x4000) ? 1 : 0;
+    validate QCLI_I_cksum; }
+ok_fail_t QCLI_I_cmderr; invalidate QCLI_I_cmderr;
+  { QCLI_I_cmderr = (QCLI_I_s & 0x2000) ? 1 : 0;
+    validate QCLI_I_cmderr; }
+off_on_t QCLI_I_laser; invalidate QCLI_I_laser;
+  { QCLI_I_laser = (QCLI_I_s & 0x1000) ? 1 : 0;
+    validate QCLI_I_laser; }
+ok_fail_t QCLI_I_cordte; invalidate QCLI_I_cordte;
+  { QCLI_I_cordte = (QCLI_I_s & 0x0800) ? 1 : 0;
+    validate QCLI_I_cordte; }
+no_yes_t QCLI_I_ready; invalidate QCLI_I_ready;
+  { QCLI_I_ready = (QCLI_I_s & 0x0200) ? 1 : 0;
+    validate QCLI_I_ready; }
+ok_fail_t QCLI_I_waveerr; invalidate QCLI_I_waveerr;
+  { QCLI_I_waveerr = (QCLI_I_s & 0x0100) ? 1 : 0;
+    validate QCLI_I_waveerr; }
+twobits_t QCLI_I_flash; invalidate QCLI_I_flash;
+  { QCLI_I_flash = (QCLI_I_s & 0x00C0) >> 6;
+    validate QCLI_I_flash; }
+ok_fail_t QCLI_I_dot; invalidate QCLI_I_dot;
+  { QCLI_I_dot = (QCLI_I_s & 0x0020) ? 1 : 0;
+    validate QCLI_I_dot; }
+ok_fail_t QCLI_I_lot; invalidate QCLI_I_lot;
+  { QCLI_I_lot = (QCLI_I_s & 0x0010) ? 1 : 0;
+    validate QCLI_I_lot; }
+ok_fail_t QCLI_I_loc; invalidate QCLI_I_loc;
+  { QCLI_I_loc = (QCLI_I_s & 0x0008) ? 1 : 0;
+    validate QCLI_I_loc; }
+qclimode_t QCLI_I_mode; invalidate QCLI_I_mode;
+  { QCLI_I_mode = QCLI_I_s & 0x7; validate QCLI_I_mode; }
+rw_t QCLI_I_rw; invalidate QCLI_I_rw;
+  { QCLI_I_rw = ((QCLI_I_CS & 0x4000) ? 2 : 0) +
+                ((QCLI_I_CS & 0x400) ? 1 : 0);
+    validate QCLI_I_rw;
+  }
+ok_fail_t QCLI_I_present; invalidate QCLI_I_present;
+  { QCLI_I_present = (QCLI_I_CS & 0x800) ? 0 : 1;
+    validate QCLI_I_present;
+  }
+fifodep_t QCLI_I_fifodep; invalidate QCLI_I_fifodep;
+  { QCLI_I_fifodep = QCLI_I_CS & 0xFF;
+    validate QCLI_I_fifodep;
+  }
+qclierr_t QCLI_I_err; invalidate QCLI_I_err;
+  { QCLI_I_err = ((QCLI_I_CS >> 8) & 0xBB) ^ 0x8;
+    validate QCLI_I_err;
+  }
 
 SSP_OVF SSP_C_CA; Invalidate SSP_C_CA;
 SSP_OVF SSP_C_PA; Invalidate SSP_C_PA;
@@ -207,11 +205,9 @@ SSP_OVF SSP_M_AD; Invalidate SSP_M_AD;
 { SSP_M_PA = SSP_PAOVF(SSP_M_Flags); Validate SSP_M_PA; }
 { SSP_M_AD = SSP_ADOOR(SSP_M_Flags); Validate SSP_M_AD; }
 
-/*
-  SSP_OVF SSP_I_CA; Invalidate SSP_I_CA;
-  SSP_OVF SSP_I_PA; Invalidate SSP_I_PA;
-  SSP_OVF SSP_I_AD; Invalidate SSP_I_AD;
-  { SSP_I_CA = SSP_CAOVF(SSP_I_Flags); Validate SSP_I_CA; }
-  { SSP_I_PA = SSP_PAOVF(SSP_I_Flags); Validate SSP_I_PA; }
-  { SSP_I_AD = SSP_ADOOR(SSP_I_Flags); Validate SSP_I_AD; }
-*/
+SSP_OVF SSP_I_CA; Invalidate SSP_I_CA;
+SSP_OVF SSP_I_PA; Invalidate SSP_I_PA;
+SSP_OVF SSP_I_AD; Invalidate SSP_I_AD;
+{ SSP_I_CA = SSP_CAOVF(SSP_I_Flags); Validate SSP_I_CA; }
+{ SSP_I_PA = SSP_PAOVF(SSP_I_Flags); Validate SSP_I_PA; }
+{ SSP_I_AD = SSP_ADOOR(SSP_I_Flags); Validate SSP_I_AD; }

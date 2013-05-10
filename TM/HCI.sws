@@ -38,3 +38,14 @@ SWS_GROUND_PWR  32      Ground Power On: Pump_Ground_Power = 1; break;
 SWS_AIRCRAFT_PWR 33      Ground Power Off: Pump_Ground_Power = 0; break;
 SWS_SHORTSHUT   34      Shortcircuit Shutdown: Validate Shutdown_Fast; break;
 
+SWS_IQCL_SELICOS 35     ISO Laser Select ICOS and Run:
+                          Validate IQCL_SelectICOSandRun; break;
+SWS_IQCL_SELRING 36     ISO Laser Select Ring and Run:
+                          Validate IQCL_SelectRingandRun; break;
+SWS_IQCL_START 	 37     ISO Laser Start: Validate IQCL_Start; break;
+SWS_IQCL_STOP	 38     ISO Laser Stop: Validate IQCL_Stop; break;
+SWS_IQCL_DISABLE 39     ISO Laser Disable: Validate IQCL_Idle; break;
+SWS_IT_START 	 40     ISO Temperature Ctrl Start: Validate ITControl_Start; break;
+SWS_IT_STOP	 41     ISO Temperature Ctrl Stop: Validate ITControl_Shutdown; break;
+SWS_ICALIBRATE 	 42     ISO Calibrate: Validate ISO_Calibrate; break;
+SWS_ISTART	 43     ISO Start: Validate ISO_Start; break;

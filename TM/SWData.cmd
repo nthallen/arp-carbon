@@ -49,4 +49,13 @@
   : Ground Power On { $0 = SWS_GROUND_PWR; }
   : Ground Power Off { $0 = SWS_AIRCRAFT_PWR; }
   : Shortcircuit Shutdown { $0 = SWS_SHORTSHUT; }
+  : ISO Laser Select ICOS and Run { $0 = SWS_IQCL_SELICOS; }
+  : ISO Laser Select Ring and Run { $0 = SWS_IQCL_SELRING; }
+  : ISO Laser Start { $0 = SWS_IQCL_START; }
+  : ISO Laser Stop { $0 = SWS_IQCL_STOP; }
+  : ISO Laser Disable { $0 = SWS_IQCL_DISABLE; }
+  : ISO Temperature Ctrl Start { $0 = SWS_IT_START; }
+  : ISO Temperature Ctrl Stop { $0 = SWS_IT_STOP; }
+  : ISO Calibrate { $0 = SWS_ICALIBRATE; }
+  : ISO Start { $0 = SWS_ISTART; }
   ;

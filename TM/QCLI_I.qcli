@@ -43,3 +43,13 @@ ICOS Waveform QCLI_I_ConstantI {
   SampleRate = 10 MHz;
   dI/dt = 0 A/sec;
 }
+
+Ringdown Waveform QCLI_I_RD {
+  SampleRate = 25 MHz/10;
+  Nsample = 350;
+  Ncoadd = 10;
+  Toff = 500 usec;
+  Ton = 500 usec;
+  Tpre = 2 usec;
+  I = 60 mA to 90 mA in 1000 Steps; 
+}

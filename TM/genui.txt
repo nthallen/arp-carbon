@@ -208,7 +208,7 @@ ROWS 15
  1 DACS_T2C  HK:DACS Temp
  1 PC__T  HK:DACS Temp
  1 PS__T  HK:DACS Temp
-#1 vl_bdT  HK:DACS Temp
+ 1 vl_bdT  HK:DACS Temp %-
  1 vl_cpuT  HK:DACS Temp
  1 DACS_RHC  HK:DACS RH
  1 SW0:IOSwS:0  HK:DACS Status
@@ -239,9 +239,9 @@ ROWS 15
  1 CLPV_S  HK:PTRH CLPV %.0lf
  1 CQCL_S  HK:PTRH CQCL %.0lf
  1 DACS_S  HK:PTRH DACS %.0lf
-#1 IDPV_S  HK:PTRH IDPV %.0lf
-#1 ILPV_S  HK:PTRH ILPV %.0lf
-#1 IQCL_S  HK:PTRH IQCL %.0lf
+ 1 IDPV_S  HK:PTRH IDPV %.0lf
+ 1 ILPV_S  HK:PTRH ILPV %.0lf
+ 1 IQCL_S  HK:PTRH IQCL %.0lf
  1 MDPV_S  HK:PTRH MDPV %.0lf
  1 MLPV_S  HK:PTRH MLPV %.0lf
  1 MQCL_S  HK:PTRH MQCL %.0lf
@@ -266,102 +266,101 @@ ROWS 15
  1 R:TVStat:3  HK:Throttle Status
  1 Z:TVStat:6  HK:Throttle Status
 
-# 1 ICelHP ISO:ISO_Cell P
-#10 ICelLP ISO:ISO_Cell P
-# 1 ICelP ISO:ISO_Cell P
-# 1 ICelPSt ISO:ISO_Cell P
-# 1 ICelTSt ISO:ISO_Cell T_ctrl
-# 1 ICel1T ISO:ISO_Cell Temp
-# 1 ICel2T ISO:ISO_Cell Temp
-# 1 ICelCT ISO:ISO_Cell Temp
-# 1 ICell_HC_DS:DS851:3 ISO:ISO_Cell Status
-# 1 ICell_HC_S:DS86A:3 ISO:ISO_Cell Status
-# 1 IGas_Ex_Vlv_DS:DS855:4 ISO:ISO_Cell Status
-# 1 IGas_Vlv_DS:DS855:3 ISO:ISO_Cell Status
-# 1 IPrs_Reg_DS:DS855:2 ISO:ISO_Cell Status
-#
-# 1 IDPVCT ISO:ISO_Detector T_ctrl
-# 1 IDPVTSt ISO:ISO_Detector T_ctrl
-# 1 IDetT ISO:ISO_Detector Temp
-#
-# 1 IDPV_P ISO:ISO_DPV P
-# 1 IDPV_T1C ISO:ISO_DPV Temp
-# 1 IDPV_T2C ISO:ISO_DPV Temp
-# 1 IDPV_RHC ISO:ISO_DPV RH
-# 1 IDPV_HC_DS:DS851:4 ISO:ISO_DPV Status
-# 1 IDPV_HC_S:DS86A:4 ISO:ISO_DPV Status
-#
-# 1 ILPV_P ISO:ISO_ILPV P
-# 1 ILPV_T1C ISO:ISO_ILPV Temp
-# 1 ILPV_T2C ISO:ISO_ILPV Temp
-# 1 ILPV_RHC ISO:ISO_ILPV RH
-#
-# 1 IQCL_P ISO:ISO_IQCL P
-# 1 IQCL_T1C ISO:ISO_IQCL Temp
-# 1 IQCL_T2C ISO:ISO_IQCL Temp
-# 1 IQCL_RHC ISO:ISO_IQCL RH
-#
-# 1 ILasI ISO:ISO_Laser Current
-# 1 ILPVCT ISO:ISO_Laser P
-# 1 ILH_T ISO:ISO_Laser Temp
-# 1 ILPVTSt ISO:ISO_Laser T_ctrl
-# 1 ILTE7R7T ISO:ISO_Laser T_ctrl
-# 1 ILTETSt ISO:ISO_Laser T_ctrl
-# 1 ILPV_HC_DS:DS851:5 ISO:ISO_Laser Status
-# 1 ILPV_HC_S:DS86A:5 ISO:ISO_Laser Status
-# 1 ILTEC_DS:DS851:6 ISO:ISO_Laser Status
-# 1 ILTEC_S:DS86A:6 ISO:ISO_Laser Status
-# 1 I_Pump_DS:DS851:2 ISO:ISO_Pump Status
-# 1 I_Pump_S:DS86A:2 ISO:ISO_Pump Status
-#
-# 1 IPmpT ISO:ISO_Pump Temp
-# 1 IPMtT ISO:ISO_Pump Temp
-#
-# 1 QCLI_I_fifodep ISO:ISO_QCLI FIFO
-# 1 QCLI_I_Wave ISO:ISO_QCLI Wave %.0lf
-# 1 QCLI_I_Stale ISO:ISO_QCLI Stale
-# 1 FIFOOvf:QCLI_I_CS:12 ISO:ISO_QCLI Status
-# 1 IQCLI_Reset_DS:DS855:0 ISO:ISO_QCLI Status
-# 1 QCLI_I_Busy:QCLI_I_s:15 ISO:ISO_QCLI Status
-# 1 QCLI_I_cksum:QCLI_I_s:14 ISO:ISO_QCLI Status
-# 1 QCLI_I_cmderr:QCLI_I_s:13 ISO:ISO_QCLI Status
-# 1 QCLI_I_dot:QCLI_I_s:5 ISO:ISO_QCLI Status
-# 1 QCLI_I_InvCmd:QCLI_I_s:11 ISO:ISO_QCLI Status
-# 1 QCLI_I_laser:QCLI_I_s:12 ISO:ISO_QCLI Status
-# 1 QCLI_I_loc:QCLI_I_s:3 ISO:ISO_QCLI Status
-# 1 QCLI_I_lot:QCLI_I_s:4 ISO:ISO_QCLI Status
-# 1 QCLI_I_ready:QCLI_I_s:9 ISO:ISO_QCLI Status
-# 1 QCLI_I_waveerr:QCLI_I_s:8 ISO:ISO_QCLI Status
-# 1 QCLIResponding:QCLI_I_CS:11 ISO:ISO_QCLI Status
-# 1 RBComplete:QCLI_I_CS:9 ISO:ISO_QCLI Status
-# 1 RBPending:QCLI_I_CS:8 ISO:ISO_QCLI Status
-# 1 Reading:QCLI_I_CS:14 ISO:ISO_QCLI Status
-# 1 RWConflict:QCLI_I_CS:13 ISO:ISO_QCLI Status
-# 1 WQPending:QCLI_I_CS:10 ISO:ISO_QCLI Status
-#
-# 1 I24VT ISO:ISO_SSP Temp
-# 1 IPampT ISO:ISO_SSP Temp
-# 1 ISSPT ISO:ISO_SSP Temp
-# 1 SSP_I_T_FPGA ISO:ISO_SSP Temp
-# 1 SSP_I_T_HtSink ISO:ISO_SSP Temp
-# 1 SSP_I_Num ISO:ISO_SSP Files
-# 1 SSP_I_Flags ISO:ISO_SSP Overflow
-# 1 SSP_I_SN ISO:ISO_SSP Scans
-# 1 SSP_I_TS ISO:ISO_SSP Skipped
-# 1 SSP_I_Status ISO:ISO_SSP Status %.0lf
-# 1 SSP_I_Stale ISO:ISO_SSP Stale
+  1 ICelHP ISO:ISO_Cell P
+ 10 ICelLP ISO:ISO_Cell P
+  1 ICelP ISO:ISO_Cell P
+  1 ICelPSt ISO:ISO_Cell P
+  1 ICelTSt ISO:ISO_Cell T_ctrl
+  1 ICel1T ISO:ISO_Cell Temp
+  1 ICel2T ISO:ISO_Cell Temp
+  1 ICelCT ISO:ISO_Cell Temp
+  1 ICell_HC_DS:DS851:3 ISO:ISO_Cell Status
+  1 ICell_HC_S:DS86A:3 ISO:ISO_Cell Status
+  1 IGas_Ex_Vlv_DS:DS855:4 ISO:ISO_Cell Status
+  1 IGas_Vlv_DS:DS855:3 ISO:ISO_Cell Status
+  1 IPrs_Reg_DS:DS855:2 ISO:ISO_Cell Status
+ 
+  1 IDPVCT ISO:ISO_Detector T_ctrl
+  1 IDPVTSt ISO:ISO_Detector T_ctrl
+  1 IDetT ISO:ISO_Detector Temp
+ 
+  1 IDPV_P ISO:ISO_DPV P
+  1 IDPV_T1C ISO:ISO_DPV Temp
+  1 IDPV_T2C ISO:ISO_DPV Temp
+  1 IDPV_RHC ISO:ISO_DPV RH
+  1 IDPV_HC_DS:DS851:4 ISO:ISO_DPV Status
+  1 IDPV_HC_S:DS86A:4 ISO:ISO_DPV Status
+ 
+  1 ILPV_P ISO:ISO_ILPV P
+  1 ILPV_T1C ISO:ISO_ILPV Temp
+  1 ILPV_T2C ISO:ISO_ILPV Temp
+  1 ILPV_RHC ISO:ISO_ILPV RH
+ 
+  1 IQCL_P ISO:ISO_IQCL P
+  1 IQCL_T1C ISO:ISO_IQCL Temp
+  1 IQCL_T2C ISO:ISO_IQCL Temp
+  1 IQCL_RHC ISO:ISO_IQCL RH
+ 
+  1 ILasI ISO:ISO_Laser Current
+  1 ILPVCT ISO:ISO_Laser P
+  1 ILH_T ISO:ISO_Laser Temp
+  1 ILPVTSt ISO:ISO_Laser T_ctrl
+  1 ILTE7R7T ISO:ISO_Laser T_ctrl
+  1 ILTETSt ISO:ISO_Laser T_ctrl
+  1 ILPV_HC_DS:DS851:5 ISO:ISO_Laser Status
+  1 ILPV_HC_S:DS86A:5 ISO:ISO_Laser Status
+  1 ILTEC_DS:DS851:6 ISO:ISO_Laser Status
+  1 ILTEC_S:DS86A:6 ISO:ISO_Laser Status
+  1 I_Pump_DS:DS851:2 ISO:ISO_Pump Status
+  1 I_Pump_S:DS86A:2 ISO:ISO_Pump Status
+ 
+  1 IPmpT ISO:ISO_Pump Temp
+  1 IPMtT ISO:ISO_Pump Temp
+ 
+  1 QCLI_I_fifodep ISO:ISO_QCLI FIFO
+  1 QCLI_I_Wave ISO:ISO_QCLI Wave %.0lf
+  1 QCLI_I_Stale ISO:ISO_QCLI Stale
+  1 FIFOOvf:QCLI_I_CS:12 ISO:ISO_QCLI Status
+  1 IQCLI_Reset_DS:DS855:0 ISO:ISO_QCLI Status
+  1 QCLI_I_Busy:QCLI_I_s:15 ISO:ISO_QCLI Status
+  1 QCLI_I_cksum:QCLI_I_s:14 ISO:ISO_QCLI Status
+  1 QCLI_I_cmderr:QCLI_I_s:13 ISO:ISO_QCLI Status
+  1 QCLI_I_dot:QCLI_I_s:5 ISO:ISO_QCLI Status
+  1 QCLI_I_InvCmd:QCLI_I_s:11 ISO:ISO_QCLI Status
+  1 QCLI_I_laser:QCLI_I_s:12 ISO:ISO_QCLI Status
+  1 QCLI_I_loc:QCLI_I_s:3 ISO:ISO_QCLI Status
+  1 QCLI_I_lot:QCLI_I_s:4 ISO:ISO_QCLI Status
+  1 QCLI_I_ready:QCLI_I_s:9 ISO:ISO_QCLI Status
+  1 QCLI_I_waveerr:QCLI_I_s:8 ISO:ISO_QCLI Status
+  1 QCLIResponding:QCLI_I_CS:11 ISO:ISO_QCLI Status
+  1 RBComplete:QCLI_I_CS:9 ISO:ISO_QCLI Status
+  1 RBPending:QCLI_I_CS:8 ISO:ISO_QCLI Status
+  1 Reading:QCLI_I_CS:14 ISO:ISO_QCLI Status
+  1 RWConflict:QCLI_I_CS:13 ISO:ISO_QCLI Status
+  1 WQPending:QCLI_I_CS:10 ISO:ISO_QCLI Status
+ 
+  1 I24VT ISO:ISO_SSP Temp
+  1 IPampT ISO:ISO_SSP Temp
+  1 ISSPT ISO:ISO_SSP Temp
+  1 SSP_I_T_FPGA ISO:ISO_SSP Temp
+  1 SSP_I_T_HtSink ISO:ISO_SSP Temp
+  1 SSP_I_Num ISO:ISO_SSP Files
+  1 SSP_I_Flags ISO:ISO_SSP Overflow
+  1 SSP_I_SN ISO:ISO_SSP Scans
+  1 SSP_I_TS ISO:ISO_SSP Skipped
+  1 SSP_I_Status ISO:ISO_SSP Status %.0lf
+  1 SSP_I_Stale ISO:ISO_SSP Stale
 
-# These should switch over to ISO:
- 1 IRv1T  HK:Temps Roving
- 1 IRv2T  HK:Temps Roving
- 1 IRv3T  HK:Temps Roving
- 1 IRv4T  HK:Temps Roving
- 1 IRv5T  HK:Temps Roving
- 1 ISG1T  HK:Temps Sample
- 1 ISG2T  HK:Temps Sample
- 1 ISk1T  HK:Temps Skin
- 1 ISk2T  HK:Temps Skin
- 1 ISk3T  HK:Temps Skin
+ 1 IRv1T  ISO:Temps Roving
+ 1 IRv2T  ISO:Temps Roving
+ 1 IRv3T  ISO:Temps Roving
+ 1 IRv4T  ISO:Temps Roving
+ 1 IRv5T  ISO:Temps Roving
+ 1 ISG1T  ISO:Temps Sample
+ 1 ISG2T  ISO:Temps Sample
+ 1 ISk1T  ISO:Temps Skin
+ 1 ISk2T  ISO:Temps Skin
+ 1 ISk3T  ISO:Temps Skin
 
  1 L1_DS:DS851:7  HK:Lab Status
  1 L1_S:DS86A:7  HK:Lab Status

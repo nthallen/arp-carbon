@@ -41,5 +41,14 @@ extern SWData_t SWData;
 #define SWS_GROUND_PWR 32
 #define SWS_AIRCRAFT_PWR 33
 #define SWS_SHORTSHUT 34
+#define SWS_IQCL_SELICOS 35
+#define SWS_IQCL_SELRING 36
+#define SWS_IQCL_START 37
+#define SWS_IQCL_STOP 38
+#define SWS_IQCL_DISABLE 39
+#define SWS_IT_START 40
+#define SWS_IT_STOP 41
+#define SWS_ICALIBRATE 42
+#define SWS_ISTART 43
 
 #endif
