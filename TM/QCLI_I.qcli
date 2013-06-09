@@ -2,6 +2,7 @@
 # Generic Waveforms for QCLI_I
 #QCLIConfig FastRampx25;
 #QCLIConfig Standard;
+QCLIConfig StandardxP33;
 Digitizer SSP;
 Prefix QCLI_I;
 
