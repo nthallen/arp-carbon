@@ -5,51 +5,51 @@ Digitizer SSP;
 Prefix QCLI_M;
 
 ICOS Waveform M3Df_200Hz {
-  SampleRate = 50 MHz/111;
+  SampleRate = 100 MHz/222;
   Ncoadd = 227;
   Tz = 5%;
   Ramp from 650 mA to 780 mA in 4 msec;
 }
 ICOS Waveform M3Df_300Hz {
-  SampleRate = 50 MHz/72;
+  SampleRate = 100 MHz/144;
   Ncoadd = 327;
   Tz = 5%;
   Ramp from 650 mA to 780 mA in 2.7 msec;
 }
 ICOS Waveform M3Df_400Hz {
-  SampleRate = 50 MHz/56;
+  SampleRate = 100 MHz/112;
   Ncoadd = 429;
   Tz = 5%;
   Ramp from 650 mA to 780 mA in 2 msec;
 }
 
 ICOS Waveform M3Df_500Hz {
-  SampleRate = 50 MHz/50;
+  SampleRate = 100 MHz/100;
   Ncoadd = 500;
   Tz = 5%;
   Ramp from 650 mA to 780 mA in 1.75 msec;
 }
 
 ICOS Waveform M3Df_600Hz {
-  SampleRate = 50 MHz/42;
+  SampleRate = 100 MHz/84;
   Ncoadd = 563;
   Tz = 5%;
   Ramp from 650 mA to 780 mA in 1.5 msec;
 }
 ICOS Waveform M3Df_600Hz10Hz {
-  SampleRate = 50 MHz/42;
+  SampleRate = 100 MHz/84;
   Ncoadd = 56;
   Tz = 5%;
   Ramp from 650 mA to 780 mA in 1.5 msec;
 }
 ICOS Waveform M3Df_800Hz {
-  SampleRate = 50 MHz/28;
+  SampleRate = 100 MHz/28;
   Ncoadd = 799;
   Tz = 5%;
   Ramp from 650 mA to 780 mA in 1 msec;
 }
 ICOS Waveform M3Df_1000Hz {
-  SampleRate = 50 MHz/14;
+  SampleRate = 100 MHz/28;
   Ncoadd = 1348;
   Tz = 5%;
   Ramp from 650 mA to 780 mA in .5 msec;
@@ -71,7 +71,8 @@ Ringdown Waveform M3Df_rConstant {
 }
 
 Ringdown Waveform M3Df_rRamp {
-  SampleRate = 25 MHz;
+  SampleRate = 50 MHz/20;
+  Nsample = 3500;
   Toff = 5 msec;
   Ton =  5 msec;
   Tpre = 2 usec;
@@ -79,8 +80,8 @@ Ringdown Waveform M3Df_rRamp {
 }
 
 Ringdown Waveform M3Df_rRamp_NC10 {
-  SampleRate = 25 MHz/10;
-  Nsample = 350;
+  SampleRate = 50 MHz/20;
+  Nsample = 3500;
   Ncoadd = 10;
   Toff = 500 usec;
   Ton =  500 usec;

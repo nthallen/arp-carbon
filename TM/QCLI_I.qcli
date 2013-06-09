@@ -18,7 +18,7 @@ ICOS Waveform QCLI_I {
   SampleRate = 50 MHz/50;
   Tz = 5%;
 #  Ramp from 45 mA to 75 mA in 1 msec;
-  Ramp from 60 mA to 90 mA in 1 msec;
+  Ramp from 500 mA to 750 mA in 1 msec;
 }
 
 ICOS Waveform QCLI_I_full {
