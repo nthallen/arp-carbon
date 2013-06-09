@@ -128,19 +128,12 @@ QCLI_C_Col {
 
 QCLI_I {
   HBox { +-; Title: "QCLI_I"; -+ };
+  { Wave: (QCLI_I_Wave,10) (QCLI_I_mode,7) (QCLI_I_laser,3) };
   HBox {
-    {
-      Wave: (QCLI_I_Wave,10);
-      Mode: { (QCLI_I_mode,7) (QCLI_I_laser,3) }
-    }
+    { SSP (SSP_I_Status,7); (SSP_I_Num,8); };
+    HGlue 0+1; |; HGlue 0+1;
+    { Reset: (IQCLI_Reset_DS,3); Stale: (QCLI_I_Stale,5) };
   }
-  HBox {
-    {
-      Reset: (IQCLI_Reset_DS,3);
-      Stale: (QCLI_I_Stale,5);
-    }
-  };
-  { SSP (SSP_I_Num,8) (SSP_I_Status,7); }
 }
 
 SSP_I {

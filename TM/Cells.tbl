@@ -137,7 +137,7 @@ I_Laser {
   LH_T:    (ILH_T,7) V;
   LPVCT:   (ILPVCT,7) V;
   LPVTSt:  (ILPVTSt,6) V;
-  LTE4R3T: (ILTE7R7T,7) V;
+  LTET:    (ILTE7R7T,7) V;
   LTETSt:  (ILTETSt,6) V;
   { TEC:     (ILTEC_DS,3)   (ILTEC_S,3);
     LPV_HC:  (ILPV_HC_DS,3) (ILPV_HC_S,3);
