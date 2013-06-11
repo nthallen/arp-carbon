@@ -730,7 +730,7 @@ State CQCL_SelectICOSandRun {
     Hold until valid (CQCLI_Idle) or 2
     else Validate CQCLI_Stop;
     Hold until valid (CQCLI_Idle);
- +1 > CO2 Set Laser TEC Temp Setpoint 1.45
+ +1 > CO2 Set Laser TEC Temp Setpoint 1.70
  +1 > CO2 Laser TEC On
  +5 > Select QCLI_C Waveform C2Cd_800Hz
  +2 Validate CQCL_Start;

@@ -14,12 +14,10 @@ if (last_C_SSP != SSP_C_Num) {
   last_C_SSP = SSP_C_Num;
 }
 
-/*
 if (last_I_SSP != SSP_I_Num) {
   ci_sendfcmd(2, "PhRTG File SSP_I %u\n", SSP_I_Num );
   last_I_SSP = SSP_I_Num;
 }
-*/
 
 ci_sendfcmd(2, "PhRTG Datum CPU_Pct %lu %s %s\n", itime(),
     text(CPU_Pct), text(CPU2_Pct));
