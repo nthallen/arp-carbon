@@ -43,7 +43,7 @@
 #define Sp8AI_Address 0xCBC
 #define Sp7AI_Address 0xC7C
 #define Sp6AI_Address 0xC6E
-#define Sp5AI_Address 0xC2E
+#define Cam_T_Address 0xC2E
 #define RadOutT_Address 0xC10
 #define WTnkT_Address 0xC50
 #define CoolP_Address 0xCCE

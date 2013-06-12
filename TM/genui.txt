@@ -253,6 +253,7 @@ ROWS 15
  1 SpHCT  HK:SpaceHt T_ctrl
  1 SpHtTSt  HK:SpaceHt T_ctrl
  1 SpHt_HC_DS:DS855:6  HK:SpaceHt Status
+ 1 Cam_T HK:SpaceHt Camera
 
  1 TVStep  HK:Throttle Step
  1 TVPos  HK:Throttle Pot
@@ -465,7 +466,7 @@ ROWS 15
 #1 Sp2AI  HK:SPARE AI
 #1 Sp3AI  HK:SPARE AI
 #1 Sp4AI  HK:SPARE AI
- 1 Sp5AI  HK:SPARE AI
+ 1 Sp5AI  HK:SPARE AI %-
  1 Sp6AI  HK:SPARE AI
  1 Sp7AI  HK:SPARE AI
  1 Sp8AI  HK:SPARE AI
