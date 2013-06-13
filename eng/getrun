@@ -10,6 +10,7 @@ gse=hcigse.arp.harvard.edu
 relay=fugue.arp.harvard.edu
 MM_Dir=MM
 CO2_Dir=CO2
+ISO_Dir=ISO
 RAW_Dir=RAW
 use_relay=no
 HomeDir=/home/hci
@@ -18,6 +19,7 @@ RunType=''
 Copy_CSV=yes
 Copy_CO2=no
 Copy_MM=no
+Copy_ISO=no
 Copy_BAT=no
 Decimate=no
 Matlab=yes
@@ -31,7 +33,7 @@ function usage {
   echo "   decimate: Retrieve only every 10th scan"
   echo " runtype: flight, cal, data, junk"
   echo "   runtype selection stays in effect until another runtype is selected"
-  echo " axis: MM, CO2"
+  echo " axis: MM, CO2, ISO"
   echo "   axis selections are 'sticky' and apply to all runs"
   exit 0
 }
@@ -63,8 +65,11 @@ for run in $*; do
     nocsv) Copy_CSV=no;;
     [Cc][Oo]2) Copy_CO2=yes;;
     [Mm][Mm]) Copy_MM=yes;;
+    [Ii][Ss][Oo]) Copy_ISO=yes;;
     BAT) Copy_BAT=yes;;
+    gse=*) gse=${run#gse=};;
     relay) use_relay=yes;;
+    relay=*) use_relay=yes; relay=${run#relay=};;
     decimate) Decimate=yes;;
     nomatlab) Matlab=no;;
     help) usage;;
@@ -103,8 +108,11 @@ for run in $*; do
     -f) :;;
     [Cc][Oo]2) :;;
     [Mm][Mm]) :;;
+    [Ii][Ss][Oo]) :;;
     BAT) :;;
+    gse=*) :;;
     relay) :;;
+    relay=*) :;;
     nocsv) :;;
     decimate) :;;
     nomatlab) :;;
@@ -119,6 +127,8 @@ for run in $*; do
           do_scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_C.m $RAW_Dir/$run$flt/QCLI_C.m
         [ -f $RAW_Dir/$run$flt/QCLI_M.m ] ||
           do_scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_M.m $RAW_Dir/$run$flt/QCLI_M.m
+        [ -f $RAW_Dir/$run$flt/QCLI_I.m ] ||
+          do_scp $gse:$HomeDir/raw/$RunType/$run/Base/QCLI_I.m $RAW_Dir/$run$flt/QCLI_I.m
         if [ $Copy_CO2 = yes ]; then
           [ -d $CO2_Dir ] || mkdir $CO2_Dir
           [ -d $CO2_Dir/$run$flt ] || mkdir $CO2_Dir/$run$flt
@@ -127,11 +137,18 @@ for run in $*; do
           [ -d $MM_Dir ] || mkdir $MM_Dir
           [ -d $MM_Dir/$run$flt ] || mkdir $MM_Dir/$run$flt
         fi
+        if [ $Copy_ISO = yes ]; then
+          [ -d $ISO_Dir ] || mkdir $ISO_Dir
+          [ -d $ISO_Dir/$run$flt ] || mkdir $ISO_Dir/$run$flt
+        fi
         if [ $Copy_CO2 = yes ]; then
           do_tar $run SSP_C
         fi
         if [ $Copy_MM = yes ]; then
           do_tar $run SSP_M
+        fi
+        if [ $Copy_ISO = yes ]; then
+          do_tar $run SSP_I
         fi
       fi
   esac
