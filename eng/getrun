@@ -6,6 +6,7 @@ function nl_error {
 
 flt=''
 gse=hcigse.arp.harvard.edu
+# gse=10.0.5.19
 relay=fugue.arp.harvard.edu
 MM_Dir=MM
 CO2_Dir=CO2
@@ -17,6 +18,7 @@ RunType=''
 Copy_CSV=yes
 Copy_CO2=no
 Copy_MM=no
+Copy_BAT=no
 Decimate=no
 Matlab=yes
 SCPOPTS=-Cp
@@ -61,6 +63,7 @@ for run in $*; do
     nocsv) Copy_CSV=no;;
     [Cc][Oo]2) Copy_CO2=yes;;
     [Mm][Mm]) Copy_MM=yes;;
+    BAT) Copy_BAT=yes;;
     relay) use_relay=yes;;
     decimate) Decimate=yes;;
     nomatlab) Matlab=no;;
@@ -81,6 +84,9 @@ for run in $*; do
         do_scp $gse:$HomeDir/anal/$run/*.csv $RAW_Dir/$run$flt
         [ $Matlab = yes ] && echo "$RAW_Dir/$run$flt" >>runs.dat
       fi
+      if [ $Copy_BAT = yes ]; then
+	do_scp $gse:$HomeDir/anal/$run/BAT_SPAN.ncr $RAW_Dir/$run$flt
+      fi
       if [ -n "$RunType" ]; then
         [ -f $RAW_Dir/$run$flt/$Exp.log ] ||
           do_scp $gse:$HomeDir/raw/$RunType/$run/$Exp.log $RAW_Dir/$run$flt/$Exp.log
@@ -97,6 +103,7 @@ for run in $*; do
     -f) :;;
     [Cc][Oo]2) :;;
     [Mm][Mm]) :;;
+    BAT) :;;
     relay) :;;
     nocsv) :;;
     decimate) :;;
