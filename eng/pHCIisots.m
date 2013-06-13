@@ -1,5 +1,5 @@
-function pHCIhk_tempss(varargin);
-% pHCIhk_tempss( [...] );
+function pHCIisots(varargin);
+% pHCIisots( [...] );
 % Temps Sample
 h = timeplot({'ISG1T','ISG2T'}, ...
       'Temps Sample', ...

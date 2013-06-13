@@ -1,5 +1,5 @@
-function pHCIhk_tempsr(varargin);
-% pHCIhk_tempsr( [...] );
+function pHCIisotr(varargin);
+% pHCIisotr( [...] );
 % Temps Roving
 h = timeplot({'IRv1T','IRv2T','IRv3T','IRv4T','IRv5T'}, ...
       'Temps Roving', ...
