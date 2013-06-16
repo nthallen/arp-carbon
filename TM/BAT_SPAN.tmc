@@ -35,7 +35,6 @@ TM typedef unsigned long PosType_t { text "%3lu"; }
 TM typedef unsigned long BP_DatumID_t { text "%3lu"; }
 
 Calibration ( BP_Idle_t, PERCENT) { 0, 0, 200, 100 }
-Calibration ( BAT_TBar_t, CELCIUS) { 0,  -1.0726037, 32768, 52.0453 }
 
 TM 1 HZ GPS_msecs_t GPS_msecs; /* msecs since start of week */
 TM 1 Hz GPS_weekl_t GPS_weekl; /* Weeks since 0h Jan 6, 1980 UTC */
