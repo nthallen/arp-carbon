@@ -37,7 +37,7 @@
   : ISO Laser TEC { $0 = 6; }
   : Coolant Pump { $0 = 7; }
   : Inverter Arm { $0 = 8; }
-  : Circuit3 { $0 = 12; }
+  : Circuit3 { $0 = 10; }
   : MINI Cell Htr Ctl { $0 = 42; }
   : MINI DPV Htr Ctl { $0 = 43; }
   : MINI LPV Ext TEC { $0 = 45; }
