@@ -14,6 +14,9 @@ CPU Configuration:
     [x] Check to see if CPU temp and board temp info is accessible
         in the same way as on Python: No it is not.
     [y] Test Xtreme/104 as RS-232
+    
+    BIOS: Configure eSATA connector to boot first, internal
+    SATA second. Ubuntu config below.
   
   Versalogic Python VL-EBX-11
     BIOS requires PS/2 keyboard, not USB
@@ -102,3 +105,14 @@ LK204:
   > Panel display text \xfe\xc3\x06\x00
 
 Mamba CPU Die Temperature
+
+Ubuntu on external drive
+    Fixed IP (so not dependent on lab network)
+    ssh in to perform copy operation.
+    [Ultimately would be great to use pilot panel...]
+    
+    Switching between graphical and text interface:
+      Edit /etc/default/grub
+      set GRUB_CMDLINE_LINUX_DEFAULT to "quiet splash" for GUI
+      and "text" for text
+      Run sudo update-grub to commit changes

@@ -35,6 +35,7 @@ TM typedef unsigned long PosType_t { text "%3lu"; }
 TM typedef unsigned long BP_DatumID_t { text "%3lu"; }
 
 Calibration ( BP_Idle_t, PERCENT) { 0, 0, 200, 100 }
+Calibration ( BAT_TBar_t, CELCIUS) { 0,  -1.0726037, 32768, 52.0453 }
 
 TM 1 HZ GPS_msecs_t GPS_msecs; /* msecs since start of week */
 TM 1 Hz GPS_weekl_t GPS_weekl; /* Weeks since 0h Jan 6, 1980 UTC */
@@ -60,6 +61,7 @@ TM 1 Hz BAT_Ps_t BAT_Ps;
 TM 1 Hz BAT_Ax_t BAT_Ax;
 TM 1 Hz BAT_Ay_t BAT_Ay;
 TM 1 Hz BAT_Az_t BAT_Az;
+TM 1 Hz BAT_TBar_t BAT_TBar;
 TM 1 Hz BAT_FOTemp_t BAT_FOTemp;
 TM 1 Hz BAT_Pump_t BAT_Pump;
 TM 1 Hz BAT_Axb_t BAT_Axb;
@@ -151,6 +153,7 @@ Group BAT_SPAN_grp (GPS_msecs, GPS_weekl, GPS_week, GPS_secs, Latitude,
   BAT_Ax = BAT_SPAN.BAT_Ax;
   BAT_Ay = BAT_SPAN.BAT_Ay;
   BAT_Az = BAT_SPAN.BAT_Az;
+  BAT_TBar = BAT_SPAN.BAT_TBar;
   BAT_FOTemp = BAT_SPAN.BAT_FOTemp;
   BAT_Pump = BAT_SPAN.BAT_Pump;
   BAT_Axb = BAT_SPAN.BAT_Axb;

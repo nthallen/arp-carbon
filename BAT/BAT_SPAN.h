@@ -46,6 +46,7 @@ typedef struct __attribute__((__packed__)) {
   short BAT_Ax; // 4
   short BAT_Ay; // 5
   short BAT_Az; // 6
+  short BAT_TBar; // 9
   short BAT_FOTemp; // 11
   short BAT_Pump; // 12
   short BAT_Axb; // 13

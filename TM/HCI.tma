@@ -25,6 +25,7 @@ State Init {
   +1   > Fail Light Off
        > Panel Keypad Backlight Off
        > Panel Display Text \\xFE\\x47\\x00\\x04
+  +2   > BAT Power On
   +2   Validate Standby;
 }
 
