@@ -28,11 +28,13 @@ if [ -e /dev/ser1 ]; then
   echo "==> Skipping ser8250 for mother board"
 else
   echo "==> Starting ser8250 for mother board"
-  devc-ser8250 -u1 3f8,4 -u2 2f8,3 -u3 3e8,7
+  # devc-ser8250 -u1 3f8,4 -u2 2f8,3 -u3 3e8,7
+  # Skip /dev/ser2
+  devc-ser8250 -u1 3f8,4 -u3 3e8,7
 fi
 
 echo "==> Starting ser8250 for Xtreme/104"
-devc-ser8250 -c 7372800/16 -u4 300,5
+devc-ser8250 -c 7372800/16 -u4 300,5 -u2 308,3
 
 # echo "==> Starting Network Daemons"
 # /usr/bin/pdebug 8000

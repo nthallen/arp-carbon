@@ -27,19 +27,21 @@ CPU Configuration:
     PCI INT B => IRQ10 (instead of IRQ5)
     ISA IRQ 5 Enabled (for Xtreme/104 board)
     COM1 => IRQ4 (for use with inverter)
-    COM2 => IRQ3 (default, for use with SPAN)
+    COM2 => IRQ3 (default, for use with SPAN) (disable, move SPAN to Xtreme/104)
     COM3 => IRQ7 (for use with laser altimeter) (need to test this)
     COM4 => Disabled
   
   Xtreme/104:
+    J1.3 Jumpered for IRQ Mode 2: 2 IRQs
     J1.6 Jumpered to select fast clock
     J1.* open for I/O address selection 0x300
-    C5 Jumpered for IRQ5 (Mode 1, one IRQ)
+    C5 Jumpered for IRQ5 (Mode 2, IRQ for ports 1, 3, 5, 7)
+    D3 Jumpered for IRQ3 (Mode 2, IRQ for ports 2, 4, 6, 8)
     J5.P1.RX & .TX Jumpered for RS422 on Port 1
     
     /sbin/devc-ser8250 Driver needs to be invoked with -c option
     to note fast input clock:
-      /sbin/devc-ser8250 -c 7372800/16 -u4 300,5
+      /sbin/devc-ser8250 -c 7372800/16 -u4 300,5 -u2 308,3
 
 Need PS/2 keyboard Connector for BIOS, but not for QNX6. Or maybe not.
 
@@ -109,6 +111,8 @@ Mamba CPU Die Temperature
 Ubuntu on external drive
     Fixed IP (so not dependent on lab network)
     ssh in to perform copy operation.
+    Needs to work with ethernet jack J15 in order to use
+      the onboard industrial switch
     [Ultimately would be great to use pilot panel...]
     
     Switching between graphical and text interface:
