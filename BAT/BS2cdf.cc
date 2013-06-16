@@ -446,8 +446,8 @@ void BS2cdf::Parse_SPAN_data(BS2Cchan *var, const unsigned char *rec,
     case 0: raw_type = rt_double; offset = 24; break; // Lat
     case 1: raw_type = rt_double; offset = 32; break; // Lon
     case 2: raw_type = rt_double; offset = 40; break; // Alt == Ellip. Ht
-    case 3: raw_type = rt_double; offset = 48; break; // Su == N_Velocity
-    case 4: raw_type = rt_double; offset = 56; break; // Sv == E_Velocity
+    case 3: raw_type = rt_double; offset = 56; break; // Su == E_Velocity
+    case 4: raw_type = rt_double; offset = 48; break; // Sv == N_Velocity
     case 5: raw_type = rt_double; offset = 64; break; // Sw == Up_Velocity
     case 6: raw_type = rt_double; offset = 80; break; // Pitch
     case 7: raw_type = rt_double; offset = 72; break; // Roll
