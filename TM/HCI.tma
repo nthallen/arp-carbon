@@ -1074,7 +1074,7 @@ State IQCL_SelectRingandRun {
     Hold until valid (IQCLI_Idle);
  +1 > ISO Set Laser TEC Temp Setpoint 1.65
  +1 > ISO Laser TEC On
- +5 > Select QCLI_I Waveform QCLI_I_RD
+ +5 > Select QCLI_I Waveform I3db_rRamp
  +1 > SSP_I Set NSample 500
  +2 Validate IQCL_Start;
 }

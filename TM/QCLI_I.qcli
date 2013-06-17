@@ -1,8 +1,8 @@
-# QCLI_M.qcli
-# Generic Waveforms for QCLI_M
+# QCLI_I.qcli
+# Generic Waveforms for QCLI_I
 QCLIConfig StandardxP33;
 Digitizer SSP;
-Prefix QCLI_M;
+Prefix QCLI_I;
 
 ICOS Waveform I3Db_800Hz {
   SampleRate = 100 MHz/84;
