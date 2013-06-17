@@ -1,5 +1,5 @@
 /* 1M Thermistor pulled up by 75K */
-Calibration ( T1M75KU, AI_T1M75KU, CELCIUS ) {
+Calibration ( AI_T1M75KU, CELCIUS ) {
    688, 259.69,
    816, 249.15,
    944, 240.41,
