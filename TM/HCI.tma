@@ -86,9 +86,9 @@ Partition
 
 State In_FLIGHT {
   { using_swp = 0; }
-  { if ((using_swp == SWS_TAKE_DATA) || (PP_Land_Req == 0))
-      Validate TAKE_DATA;
-  }
+# { if ((using_swp == SWS_TAKE_DATA) || (PP_Land_Req == 0))
+#     Validate TAKE_DATA;
+# }
   > Panel Data LED Off
 }
 
@@ -225,6 +225,7 @@ State MQCL_Init {
 
 State MQCL_Idle {
     Depending on (Shutdown) { Validate MQCL_Shutdown; }
+    Validate MQCLI_Idle;
 }
 
 State MQCL_Start {
@@ -558,6 +559,7 @@ State CQCL_Init {
 
 State CQCL_Idle {
     Depending on (Shutdown) { Validate CQCL_Shutdown; }
+    Validate CQCLI_Idle;
 }
 
 State CQCL_Start {
@@ -905,6 +907,7 @@ State IQCL_Init {
 
 State IQCL_Idle {
     Depending on (Shutdown) { Validate IQCL_Shutdown; }
+    Validate IQCLI_Idle;
 }
 
 State IQCL_Start {

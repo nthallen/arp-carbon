@@ -44,7 +44,8 @@ SWS_IQCL_SELRING 36     ISO Laser Select Ring and Run:
                           Validate IQCL_SelectRingandRun; break;
 SWS_IQCL_START 	 37     ISO Laser Start: Validate IQCL_Start; break;
 SWS_IQCL_STOP	 38     ISO Laser Stop: Validate IQCL_Stop; break;
-SWS_IQCL_DISABLE 39     ISO Laser Disable: Validate IQCL_Idle; break;
+SWS_IQCL_IDLE    39     ISO Laser Idle: Validate IQCL_Idle; break;
+SWS_IQCL_DISABLE 44     ISO Laser Disable: Validate IQCL_Idle; break;
 SWS_IT_START 	 40     ISO Temperature Ctrl Start: Validate ITControl_Start; break;
 SWS_IT_STOP	 41     ISO Temperature Ctrl Stop: Validate ITControl_Shutdown; break;
 SWS_ICALIBRATE 	 42     ISO Calibrate: Validate ISO_Calibrate; break;

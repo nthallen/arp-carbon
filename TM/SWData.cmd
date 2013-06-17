@@ -53,6 +53,7 @@
   : ISO Laser Select Ring and Run { $0 = SWS_IQCL_SELRING; }
   : ISO Laser Start { $0 = SWS_IQCL_START; }
   : ISO Laser Stop { $0 = SWS_IQCL_STOP; }
+  : ISO Laser Idle { $0 = SWS_IQCL_IDLE; }
   : ISO Laser Disable { $0 = SWS_IQCL_DISABLE; }
   : ISO Temperature Ctrl Start { $0 = SWS_IT_START; }
   : ISO Temperature Ctrl Stop { $0 = SWS_IT_STOP; }

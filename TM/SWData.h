@@ -45,7 +45,8 @@ extern SWData_t SWData;
 #define SWS_IQCL_SELRING 36
 #define SWS_IQCL_START 37
 #define SWS_IQCL_STOP 38
-#define SWS_IQCL_DISABLE 39
+#define SWS_IQCL_IDLE 39
+#define SWS_IQCL_DISABLE 44
 #define SWS_IT_START 40
 #define SWS_IT_STOP 41
 #define SWS_ICALIBRATE 42
