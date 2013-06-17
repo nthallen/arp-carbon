@@ -50,20 +50,20 @@ I_Cell {
       LP: (ICelLP,7) Torr;
       P: (ICelP,7) Torr;
       PSt: (ICelPSt,7) Torr;
+      -;
+      HC: { (ICell_HC_DS,3) (ICell_HC_S,3) };
+        #  Prs_Reg: (IPrs_Reg_DS,3);
+      Ex_Vlv: (IGas_Ex_Vlv_DS,6); # Gas_Vlv: (IGas_Vlv_DS,6);
     }; |+; {
       "1T:" (ICel1T,6) C;
       "2T:" (ICel2T,6) C;
+      Sk1T: (ISk1T,6) C;
+      Sk2T: (ISk2T,6) C;
+      Sk3T: (ISk2T,6) C;
       CT: (ICelCT,7) V;
       TSt: (ICelTSt,6) V;
     }
   };
-  -;
-  >{
-    HC: (ICell_HC_DS,3) (ICell_HC_S,3)  Prs_Reg: (IPrs_Reg_DS,3);
-  }<;
-  >{
-    Ex_Vlv: (IGas_Ex_Vlv_DS,6) Gas_Vlv: (IGas_Vlv_DS,6);
-  }<
 }
 
 CO2_Laser {

@@ -78,10 +78,10 @@ CO2 {
 
 ICOS {
   HBox { +-; Title: ICOS; -+ };
-  { Pump: (I_Pump_DS,3) (I_Pump_S,3) };
-  IPmpT: (IPmpT,6) C;
-  IPMtT: (IPMtT,6) C;
-  -;
+# { Pump: (I_Pump_DS,3) (I_Pump_S,3) };
+# IPmpT: (IPmpT,6) C;
+# IPMtT: (IPMtT,6) C;
+# -;
   I24VT: (I24VT,6) C;
   IPampT: (IPampT,6) C;
   ISSPT: (ISSPT,6) C;
@@ -92,9 +92,9 @@ ICOS {
   IRv5T: (IRv5T,6) C;
   ISG1T: (ISG1T,6) C;
   ISG2T: (ISG2T,6) C;
-  ISk1T: (ISk1T,6) C;
-  ISk2T: (ISk2T,6) C;
-  ISk3T: (ISk3T,6) C;
+# ISk1T: (ISk1T,6) C;
+# ISk2T: (ISk2T,6) C;
+# ISk3T: (ISk3T,6) C;
 }
 
 MM {

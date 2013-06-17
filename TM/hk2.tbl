@@ -66,7 +66,7 @@ Status {
   MFCtr: (MFCtr,5);
 }
 
-{ HBox { [Rovers]; |; [Panel]; |; [Inverter]; |; {
+{ HBox { [Panel]; |; [Inverter]; |; {
     [Cool];
     [Altimeter];
     VGlue 0+1;
