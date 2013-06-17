@@ -208,7 +208,6 @@ f = ne_dialg(f, 'add', 1, 0, 'pHCIisoisosspstale', 'Stale' );
 f = ne_dialg(f, 'add', 0, 1, 'gHCIisot', 'Temps' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIisotr', 'Roving' );
 f = ne_dialg(f, 'add', 1, 0, 'pHCIisots', 'Sample' );
-f = ne_dialg(f, 'add', 1, 0, 'pHCIisotskin', 'Skin' );
 f = ne_dialg(f, 'newcol');
 f = ne_dialg(f, 'newtab', 'BAT SPAN');
 f = ne_dialg(f, 'add', 0, 1, 'gHCIbatspanspan', 'SPAN' );
