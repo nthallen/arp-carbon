@@ -6,29 +6,15 @@ Digitizer SSP;
 Prefix QCLI_C;
 
 ICOS Waveform C2Cd_800Hz {
-  SampleRate = 50 MHz/28;
-  Ncoadd = 900;
-  Tz = 10%;
-  Ramp from 700 mA to 850 mA in 1 msec;
-}
-
-ICOS Waveform C2Cd_800Hzb {
   SampleRate = 100 MHz/56;
   Ncoadd = 799;
-  Tz = 5%;
+  Tz = 10%;
   Ramp from 700 mA to 850 mA in 1 msec;
 }
 
-ICOS Waveform C2Cd_650 {
-  SampleRate = 50 MHz/28;
-  Ncoadd = 900;
-  Tz = 10%;
-  Ramp from 650 mA to 800 mA in 1 msec;
-}
-
-ICOS Waveform C2Cd_10Hz {
-  SampleRate = 50 MHz/28;
-  Ncoadd = 90;
+ICOS Waveform C2Cd_800Hz10Hz {
+  SampleRate = 100 MHz/56;
+  Ncoadd = 80;
   Tz = 10%;
   Ramp from 700 mA to 850 mA in 1 msec;
 }

@@ -1060,7 +1060,7 @@ State IQCL_SelectICOSandRun {
     Hold until valid (IQCLI_Idle);
  +1 > ISO Set Laser TEC Temp Setpoint 1.65
  +1 > ISO Laser TEC On
- +5 > Select QCLI_I Waveform QCLI_I
+ +5 > Select QCLI_I Waveform I3Db_800Hz
  +2 Validate IQCL_Start;
 }
 
@@ -1240,7 +1240,7 @@ State GasDeck_Fill_MINI_Cell {
      else  Validate GasDeck_Close;
   +1 > CO2 Gas Valve Closed
   +1 > MINI Gas Valve Open
-  +1 > MINI Exhaust Valve Closed
+  +1 > ISO Exhaust Valve Closed
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
@@ -1313,7 +1313,7 @@ Partition
 
 State Pump_Init {
     > CO2 Exhaust Valve Closed
-    > MINI Exhaust Valve Closed
+    > ISO Exhaust Valve Closed
  +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
     Hold until valid (Inverter_On) or 5
@@ -1350,7 +1350,7 @@ State Pump_Turn_On {
     +5 > CO2 Scroll Pump On
    +10 > MINI Scroll Pump On
    +10 > CO2 Exhaust Valve Open
-    +1 > MINI Exhaust Valve Open
+    +1 > ISO Exhaust Valve Open
        Validate Pump_Watch;
 }
 
@@ -1371,7 +1371,7 @@ State Pump_Hot {
       Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
       Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
       > CO2 Exhaust Valve Closed
-      > MINI Exhaust Valve Closed
+      > ISO Exhaust Valve Closed
    +1 > CO2 Scroll Pump Off
    +1 > MINI Scroll Pump Off
       Hold until ( PUMP_TEMP_OK(convert(CPmpT)+5) &&
@@ -1382,7 +1382,7 @@ State Pump_Hot {
 State Pump_Inverter_Off {
       Depending on (Shutdown) { Validate Pump_Shutdown; }
       > CO2 Exhaust Valve Closed
-      > MINI Exhaust Valve Closed
+      > ISO Exhaust Valve Closed
    +1 > CO2 Scroll Pump Off
    +1 > MINI Scroll Pump Off
       Hold until valid (Inverter_On);
@@ -1391,7 +1391,7 @@ State Pump_Inverter_Off {
 
 State Pump_Shutdown {
    +1 > CO2 Exhaust Valve Closed
-   +1 > MINI Exhaust Valve Closed
+   +1 > ISO Exhaust Valve Closed
       # Wait until cell is filled to 1 Atm before shutting down
       # pumps since Exhaust valves do not hold against reverse
       # pressure
