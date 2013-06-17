@@ -18,7 +18,7 @@ ICOS Waveform QCLI_I {
   Ncoadd = 799;
   SampleRate = 50 MHz/50;
   Tz = 5%;
-  Ramp from 500 mA to 730 mA in 1 msec;
+  Ramp from 600 mA to 730 mA in 1 msec;
 }
 
 ICOS Waveform QCLI_I_full {
