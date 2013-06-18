@@ -86,8 +86,6 @@
 #define IRv3T_Address 0xC06
 #define IRv2T_Address 0xC84
 #define IRv1T_Address 0xC04
-#define IPMtT_Address 0xC9C
-#define IPmpT_Address 0xCDC
 #define IPampT_Address 0xC98
 #define ILTE7R7T_Address 0xC18
 #define ILPVCT_Address 0xC4A

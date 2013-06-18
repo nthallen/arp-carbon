@@ -45,8 +45,8 @@ TM 1 Hz AI_T30K ILH_T; Address ILH_T 0xC00; /* 7.7 laser Housing (Mount) Temp IS
 TM 1 Hz AI16 ILPVCT; Address ILPVCT 0xC4A; /* Laser Pressure Vessel Control Temp ISO */
 TM 1 Hz AI16 ILTE7R7T; Address ILTE7R7T 0xC18; /* 7.7 Laser TEC Control Temp ISO */
 TM 1 Hz AI_T30K IPampT; Address IPampT 0xC98; /* Large ICOS Power Amp (PA09) Temp */
-TM 1 Hz AI_T30K IPmpT; Address IPmpT 0xCDC; /* Large ICOS Pump Temp */
-TM 1 Hz AI_T30K IPMtT; Address IPMtT 0xC9C; /* Large ICOS Pump Moter Temp */
+/* TM 1 Hz AI_T30K IPmpT; Address IPmpT 0xCDC; */ /* Large ICOS Pump Temp */
+/* TM 1 Hz AI_T30K IPMtT; Address IPMtT 0xC9C; */ /* Large ICOS Pump Moter Temp */
 TM 1 Hz AI_T30K IRv1T; Address IRv1T 0xC04; /* Roving Temp 1 ISO */
 TM 1 Hz AI_T30K IRv2T; Address IRv2T 0xC84; /* Roving Temp 2 ISO */
 TM 1 Hz AI_T30K IRv3T; Address IRv3T 0xC06; /* Roving Temp 3 ISO */

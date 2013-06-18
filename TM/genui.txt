@@ -235,6 +235,8 @@ ROWS 15
  5 PM1I1_S:PM0Stat:0  HK:Power Status
  5 PM1I2_S:PM0Stat:2  HK:Power Status
  5 PM1TO_S:PM0Stat:4  HK:Power Status
+ 1 Ckt3_DS:DS84A:2    HK:Power Status
+ 1 Ckt3_S:DS873:2     HK:Power Status
 
  1 CLPV_S  HK:PTRH CLPV %.0lf
  1 CQCL_S  HK:PTRH CQCL %.0lf
@@ -312,11 +314,11 @@ ROWS 15
   1 ILPV_HC_S:DS86A:5 ISO:ISO_Laser Status
   1 ILTEC_DS:DS851:6 ISO:ISO_Laser Status
   1 ILTEC_S:DS86A:6 ISO:ISO_Laser Status
-  1 I_Pump_DS:DS851:2 ISO:ISO_Pump Status
-  1 I_Pump_S:DS86A:2 ISO:ISO_Pump Status
- 
-  1 IPmpT ISO:ISO_Pump Temp
-  1 IPMtT ISO:ISO_Pump Temp
+
+# 1 I_Pump_DS:DS851:2 ISO:ISO_Pump Status
+# 1 I_Pump_S:DS86A:2 ISO:ISO_Pump Status
+# 1 IPmpT ISO:ISO_Pump Temp
+# 1 IPMtT ISO:ISO_Pump Temp
  
   1 QCLI_I_fifodep ISO:ISO_QCLI FIFO
   1 QCLI_I_Wave ISO:ISO_QCLI Wave %.0lf
@@ -420,6 +422,8 @@ ROWS 15
  1 n_span_records BAT_SPAN:SPAN_HK N_Recs
  1 max_span_nc BAT_SPAN:SPAN_HK N_Recs
  1 n_bat_records BAT_SPAN:SPAN_HK N_Recs
+ 1 BAT_Pwr_DS:DS84A:4 BAT_SPAN:SPAN_HK BAT_Pwr
+ 1 BAT_Pwr_S:DS873:4 BAT_SPAN:SPAN_HK BAT_Pwr
  1 BAT_Px BAT_SPAN:BAT P
  1 BAT_Py BAT_SPAN:BAT P
  1 BAT_Pz BAT_SPAN:BAT P

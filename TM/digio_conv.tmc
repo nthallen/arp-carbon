@@ -1,5 +1,9 @@
 off_on_t InverterArm_DS; Invalidate InverterArm_DS;
   { InverterArm_DS = (DS84A>>0)&1; Validate InverterArm_DS; }
+off_on_t Circuit3_DS; Invalidate Circuit3_DS;
+  { Circuit3_DS = (DS84A>>2)&1; Validate Circuit3_DS; }
+off_on_t BAT_Pwr_DS; Invalidate BAT_Pwr_DS;
+  { BAT_Pwr_DS = (DS84A>>4)&1; Validate BAT_Pwr_DS; }
 off_on_t CoolDivert_DS; Invalidate CoolDivert_DS;
   { CoolDivert_DS = (DS848>>4)&1; Validate CoolDivert_DS; }
 Op_Cl_t MGas_Ex_Vlv_DS; Invalidate MGas_Ex_Vlv_DS;
@@ -84,6 +88,10 @@ off_on_t L1_S; Invalidate L1_S;
   { L1_S = (DS86A>>7)&1; Validate L1_S; }
 off_on_t InverterArm_S; Invalidate InverterArm_S;
   { InverterArm_S = (DS873>>0)&1; Validate InverterArm_S; }
+off_on_t Circuit3_S; Invalidate Circuit3_S;
+  { Circuit3_S = (DS873>>2)&1; Validate Circuit3_S; }
+off_on_t BAT_Pwr_S; Invalidate BAT_Pwr_S;
+  { BAT_Pwr_S = (DS873>>4)&1; Validate BAT_Pwr_S; }
 off_on_t SW0; Invalidate SW0;
   { SW0 = (IOSwS>>0)&1; Validate SW0; }
 off_on_t SW1; Invalidate SW1;

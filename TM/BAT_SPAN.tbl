@@ -52,6 +52,7 @@ BPN {
 
 BAT {
   HBox { +-; Title: BAT; -+ };
+  { Power: (BAT_Pwr_DS,3) (BAT_Pwr_S,3) };
   Px: (BAT_Px,7) mbar;
   Py: (BAT_Py,7) mbar;
   Pz: (BAT_Pz,7) mbar;
