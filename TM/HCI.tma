@@ -144,17 +144,25 @@ State MINI_Init {
 
 State MINI_Start {
       Depending on (Shutdown) { Validate MINI_Shutdown; }
-   +5 Validate MQCL_SelectICOSandRun;
-   +5 Hold until valid (MQCL_Watch, Pump_Watch);
+ # +5 Validate MQCL_SelectICOSandRun;
+   +5 Hold until valid (Pump_Watch);
+   +1 Validate MINI_Start_P;
+}
+
+State MINI_Start_P {
+      Depending on (Shutdown) { Validate MINI_Shutdown; }
+      { if (!MM_Pump_S || !MM_Pump_DS) Validate MINI_Fill_To_Ambient; }
+
+   +1 > MINI Pressure Reg Off
+      > MINI Set Cell Pressure Setpoint 40
+      Hold until (convert(MCelLP) < 10);
+   +1 > MINI Pressure Reg On
    +1 Validate MINI_Sample;
 }
 
 State MINI_Sample {
        Depending on (Shutdown) { Validate MINI_Shutdown; }
        { if (!MM_Pump_S || !MM_Pump_DS) Validate MINI_Fill_To_Ambient; }
-       > MINI Set Cell Pressure Setpoint 40
-       Hold until (convert(MCelLP) < 10);
-    +1 > MINI Pressure Reg On
     +1 Validate MQCL_SelectRingandRun;
  +1:00 Validate MQCL_SelectICOSandRun;
        Hold Until (SWStat == SWS_TIMEWARP) or 30:00;
@@ -167,7 +175,7 @@ State MINI_Calibrate {
      { MINI_Ready_To_Calibrate = 1; }
 
      Depending on (1Hz) {
-       if ( MINI_Ready_To_Calibrate == 0 )
+       if (MINI_Ready_To_Calibrate != 1)
          Validate MINI_End_Calibrate;
      }
 }
@@ -182,8 +190,8 @@ State MINI_End_Calibrate {
     +1 Hold until valid (MQCL_Watch);
    +10 Validate MQCL_Stop;
        Hold Until Valid (MQCL_Idle);
-    +1 > MINI Pressure Reg Off
-       Validate MINI_Sample;
+       { MINI_Ready_To_Calibrate = 3; }
+    +1 Validate MINI_Sample;
 }
 
 State MINI_Fill_to_Ambient {
@@ -218,6 +226,7 @@ Partition
 State MQCL_Init {
     Depending on (Shutdown) { Validate MQCL_Shutdown; }
   +1  > SSP_M Stop
+      Hold until ((IOSwS&3) == 3);
   +1  Validate MQCLI_Stop;
       Hold until valid (MQCLI_Idle);
       Validate MQCL_Idle;
@@ -486,15 +495,21 @@ State CO2_Start {
       Depending on (Shutdown) { Validate CO2_Shutdown; }
    +5 Validate CQCL_SelectICOSandRun;
    +5 Hold until valid (CQCL_Watch, Pump_Watch);
-   +1 Validate CO2_Sample;
+   +1 Validate CO2_Start_P;
 }
 
-State CO2_Sample {
+State CO2_Start_P {
        Depending on (Shutdown) { Validate CO2_Shutdown; }
        { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
        > CO2 Set Cell Pressure Setpoint 40
        Hold until (convert(CCelLP) < 10);
     +1 > CO2 Pressure Reg On
+    +1 Validate CO2_Sample;
+}
+
+State CO2_Sample {
+       Depending on (Shutdown) { Validate CO2_Shutdown; }
+       { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
        Hold until (SWStat == SWS_TIMEWARP) or 30:00;
        Validate CO2_Calibrate;
 }
@@ -505,7 +520,8 @@ State CO2_Calibrate {
     { CO2_Ready_To_Calibrate = 1; }
    
     Depending on (1Hz) {
-      if ( CO2_Ready_To_Calibrate == 0 ) Validate CO2_End_Calibrate;
+      if ( CO2_Ready_To_Calibrate != 1 )
+        Validate CO2_End_Calibrate;
     }
 }
 
@@ -516,7 +532,8 @@ State CO2_End_Calibrate {
    +20  Validate CQCL_NC_1;
     +1  Hold until valid (CQCL_Watch);
    +10  Validate CQCL_NC_Restore;
-    +1  > CO2 Pressure Reg Off
+    +1  Hold until valid (CQCL_Watch);
+        { CO2_Ready_To_Calibrate = 0; }
         Validate CO2_Sample;
 }
 
@@ -552,6 +569,7 @@ Partition
 State CQCL_Init {
     Depending on (Shutdown) { Validate CQCL_Shutdown; }
   +1  > SSP_C Stop
+      Hold until ((IOSwS&3) == 3);
   +1  Validate CQCLI_Stop;
       Hold until valid (CQCLI_Idle);
       Validate CQCL_Idle;
@@ -827,29 +845,25 @@ State ISO_Init {
 State ISO_Start {
       Depending on (Shutdown) { Validate ISO_Shutdown; }
    +5 Validate IQCL_SelectICOSandRun;
-   +5 Hold until valid (IQCL_Watch, Pump_Watch);
+   +5 Hold until valid (IQCL_Watch, Pump_Watch, MINI_Sample);
    +1 Validate ISO_Sample;
 }
 
 State ISO_Sample {
        Depending on (Shutdown) { Validate ISO_Shutdown; }
-       { if (!MM_Pump_S || !MM_Pump_DS) Validate ISO_Fill_To_Ambient; }
-       > ISO Set Cell Pressure Setpoint 40
-       Hold until (convert(MCelLP) < 10);
- #  +1 > ISO Pressure Reg On
     +1 Validate IQCL_SelectRingandRun;
  +1:00 Validate IQCL_SelectICOSandRun;
-       Hold Until (SWStat == SWS_TIMEWARP) or 30:00;
-       Validate ISO_Calibrate;
+       Depending on (1Hz) {
+         if ( MINI_Ready_To_Calibrate == 1 )
+           Validate ISO_Calibrate;
+       }
 }
 
 State ISO_Calibrate {
      Depending on (Shutdown) { Validate ISO_Shutdown; }
-     { if (!MM_Pump_S || !MM_Pump_DS) Validate ISO_Fill_To_Ambient; }
-     { ISO_Ready_To_Calibrate = 1; }
 
      Depending on (1Hz) {
-       if ( ISO_Ready_To_Calibrate == 0 )
+       if ( MINI_Ready_To_Calibrate == 2 )
          Validate ISO_End_Calibrate;
      }
 }
@@ -857,27 +871,15 @@ State ISO_Calibrate {
 State ISO_End_Calibrate {
      Depending on (Shutdown) { Validate ISO_Shutdown; }
 
-       > ISO Set Cell Pressure Setpoint 40
-       Hold until (convert(MCelLP) < 10);
- #  +1 > ISO Pressure Reg On
-   +20 Validate IQCL_NC_1;
+    +5 Validate IQCL_NC_1;
     +1 Hold until valid (IQCL_Watch);
    +10 Validate IQCL_Stop;
        Hold Until Valid (IQCL_Idle);
- #  +1 > ISO Pressure Reg Off
+       { MINI_Ready_To_Calibrate = 0; }
        Validate ISO_Sample;
 }
 
-State ISO_Fill_to_Ambient {
-    { ISO_Ready_To_Calibrate = 0; }
-    > ISO Set Cell Pressure Setpoint 120
- #  > ISO Pressure Reg On
-    { if (MM_Pump_S && MM_Pump_DS) Validate ISO_Sample; }
-    Depending on (Shutdown) { Validate ISO_Shutdown; }
-}
-
 State ISO_Shutdown {
- #   > ISO Pressure Reg Off
   +1 Hold until valid (IQCL_Is_Shutdown);
      Validate ISO_Is_Shutdown;
 }
@@ -900,6 +902,7 @@ Partition
 State IQCL_Init {
     Depending on (Shutdown) { Validate IQCL_Shutdown; }
   +1  > SSP_I Stop
+      Hold until ((IOSwS&3) == 3);
   +1  Validate IQCLI_Stop;
       Hold until valid (IQCLI_Idle);
       Validate IQCL_Idle;
@@ -1165,25 +1168,31 @@ State Calibrate_Logic {
 }
 
 State Calibrate_MINI {
-{ Cell_Ctrl = 0; }  
+  { Cell_Ctrl = 0; }
    +1 > MINI Pressure Reg Off 
    +1 > MINI Gas Valve Open
    +1 Validate GasDeck_PI_Init;
       Hold until (MINI_Ready_To_Calibrate == 0) or 2:00;
       Validate GasDeck_Close;
-      { MINI_Ready_To_Calibrate = 0; }
-   +9 Validate Calibrate_Logic;
+      { MINI_Ready_To_Calibrate = 2; }
+   +9 depending on (1 Hz) {
+        if (MINI_Ready_To_Calibrate == 0)
+          Validate Calibrate_Logic;
+      }
 }
 
 State Calibrate_CO2 {
-{ Cell_Ctrl = 1; }
+  { Cell_Ctrl = 1; }
    +1 > CO2 Pressure Reg Off 
    +1 > CO2 Gas Valve Open
    +1 Validate GasDeck_PI_Init;
       Hold until (CO2_Ready_To_Calibrate == 0) or 2:00;
       Validate GasDeck_Close;
-      { CO2_Ready_To_Calibrate = 0; }
-   +9 Validate Calibrate_Logic;
+      { CO2_Ready_To_Calibrate = 2; }
+   +9 depending on (1 Hz) {
+        if (CO2_Ready_To_Calibrate == 0)
+          Validate Calibrate_Logic;
+      }
 }
 
 #----------------------------------------------------------------
