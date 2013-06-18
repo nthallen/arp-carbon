@@ -6,6 +6,8 @@ off_on_t BAT_Pwr_DS; Invalidate BAT_Pwr_DS;
   { BAT_Pwr_DS = (DS84A>>4)&1; Validate BAT_Pwr_DS; }
 off_on_t CoolDivert_DS; Invalidate CoolDivert_DS;
   { CoolDivert_DS = (DS848>>4)&1; Validate CoolDivert_DS; }
+off_on_t BAT_Purge_DS; Invalidate BAT_Purge_DS;
+  { BAT_Purge_DS = (DS848>>5)&1; Validate BAT_Purge_DS; }
 Op_Cl_t MGas_Ex_Vlv_DS; Invalidate MGas_Ex_Vlv_DS;
   { MGas_Ex_Vlv_DS = (DS84C>>0)&1; Validate MGas_Ex_Vlv_DS; }
 off_on_t CQCLI_Reset_DS; Invalidate CQCLI_Reset_DS;
