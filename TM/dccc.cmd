@@ -33,7 +33,7 @@
   : ISO DPV Htr Ctl { $0 = 4; }
   : ISO LPV Ext TEC { $0 = 5; }
   : ISO QCLI Reset { $0 = 32; }
-  : ISO Scroll Pump { $0 = 2; }
+# : ISO Scroll Pump { $0 = 2; }
   : ISO Laser TEC { $0 = 6; }
   : Coolant Pump { $0 = 7; }
   : Inverter Arm { $0 = 8; }
@@ -53,8 +53,8 @@
   : CO2 Exhaust Valve { $0 = 31; }
   : CO2 Gas Valve { $0 = 30; }
   : ISO Exhaust Valve { $0 = 36; }
-  : ISO Gas Valve { $0 = 35; }
-  : MINI Exhaust Valve { $0 = 24; }
+# : ISO Gas Valve { $0 = 35; }
+# : MINI Exhaust Valve { $0 = 24; }
   : MINI Gas Valve { $0 = 47; }
   ;
 &dccc_op_cl <int>
@@ -63,7 +63,7 @@
 &dccc_on_off <int>
   : CO2 Pressure Reg { $0 = 29; }
   : MINI Pressure Reg { $0 = 46; }
-  : ISO Pressure Reg { $0 = 34; }
+# : ISO Pressure Reg { $0 = 34; }
   ;
 &dccc_set <int>
   : Coolant Divert { $0 = 100; }
