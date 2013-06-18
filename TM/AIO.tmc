@@ -53,9 +53,9 @@ TM 1 Hz AI_T30K IRv3T; Address IRv3T 0xC06; /* Roving Temp 3 ISO */
 TM 1 Hz AI_T30K IRv4T; Address IRv4T 0xC86; /* Roving Temp 4 ISO */
 TM 1 Hz AI_T30K IRv5T; Address IRv5T 0xC08; /* Roving Temp 5 ISO */
 TM 1 Hz AI_T30K ISG1T; Address ISG1T 0xC42; /* Sample Gas Temp 1 ISO */
-TM 1 Hz AI_T30K ISG2T; Address ISG2T 0xCC6; /* Sample Gas Temp 2 ISO */
+TM 1 Hz AI_T30K ISG2T; Address ISG2T 0xCC2; /* Sample Gas Temp 2 ISO */
 TM 1 Hz AI_T1M75KU ISk1T; Address ISk1T 0xC46; /* Skin Temp 1 ISO */
-TM 1 Hz AI_T30K ISk2T; Address ISk2T 0xCC2; /* Skin Temp 2 ISO */
+TM 1 Hz AI_T30K ISk2T; Address ISk2T 0xCC6; /* Skin Temp 2 ISO */
 TM 1 Hz AI_T1M75KU ISk3T; Address ISk3T 0xC82; /* Skin Temp 3 ISO */
 TM 1 Hz AI_T30K ISSPT; Address ISSPT 0xC1A; /* SSP Bd Temp ISO */
 TM 1 Hz AI_T30K M24VT; Address M24VT 0xC22; /* Mini-Methane V/I 24v Supply Temp */
