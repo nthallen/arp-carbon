@@ -103,7 +103,8 @@ ROWS 15
  1 MCelCT MINI:MINI_Cell T_ctrl
  1 MCelTSt MINI:MINI_Cell T_ctrl
  1 MCell_HC_DS:DS868:2 MINI:MINI_Cell Status
- 1 MGas_Ex_Vlv_DS:DS84C:0 MINI:MINI_Cell Status
+#1 MGas_Ex_Vlv_DS:DS84C:0 MINI:MINI_Cell Status
+ 1 IGas_Ex_Vlv_DS:DS855:4 MINI:MINI_Cell Status
  1 MGas_Vlv_DS:DS868:7 MINI:MINI_Cell Status
  1 MPrs_Reg_DS:DS868:6 MINI:MINI_Cell Status
 
@@ -271,8 +272,8 @@ ROWS 15
 
   1 ICelHP ISO:ISO_Cell P
  10 ICelLP ISO:ISO_Cell P
-  1 ICelP ISO:ISO_Cell P
-  1 ICelPSt ISO:ISO_Cell P
+# 1 ICelP ISO:ISO_Cell P
+# 1 ICelPSt ISO:ISO_Cell P
   1 ICelTSt ISO:ISO_Cell T_ctrl
   1 ICel1T ISO:ISO_Cell Temp
   1 ICel2T ISO:ISO_Cell Temp
@@ -280,7 +281,8 @@ ROWS 15
   1 ICell_HC_DS:DS851:3 ISO:ISO_Cell Status
   1 ICell_HC_S:DS86A:3 ISO:ISO_Cell Status
   1 IGas_Ex_Vlv_DS:DS855:4 ISO:ISO_Cell Status
-  1 IGas_Vlv_DS:DS855:3 ISO:ISO_Cell Status
+  1 MGas_Vlv_DS:DS868:7 ISO:ISO_Cell Status
+# 1 IGas_Vlv_DS:DS855:3 ISO:ISO_Cell Status
   1 IPrs_Reg_DS:DS855:2 ISO:ISO_Cell Status
  
   1 IDPVCT ISO:ISO_Detector T_ctrl

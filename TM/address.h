@@ -29,7 +29,6 @@
 #define ILPVTSt_Address 0x404
 #define IDPVTSt_Address 0x406
 #define ICelTSt_Address 0x408
-#define ICelPSt_Address 0x434
 #define SpHtTSt_Address 0x420
 #define SHTSt_Address 0x426
 #define GsFlSt_Address 0x402
@@ -93,7 +92,6 @@
 #define ILasI_Address 0xC58
 #define IDPVCT_Address 0xC8A
 #define IDetT_Address 0xC5A
-#define ICelP_Address 0xC64
 #define ICelLP_Address 0xC0C
 #define ICelHP_Address 0xCCA
 #define ICelCT_Address 0xC0A

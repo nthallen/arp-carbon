@@ -54,6 +54,6 @@
   ;
 &AO_pset <unsigned short>
   : CO2 Set Cell Pressure Setpoint { $0 = CCelPSt_Address; }
-  : ISO Set Cell Pressure Setpoint { $0 = ICelPSt_Address; }
+# : ISO Set Cell Pressure Setpoint { $0 = ICelPSt_Address; }
   : MINI Set Cell Pressure Setpoint { $0 = MCelPSt_Address; }
   ;
