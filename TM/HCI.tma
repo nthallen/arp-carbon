@@ -819,7 +819,7 @@ Partition
 %}
 
 State ISO_Init {
-   +1 > ISO Pressure Reg Off
+ # +1 > ISO Pressure Reg Off
       Depending on (Shutdown) { Validate ISO_Shutdown; }
       Depending on (Record) { Validate ISO_Start; }
 }
@@ -836,7 +836,7 @@ State ISO_Sample {
        { if (!MM_Pump_S || !MM_Pump_DS) Validate ISO_Fill_To_Ambient; }
        > ISO Set Cell Pressure Setpoint 40
        Hold until (convert(MCelLP) < 10);
-    +1 > ISO Pressure Reg On
+ #  +1 > ISO Pressure Reg On
     +1 Validate IQCL_SelectRingandRun;
  +1:00 Validate IQCL_SelectICOSandRun;
        Hold Until (SWStat == SWS_TIMEWARP) or 30:00;
@@ -859,25 +859,25 @@ State ISO_End_Calibrate {
 
        > ISO Set Cell Pressure Setpoint 40
        Hold until (convert(MCelLP) < 10);
-    +1 > ISO Pressure Reg On
+ #  +1 > ISO Pressure Reg On
    +20 Validate IQCL_NC_1;
     +1 Hold until valid (IQCL_Watch);
    +10 Validate IQCL_Stop;
        Hold Until Valid (IQCL_Idle);
-    +1 > ISO Pressure Reg Off
+ #  +1 > ISO Pressure Reg Off
        Validate ISO_Sample;
 }
 
 State ISO_Fill_to_Ambient {
     { ISO_Ready_To_Calibrate = 0; }
     > ISO Set Cell Pressure Setpoint 120
-    > ISO Pressure Reg On
+ #  > ISO Pressure Reg On
     { if (MM_Pump_S && MM_Pump_DS) Validate ISO_Sample; }
     Depending on (Shutdown) { Validate ISO_Shutdown; }
 }
 
 State ISO_Shutdown {
-     > ISO Pressure Reg Off
+ #   > ISO Pressure Reg Off
   +1 Hold until valid (IQCL_Is_Shutdown);
      Validate ISO_Is_Shutdown;
 }
