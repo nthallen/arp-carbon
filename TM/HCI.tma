@@ -34,7 +34,7 @@ State Standby {
         depending on (TAKE_DATA) { Validate Record; }
         depending on (LAND)      { Validate Shutdown; }
         depending on (AI_Fail)   { Validate Shutdown; }
-#       depending on (MQCLI_Fail) { Validate Shutdown; }
+        depending on (MQCLI_Fail) { Validate Shutdown; }
 #       depending on (CQCLI_Fail) { Validate Shutdown; }
 #       depending on (IQCLI_Fail) { Validate Shutdown; }
         depending on (BAT_SPAN_Fail) { Validate Shutdown; }
@@ -45,10 +45,10 @@ State Standby {
 State Record {
         depending on (LAND)      { Validate Shutdown; }
         depending on (AI_Fail)   { Validate Shutdown; }
-#       depending on (MQCLI_Fail) { Validate Shutdown; }
+        depending on (MQCLI_Fail) { Validate Shutdown; }
 #       depending on (CQCLI_Fail) { Validate Shutdown; }
 #       depending on (IQCLI_Fail) { Validate Shutdown; }
-#       depending on (BAT_SPAN_Fail) { Validate Shutdown; }
+        depending on (BAT_SPAN_Fail) { Validate Shutdown; }
         depending on (Inverter_Fail) { Validate Shutdown_Fast; }
         "In Record";
 }
@@ -86,9 +86,9 @@ Partition
 
 State In_FLIGHT {
   { using_swp = 0; }
-# { if ((using_swp == SWS_TAKE_DATA) || (PP_Land_Req == 0))
-#     Validate TAKE_DATA;
-# }
+  { if ((using_swp == SWS_TAKE_DATA) || (PP_Land_Req == 0))
+      Validate TAKE_DATA;
+  }
   > Panel Data LED Off
 }
 
@@ -190,7 +190,7 @@ State MINI_End_Calibrate {
     +1 Hold until valid (MQCL_Watch);
    +10 Validate MQCL_Stop;
        Hold Until Valid (MQCL_Idle);
-       { MINI_Ready_To_Calibrate = 3; }
+       { MINI_Ready_To_Calibrate = 0; }
     +1 Validate MINI_Sample;
 }
 
@@ -229,6 +229,8 @@ State MQCL_Init {
       Hold until ((IOSwS&3) == 3);
   +1  Validate MQCLI_Stop;
       Hold until valid (MQCLI_Idle);
+ +1 > MINI Set Laser TEC Temp Setpoint 1.38
+ +1 > MINI Laser TEC On
       Validate MQCL_Idle;
 }
 
@@ -336,7 +338,10 @@ State MQCL_SSP_M_Not_Talking {
 
 State MQCL_Fail {
     > Log Laser MQCL Has Failed
- +1 Validate MQCL_Shutdown;
+    > SSP_M Stop
+    Validate MQCLI_Stop;
+    > MINI Laser TEC Off
+    depending on (Shutdown) { Validate MQCL_Is_Shutdown; }
 }
 
 State MQCL_Shutdown {
@@ -381,13 +386,13 @@ State MQCL_SelectICOSandRun {
     Depending on (Shutdown) { Validate MQCL_Shutdown; }
     > SSP_M Stop
     Hold until ( SSP_M_Status == SSP_STATUS_READY ) or 5
-    else { nl_error( 2, "Not Ready in M3Df_600Hz" ); }
+    else { nl_error( 2, "Not Ready in MQCL_SelectICOSandRun" ); }
     Hold until valid (MQCLI_Idle) or 2
     else Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle);
  +1 > MINI Set Laser TEC Temp Setpoint 1.38
  +1 > MINI Laser TEC On
- +5 > Select QCLI_M Waveform M3Df_600Hz
+ +1 > Select QCLI_M Waveform M3Df_600Hz10Hz
  +2 Validate MQCL_Start;
 }
 
@@ -401,8 +406,8 @@ State MQCL_SelectRingandRun {
     Hold until valid (MQCLI_Idle);
  +1 > MINI Set Laser TEC Temp Setpoint 1.38
  +1 > MINI Laser TEC On
- +5 > Select QCLI_M Waveform M3Df_rRamp
- +1 > SSP_M Set NSample 500
+ +1 > Select QCLI_M Waveform M3Df_rRamp
+#+1 > SSP_M Set NSample 500
  +2 Validate MQCL_Start;
 }
 
@@ -501,7 +506,7 @@ State CO2_Start {
 State CO2_Start_P {
        Depending on (Shutdown) { Validate CO2_Shutdown; }
        { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
-       > CO2 Set Cell Pressure Setpoint 40
+       > CO2 Set Cell Pressure Setpoint 35
        Hold until (convert(CCelLP) < 10);
     +1 > CO2 Pressure Reg On
     +1 Validate CO2_Sample;
@@ -526,7 +531,7 @@ State CO2_Calibrate {
 }
 
 State CO2_End_Calibrate {
-        > CO2 Set Cell Pressure Setpoint 40
+        > CO2 Set Cell Pressure Setpoint 35
         Hold until (convert(CCelLP) < 10);
     +1  > CO2 Pressure Reg On
    +20  Validate CQCL_NC_1;
@@ -572,6 +577,8 @@ State CQCL_Init {
       Hold until ((IOSwS&3) == 3);
   +1  Validate CQCLI_Stop;
       Hold until valid (CQCLI_Idle);
+ +1 > CO2 Set Laser TEC Temp Setpoint 1.45
+ +1 > CO2 Laser TEC On
       Validate CQCL_Idle;
 }
 
@@ -703,7 +710,10 @@ State CQCL_SSP_C_Not_Talking {
 
 State CQCL_Fail {
     > Log Laser CQCL Has Failed
- +1 Validate CQCL_Shutdown;
+    > SSP_C Stop
+    > CO2 Laser TEC Off
+    Validate CQCLI_Stop;
+    depending on (Shutdown) { Validate CQCL_Is_Shutdown; }
 }
 
 State CQCL_Shutdown {
@@ -747,13 +757,13 @@ State CQCL_SelectICOSandRun {
     Depending on (Shutdown) { Validate CQCL_Shutdown; }
     > SSP_C Stop
     Hold until ( SSP_C_Status == SSP_STATUS_READY ) or 5
-    else { nl_error( 2, "Not Ready in C2Cd_800Hz" ); }
+    else { nl_error( 2, "Not Ready in CQCL_SelectICOSandRun" ); }
     Hold until valid (CQCLI_Idle) or 2
     else Validate CQCLI_Stop;
     Hold until valid (CQCLI_Idle);
  +1 > CO2 Set Laser TEC Temp Setpoint 1.45
  +1 > CO2 Laser TEC On
- +5 > Select QCLI_C Waveform C2Cd_800Hz
+ +1 > Select QCLI_C Waveform C2Cd_800Hz10Hz
  +2 Validate CQCL_Start;
 }
 
@@ -839,7 +849,7 @@ Partition
 State ISO_Init {
  # +1 > ISO Pressure Reg Off
       Depending on (Shutdown) { Validate ISO_Shutdown; }
-      Depending on (Record) { Validate ISO_Start; }
+ #    Depending on (Record) { Validate ISO_Start; }
 }
 
 State ISO_Start {
@@ -880,7 +890,7 @@ State ISO_End_Calibrate {
 }
 
 State ISO_Shutdown {
-  +1 Hold until valid (IQCL_Is_Shutdown);
+ #+1 Hold until valid (IQCL_Is_Shutdown);
      Validate ISO_Is_Shutdown;
 }
 
@@ -900,12 +910,14 @@ Partition
 # ISO Starting and Stopping
 
 State IQCL_Init {
-    Depending on (Shutdown) { Validate IQCL_Shutdown; }
-  +1  > SSP_I Stop
-      Hold until ((IOSwS&3) == 3);
-  +1  Validate IQCLI_Stop;
-      Hold until valid (IQCLI_Idle);
-      Validate IQCL_Idle;
+#    Depending on (Shutdown) { Validate IQCL_Shutdown; }
+#  +1  > SSP_I Stop
+#      Hold until ((IOSwS&3) == 3);
+#  +1  Validate IQCLI_Stop;
+#      Hold until valid (IQCLI_Idle);
+# +1 > ISO Set Laser TEC Temp Setpoint 1.65
+# +1 > ISO Laser TEC On
+#      Validate IQCL_Idle;
 }
 
 State IQCL_Idle {
@@ -1012,7 +1024,10 @@ State IQCL_SSP_I_Not_Talking {
 
 State IQCL_Fail {
     > Log Laser IQCL Has Failed
- +1 Validate IQCL_Shutdown;
+    > SSP_I Stop
+ +1 Validate IQCLI_Stop;
+    > ISO Laser TEC Off
+    depending on (Shutdown) { Validate IQCL_Is_Shutdown; }
 }
 
 State IQCL_Shutdown {
@@ -1063,7 +1078,7 @@ State IQCL_SelectICOSandRun {
     Hold until valid (IQCLI_Idle);
  +1 > ISO Set Laser TEC Temp Setpoint 1.65
  +1 > ISO Laser TEC On
- +5 > Select QCLI_I Waveform I3Db_800Hz
+ +1 > Select QCLI_I Waveform I3Db_800Hz
  +2 Validate IQCL_Start;
 }
 
@@ -1077,8 +1092,8 @@ State IQCL_SelectRingandRun {
     Hold until valid (IQCLI_Idle);
  +1 > ISO Set Laser TEC Temp Setpoint 1.65
  +1 > ISO Laser TEC On
- +5 > Select QCLI_I Waveform I3db_rRamp
- +1 > SSP_I Set NSample 500
+ +1 > Select QCLI_I Waveform I3db_rRamp
+#+1 > SSP_I Set NSample 500
  +2 Validate IQCL_Start;
 }
 
@@ -1558,6 +1573,7 @@ State LuggageBay_TCtrl_Watch Nolog {
         || (!BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 )) );
     Hold until (HEATER_TEMP_OK(convert(SpHCT)) ) or 2
       else Validate LuggageBay_TCtrl_Hot;
+    # Must have been the bay temp that was too hot
  +1 > HK Set Space Heater Temp Setpoint 1.60
     Hold until (!HEATER_TEMP_OK(convert(SpHCT)) 
         || (BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 )) );
@@ -1622,8 +1638,8 @@ Partition
 %}
 
 State MTControl_Init {
-Depending on (Shutdown) { Validate MTControl_Shutdown; }
-Depending on (Record) { Validate MTControl_Start; }
+    Depending on (Shutdown) { Validate MTControl_Shutdown; }
+    Depending on (Record) { Validate MTControl_Start; }
     Hold until ((IOSwS & 3) == 3) ;
     Validate MTControl_Start; 
 }
@@ -1731,10 +1747,10 @@ State CTControl_Shutdown {
 Partition
 
 State ITControl_Init {
-Depending on (Shutdown) { Validate ITControl_Shutdown; }
-Depending on (Record) { Validate ITControl_Start; }
-    Hold until ((IOSwS & 3) == 3) ;
-    Validate ITControl_Start; 
+# Depending on (Shutdown) { Validate ITControl_Shutdown; }
+# Depending on (Record) { Validate ITControl_Start; }
+#   Hold until ((IOSwS & 3) == 3) ;
+#   Validate ITControl_Start; 
 }
 
 State ITControl_Start {
@@ -2008,6 +2024,7 @@ State Inverter_Shutdown {
       Hold until valid (Pump_Is_Shutdown);
    +1 > Inverter Power Off
    +1 > Inverter Arm Off
+   +1 > Circuit3 Off
       Validate Inverter_Is_Shutdown;
 }
 
