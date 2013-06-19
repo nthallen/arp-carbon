@@ -58,7 +58,7 @@ I_Cell {
       "2T:" (ICel2T,6) C;
       Sk1T: (ISk1T,6) C;
       Sk2T: (ISk2T,6) C;
-      Sk3T: (ISk2T,6) C;
+      Sk3T: (ISk3T,6) C;
       "1T:" (ICel1T,6) C;
       CT: (ICelCT,7) V;
       TSt: (ICelTSt,6) V;

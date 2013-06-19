@@ -76,9 +76,9 @@
 #define M24VT_Address 0xC22
 #define ISSPT_Address 0xC1A
 #define ISk3T_Address 0xC82
-#define ISk2T_Address 0xCC2
+#define ISk2T_Address 0xCC6
 #define ISk1T_Address 0xC46
-#define ISG2T_Address 0xCC6
+#define ISG2T_Address 0xCC2
 #define ISG1T_Address 0xC42
 #define IRv5T_Address 0xC08
 #define IRv4T_Address 0xC86

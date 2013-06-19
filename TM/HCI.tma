@@ -1964,10 +1964,19 @@ Partition
 
 State Inverter_Init {
      depending on (Shutdown) { Validate Inverter_Shutdown; }
+  +3 > Circuit3 On
+     Hold until (convert(PM1V1) > 27.5) or 5
+     else Validate Inverter_C3_Fail;
   +3 > Inverter Arm On
      Hold until (InvPwrS == 1 && InvErrS == 0) or 5
      else Validate Inverter_Off;
      Validate Inverter_On;
+}
+
+State Inverter_C3_Fail {
+     > Panel Display Text \\nBus 3 Power Failure
+     Hold until (convert(PM1V1) > 27.5);
+     Validate Inverter_Init;
 }
 
 State Inverter_On {

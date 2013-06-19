@@ -8,7 +8,7 @@ ICOS Waveform I3Db_800Hz {
   SampleRate = 100 MHz/84;
   Ncoadd = 799;
   Tz = 5%;
-  Ramp from 600 mA to 730 mA in 1.0 msec;
+  Ramp from 550 mA to 700 mA in 1.0 msec;
 }
 ICOS Waveform I3Db_800Hz10Hz {
   SampleRate = 100 MHz/84;
@@ -38,7 +38,7 @@ Ringdown Waveform I3Db_rRamp {
   Toff = 5 msec;
   Ton =  5 msec;
   Tpre = 2 usec;
-  I = 600 mA to 730 mA in 1000 Steps;
+  I = 550 mA to 700 mA in 1000 Steps;
 }
 
 Ringdown Waveform I3Db_rRamp_NC10 {
