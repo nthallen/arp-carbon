@@ -1,5 +1,5 @@
 TM 1 Hz AI_T30K C24VT; Address C24VT 0xCB0; /* CO2 V/I 24v Supply Temp */
-TM 10 Hz AI_T1M1M CCel1T; Address CCel1T 0xCF6; /* Cell Temp 1 CO2 */
+TM 10 Hz AI_T30K250KU CCel1T; Address CCel1T 0xCF6; /* Cell Temp 1 CO2 */
 TM 10 Hz AI_T1M250KU CCel2T; Address CCel2T 0xCF4; /* Cell Temp 2 CO2 */
 TM 1 Hz AI16 CCelCT; Address CCelCT 0xC7A; /* Cell Control Temp CO2 */
 TM 1 Hz P1000Torr_C CCelHP; Address CCelHP 0xC32; /* Cell Pressure (1000 Torr) CO2 */
@@ -59,7 +59,7 @@ TM 1 Hz AI_T30K ISk2T; Address ISk2T 0xCC6; /* Skin Temp 2 ISO */
 TM 1 Hz AI_T1M75KU ISk3T; Address ISk3T 0xC82; /* Skin Temp 3 ISO */
 TM 1 Hz AI_T30K ISSPT; Address ISSPT 0xC1A; /* SSP Bd Temp ISO */
 TM 1 Hz AI_T30K M24VT; Address M24VT 0xC22; /* Mini-Methane V/I 24v Supply Temp */
-TM 10 Hz AI_T1M1M MCel1T; Address MCel1T 0xC68; /* Cell Temp 1 MINI */
+TM 10 Hz AI_T30K250KU MCel1T; Address MCel1T 0xC68; /* Cell Temp 1 MINI */
 TM 10 Hz AI_T1M250KU MCel2T; Address MCel2T 0xC66; /* Cell Temp 2 MINI */
 TM 1 Hz AI16 MCelCT; Address MCelCT 0xCEA; /* Cell Control Temp MINI */
 TM 1 Hz P1000Torr_M MCelHP; Address MCelHP 0xCA2; /* Cell Pressure (1000 Torr) MINI */
