@@ -40,6 +40,10 @@ TM typedef AI16 AI_T30K
 TM typedef AI16 AI_T1M250KU
   { text "%6.2lf"; convert CELCIUS; }
   /* Calibration in T1M250KU.tmc */
+
+TM typedef AI16 AI_T1M1M
+  { text "%6.2lf"; convert CELCIUS; }
+  /* Calibration in T1M1M.tmc */
   
 TM typedef AI16 AI_T30K250KU
   { text "%6.2lf"; convert CELCIUS; }

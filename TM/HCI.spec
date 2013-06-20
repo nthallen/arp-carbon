@@ -19,6 +19,7 @@ tmcbase = T30K75KU.tmc
 tmcbase = T1M250KU.tmc
 tmcbase = T30K250KU.tmc
 tmcbase = T1M75KU.tmc
+tmcbase = T1M1M.tmc
 tmcbase = VigoT.tmc
 tmcbase = digio.tmc
 tmcbase = idx64.tmc
