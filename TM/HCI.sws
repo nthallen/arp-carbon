@@ -50,3 +50,4 @@ SWS_IT_START 	 40     ISO Temperature Ctrl Start: Validate ITControl_Start; brea
 SWS_IT_STOP	 41     ISO Temperature Ctrl Stop: Validate ITControl_Shutdown; break;
 SWS_ICALIBRATE 	 42     ISO Calibrate: Validate ISO_Calibrate; break;
 SWS_ISTART	 43     ISO Start: Validate ISO_Start; break;
+SWS_SPANCHK_IDLE 45     SPAN Watchdog Disable: Validate BAT_SPAN_Idle; break;

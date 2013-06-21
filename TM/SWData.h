@@ -51,5 +51,6 @@ extern SWData_t SWData;
 #define SWS_IT_STOP 41
 #define SWS_ICALIBRATE 42
 #define SWS_ISTART 43
+#define SWS_SPANCHK_IDLE 45
 
 #endif

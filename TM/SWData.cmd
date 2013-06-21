@@ -59,4 +59,5 @@
   : ISO Temperature Ctrl Stop { $0 = SWS_IT_STOP; }
   : ISO Calibrate { $0 = SWS_ICALIBRATE; }
   : ISO Start { $0 = SWS_ISTART; }
+  : SPAN Watchdog Disable { $0 = SWS_SPANCHK_IDLE; }
   ;

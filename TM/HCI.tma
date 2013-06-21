@@ -154,7 +154,7 @@ State MINI_Start_P {
       { if (!MM_Pump_S || !MM_Pump_DS) Validate MINI_Fill_To_Ambient; }
 
    +1 > MINI Pressure Reg Off
-      > MINI Set Cell Pressure Setpoint 40
+      > MINI Set Cell Pressure Setpoint 60
       Hold until (convert(MCelLP) < 10);
    +1 > MINI Pressure Reg On
    +1 Validate MINI_Sample;
@@ -183,7 +183,7 @@ State MINI_Calibrate {
 State MINI_End_Calibrate {
      Depending on (Shutdown) { Validate MINI_Shutdown; }
 
-       > MINI Set Cell Pressure Setpoint 40
+       > MINI Set Cell Pressure Setpoint 60
        Hold until (convert(MCelLP) < 10);
     +1 > MINI Pressure Reg On
    +20 Validate MQCL_NC_1;
@@ -577,7 +577,7 @@ State CQCL_Init {
       Hold until ((IOSwS&3) == 3);
   +1  Validate CQCLI_Stop;
       Hold until valid (CQCLI_Idle);
- +1 > CO2 Set Laser TEC Temp Setpoint 1.50
+ +1 > CO2 Set Laser TEC Temp Setpoint 1.45
  +1 > CO2 Laser TEC On
       Validate CQCL_Idle;
 }
@@ -761,7 +761,7 @@ State CQCL_SelectICOSandRun {
     Hold until valid (CQCLI_Idle) or 2
     else Validate CQCLI_Stop;
     Hold until valid (CQCLI_Idle);
- +1 > CO2 Set Laser TEC Temp Setpoint 1.50
+ +1 > CO2 Set Laser TEC Temp Setpoint 1.45
  +1 > CO2 Laser TEC On
  +1 > Select QCLI_C Waveform C2Cd_800Hz10Hz
  +2 Validate CQCL_Start;
@@ -2057,6 +2057,8 @@ State BAT_SPAN_Watch {
   else Validate BAT_SPAN_Fail;
   Validate BAT_SPAN_Watch;
 }
+
+State BAT_SPAN_Idle {}
 
 State BAT_SPAN_Fail {
   > Panel Display Text \\nBAT/GPS Failure
