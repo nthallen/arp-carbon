@@ -190,8 +190,9 @@ State MINI_End_Calibrate {
     +1 Hold until valid (MQCL_Watch);
    +10 Validate MQCL_Stop;
        Hold Until Valid (MQCL_Idle);
-       { MINI_Ready_To_Calibrate = 0; }
-    +1 Validate MINI_Sample;
+       { MINI_Ready_To_Calibrate = 0;
+         Validate MINI_Sample;
+       }
 }
 
 State MINI_Fill_to_Ambient {
@@ -538,8 +539,9 @@ State CO2_End_Calibrate {
     +1  Hold until valid (CQCL_Watch);
    +10  Validate CQCL_NC_Restore;
     +1  Hold until valid (CQCL_Watch);
-        { CO2_Ready_To_Calibrate = 0; }
-        Validate CO2_Sample;
+        { CO2_Ready_To_Calibrate = 0;
+          Validate CO2_Sample;
+        }
 }
 
 State CO2_Fill_to_Ambient {
