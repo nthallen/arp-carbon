@@ -56,8 +56,12 @@ State Record {
 # SHUTDOWN
 State Shutdown {
  +1   > Panel Display Text \\nShutting Down...
-      Hold until valid (MINI_Is_Shutdown,
+ #    Hold until valid (MINI_Is_Shutdown,
  #      CO2_Is_Shutdown,
+ #      ISO_Is_Shutdown,
+ #      Pump_Is_Shutdown, Inverter_Is_Shutdown,
+ #      SampleHtr_Shutdown) or 5:00;
+      Hold until valid (MINI_Is_Shutdown,
         ISO_Is_Shutdown,
         Pump_Is_Shutdown, Inverter_Is_Shutdown,
         SampleHtr_Shutdown) or 5:00;
