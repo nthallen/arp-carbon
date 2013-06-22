@@ -1,19 +1,20 @@
-# Makefile Generated Thu Jun 20 11:35:39 EDT 2013
+# Makefile Generated Sat Jun 22 10:10:05 EDT 2013
 MNC=HCI
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
-SRC+=cpu_usage.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc
-SRC+=BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc
-SRC+=T30K250KU.tmc T1M75KU.tmc T1M1M.tmc VigoT.tmc digio.tmc
-SRC+=idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc
-SRC+=SWData.h QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Altimeter_col.tmc
-SRC+=AI_col.tmc BAT_SPAN_col.tmc Inverter_col.tmc idx64col.tmc
-SRC+=PTRH_col.tmc qcli_col.tmc cpu_usage_col.tmc SWData_col.tmc
-SRC+=AO.cmd BAT_SPAN.cmd Inverter.cmd dccc.cmd qclis.cmd idx64drv.cmd
-SRC+=subbus.cmd panel.cmd address.h SWData.cmd QCLI_C.cmd QCLI_M.cmd
-SRC+=QCLI_I.cmd digio_conv.tmc P_conv.tmc Inverter_conv.tmc hk.tbl
-SRC+=qcli.tbl Cells.tbl SSPrtg.tmc Pilot_conv.tmc BAT_SPAN.tbl
-SRC+=Altimeter_conv.tmc hk2.tbl HCI.tma HCI.sws HCIeng.cdf HCI.doit
+SRC+=hci_analysis cpu_usage.tmc types.tmc AIO.tmc Altimeter.tmc
+SRC+=BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc
+SRC+=T1M250KU.tmc T30K250KU.tmc T1M75KU.tmc T1M1M.tmc VigoT.tmc
+SRC+=digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc
+SRC+=SWData.tmc SWData.h QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc
+SRC+=Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc Inverter_col.tmc
+SRC+=idx64col.tmc PTRH_col.tmc qcli_col.tmc cpu_usage_col.tmc
+SRC+=SWData_col.tmc AO.cmd BAT_SPAN.cmd Inverter.cmd dccc.cmd
+SRC+=qclis.cmd idx64drv.cmd subbus.cmd panel.cmd address.h SWData.cmd
+SRC+=QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd digio_conv.tmc P_conv.tmc
+SRC+=Inverter_conv.tmc hk.tbl qcli.tbl Cells.tbl SSPrtg.tmc
+SRC+=Pilot_conv.tmc BAT_SPAN.tbl Altimeter_conv.tmc hk2.tbl HCI.tma
+SRC+=HCI.sws HCIeng.cdf HCI.doit
 TOOL=HCI.spec Makefile
 SCRIPT=idx64.idx64 interact dccc.dccc runfile.FF
 OBJ=QCLI_C.cmd QCLI_C.out QCLI_C.tmc QCLI_C.m QCLI_C.log QCLI_M.cmd
@@ -263,3 +264,9 @@ HCIeng.cdf : genui.txt
 	cd ../Altimeter && make
 BAT_SPAN_cal.tmc : ../BAT/N51AU.txt
 	../BAT/BS2tmc.pl ../BAT/N51AU.txt >BAT_SPAN_cal.tmc
+ANALDIST = hci_analysis
+.PHONY : analdistribution
+analdistribution : $(ANALDIST)
+	@[ -d $(TGTDIR)/bin/anal ] || mkdir -p $(TGTDIR)/bin/anal
+	@distribute $(FORCE) $(TGTDIR)/bin/anal $(ANALDIST)
+distribution : analdistribution
