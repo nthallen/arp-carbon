@@ -1,0 +1,25 @@
+#! /bin/sh
+# hci_analysis: Analysis script
+
+function nl_error {
+  echo "hci_analysis: $*" >&2
+  exit 1
+}
+
+directory=$1
+analdir=$2
+[ -z "$directory" -o -z "$analdir" ] && nl_error "usage: $0 <directory> <analdir>"
+[ -d $directory ] || nl_error "Cannot locate directory '$directory'"
+[ -d "$PWD" ] || nl_error "PWD is apparently not defined"
+
+./BSext $directory $analdir
+run=`basename $directory`
+runtypedir=`dirname $directory`
+runtype=`basename $runtypedir`
+dest=$PWD/raw/$runtype/$run
+if [ ! -d $dest ]; then
+  mkdir -p $dest || nl_error "Cannot create directory $dest"
+  cd $directory
+  echo "hci_analysis: Copying engineering data"
+  cp -r *.log tm.dac VERSION Base LOG $dest
+fi

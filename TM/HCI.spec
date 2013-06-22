@@ -68,7 +68,7 @@ qclibase = QCLI_C.qcli QCLI_M.qcli QCLI_I.qcli
 
 TGTDIR = $(TGTNODE)/home/hci
 SRC = pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc
-SRC = PTRH_conv.tmc
+SRC = PTRH_conv.tmc hci_analysis
 SCRIPT = idx64.idx64 interact dccc.dccc
 SCRIPT = runfile.FF
 DISTRIB = ../BAT/BAT_SPAN ../BAT/BS2cdfext ../BAT/BSlogger
@@ -77,6 +77,7 @@ DISTRIB = ../Altimeter/Altimeter
 IDISTRIB = BSext
 SRCDIST = HCI.sws $(qclibase) Thermistors.txt
 SRCDIST = ../BAT/N51AU.txt
+ANALDIST = hci_analysis
 
 HCIcol : -lsubbus
 HCIsrvr : -lsubbus
@@ -106,3 +107,6 @@ HCIeng.cdf : genui.txt
 	cd ../Altimeter && make
 BAT_SPAN_cal.tmc : ../BAT/N51AU.txt
 	../BAT/BS2tmc.pl ../BAT/N51AU.txt >BAT_SPAN_cal.tmc
+analdistribution : $(ANALDIST)
+	@[ -d $(TGTDIR)/bin/anal ] || mkdir -p $(TGTDIR)/bin/anal
+	distribute $(TGTDIR)/bin/anal $(ANALDIST)
