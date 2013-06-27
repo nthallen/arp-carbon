@@ -56,13 +56,7 @@ State Record {
 # SHUTDOWN
 State Shutdown {
  +1   > Panel Display Text \\nShutting Down...
- #    Hold until valid (MINI_Is_Shutdown,
- #      CO2_Is_Shutdown,
- #      ISO_Is_Shutdown,
- #      Pump_Is_Shutdown, Inverter_Is_Shutdown,
- #      SampleHtr_Shutdown) or 5:00;
-      Hold until valid (MINI_Is_Shutdown,
-        ISO_Is_Shutdown,
+      Hold until valid (MINI_Is_Shutdown, CO2_Is_Shutdown,
         Pump_Is_Shutdown, Inverter_Is_Shutdown,
         SampleHtr_Shutdown) or 5:00;
  +2   > Panel Display Text Done
@@ -92,10 +86,10 @@ Partition
 
 State In_FLIGHT {
   { using_swp = 0; }
-  { if ((using_swp == SWS_TAKE_DATA) || (PP_Land_Req == 0))
-      Validate TAKE_DATA;
-  }
-  > Panel Data LED Off
+#  { if ((using_swp == SWS_TAKE_DATA) || (PP_Land_Req == 0))
+#      Validate TAKE_DATA;
+#  }
+#  > Panel Data LED Off
 }
 
 State TAKE_DATA {
@@ -498,9 +492,9 @@ Partition
 %}
 
 State CO2_Init {
-  #+1 > CO2 Pressure Reg Off
-  #   Depending on (Shutdown) { Validate CO2_Shutdown; }
-  #   Depending on (Record) { Validate CO2_Start; }
+   +1 > CO2 Pressure Reg Off
+      Depending on (Shutdown) { Validate CO2_Shutdown; }
+      Depending on (Record) { Validate CO2_Start; }
 }
 
 State CO2_Start {
@@ -580,14 +574,14 @@ Partition
 # CO2 Starting and Stopping
 
 State CQCL_Init {
-#    Depending on (Shutdown) { Validate CQCL_Shutdown; }
-#  +1  > SSP_C Stop
-#      Hold until ((IOSwS&3) == 3);
-#  +1  Validate CQCLI_Stop;
-#      Hold until valid (CQCLI_Idle);
-# +1 > CO2 Set Laser TEC Temp Setpoint 1.45
-# +1 > CO2 Laser TEC On
-#      Validate CQCL_Idle;
+    Depending on (Shutdown) { Validate CQCL_Shutdown; }
+  +1  > SSP_C Stop
+      Hold until ((IOSwS&3) == 3);
+  +1  Validate CQCLI_Stop;
+      Hold until valid (CQCLI_Idle);
+ +1 > CO2 Set Laser TEC Temp Setpoint 1.45
+ +1 > CO2 Laser TEC On
+      Validate CQCL_Idle;
 }
 
 State CQCL_Idle {
@@ -897,7 +891,7 @@ State ISO_End_Calibrate {
 }
 
 State ISO_Shutdown {
-  +1 Hold until valid (IQCL_Is_Shutdown);
+ +1 Hold until valid (IQCL_Is_Shutdown);
      Validate ISO_Is_Shutdown;
 }
 
@@ -917,10 +911,10 @@ Partition
 # ISO Starting and Stopping
 
 State IQCL_Init {
-      Depending on (Shutdown) { Validate IQCL_Shutdown; }
- +1   > SSP_I Stop
+   Depending on (Shutdown) { Validate IQCL_Shutdown; }
+  +1  > SSP_I Stop
       Hold until ((IOSwS&3) == 3);
- +1   Validate IQCLI_Stop;
+  +1  Validate IQCLI_Stop;
       Hold until valid (IQCLI_Idle);
  +1 > ISO Set Laser TEC Temp Setpoint 1.65
  +1 > ISO Laser TEC On
@@ -1324,8 +1318,8 @@ State GasDeck_Shutdown {
       Hold until valid (GasDeck_Idle);
   +1 Validate GasDeck_Fill_MINI_Cell;
      Hold until valid (GasDeck_Idle);
- #+1 Validate GasDeck_Fill_CO2_Cell;
- #    Hold until valid (GasDeck_Idle);
+  +1 Validate GasDeck_Fill_CO2_Cell;
+      Hold until valid (GasDeck_Idle);
   +1 Validate GasDeck_Is_Shutdown;
 }
 
@@ -1379,8 +1373,8 @@ State Pump_Turn_On {
        Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
        Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
     +5 > CO2 Scroll Pump On
- # +10 > MINI Scroll Pump On
- # +10 > CO2 Exhaust Valve Open
+   +10 > MINI Scroll Pump On
+   +10 > CO2 Exhaust Valve Open
     +1 > ISO Exhaust Valve Open
        Validate Pump_Watch;
 }
@@ -1389,14 +1383,10 @@ State Pump_Watch Nolog {
       Depending on (Shutdown) { Validate Pump_Shutdown; }
       Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
       Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
-  #   hold until (
-  #        !PUMP_TEMP_OK(convert(CPmpT)) ||
-  #        !PUMP_TEMP_OK(convert(MPmpT)) );
-  #   hold until (
-  #        PUMP_TEMP_OK(convert(CPmpT)) &&
-  #        PUMP_TEMP_OK(convert(MPmpT)) ) or 5
-      hold until (!PUMP_TEMP_OK(convert(CPmpT)));
-      hold until ( PUMP_TEMP_OK(convert(CPmpT))) or 5
+      hold until ( !PUMP_TEMP_OK(convert(CPmpT)) ||
+           !PUMP_TEMP_OK(convert(MPmpT)) );
+      hold until ( PUMP_TEMP_OK(convert(CPmpT)) &&
+           PUMP_TEMP_OK(convert(MPmpT)) ) or 5
       else Validate Pump_Hot;
       Validate Pump_Watch;
 }
@@ -1409,11 +1399,8 @@ State Pump_Hot {
       > ISO Exhaust Valve Closed
    +1 > CO2 Scroll Pump Off
    +1 > MINI Scroll Pump Off
-  #   Hold until (
-  #        PUMP_TEMP_OK(convert(CPmpT)+5) &&
-  #        PUMP_TEMP_OK(convert(MPmpT)+5) );
-      Hold until (
-           PUMP_TEMP_OK(convert(CPmpT)+5) );
+      Hold until ( PUMP_TEMP_OK(convert(CPmpT)+5) &&
+           PUMP_TEMP_OK(convert(MPmpT)+5) );
       Validate Pump_Start;
 }
 
@@ -1533,7 +1520,7 @@ State Pump_Cool_HiP {
 State Pump_Cool_HiP_Watch {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
-    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP_Check; }
+    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
    +1 Hold until (convert(CoolP) < 75) or 10
       else Validate Pump_Cool_HiP_Fail;
       Hold until (convert(CoolP) > 75);
@@ -1675,11 +1662,11 @@ Depending on (Shutdown) { Validate MTControl_Shutdown; }
 
 State MTControl_Watch NoLog {
 Depending on (Shutdown) { Validate MTControl_Shutdown; }
-    Hold until (!TEMP_OK(convert(MLPVTSt),convert(MLPVCT))
+    Hold until (!TEMP_OK(convert(MLPVCT),convert(MLPVTSt))
         || !TEMP_OK(convert(MDPVTSt),convert(MDPVCT))
         || !TEMP_OK(convert(MCelTSt),convert(MCelCT)) );
 
-    Hold until (TEMP_OK(convert(MLPVTSt),convert(MLPVCT))
+    Hold until (TEMP_OK(convert(MLPVCT),convert(MLPVTSt))
         && TEMP_OK(convert(MDPVTSt),convert(MDPVCT))
         && TEMP_OK(convert(MCelTSt),convert(MCelCT)) ) or 2
     else Validate MTControl_Not_OK;
@@ -1689,7 +1676,7 @@ Depending on (Shutdown) { Validate MTControl_Shutdown; }
 State MTControl_Not_OK {
     Depending on (Shutdown) { Validate MTControl_Shutdown; }
 
-    hold until ( TEMP_OK( convert(MLPVTSt),convert(MLPVCT) ) )
+    hold until ( TEMP_OK( convert(MLPVCT),convert(MLPVTSt) ) )
     or 1 else > MINI LPV Ext TEC Off
 
     hold until (TEMP_OK(convert(MDPVTSt),convert(MDPVCT)))
