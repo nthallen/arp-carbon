@@ -57,6 +57,7 @@ State Record {
 State Shutdown {
  +1   > Panel Display Text \\nShutting Down...
       Hold until valid (MINI_Is_Shutdown, CO2_Is_Shutdown,
+	ISO_Is_Shutdown,
         Pump_Is_Shutdown, Inverter_Is_Shutdown,
         SampleHtr_Shutdown) or 5:00;
  +2   > Panel Display Text Done
@@ -175,7 +176,7 @@ State MINI_Calibrate {
      { MINI_Ready_To_Calibrate = 1; }
 
      Depending on (1Hz) {
-       if (MINI_Ready_To_Calibrate != 1)
+       if (MINI_Ready_To_Calibrate == 2)
          Validate MINI_End_Calibrate;
      }
 }
@@ -190,7 +191,7 @@ State MINI_End_Calibrate {
     +1 Hold until valid (MQCL_Watch);
    +10 Validate MQCL_Stop;
        Hold Until Valid (MQCL_Idle);
-       { MINI_Ready_To_Calibrate = 0;
+       { MINI_Ready_To_Calibrate = 3;
          Validate MINI_Sample;
        }
 }
@@ -874,7 +875,7 @@ State ISO_Calibrate {
      Depending on (Shutdown) { Validate ISO_Shutdown; }
 
      Depending on (1Hz) {
-       if ( MINI_Ready_To_Calibrate == 2 )
+       if ( MINI_Ready_To_Calibrate == 3 )
          Validate ISO_End_Calibrate;
      }
 }
@@ -1520,7 +1521,7 @@ State Pump_Cool_HiP {
 State Pump_Cool_HiP_Watch {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
-    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
+    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP_Check; }
    +1 Hold until (convert(CoolP) < 75) or 10
       else Validate Pump_Cool_HiP_Fail;
       Hold until (convert(CoolP) > 75);
@@ -1662,11 +1663,11 @@ Depending on (Shutdown) { Validate MTControl_Shutdown; }
 
 State MTControl_Watch NoLog {
 Depending on (Shutdown) { Validate MTControl_Shutdown; }
-    Hold until (!TEMP_OK(convert(MLPVCT),convert(MLPVTSt))
+    Hold until (!TEMP_OK(convert(MLPVTSt),convert(MLPVCT))
         || !TEMP_OK(convert(MDPVTSt),convert(MDPVCT))
         || !TEMP_OK(convert(MCelTSt),convert(MCelCT)) );
 
-    Hold until (TEMP_OK(convert(MLPVCT),convert(MLPVTSt))
+    Hold until (TEMP_OK(convert(MLPVTSt),convert(MLPVCT))
         && TEMP_OK(convert(MDPVTSt),convert(MDPVCT))
         && TEMP_OK(convert(MCelTSt),convert(MCelCT)) ) or 2
     else Validate MTControl_Not_OK;
@@ -1676,7 +1677,7 @@ Depending on (Shutdown) { Validate MTControl_Shutdown; }
 State MTControl_Not_OK {
     Depending on (Shutdown) { Validate MTControl_Shutdown; }
 
-    hold until ( TEMP_OK( convert(MLPVCT),convert(MLPVTSt) ) )
+    hold until ( TEMP_OK( convert(MLPVTSt),convert(MLPVCT) ) )
     or 1 else > MINI LPV Ext TEC Off
 
     hold until (TEMP_OK(convert(MDPVTSt),convert(MDPVCT)))
