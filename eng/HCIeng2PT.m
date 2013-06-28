@@ -2,9 +2,10 @@ function HCIeng2PT
 %This is a customized eng to PT file conversion program for HCI.
 %This creates the PT.mat file required by the ICOSfit programs.
 cfg = load_ICOSfit_cfg;
+runs = ne_load_runsdir('HCI_Data_Dir');
 run = getrun(1);
-E = load_eng('HCIeng_1.mat', cfg, run);
-E10 = load_eng('HCIeng_10.mat', cfg, run);
+E = load_eng('HCIeng_1.mat', runs, run);
+E10 = load_eng('HCIeng_10.mat', runs, run);
 if isempty(E) || isempty(E10)
     return;
 end
@@ -45,10 +46,10 @@ else
 end
 save PT.mat -STRUCT PT
 
-function E = load_eng(base, cfg, run)
+function E = load_eng(base, runs, run)
 file = base;
 if ~exist(file, 'file')
-    file = [cfg.Matlab_Path '/' run '/' file];
+    file = [runs '/' run '/' file];
 end
 if exist(file, 'file')
     E = load(file);
