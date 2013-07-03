@@ -74,7 +74,7 @@ SCRIPT = runfile.FF
 DISTRIB = ../BAT/BAT_SPAN ../BAT/BS2cdfext ../BAT/BSlogger
 DISTRIB = ../Inverter/Inverter
 DISTRIB = ../Altimeter/Altimeter
-IDISTRIB = BSext
+IDISTRIB = BSext transfer
 SRCDIST = HCI.sws $(qclibase) Thermistors.txt
 SRCDIST = ../BAT/N51AU.txt
 
