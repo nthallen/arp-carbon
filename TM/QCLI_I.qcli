@@ -4,17 +4,25 @@ QCLIConfig StandardxP33;
 Digitizer SSP;
 Prefix QCLI_I;
 
-ICOS Waveform I3Db_800Hz {
+ICOS Waveform I3Df_600Hz {
   SampleRate = 100 MHz/84;
+  Ncoadd = 563;
+  Tz = 5%;
+  Ramp from 650 mA to 780 mA in 1.5 msec;
+}
+
+ICOS Waveform I3Df_600Hz10Hz {
+  SampleRate = 100 MHz/84;
+  Ncoadd = 56;
+  Tz = 5%;
+  Ramp from 650 mA to 780 mA in 1.5 msec;
+}
+
+ICOS Waveform I3Df_800Hz {
+  SampleRate = 100 MHz/28;
   Ncoadd = 799;
   Tz = 5%;
-  Ramp from 550 mA to 700 mA in 1.0 msec;
-}
-ICOS Waveform I3Db_800Hz10Hz {
-  SampleRate = 100 MHz/84;
-  Ncoadd = 80;
-  Tz = 5%;
-  Ramp from 600 mA to 730 mA in 1.0 msec;
+  Ramp from 650 mA to 780 mA in 1 msec;
 }
 
 ICOS Waveform QCLI_I_ConstantI {
@@ -24,29 +32,29 @@ ICOS Waveform QCLI_I_ConstantI {
   dI/dt = 0 A/sec;
 }
 
-Ringdown Waveform I3Db_rConstant {
+Ringdown Waveform I3Df_rConstant {
   SampleRate = 25 MHz;
   Toff = 50 msec;
   Ton =  50 msec;
   Tpre = 2 usec;
-  I = 700 mA;
+  I = 750 mA;
 }
 
-Ringdown Waveform I3Db_rRamp {
+Ringdown Waveform I3Df_rRamp {
   SampleRate = 50 MHz/20;
   Nsample = 3500;
   Toff = 5 msec;
   Ton =  5 msec;
   Tpre = 2 usec;
-  I = 550 mA to 700 mA in 1000 Steps;
+  I = 650 mA to 780 mA in 1000 Steps;
 }
 
-Ringdown Waveform I3Db_rRamp_NC10 {
+Ringdown Waveform I3Df_rRamp_NC10 {
   SampleRate = 50 MHz/20;
   Nsample = 3500;
   Ncoadd = 10;
   Toff = 500 usec;
   Ton =  500 usec;
   Tpre = 2 usec;
-  I = 600 mA to 730 mA in 1000 Steps;
+  I = 650 mA to 780 mA in 1000 Steps;
 }

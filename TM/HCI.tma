@@ -231,7 +231,7 @@ State MQCL_Init {
       Hold until ((IOSwS&3) == 3);
   +1  Validate MQCLI_Stop;
       Hold until valid (MQCLI_Idle);
- +1 > MINI Set Laser TEC Temp Setpoint 1.38
+ +1 > MINI Set Laser TEC Temp Setpoint 1.72
  +1 > MINI Laser TEC On
       Validate MQCL_Idle;
 }
@@ -392,9 +392,9 @@ State MQCL_SelectICOSandRun {
     Hold until valid (MQCLI_Idle) or 2
     else Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle);
- +1 > MINI Set Laser TEC Temp Setpoint 1.38
+ +1 > MINI Set Laser TEC Temp Setpoint 1.72
  +1 > MINI Laser TEC On
- +1 > Select QCLI_M Waveform M3Df_600Hz10Hz
+ +1 > Select QCLI_M Waveform M3Db_600Hz10Hz
  +2 Validate MQCL_Start;
 }
 
@@ -406,9 +406,9 @@ State MQCL_SelectRingandRun {
     Hold until valid (MQCLI_Idle) or 2
     else Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle);
- +1 > MINI Set Laser TEC Temp Setpoint 1.38
+ +1 > MINI Set Laser TEC Temp Setpoint 1.72
  +1 > MINI Laser TEC On
- +1 > Select QCLI_M Waveform M3Df_rRamp
+ +1 > Select QCLI_M Waveform M3Db_rRamp
  +1 > SSP_M Set NSample 3500
  +2 Validate MQCL_Start;
 }
@@ -1080,7 +1080,7 @@ State IQCL_SelectICOSandRun {
     Hold until valid (IQCLI_Idle);
  +1 > ISO Set Laser TEC Temp Setpoint 1.65
  +1 > ISO Laser TEC On
- +1 > Select QCLI_I Waveform I3Db_800Hz
+ +1 > Select QCLI_I Waveform I3Df_600Hz
  +2 Validate IQCL_Start;
 }
 
@@ -1094,7 +1094,7 @@ State IQCL_SelectRingandRun {
     Hold until valid (IQCLI_Idle);
  +1 > ISO Set Laser TEC Temp Setpoint 1.65
  +1 > ISO Laser TEC On
- +1 > Select QCLI_I Waveform I3db_rRamp
+ +1 > Select QCLI_I Waveform I3df_rRamp
 #+1 > SSP_I Set NSample 500
  +2 Validate IQCL_Start;
 }
@@ -1270,11 +1270,11 @@ State GasDeck_Fill_MINI_Cell {
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
-  +1 > Gas Deck Set Gas Flow Setpoint .75
+  +1 > Gas Deck Set Gas Flow Setpoint 2 
   Hold Until ( convert(MCelHP) > 500 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 0.4
+  +1 > Gas Deck Set Gas Flow Setpoint 1
   Hold Until ( convert(MCelHP) > 700 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 0.1
+  +1 > Gas Deck Set Gas Flow Setpoint 0.5
   Hold Until ( convert(MCelHP) > 760 ) or 2:00;
   Validate GasDeck_Close;
 }
