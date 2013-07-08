@@ -1,4 +1,4 @@
-# Makefile Generated Sat Jun 22 10:10:05 EDT 2013
+# Makefile Generated Mon Jul 08 09:04:27 EDT 2013
 MNC=HCI
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
@@ -37,7 +37,7 @@ TGT+=HCIengext doit HCIclt HCIcltnc
 DISTRIB=QCLI_C.out QCLI_M.out QCLI_I.out ../BAT/BAT_SPAN
 DISTRIB+=../BAT/BS2cdfext ../BAT/BSlogger ../Inverter/Inverter
 DISTRIB+=../Altimeter/Altimeter HCI.pcm tm.dac
-IDISTRIB=Experiment.config VERSION BSext doit
+IDISTRIB=Experiment.config VERSION BSext transfer doit
 SRCDIST=QCLI_C.m QCLI_M.m QCLI_I.m HCI.sws $(qclibase)
 SRCDIST+=Thermistors.txt ../BAT/N51AU.txt hk.tbl qcli.tbl Cells.tbl
 SRCDIST+=BAT_SPAN.tbl hk2.tbl HCI.tma

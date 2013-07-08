@@ -44,7 +44,10 @@ int Cmd_Sel::ProcessData(int flag) {
   if (flag == Selector::Sel_Read) {
     cp = 0;
     if (fillbuf()) return 1;
-    if (nc == 0) return 1;
+    if (nc == 0) {
+      nl_error(-2, "Received NUL Quit Command");
+      return 1;
+    }
     switch (buf[cp]) {
       case 'P':
         switch (buf[++cp]) {
@@ -53,7 +56,9 @@ int Cmd_Sel::ProcessData(int flag) {
           default: report_err("Invalid Power Option"); break;
         }
         break;
-      case 'Q': return 1;
+      case 'Q':
+        nl_error(-2, "Received explicit Quit Command");
+        return 1;
       default: report_err("Invalid Command"); break;
     }
     consume(nc);
