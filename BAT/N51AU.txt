@@ -12,19 +12,20 @@ Ax         20  4  50 m/s2     2   0.1817000  0.0039901   -19.76     20.12 NC_SHO
 Ay         20  5  50 m/s2     2  -0.0664000  0.0038438   -19.27     19.14 NC_SHORT 0.1524900    0.1067000  Ay acceleration measured from probe
 Az         20  6  50 m/s2     2   9.7365000  0.0039006    -9.75     29.23 NC_SHORT 0.1524900    0.1067000  Az acceleration measured from probe
 TBar       20  9  50 deg_C    2  -1.0737380  0.0106304   -54.23     52.08 NC_SHORT 0.1524900    0.1067000  TBar Temperature Sensor (1 Hz)
+Camera     20 10  50 -        2   0.0000000  1.0000000 -5000.00   5000.00 NC_SHORT 0.1524900    0.1067000  Canon Powershot G15 trigger channel
 FOTemp     20 11  50 deg_C    2   0.0000000  0.0100000   -50.00     50.00 NC_SHORT 0.1524900    0.1067000  OpSens Fiber-Optic Temperature Sensor (FOTS)
-Pump       20 12  50 -        2   0.0000000  1.0000000    -5000      5000 NC_SHORT 0.1524900    0.1067000  BAT Probe Pump Indicator
+Pump       20 12  50 -        2   0.0000000  1.0000000 -5000.00   5000.00 NC_SHORT 0.1524900    0.1067000  BAT Probe Pump Indicator
 Axb        20 13  50 m/s2     2  -0.3684000  0.0034621   -17.67     16.93 NC_SHORT 0.1524900    0.1067000  Axb acceleration measured from the back seat
 Ayb        20 14  50 m/s2     2   0.0932000  0.0033744   -16.77     16.95 NC_SHORT 0.1524900    0.1067000  Ayb acceleration measured from the back seat 
 Azb        20 15  50 m/s2     2   9.9875000  0.0034986    -7.49     27.47 NC_SHORT 0.1524900    0.1067000  Azb acceleration measured from the back seat
 SLat       14  0  50 deg      2   0.0000000  1.0000000   -90.00     90.00 NC_INT   0.0000305    0.0000000  NovAtel SPAN GPS/INS latitude measurement (deg wrt earth)
 SLon       14  1  50 deg      2   0.0000000  1.0000000  -180.00    180.00 NC_INT   0.0000305    0.0000000  NovAtel SPAN GPS/INS longitude measurement (deg wrt earth)
 SAlt       14  2  50 m        2   0.0000000  1.0000000  -235.00   5000.00 NC_SHORT 0.1000000 3000.0000000  NovAtel SPAN GPS/INS altitude measurement (m wrt earth)
-Su         14  3  50 m/s      2   0.0000000  1.0000000  -200.00    200.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS U velocity component (m/s wrt earth)
-Sv         14  4  50 m/s      2   0.0000000  1.0000000  -200.00    200.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS V velocity component (m/s wrt earth)
+Sv         14  3  50 m/s      2   0.0000000  1.0000000  -200.00    200.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS V velocity component (m/s wrt earth)
+Su         14  4  50 m/s      2   0.0000000  1.0000000  -200.00    200.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS U velocity component (m/s wrt earth)
 Sw         14  5  50 m/s      2   0.0000000  1.0000000  -100.00    100.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS W velocity component (m/s wrt earth)
-SPitch     14  6  50 deg      2   0.0000000  1.0000000   -20.00     20.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS pitch measurement (deg wrt Earth)
-SRoll      14  7  50 deg      2   0.0000000  1.0000000   -80.00     80.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS roll measurement (deg wrt Earth)
+SRoll      14  6  50 deg      2   0.0000000  1.0000000   -80.00     80.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS roll measurement (deg wrt Earth)
+SPitch     14  7  50 deg      2   0.0000000  1.0000000   -20.00     20.00 NC_SHORT 0.0100000    0.0000000  NovAtel SPAN GPS/INS pitch measurement (deg wrt Earth)
 SHdg       14  8  50 deg      2   0.0000000  1.0000000     0.00    360.00 NC_SHORT 0.0100000  180.0000000  NovAtel SPAN GPS/INS heading measurement (deg wrt Earth)
 SStatus    14  9  50 -        2   0.0000000  1.0000000     0.00      8.00 NC_SHORT 1.0000000    0.0000000  NovAtel SPAN GPS/INS INS status
 STime      14 10  50 sec      2   0.0000000  1.0000000     0.00 604800.00 NC_INT   0.0100000    0.0000000  NovAtel SPAN GPS/INS time (sec since midnight Sat GMT)
