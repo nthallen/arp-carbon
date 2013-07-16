@@ -22,6 +22,7 @@ TM typedef BAT_AI BAT_Ps_t { text "%7.2lf"; Convert MBAR;  }
 TM typedef BAT_AI BAT_Ax_t { text "%7.3lf"; Convert M_S2; }
 TM typedef BAT_AI BAT_Ay_t { text "%7.3lf"; Convert M_S2;  }
 TM typedef BAT_AI BAT_Az_t { text "%7.3lf"; Convert M_S2;  }
+TM typedef BAT_AI BAT_Camera_t { text "%7.1lf"; Convert mVOLTS; }
 TM typedef BAT_AI BAT_TBar_t { text "%7.2lf"; Convert CELCIUS; }
 TM typedef BAT_AI BAT_FOTemp_t { text "%7.2lf"; Convert CELCIUS; }
 TM typedef BAT_AI BAT_Pump_t { text "%7.1lf"; Convert mVOLTS; }
