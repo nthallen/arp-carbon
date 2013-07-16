@@ -87,10 +87,10 @@ Partition
 
 State In_FLIGHT {
   { using_swp = 0; }
-#  { if ((using_swp == SWS_TAKE_DATA) || (PP_Land_Req == 0))
-#      Validate TAKE_DATA;
-#  }
-#  > Panel Data LED Off
+  { if ((using_swp == SWS_TAKE_DATA) || (PP_Land_Req == 0))
+      Validate TAKE_DATA;
+  }
+  > Panel Data LED Off
 }
 
 State TAKE_DATA {
