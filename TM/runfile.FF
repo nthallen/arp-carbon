@@ -4,24 +4,45 @@
   Launch TM/DCo TMbfr
   echo "Running script interact" >$memo
 
+function dns {
+  echo "`date +%T` Suppressing: $*" >$memo
+}
+
+case $HCI_CONFIG in
+  A) MOK=''
+     COK=''
+     IOK='';;
+  B) MOK=''
+     COK=''
+     IOK='';;
+  C) MOK=''
+     COK=''
+     IOK=dns;;
+  *) echo "`date +%T` [ERROR] Invalid HCI_CONFIG: '$HCI_CONFIG'"
+     MOK=dns
+     COK=dns
+     IOK=dns
+     launch_error=yes;;
+esac
+
 # Verify and/or Program QCLIs
-  qclidprog -h QCLI_M -d0 -cwcwc $TMBINDIR/QCLI_M.out
-  qclidprog -h QCLI_C -d1 -cwcwc $TMBINDIR/QCLI_C.out
-  qclidprog -h QCLI_I -d2 -cwcwc $TMBINDIR/QCLI_I.out
+  $MOK qclidprog -h QCLI_M -d0 -cwcwc $TMBINDIR/QCLI_M.out
+  $COK qclidprog -h QCLI_C -d1 -cwcwc $TMBINDIR/QCLI_C.out
+  $IOK qclidprog -h QCLI_I -d2 -cwcwc $TMBINDIR/QCLI_I.out
 
   Launch dccc   dccc -f $TMBINDIR/dccc.dccc
   Launch DG/cmd HCIcol
   Launch cmd/server HCIsrvr
   Launch - lgr -N `mlf_find LOG`
   Launch - idx64 `cat $TMBINDIR/idx64.idx64`
-  Launch - sspdrv -H 10.0.0.210 -hSSP_M -N `mlf_find SSP_M`
-  Launch - qclidacsd -h QCLI_M -d 0
-  Launch - sspdrv -H 10.0.0.211 -hSSP_C -N `mlf_find SSP_C`
-  Launch - qclidacsd -h QCLI_C -d 1
-  Launch - sspdrv -H 10.0.0.206 -hSSP_I -N `mlf_find SSP_I`
-  Launch - qclidacsd -h QCLI_I -d 2
+  $MOK Launch - sspdrv -H 10.0.0.210 -hSSP_M -N `mlf_find SSP_M`
+  $MOK Launch - qclidacsd -h QCLI_M -d 0
+  $COK Launch - sspdrv -H 10.0.0.211 -hSSP_C -N `mlf_find SSP_C`
+  $COK Launch - qclidacsd -h QCLI_C -d 1
+  $IOK Launch - sspdrv -H 10.0.0.206 -hSSP_I -N `mlf_find SSP_I`
+  $IOK Launch - qclidacsd -h QCLI_I -d 2
   Launch - tmdf
   Launch - nice -n-1 BAT_SPAN -S /dev/ser2 -B /dev/ser4 -N `mlf_find BAT_SPAN`
   Launch - Inverter -p /dev/ser1
   Launch - Altimeter -p /dev/ser3
-  Launch - HCIalgo -v
+  Launch - HCI_${HCI_CONFIG}_algo -v

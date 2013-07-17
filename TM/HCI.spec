@@ -74,7 +74,7 @@ SCRIPT = runfile.FF
 DISTRIB = ../BAT/BAT_SPAN ../BAT/BS2cdfext ../BAT/BSlogger
 DISTRIB = ../Inverter/Inverter
 DISTRIB = ../Altimeter/Altimeter
-IDISTRIB = BSext transfer
+IDISTRIB = BSext
 SRCDIST = HCI.sws $(qclibase) Thermistors.txt
 SRCDIST = ../BAT/N51AU.txt
 
@@ -85,8 +85,12 @@ HCIdisp : PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc \
           Cells.tbl SSPrtg.tmc /usr/local/share/oui/cic.oui
 BSdisp : Pilot_conv.tmc digio_conv.tmc qcli_conv.tmc Inverter_conv.tmc \
          BAT_SPAN.tbl Altimeter_conv.tmc hk2.tbl
-HCIalgo : P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc \
-          Pilot_conv.tmc HCI.tma HCI.sws
+HCI_A_algo : P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc \
+          Pilot_conv.tmc HCI_A.tma HCI.sws
+HCI_B_algo : P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc \
+          Pilot_conv.tmc HCI_B.tma HCI.sws
+HCI_C_algo : P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc \
+          Pilot_conv.tmc HCI_C.tma HCI.sws
 HCIengext : qcli_conv.tmc PTRH_conv.tmc P_conv.tmc Altimeter_conv.tmc \
             HCIeng.cdf
 doit : HCI.doit
