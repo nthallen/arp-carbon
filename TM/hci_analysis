@@ -35,7 +35,8 @@ if [ ! -d $dest ]; then
     case $runtype in
       data) COPY_SCANS=yes;;
       junk) COPY_SCANS=yes;;
-      *) COPY_SCAN=no;;
+      preflt) COPY_SCANS=yes;;
+      *) COPY_SCANS=no;;
     esac
   fi
   scans=''
