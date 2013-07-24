@@ -840,7 +840,7 @@ State ISO_Init {
 
 State ISO_Start {
       Depending on (Shutdown) { Validate ISO_Shutdown; }
-   +5 Hold until valid (IQCL_Watch, Pump_Watch, MINI_Sample);
+   +5 Hold until valid (Pump_Watch, MINI_Sample);
    +1 Validate ISO_Sample;
 }
 
@@ -1244,6 +1244,10 @@ State GasDeck_PI {
   }
 }
 
+State GasDeck_Fill_MINI_Cell {
+  +1 Validate GasDeck_Close;
+}
+
 State GasDeck_Fill_CO2_Cell {
   Hold Until ( convert(CCelHP) < 740 ) or 1
      else  Validate GasDeck_Close;
@@ -1317,7 +1321,7 @@ State Pump_Init {
 
 State Pump_Init_Inverter_Off {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
-    Hold until valid (Inverter_On || Inverter_On_WaitForPumpStart);
+    Hold until valid (Inverter_On_WaitForPumpStart);
     Validate Pump_Init_Ready;
 }
 
@@ -1332,9 +1336,10 @@ State Pump_Start {
        Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
        Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
        # Don't necessarily need to wait here
-       Depending on (Pump_Cool_Watch) { Validate Pump_Turn_On; }
-       Depending on (Pump_Cool_Cold) { Validate Pump_Turn_On; }
-       Depending on (Pump_Cool_HiP_Watch) { Validate Pump_Turn_On; }
+#       Depending on (Pump_Cool_Watch) { Validate Pump_Turn_On; }
+#       Depending on (Pump_Cool_Cold) { Validate Pump_Turn_On; }
+#       Depending on (Pump_Cool_HiP_Watch) { Validate Pump_Turn_On; }
+   +1 Validate Pump_Turn_On;
 }
 
 State Pump_Turn_On {
@@ -1349,7 +1354,7 @@ State Pump_Is_On {
        Depending on (Shutdown) { Validate Pump_Shutdown; }
        Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
        Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
-       Hold Until valid (Inverter_On)
+       Hold Until valid (Inverter_On);
     +1 > ISO Exhaust Valve Open
     +5 > CO2 Exhaust Valve Open
        Validate Pump_Watch;
@@ -1957,9 +1962,10 @@ State Inverter_Init {
      depending on (Shutdown) { Validate Inverter_Shutdown; }
 #We need to keep Circuit3 off and use the battery to start the pump. Then we turn Circuit 3 on. 
   +1 > Circuit3 Off
-     Hold until (convert(PM1V1) > 15) or 5
+     Hold until (convert(PM1V1) > 20) or 5
      else Validate Inverter_C3_Fail_OnBattery;
   +2 > Inverter Arm On
+  +1 > Inverter Power On
      Hold until (InvPwrS == 1 && InvErrS == 0) or 5
      else Validate Inverter_Off;
      Validate Inverter_On_WaitForPumpStart;
@@ -1980,7 +1986,7 @@ State Inverter_C3_Fail {
 
 State Inverter_On_WaitForPumpStart {
     depending on (Shutdown) { Validate Inverter_Shutdown; }
-    Hold until valid (Pump_Is_On)
+    Hold until valid (Pump_Is_On);
  +1 > Circuit3 On
  +1 Validate Inverter_On;
 }
@@ -2003,7 +2009,7 @@ State Inverter_Off {
     depending on (Shutdown) { Validate Inverter_Shutdown; }
     depending on (1 Hz) { if (Pump_Ground_Power) Validate Inverter_On; }
     > Inverter Power Off
- +2 Hold until (convert(PM1V1) > 27);
+ +2 Hold until (convert(PM1V1) > 20);
     > Inverter Power On
     Hold until (InvPwrS == 1 && !InvErrS) or 5
     else Validate Inverter_Off;

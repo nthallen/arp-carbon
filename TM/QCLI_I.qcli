@@ -6,23 +6,16 @@ Prefix QCLI_I;
 
 ICOS Waveform I3Df_600Hz {
   SampleRate = 100 MHz/84;
-  Ncoadd = 563;
+  Ncoadd = 1126;
   Tz = 5%;
-  Ramp from 650 mA to 780 mA in 1.5 msec;
-}
-
-ICOS Waveform I3Df_600Hz10Hz {
-  SampleRate = 100 MHz/84;
-  Ncoadd = 56;
-  Tz = 5%;
-  Ramp from 650 mA to 780 mA in 1.5 msec;
+  Ramp from 710 mA to 780 mA in 1.5 msec;
 }
 
 ICOS Waveform I3Df_800Hz {
-  SampleRate = 100 MHz/28;
-  Ncoadd = 799;
+  SampleRate = 100 MHz/56;
+  Ncoadd = 1600;
   Tz = 5%;
-  Ramp from 650 mA to 780 mA in 1 msec;
+  Ramp from 710 mA to 780 mA in 1 msec;
 }
 
 ICOS Waveform QCLI_I_ConstantI {
@@ -46,7 +39,7 @@ Ringdown Waveform I3Df_rRamp {
   Toff = 5 msec;
   Ton =  5 msec;
   Tpre = 2 usec;
-  I = 650 mA to 780 mA in 1000 Steps;
+  I = 710 mA to 780 mA in 1000 Steps;
 }
 
 Ringdown Waveform I3Df_rRamp_NC10 {
@@ -56,5 +49,5 @@ Ringdown Waveform I3Df_rRamp_NC10 {
   Toff = 500 usec;
   Ton =  500 usec;
   Tpre = 2 usec;
-  I = 650 mA to 780 mA in 1000 Steps;
+  I = 710 mA to 780 mA in 1000 Steps;
 }
