@@ -35,7 +35,7 @@ State Standby {
         depending on (LAND)      { Validate Shutdown; }
         depending on (AI_Fail)   { Validate Shutdown; }
         depending on (MQCLI_Fail) { Validate Shutdown; }
-#       depending on (CQCLI_Fail) { Validate Shutdown; }
+        depending on (CQCLI_Fail) { Validate Shutdown; }
 #       depending on (IQCLI_Fail) { Validate Shutdown; }
         depending on (BAT_SPAN_Fail) { Validate Shutdown; }
         depending on (Inverter_Fail) { Validate Shutdown_Fast; }
@@ -46,7 +46,7 @@ State Record {
         depending on (LAND)      { Validate Shutdown; }
         depending on (AI_Fail)   { Validate Shutdown; }
         depending on (MQCLI_Fail) { Validate Shutdown; }
-#       depending on (CQCLI_Fail) { Validate Shutdown; }
+        depending on (CQCLI_Fail) { Validate Shutdown; }
 #       depending on (IQCLI_Fail) { Validate Shutdown; }
         depending on (BAT_SPAN_Fail) { Validate Shutdown; }
         depending on (Inverter_Fail) { Validate Shutdown_Fast; }
@@ -145,19 +145,7 @@ State MINI_Init {
 
 State MINI_Start {
       Depending on (Shutdown) { Validate MINI_Shutdown; }
- # +5 Validate MQCL_SelectICOSandRun;
    +5 Hold until valid (Pump_Watch);
-   +1 Validate MINI_Start_P;
-}
-
-State MINI_Start_P {
-      Depending on (Shutdown) { Validate MINI_Shutdown; }
-      { if (!MM_Pump_S || !MM_Pump_DS) Validate MINI_Fill_To_Ambient; }
-
-   +1 > MINI Pressure Reg Off
-      > MINI Set Cell Pressure Setpoint 60
-      Hold until (convert(MCelLP) < 10);
-   +1 > MINI Pressure Reg On
    +1 Validate MINI_Sample;
 }
 
@@ -165,18 +153,19 @@ State MINI_Sample {
        Depending on (Shutdown) { Validate MINI_Shutdown; }
        { if (!MM_Pump_S || !MM_Pump_DS) Validate MINI_Fill_To_Ambient; }
     +1 Validate MQCL_SelectRingandRun;
- +1:00 Validate MQCL_SelectICOSandRun;
-       Hold Until (SWStat == SWS_TIMEWARP) or 30:00;
-       Validate MINI_Calibrate;
+   +30 Validate MQCL_SelectICOSandRun;
+      Depending on (1Hz) {
+      if ( CO2_Ready_To_Calibrate == 1 )
+        Validate MINI_Calibrate;
+    }
 }
 
 State MINI_Calibrate {
      Depending on (Shutdown) { Validate MINI_Shutdown; }
      { if (!MM_Pump_S || !MM_Pump_DS) Validate MINI_Fill_To_Ambient; }
-     { MINI_Ready_To_Calibrate = 1; }
 
      Depending on (1Hz) {
-       if (MINI_Ready_To_Calibrate == 2)
+       if (CO2_Ready_To_Calibrate == 0)
          Validate MINI_End_Calibrate;
      }
 }
@@ -184,9 +173,6 @@ State MINI_Calibrate {
 State MINI_End_Calibrate {
      Depending on (Shutdown) { Validate MINI_Shutdown; }
 
-       > MINI Set Cell Pressure Setpoint 60
-       Hold until (convert(MCelLP) < 10);
-    +1 > MINI Pressure Reg On
    +20 Validate MQCL_NC_1;
     +1 Hold until valid (MQCL_Watch);
    +10 Validate MQCL_Stop;
@@ -198,8 +184,6 @@ State MINI_End_Calibrate {
 
 State MINI_Fill_to_Ambient {
     { MINI_Ready_To_Calibrate = 0; }
-    > MINI Set Cell Pressure Setpoint 120
-    > MINI Pressure Reg On
     { if (MM_Pump_S && MM_Pump_DS) Validate MINI_Sample; }
     Depending on (Shutdown) { Validate MINI_Shutdown; }
 }
@@ -231,7 +215,7 @@ State MQCL_Init {
       Hold until ((IOSwS&3) == 3);
   +1  Validate MQCLI_Stop;
       Hold until valid (MQCLI_Idle);
- +1 > MINI Set Laser TEC Temp Setpoint 1.72
+ +1 > MINI Set Laser TEC Temp Setpoint 1.75
  +1 > MINI Laser TEC On
       Validate MQCL_Idle;
 }
@@ -392,7 +376,7 @@ State MQCL_SelectICOSandRun {
     Hold until valid (MQCLI_Idle) or 2
     else Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle);
- +1 > MINI Set Laser TEC Temp Setpoint 1.72
+ +1 > MINI Set Laser TEC Temp Setpoint 1.75
  +1 > MINI Laser TEC On
  +1 > Select QCLI_M Waveform M3Db_600Hz10Hz
  +2 Validate MQCL_Start;
@@ -406,7 +390,7 @@ State MQCL_SelectRingandRun {
     Hold until valid (MQCLI_Idle) or 2
     else Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle);
- +1 > MINI Set Laser TEC Temp Setpoint 1.72
+ +1 > MINI Set Laser TEC Temp Setpoint 1.75
  +1 > MINI Laser TEC On
  +1 > Select QCLI_M Waveform M3Db_rRamp
  +1 > SSP_M Set NSample 3500
@@ -507,8 +491,8 @@ State CO2_Start {
 
 State CO2_Start_P {
        Depending on (Shutdown) { Validate CO2_Shutdown; }
-       { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
-       > CO2 Set Cell Pressure Setpoint 35
+       { if (!MM_Pump_S || !MM_Pump_DS) Validate CO2_Fill_to_Ambient; }
+       > CO2 Set Cell Pressure Setpoint 60
        Hold until (convert(CCelLP) < 10);
     +1 > CO2 Pressure Reg On
     +1 Validate CO2_Sample;
@@ -516,14 +500,14 @@ State CO2_Start_P {
 
 State CO2_Sample {
        Depending on (Shutdown) { Validate CO2_Shutdown; }
-       { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
+       { if (!MM_Pump_S || !MM_Pump_DS) Validate CO2_Fill_to_Ambient; }
        Hold until (SWStat == SWS_TIMEWARP) or 30:00;
        Validate CO2_Calibrate;
 }
 
 State CO2_Calibrate {
     Depending on (Shutdown) { Validate CO2_Shutdown; }
-    { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
+    { if (!MM_Pump_S || !MM_Pump_DS) Validate CO2_Fill_to_Ambient; }
     { CO2_Ready_To_Calibrate = 1; }
    
     Depending on (1Hz) {
@@ -533,7 +517,7 @@ State CO2_Calibrate {
 }
 
 State CO2_End_Calibrate {
-        > CO2 Set Cell Pressure Setpoint 35
+        > CO2 Set Cell Pressure Setpoint 60
         Hold until (convert(CCelLP) < 10);
     +1  > CO2 Pressure Reg On
    +20  Validate CQCL_NC_1;
@@ -549,7 +533,7 @@ State CO2_Fill_to_Ambient {
     { CO2_Ready_To_Calibrate = 0; }
     > CO2 Set Cell Pressure Setpoint 120
     > CO2 Pressure Reg On
-    { if (C_Pump_S && C_Pump_DS) Validate CO2_Sample; }
+    { if (MM_Pump_S && MM_Pump_DS) Validate CO2_Sample; }
     Depending on (Shutdown) { Validate CO2_Shutdown; }
 }
 
@@ -856,7 +840,6 @@ State ISO_Init {
 
 State ISO_Start {
       Depending on (Shutdown) { Validate ISO_Shutdown; }
-   +5 Validate IQCL_SelectICOSandRun;
    +5 Hold until valid (IQCL_Watch, Pump_Watch, MINI_Sample);
    +1 Validate ISO_Sample;
 }
@@ -866,7 +849,7 @@ State ISO_Sample {
     +1 Validate IQCL_SelectRingandRun;
  +1:00 Validate IQCL_SelectICOSandRun;
        Depending on (1Hz) {
-         if ( MINI_Ready_To_Calibrate == 1 )
+         if ( CO2_Ready_To_Calibrate == 1 )
            Validate ISO_Calibrate;
        }
 }
@@ -917,7 +900,7 @@ State IQCL_Init {
       Hold until ((IOSwS&3) == 3);
   +1  Validate IQCLI_Stop;
       Hold until valid (IQCLI_Idle);
- +1 > ISO Set Laser TEC Temp Setpoint 1.65
+ +1 > ISO Set Laser TEC Temp Setpoint 1.68
  +1 > ISO Laser TEC On
       Validate IQCL_Idle;
 }
@@ -1078,7 +1061,7 @@ State IQCL_SelectICOSandRun {
     Hold until valid (IQCLI_Idle) or 2
     else Validate IQCLI_Stop;
     Hold until valid (IQCLI_Idle);
- +1 > ISO Set Laser TEC Temp Setpoint 1.65
+ +1 > ISO Set Laser TEC Temp Setpoint 1.68
  +1 > ISO Laser TEC On
  +1 > Select QCLI_I Waveform I3Df_600Hz
  +2 Validate IQCL_Start;
@@ -1092,7 +1075,7 @@ State IQCL_SelectRingandRun {
     Hold until valid (IQCLI_Idle) or 2
     else Validate IQCLI_Stop;
     Hold until valid (IQCLI_Idle);
- +1 > ISO Set Laser TEC Temp Setpoint 1.65
+ +1 > ISO Set Laser TEC Temp Setpoint 1.68
  +1 > ISO Laser TEC On
  +1 > Select QCLI_I Waveform I3df_rRamp
 #+1 > SSP_I Set NSample 500
@@ -1261,38 +1244,21 @@ State GasDeck_PI {
   }
 }
 
-State GasDeck_Fill_MINI_Cell {
-  Hold Until ( convert(MCelHP) < 740 ) or 1
-     else  Validate GasDeck_Close;
-  +1 > CO2 Gas Valve Closed
-  +1 > MINI Gas Valve Open
-  +1 > ISO Exhaust Valve Closed
-     > Gas Deck Set Gas Flow Setpoint 0
-     > Gas Deck Flow Controller Closed Off
-  +1 > Gas Deck Valve Open
-  +1 > Gas Deck Set Gas Flow Setpoint 2 
-  Hold Until ( convert(MCelHP) > 500 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 1
-  Hold Until ( convert(MCelHP) > 700 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 0.5
-  Hold Until ( convert(MCelHP) > 760 ) or 2:00;
-  Validate GasDeck_Close;
-}
-
 State GasDeck_Fill_CO2_Cell {
   Hold Until ( convert(CCelHP) < 740 ) or 1
      else  Validate GasDeck_Close;
   +1 > MINI Gas Valve Closed
   +1 > CO2 Gas Valve Open
-  +1 > CO2 Exhaust Valve Closed
+  +1 > ISO Exhaust Valve Closed
+  +1 > CO2 Exhaust Valve Open
      > Gas Deck Set Gas Flow Setpoint 0
      > Gas Deck Flow Controller Closed Off
   +1 > Gas Deck Valve Open
-  +1 > Gas Deck Set Gas Flow Setpoint 0.32
+  +1 > Gas Deck Set Gas Flow Setpoint 3
   Hold Until ( convert(CCelHP) > 600 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 0.2
+  +1 > Gas Deck Set Gas Flow Setpoint 2
   Hold Until ( convert(CCelHP) > 700 ) or 2:00;
-  +1 > Gas Deck Set Gas Flow Setpoint 0.05
+  +1 > Gas Deck Set Gas Flow Setpoint 1
   Hold Until ( convert(CCelHP) > 760 ) or 2:00;
   Validate GasDeck_Close;
 }
@@ -1317,8 +1283,11 @@ State GasDeck_WaitForShutdown {
 State GasDeck_Shutdown {
   +1 Validate GasDeck_Close;
       Hold until valid (GasDeck_Idle);
-  +1 Validate GasDeck_Fill_MINI_Cell;
-     Hold until valid (GasDeck_Idle);
+  +1 > CO2 Exhaust Valve Open
+  +1 > CO2 Set Cell Pressure Setpoint 120
+  +1 > CO2 Pressure Reg On
+     Hold Until ( convert(CCelHP) > 700 ) or 2:00;
+     > CO2 Pressure reg Off
   +1 Validate GasDeck_Fill_CO2_Cell;
       Hold until valid (GasDeck_Idle);
   +1 Validate GasDeck_Is_Shutdown;
@@ -1340,16 +1309,15 @@ Partition
 State Pump_Init {
     > CO2 Exhaust Valve Closed
     > ISO Exhaust Valve Closed
- +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
-    Hold until valid (Inverter_On) or 5
+    Hold until valid (Inverter_On_WaitForPumpStart) or 10
     else Validate Pump_Init_Inverter_Off;
     Validate Pump_Init_Ready;
 }
 
 State Pump_Init_Inverter_Off {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
-    Hold until valid (Inverter_On);
+    Hold until valid (Inverter_On || Inverter_On_WaitForPumpStart);
     Validate Pump_Init_Ready;
 }
 
@@ -1373,10 +1341,17 @@ State Pump_Turn_On {
        Depending on (Shutdown) { Validate Pump_Shutdown; }
        Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
        Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
-    +5 > CO2 Scroll Pump On
-   +10 > MINI Scroll Pump On
-   +10 > CO2 Exhaust Valve Open
+    +1 > MINI Scroll Pump On
+    +5 Validate Pump_Is_On;
+}
+
+State Pump_Is_On {
+       Depending on (Shutdown) { Validate Pump_Shutdown; }
+       Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
+       Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
+       Hold Until valid (Inverter_On)
     +1 > ISO Exhaust Valve Open
+    +5 > CO2 Exhaust Valve Open
        Validate Pump_Watch;
 }
 
@@ -1384,10 +1359,8 @@ State Pump_Watch Nolog {
       Depending on (Shutdown) { Validate Pump_Shutdown; }
       Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
       Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
-      hold until ( !PUMP_TEMP_OK(convert(CPmpT)) ||
-           !PUMP_TEMP_OK(convert(MPmpT)) );
-      hold until ( PUMP_TEMP_OK(convert(CPmpT)) &&
-           PUMP_TEMP_OK(convert(MPmpT)) ) or 5
+      hold until ( !PUMP_TEMP_OK(convert(MPmpT)) );
+      hold until ( PUMP_TEMP_OK(convert(MPmpT)) ) or 5
       else Validate Pump_Hot;
       Validate Pump_Watch;
 }
@@ -1398,10 +1371,8 @@ State Pump_Hot {
       Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
       > CO2 Exhaust Valve Closed
       > ISO Exhaust Valve Closed
-   +1 > CO2 Scroll Pump Off
    +1 > MINI Scroll Pump Off
-      Hold until ( PUMP_TEMP_OK(convert(CPmpT)+5) &&
-           PUMP_TEMP_OK(convert(MPmpT)+5) );
+      Hold until ( PUMP_TEMP_OK(convert(MPmpT)+5) );
       Validate Pump_Start;
 }
 
@@ -1409,7 +1380,6 @@ State Pump_Inverter_Off {
       Depending on (Shutdown) { Validate Pump_Shutdown; }
       > CO2 Exhaust Valve Closed
       > ISO Exhaust Valve Closed
-   +1 > CO2 Scroll Pump Off
    +1 > MINI Scroll Pump Off
       Hold until valid (Inverter_On);
       Validate Pump_Start;
@@ -1422,7 +1392,6 @@ State Pump_Shutdown {
       # pumps since Exhaust valves do not hold against reverse
       # pressure
       Hold until valid (GasDeck_Is_Shutdown) or 2:00;
-   +1 > CO2 Scroll Pump Off
    +1 > MINI Scroll Pump Off
    +1 Validate Pump_Off;
 }
@@ -1772,11 +1741,11 @@ Depending on (Shutdown) { Validate ITControl_Shutdown; }
 
 State ITControl_Watch NoLog {
 Depending on (Shutdown) { Validate ITControl_Shutdown; }
-    Hold until (!TEMP_OK(convert(ILPVCT),convert(ILPVTSt))
+    Hold until (!TEMP_OK(convert(ILPVTSt),convert(ILPVCT))
         || !TEMP_OK(convert(IDPVTSt),convert(IDPVCT))
         || !TEMP_OK(convert(ICelTSt),convert(ICelCT)) );
 
-    Hold until (TEMP_OK(convert(ILPVCT),convert(ILPVTSt))
+    Hold until (TEMP_OK(convert(ILPVTSt),convert(ILPVCT))
         && TEMP_OK(convert(IDPVTSt),convert(IDPVCT))
         && TEMP_OK(convert(ICelTSt),convert(ICelCT)) ) or 2
     else Validate ITControl_Not_OK;
@@ -1786,7 +1755,7 @@ Depending on (Shutdown) { Validate ITControl_Shutdown; }
 State ITControl_Not_OK {
     Depending on (Shutdown) { Validate ITControl_Shutdown; }
 
-    hold until ( TEMP_OK( convert(ILPVCT),convert(ILPVTSt) ) )
+    hold until ( TEMP_OK( convert(ILPVTSt),convert(ILPVCT) ) )
     or 1 else > ISO LPV Ext TEC Off
 
     hold until (TEMP_OK(convert(IDPVTSt),convert(IDPVCT)))
@@ -1986,19 +1955,34 @@ Partition
 
 State Inverter_Init {
      depending on (Shutdown) { Validate Inverter_Shutdown; }
-  +3 > Circuit3 On
-     Hold until (convert(PM1V1) > 27.5) or 5
-     else Validate Inverter_C3_Fail;
-  +3 > Inverter Arm On
+#We need to keep Circuit3 off and use the battery to start the pump. Then we turn Circuit 3 on. 
+  +1 > Circuit3 Off
+     Hold until (convert(PM1V1) > 15) or 5
+     else Validate Inverter_C3_Fail_OnBattery;
+  +2 > Inverter Arm On
      Hold until (InvPwrS == 1 && InvErrS == 0) or 5
      else Validate Inverter_Off;
-     Validate Inverter_On;
+     Validate Inverter_On_WaitForPumpStart;
+}
+
+State Inverter_C3_Fail_OnBattery {
+     > Panel Display Text \\nBattery Charge Low
+     Hold until (convert(PM1V1) > 15);
+     Validate Inverter_Init;
 }
 
 State Inverter_C3_Fail {
      > Panel Display Text \\nBus 3 Power Failure
      Hold until (convert(PM1V1) > 27.5);
      Validate Inverter_Init;
+}
+
+
+State Inverter_On_WaitForPumpStart {
+    depending on (Shutdown) { Validate Inverter_Shutdown; }
+    Hold until valid (Pump_Is_On)
+ +1 > Circuit3 On
+ +1 Validate Inverter_On;
 }
 
 State Inverter_On {
