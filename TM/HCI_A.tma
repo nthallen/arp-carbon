@@ -1569,7 +1569,7 @@ State LuggageBay_TCtrl_PI {
       dstep = -1. * LBT_MAX_CAL_BITS;
     if (dstep > 0) { /* Temp below SetPoint, Heating required */
       if (!HEATER_TEMP_OK(convert(SpHCT))) {
-        Validate LuggageBat_TCtrl_Hot;
+        Validate LuggageBay_TCtrl_Hot;
       } else {
         if (!(TVStat & 1))
           ci_sendfcmd(2, "Drive Throttle Valve In 48000\n");
@@ -1579,7 +1579,8 @@ State LuggageBay_TCtrl_PI {
           ci_sendfcmd(2, "HK Space Htr Ctl On\n");
       }
     } else { /* Temp above SetPoint, Cooling required */
-      unsigned step = -dstep;
+      unsigned step;
+      step = -dstep;
       if (SpHt_HC_DS)
         ci_sendfcmd(2, "HK Space Htr Ctl Off\n");
       ci_sendfcmd(2, "Drive Throttle Valve To %u\n", step);
