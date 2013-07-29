@@ -1418,6 +1418,8 @@ Partition
   #define PUMP_TEMP_COLD 35
   #define BATH_TEMP_OK(x) (x > BATH_TEMP_COLD)
   #define PUMP_COLD_OK(x) (x < PUMP_TEMP_COLD)
+  #define COOL_P_LOW 18
+  #define COOL_P_HIGH 75
 %}
 
 State Pump_Cool_Init {
@@ -1441,8 +1443,8 @@ State Pump_Cool_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
-    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
-    { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
+    { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP; }
+    { if (convert(CoolP) > COOL_P_HIGH) Validate Pump_Cool_HiP; }
  +1 > Coolant Divert Off
  +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
  +1 hold until ( BATH_TEMP_OK(convert(WTnkT))) or 5
@@ -1454,8 +1456,8 @@ State Pump_Cool_Cold {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
-    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP_Check; }
-    { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
+    { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP_Check; }
+    { if (convert(CoolP) > COOL_P_HIGH) Validate Pump_Cool_HiP; }
     > Coolant Divert On
     Hold until (BATH_TEMP_OK(convert(WTnkT)-5));
  +1 > Coolant Divert Off
@@ -1471,7 +1473,7 @@ State Pump_Cool_Inverter_Off {
 }
 
 State Pump_Cool_LowP_Check Nolog {
-      Hold Until (convert(CoolP) >= 25) or 10
+      Hold Until (convert(CoolP) >= COOL_P_LOW) or 10
       else Validate Pump_Cool_LowP;
       Validate Pump_Cool_Watch;
 }
@@ -1494,10 +1496,10 @@ State Pump_Cool_HiP {
 State Pump_Cool_HiP_Watch {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
-    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP_Check; }
-   +1 Hold until (convert(CoolP) < 75) or 10
+    { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP_Check; }
+   +1 Hold until (convert(CoolP) < COOL_P_HIGH) or 10
       else Validate Pump_Cool_HiP_Fail;
-      Hold until (convert(CoolP) > 75);
+      Hold until (convert(CoolP) > COOL_P_HIGH);
       Validate Pump_Cool_HiP_Watch;
 }
 
