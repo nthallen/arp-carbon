@@ -8,11 +8,10 @@
 # Partition 1: Main Line Code
 # -----------------------------------------------------------------------------
 
-### Need to verify switches before we use them
-# Switches - 1100: Algo., 1111: No Algo. (Use runfile.1100 for flight)
-# For Flight, 2 Switches in the Off (Zero) Position.
-# If either switch in On (1, raised), most algo processing is suspended.
-# If both switches are On (1, raised) Shutdown begins immediately.
+# Switches:
+#   1111: Auto Start (runfile.FF)
+#   1100: Wait for doit, etc
+# For Flight, all Switches Up
 # (IOSwS & 3) == 3 - Flight Mode (both switches up)
 
 %{
@@ -1445,6 +1444,8 @@ Partition
   #define PUMP_TEMP_COLD 35
   #define BATH_TEMP_OK(x) (x > BATH_TEMP_COLD)
   #define PUMP_COLD_OK(x) (x < PUMP_TEMP_COLD)
+  #define COOL_P_LOW 18
+  #define COOL_P_HIGH 75
 %}
 
 State Pump_Cool_Init {
@@ -1468,8 +1469,8 @@ State Pump_Cool_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
-    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP; }
-    { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
+    { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP; }
+    { if (convert(CoolP) > COOL_P_HIGH) Validate Pump_Cool_HiP; }
  +1 > Coolant Divert Off
  +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
  +1 hold until ( BATH_TEMP_OK(convert(WTnkT))) or 5
@@ -1481,8 +1482,8 @@ State Pump_Cool_Cold {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
-    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP_Check; }
-    { if (convert(CoolP) > 75) Validate Pump_Cool_HiP; }
+    { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP_Check; }
+    { if (convert(CoolP) > COOL_P_HIGH) Validate Pump_Cool_HiP; }
     > Coolant Divert On
     Hold until (BATH_TEMP_OK(convert(WTnkT)-5));
  +1 > Coolant Divert Off
@@ -1498,7 +1499,7 @@ State Pump_Cool_Inverter_Off {
 }
 
 State Pump_Cool_LowP_Check Nolog {
-      Hold Until (convert(CoolP) >= 25) or 10
+      Hold Until (convert(CoolP) >= COOL_P_LOW) or 10
       else Validate Pump_Cool_LowP;
       Validate Pump_Cool_Watch;
 }
@@ -1521,10 +1522,10 @@ State Pump_Cool_HiP {
 State Pump_Cool_HiP_Watch {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
-    { if (convert(CoolP) < 25) Validate Pump_Cool_LowP_Check; }
-   +1 Hold until (convert(CoolP) < 75) or 10
+    { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP_Check; }
+   +1 Hold until (convert(CoolP) < COOL_P_HIGH) or 10
       else Validate Pump_Cool_HiP_Fail;
-      Hold until (convert(CoolP) > 75);
+      Hold until (convert(CoolP) > COOL_P_HIGH);
       Validate Pump_Cool_HiP_Watch;
 }
 
@@ -1552,87 +1553,80 @@ State Pump_Cool_Is_Shutdown {}
 Partition
 
 %{
-#define HEATER_HOT 2.0
-#define HEATER_TEMP_OK(x) (x<HEATER_HOT)
-#define BAY_HOT 25
-#define BAY_TEMP_OK(x) (x<BAY_HOT)
+  #define HEATER_HOT 2.0
+  #define HEATER_TEMP_OK(x) (x<HEATER_HOT)
+  #define BAY_HOT 25
+  #define BAY_TEMP_OK(x) (x<BAY_HOT)
+  #define LBHtrMaxSP 1.9
+  
+  double LBT_sum = 0.;
+  double LBTGp = 900.;
+  double LBTGi = 80.; /* requires 1 minute to completely unwind at T_diff of 1.0 */
+  double LBT_set = 25.;
+  #define LBT_MAX_CAL_BITS 48000.
 %}
 
 State LuggageBay_TCtrl_Init {
+    Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
+    Depending on (Record) { Validate LuggageBay_TCtrl_PI_Init; }
    +1 > HK Space Htr Ctl Off
-    Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
-    Depending on (Record) { Validate LuggageBay_TCtrl_Start; }
+   +1 > drive Throttle Valve in 48000
     Hold until ((IOSwS & 3) == 3) ;
-    Validate LuggageBay_TCtrl_Start; 
+    Validate LuggageBay_TCtrl_PI_Init; 
 } 
 
-State LuggageBay_TCtrl_Start {
-    Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
-  +1 > HK Set Space Heater Temp Setpoint 1.90
-  +1 > HK Space Htr Ctl On
-     Validate LuggageBay_TCtrl_Watch;
-} 
+State LuggageBay_TCtrl_PI_Init {
+  { LBT_sum = 0; LBTGp = 300; LBTGi = 80; }
+  +2 Validate LuggageBay_TCtrl_PI;
+}
 
-State LuggageBay_TCtrl_Watch Nolog {
-    Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
-    Hold until (!HEATER_TEMP_OK(convert(SpHCT)) 
-        || (!BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 )) );
-    Hold until (HEATER_TEMP_OK(convert(SpHCT)) ) or 2
-      else Validate LuggageBay_TCtrl_Hot;
-    # Must have been the bay temp that was too hot
- +1 > HK Set Space Heater Temp Setpoint 1.60
-    Hold until (!HEATER_TEMP_OK(convert(SpHCT)) 
-        || (BAY_TEMP_OK( (convert(CRv5T)+convert(MRv5T))/2 )) );
-    Hold until (HEATER_TEMP_OK(convert(SpHCT)) ) or 2
-      else Validate LuggageBay_TCtrl_Hot;
- +1 > HK Set Space Heater Temp Setpoint 1.90
- +1 Validate LuggageBay_TCtrl_Watch;
+State LuggageBay_TCtrl_PI {
+  Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
+  { double LBT, LBT_diff, dstep; 
+    LBT = (convert(CRv5T)+convert(MRv5T))/2;
+    LBT_diff = LBT_set - LBT;
+    LBT_sum += LBT_diff * LBTGi;
+    if ( LBT_sum > LBT_MAX_CAL_BITS )
+      LBT_sum = LBT_MAX_CAL_BITS;
+    else if ( -LBT_sum > LBT_MAX_CAL_BITS )
+      LBT_sum = -1. * LBT_MAX_CAL_BITS;
+    dstep = LBT_diff * LBTGp + LBT_sum;
+    if (dstep > LBT_MAX_CAL_BITS)
+      dstep = LBT_MAX_CAL_BITS;
+    else if (-dstep > LBT_MAX_CAL_BITS)
+      dstep = -1. * LBT_MAX_CAL_BITS;
+    if (dstep > 0) { /* Temp below SetPoint, Heating required */
+      if (!HEATER_TEMP_OK(convert(SpHCT))) {
+        Validate LuggageBay_TCtrl_Hot;
+      } else {
+        if (!(TVStat & 1))
+          ci_sendfcmd(2, "Drive Throttle Valve In 48000\n");
+        dstep = LBHtrMaxSP * dstep / LBT_MAX_CAL_BITS;
+        ci_sendfcmd(2, "HK Set Space Heater Temp Setpoint %.2f\n", dstep);
+        if (!(SpHt_HC_DS))
+          ci_sendfcmd(2, "HK Space Htr Ctl On\n");
+      }
+    } else { /* Temp above SetPoint, Cooling required */
+      unsigned step;
+      step = -dstep;
+      if (SpHt_HC_DS)
+        ci_sendfcmd(2, "HK Space Htr Ctl Off\n");
+      ci_sendfcmd(2, "Drive Throttle Valve To %u\n", step);
+    }
+  }
 }
 
 State LuggageBay_TCtrl_Hot {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
  +1 > HK Space Htr Ctl Off
     Hold until (convert(SpHCT) < 1.4);
- +1 > HK Space Htr Ctl On
-     Validate LuggageBay_TCtrl_Watch;
+    Validate LuggageBay_TCtrl_PI_Init;
 } 
 
 State LuggageBay_TCtrl_Shutdown {
      > HK Space Htr Ctl Off
+     > Drive Throttle Valve In 48000
 } 
-
-# State Throttle_Standby {
-#   +5
-#   depending on (OFF_GROUND) { Validate Throttle_init; }
-#   depending on (IN_AIR) { Validate Throttle_init; }
-# }
-# 
-
-#-------------------
-# # INITIALIZE
-# State Throttle_init     {
-#        > drive Throttle Valve in 48000
-#   +2   > drive Throttle Valve out 10000
-#   +5   > drive Throttle Valve to 15000
-#   +5   Validate Throttle_scan;
-# }
-# 
-# # RUN & SCAN
-# State Throttle_scan {
-#         depending on (ON_GROUND) { Validate Throttle_shut; }
-#         depending on (Shutdown) { Validate Throttle_shut; }
-#         > drive Throttle Valve to 47000
-#         Hold until (SW_St == SWS_TIMEWARP) or 34:00;
-#         > drive Throttle Valve to 40000
-#   +2:00 > drive Throttle Valve to 32500
-#   +2:00 > drive Throttle Valve to 25000
-#   +2:00 Validate Throttle_scan;
-# }
-# 
-# State Throttle_shut {
-#   > drive Throttle Valve in 48000
-#   > drive Throttle Valve out 20
-# }
 
 # -----------------------------------------------------------------------------
 # Partition 19: Mini Methane Temperature Control
