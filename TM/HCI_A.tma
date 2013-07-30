@@ -1352,6 +1352,13 @@ State Pump_Circuit3_Fail {
     Validate Pump_Init;
 }
 
+State Pump_Low_Battery {
+ +1 { msg(2, "Low Battery Voltage: %.1lf", convert(PM1V1)); }
+ +1 > Panel Display Text \\nLow Battery Voltage
+    Hold until (Pump_Ground_Power || convert(PM1V1) > 20);
+    Validate Pump_Init;
+}
+
 State Pump_Inverter_Timeout {
     { msg(2, "Unexpected Inverter Timeout on turn on"); }
     Validate Pump_Init;
@@ -1361,7 +1368,7 @@ State Pump_Is_On {
      Depending on (Shutdown) { Validate Pump_Shutdown; }
      Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
      Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
-  +1 > Circuit 3 On
+  +1 > Circuit3 On
   +1 > ISO Exhaust Valve Open
   +5 > CO2 Exhaust Valve Open
      Validate Pump_Watch;
@@ -1969,7 +1976,7 @@ State Inverter_Start {
      Hold until (InvPwrS == 1 && InvErrS == 0) or 5
      else Validate Inverter_Off;
      { if (Circuit3_DS && Circuit3_S) Validate Inverter_On;
-       else Validate Invert_On_Battery;
+       else Validate Inverter_On_Battery;
      }
 }
 
