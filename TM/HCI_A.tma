@@ -56,7 +56,7 @@ State Record {
 State Shutdown {
  +1   > Panel Display Text \\nShutting Down...
       Hold until valid (MINI_Is_Shutdown, CO2_Is_Shutdown,
-	ISO_Is_Shutdown,
+        ISO_Is_Shutdown,
         Pump_Is_Shutdown, Inverter_Is_Shutdown,
         SampleHtr_Shutdown) or 5:00;
  +2   > Panel Display Text Done
@@ -1732,10 +1732,10 @@ State CTControl_Shutdown {
 Partition
 
 State ITControl_Init {
-# Depending on (Shutdown) { Validate ITControl_Shutdown; }
-# Depending on (Record) { Validate ITControl_Start; }
-#   Hold until ((IOSwS & 3) == 3) ;
-#   Validate ITControl_Start; 
+  Depending on (Shutdown) { Validate ITControl_Shutdown; }
+  Depending on (Record) { Validate ITControl_Start; }
+    Hold until ((IOSwS & 3) == 3) ;
+    Validate ITControl_Start; 
 }
 
 State ITControl_Start {
