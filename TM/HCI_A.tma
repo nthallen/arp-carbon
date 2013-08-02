@@ -1286,10 +1286,10 @@ State GasDeck_WaitForShutdown {
 State GasDeck_Shutdown {
   +1 Validate GasDeck_Close;
       Hold until valid (GasDeck_Idle);
-  +1 > CO2 Exhaust Valve Open
+  +3 > CO2 Exhaust Valve Open
   +1 > CO2 Set Cell Pressure Setpoint 120
   +1 > CO2 Pressure Reg On
-     Hold Until ( convert(CCelHP) > 700 ) or 2:00;
+     Hold Until ( convert(CCelHP) > 730 ) or 2:00;
      > CO2 Pressure reg Off
   +1 Validate GasDeck_Fill_CO2_Cell;
       Hold until valid (GasDeck_Idle);
