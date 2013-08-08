@@ -1,4 +1,4 @@
-csv HCIeng_1 273
+csv HCIeng_1 277
   0 THCIeng_1 %.3lf
   1 Azimuth 
   2 BAT_Ax 
@@ -272,6 +272,10 @@ csv HCIeng_1 273
   270 n_bp_records 
   271 n_span_records 
   272 vl_cpuT 
+  273 CPrs_Reg_DS
+  274 CGas_Vlv_DS
+  275 MPrs_Reg_DS
+  276 MGas_VlV_DS
 csv HCIeng_10 11
   0 THCIeng_10 %.3lf
   1 CCel1T 
