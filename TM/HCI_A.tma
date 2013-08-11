@@ -59,6 +59,9 @@ State Shutdown {
         ISO_Is_Shutdown,
         Pump_Is_Shutdown, Inverter_Is_Shutdown,
         SampleHtr_Shutdown) or 5:00;
+#      Hold until valid (MINI_Is_Shutdown, CO2_Is_Shutdown,
+#        ISO_Is_Shutdown,
+#        SampleHtr_Shutdown) or 5:00;
  +2   > Panel Display Text Done
       > Fail Light On
       > Quit
@@ -204,7 +207,7 @@ Partition
   int num_MQCL_recovers = 0;
   #define M_LOW_CURRENT 0.02
   #define MQCL_TEMP_LIMIT 1.3
-  #define MQCL_TEMP_OK(x,y) (x > MQCL_TEMP_LIMIT && fabs(x - y) < 0.2)
+  #define MQCL_TEMP_OK(x,y) (x > MQCL_TEMP_LIMIT && fabs(x - y) < 0.1)
 %}
 # Mini Starting and Stopping
 
@@ -214,7 +217,7 @@ State MQCL_Init {
       Hold until ((IOSwS&3) == 3);
   +1  Validate MQCLI_Stop;
       Hold until valid (MQCLI_Idle);
- +1 > MINI Set Laser TEC Temp Setpoint 1.75
+ +1 > MINI Set Laser TEC Temp Setpoint 1.4
  +1 > MINI Laser TEC On
       Validate MQCL_Idle;
 }
@@ -231,7 +234,7 @@ State MQCL_Start {
       nl_error( 2, "SSP_M Not Ready in MQCL_Start" );
       Validate MQCL_SSP_M_Recover;
     }
-    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) ) or 10
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) ) or 20
     else Validate MQCL_Out_TSpec;
     Hold until valid (MQCLI_Idle) or 2
     else Validate MQCLI_Stop;
@@ -352,9 +355,9 @@ State MQCL_Out_TSpec {
 #+1 > Reprogram CB2 DACs
  +2 > MINI Laser TEC On
     Hold until valid (MQCLI_Idle);
-    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) ) or 10
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) ) or 20
     else Validate MQCL_Out_TSpec;
- +1 Validate MQCL_Start;
+ +10 Validate MQCL_Start;
 }
 
 State MQCL_Stop {
@@ -375,10 +378,19 @@ State MQCL_SelectICOSandRun {
     Hold until valid (MQCLI_Idle) or 2
     else Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle);
- +1 > MINI Set Laser TEC Temp Setpoint 1.75
+ +1 > MINI Set Laser TEC Temp Setpoint 1.4
  +1 > MINI Laser TEC On
- +1 > Select QCLI_M Waveform M3Db_600Hz10Hz
- +2 Validate MQCL_Start;
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
+ +5 > MINI Set Laser TEC Temp Setpoint 1.5
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
+ +5 > MINI Set Laser TEC Temp Setpoint 1.6
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
+ +5 > MINI Set Laser TEC Temp Setpoint 1.7
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
+ +5 > MINI Set Laser TEC Temp Setpoint 1.75
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
++5:00 > Select QCLI_M Waveform M3Db_600Hz10Hz
+ +3 Validate MQCL_Start;
 }
 
 State MQCL_SelectRingandRun {
@@ -389,9 +401,18 @@ State MQCL_SelectRingandRun {
     Hold until valid (MQCLI_Idle) or 2
     else Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle);
- +1 > MINI Set Laser TEC Temp Setpoint 1.75
+ +1 > MINI Set Laser TEC Temp Setpoint 1.4
  +1 > MINI Laser TEC On
- +1 > Select QCLI_M Waveform M3Db_rRamp
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
+ +5 > MINI Set Laser TEC Temp Setpoint 1.5
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
+ +5 > MINI Set Laser TEC Temp Setpoint 1.6
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
+ +5 > MINI Set Laser TEC Temp Setpoint 1.7
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
+ +5 > MINI Set Laser TEC Temp Setpoint 1.75
+    Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
++5:00 > Select QCLI_M Waveform M3Db_rRamp
  +1 > SSP_M Set NSample 3500
  +2 Validate MQCL_Start;
 }
@@ -552,7 +573,7 @@ Partition
  int num_CQCL_recovers=0;
  #define C_LOW_CURRENT 0.02
  #define CQCL_TEMP_LIMIT 1.3
- #define CQCL_TEMP_OK(x,y) (x > CQCL_TEMP_LIMIT && fabs(x - y) < 0.2)
+ #define CQCL_TEMP_OK(x,y) (x > CQCL_TEMP_LIMIT && fabs(x - y) < 0.1)
 %}
 
 # CO2 Starting and Stopping
@@ -580,7 +601,7 @@ State CQCL_Start {
       nl_error( 2, "SSP_C Not Ready in CQCL_Start" );
       Validate CQCL_SSP_C_Recover;
     }
-    Hold until ( CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)) ) or 10
+    Hold until ( CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)) ) or 20
     else Validate CQCL_Out_TSpec;
     Hold until valid (CQCLI_Idle) or 2
     else Validate CQCLI_Stop;
@@ -724,7 +745,7 @@ State CQCL_Out_TSpec {
  +1 > CO2 Laser TEC Off
  +5 > CO2 Laser TEC On
     Hold until valid (CQCLI_Idle);
-    Hold until ( CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)) ) or 10
+    Hold until ( CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)) ) or 20
     else Validate CQCL_Out_TSpec;
  +1 Validate CQCL_Start;
 }
@@ -749,7 +770,7 @@ State CQCL_SelectICOSandRun {
     Hold until valid (CQCLI_Idle);
  +1 > CO2 Set Laser TEC Temp Setpoint 1.45
  +1 > CO2 Laser TEC On
- +1 > Select QCLI_C Waveform C2Cd_800Hz10Hz
+ +20 > Select QCLI_C Waveform C2Cd_800Hz10Hz
  +2 Validate CQCL_Start;
 }
 
@@ -889,7 +910,7 @@ Partition
   int num_IQCL_recovers = 0;
   #define I_LOW_CURRENT 0.02
   #define IQCL_TEMP_LIMIT 1.3
-  #define IQCL_TEMP_OK(x,y) (x > IQCL_TEMP_LIMIT && fabs(x - y) < 0.2)
+  #define IQCL_TEMP_OK(x,y) (x > IQCL_TEMP_LIMIT && fabs(x - y) < 0.1)
 %}
 # ISO Starting and Stopping
 
@@ -899,7 +920,7 @@ State IQCL_Init {
       Hold until ((IOSwS&3) == 3);
   +1  Validate IQCLI_Stop;
       Hold until valid (IQCLI_Idle);
- +1 > ISO Set Laser TEC Temp Setpoint 1.68
+ +1 > ISO Set Laser TEC Temp Setpoint 1.75
  +1 > ISO Laser TEC On
       Validate IQCL_Idle;
 }
@@ -916,7 +937,7 @@ State IQCL_Start {
       nl_error( 2, "SSP_I Not Ready in IQCL_Start" );
       Validate IQCL_SSP_I_Recover;
     }
-    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) ) or 10
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) ) or 20
     else Validate IQCL_Out_TSpec;
     Hold until valid (IQCLI_Idle) or 2
     else Validate IQCLI_Stop;
@@ -1037,7 +1058,7 @@ State IQCL_Out_TSpec {
 #+1 > Reprogram CB2 DACs
  +2 > ISO Laser TEC On
     Hold until valid (IQCLI_Idle);
-    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) ) or 10
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) ) or 20
     else Validate IQCL_Out_TSpec;
  +1 Validate IQCL_Start;
 }
@@ -1060,9 +1081,18 @@ State IQCL_SelectICOSandRun {
     Hold until valid (IQCLI_Idle) or 2
     else Validate IQCLI_Stop;
     Hold until valid (IQCLI_Idle);
- +1 > ISO Set Laser TEC Temp Setpoint 1.68
+ +1 > ISO Set Laser TEC Temp Setpoint 1.4
  +1 > ISO Laser TEC On
- +1 > Select QCLI_I Waveform I3Df_600Hz
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) );
+ +5 > ISO Set Laser TEC Temp Setpoint 1.5
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) );
+ +5 > ISO Set Laser TEC Temp Setpoint 1.6
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) );
+ +5 > ISO Set Laser TEC Temp Setpoint 1.7
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) );
+ +5 > ISO Set Laser TEC Temp Setpoint 1.75
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) );
++5:00 > Select QCLI_I Waveform I3Df_600Hz
  +2 Validate IQCL_Start;
 }
 
@@ -1074,9 +1104,18 @@ State IQCL_SelectRingandRun {
     Hold until valid (IQCLI_Idle) or 2
     else Validate IQCLI_Stop;
     Hold until valid (IQCLI_Idle);
- +1 > ISO Set Laser TEC Temp Setpoint 1.68
+ +1 > ISO Set Laser TEC Temp Setpoint 1.4
  +1 > ISO Laser TEC On
- +1 > Select QCLI_I Waveform I3df_rRamp
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) );
+ +5 > ISO Set Laser TEC Temp Setpoint 1.5
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) );
+ +5 > ISO Set Laser TEC Temp Setpoint 1.6
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) );
+ +5 > ISO Set Laser TEC Temp Setpoint 1.7
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) );
+ +5 > ISO Set Laser TEC Temp Setpoint 1.75
+    Hold until ( IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)) );
++5:00 > Select QCLI_I Waveform I3df_rRamp
 #+1 > SSP_I Set NSample 500
  +2 Validate IQCL_Start;
 }
@@ -1328,7 +1367,7 @@ State Pump_Start {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
     Hold until valid (Inverter_On) or 5
       else Validate Pump_Init;
- +1 > MINI Scroll Pump On
+ +5 > MINI Scroll Pump On
     Hold until valid (Inverter_Off) or 5
       else Validate Pump_Is_On;
  +1 > MINI Scroll Pump Off
@@ -1429,7 +1468,7 @@ Partition
   #define PUMP_TEMP_COLD 35
   #define BATH_TEMP_OK(x) (x > BATH_TEMP_COLD)
   #define PUMP_COLD_OK(x) (x < PUMP_TEMP_COLD)
-  #define COOL_P_LOW 18
+  #define COOL_P_LOW 10
   #define COOL_P_HIGH 75
 %}
 
@@ -1555,7 +1594,7 @@ State LuggageBay_TCtrl_Init {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
     Depending on (Record) { Validate LuggageBay_TCtrl_PI_Init; }
    +1 > HK Space Htr Ctl Off
-   +1 > drive Throttle Valve in 48000
+   +1 > drive Indexer Throttle Valve in 48000
     Hold until ((IOSwS & 3) == 3) ;
     Validate LuggageBay_TCtrl_PI_Init; 
 } 
@@ -1585,7 +1624,7 @@ State LuggageBay_TCtrl_PI {
         Validate LuggageBay_TCtrl_Hot;
       } else {
         if (!(TVStat & 1))
-          ci_sendfcmd(2, "Drive Throttle Valve In 48000\n");
+          ci_sendfcmd(2, "Drive Indexer Throttle Valve In 48000\n");
         dstep = LBHtrMaxSP * dstep / LBT_MAX_CAL_BITS;
         ci_sendfcmd(2, "HK Set Space Heater Temp Setpoint %.2f\n", dstep);
         if (!(SpHt_HC_DS))
@@ -1596,7 +1635,7 @@ State LuggageBay_TCtrl_PI {
       step = -dstep;
       if (SpHt_HC_DS)
         ci_sendfcmd(2, "HK Space Htr Ctl Off\n");
-      ci_sendfcmd(2, "Drive Throttle Valve To %u\n", step);
+      ci_sendfcmd(2, "Drive Indexer Throttle Valve To %u\n", step);
     }
   }
 }
@@ -1610,7 +1649,7 @@ State LuggageBay_TCtrl_Hot {
 
 State LuggageBay_TCtrl_Shutdown {
      > HK Space Htr Ctl Off
-     > Drive Throttle Valve In 48000
+     > Drive Indexer Throttle Valve In 48000
 } 
 
 # -----------------------------------------------------------------------------
@@ -1634,9 +1673,9 @@ Depending on (Shutdown) { Validate MTControl_Shutdown; }
     +1 > MINI Set LPV External TEC Setpoint 1.30
     +1 > MINI Set DPV Temp Setpoint 1.39
     +1 > MINI Set Cell Temp Setpoint 1.39
-    +1 > MINI Cell Htr Ctl On
-   +10 > MINI DPV Htr Ctl On
-   +10 > MINI LPV Ext TEC On
+    +1 > MINI LPV Ext TEC On
+    +5 > MINI Cell Htr Ctl On
+    +5 > MINI DPV Htr Ctl On
    +1  Validate MTControl_Watch;
 }
 
@@ -1972,7 +2011,7 @@ State Inverter_Init {
 State Inverter_Start {
      depending on (Shutdown) { Validate Inverter_Shutdown; }
   +2 > Inverter Arm On
-  +1 > Inverter Power On
+  +2 > Inverter Power On
      Hold until (InvPwrS == 1 && InvErrS == 0) or 5
      else Validate Inverter_Off;
      { if (Circuit3_DS && Circuit3_S) Validate Inverter_On;
