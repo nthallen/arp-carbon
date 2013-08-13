@@ -350,7 +350,15 @@ ROWS 15
   1 SSP_I_T_FPGA ISO:ISO_SSP Temp
   1 SSP_I_T_HtSink ISO:ISO_SSP Temp
   1 SSP_I_Num ISO:ISO_SSP Files
-  1 SSP_I_Flags ISO:ISO_SSP Overflow
+  1 CAOVF1:SSP_I_Flags:0 ISO:ISO_SSP Overflow
+  1 CAOVF2:SSP_I_Flags:1 ISO:ISO_SSP Overflow
+  1 CAOVF3:SSP_I_Flags:2 ISO:ISO_SSP Overflow
+  1 PAOVF1:SSP_I_Flags:3 ISO:ISO_SSP Overflow
+  1 PAOVF2:SSP_I_Flags:4 ISO:ISO_SSP Overflow
+  1 PAOVF3:SSP_I_Flags:5 ISO:ISO_SSP Overflow
+  1 ADOVF1:SSP_I_Flags:6 ISO:ISO_SSP Overflow
+  1 ADOVF2:SSP_I_Flags:7 ISO:ISO_SSP Overflow
+  1 ADOVF3:SSP_I_Flags:8 ISO:ISO_SSP Overflow
   1 SSP_I_SN ISO:ISO_SSP Scans
   1 SSP_I_TS ISO:ISO_SSP Skipped
   1 SSP_I_Status ISO:ISO_SSP Status %.0lf
