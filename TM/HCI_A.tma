@@ -1573,17 +1573,17 @@ Partition
 %}
 
 State LuggageBay_TCtrl_Init {
+  +1 > HK Space Htr Ctl Off
+  +1 > drive Indexer Throttle Valve in 48000
+     Hold until (TVStat & 1) or 15;
+  +1 > drive Indexer Throttle Valve out 1
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
     Depending on (Record) { Validate LuggageBay_TCtrl_PI_Init; }
-    Hold until ((IOSwS & 3) == 3) ;
-    Validate LuggageBay_TCtrl_PI_Init; 
+    { if ((IOSwS & 3) == 3)  Validate LuggageBay_TCtrl_PI_Init; }
 } 
 
 State LuggageBay_TCtrl_PI_Init {
   { LBT_sum = 0; LBTGp = 300; LBTGi = 80; }
-  +1 > HK Space Htr Ctl Off
-  +1 > drive Indexer Throttle Valve in 48000
-  +1 > drive Indexer Throttle Valve out 1
   +2 Validate LuggageBay_TCtrl_PI;
 }
 
