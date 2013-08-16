@@ -169,12 +169,13 @@ State MINI_Sample {
     +1 Validate MQCL_SelectRingandRun;
    +30 Validate MQCL_SelectICOSandRun;
       Hold Until (SWStat == SWS_TIMEWARP) or 30:00;
-      { MINI_Ready_To_Calibrate = 1; }
+       Validate MINI_Calibrate;
 }
 
 State MINI_Calibrate {
      Depending on (Shutdown) { Validate MINI_Shutdown; }
      { if (!MM_Pump_S || !MM_Pump_DS) Validate MINI_Fill_To_Ambient; }
+     { MINI_Ready_To_Calibrate = 1; }
      Depending on (1Hz) {
        if (MINI_Ready_To_Calibrate == 2)
          Validate MINI_End_Calibrate;
@@ -198,7 +199,7 @@ State MINI_End_Calibrate {
 
 State MINI_Fill_to_Ambient {
     { MINI_Ready_To_Calibrate = 0; }
-    > MINI Set Cell Pressure Setpoint 120
+    > MINI Set Cell Pressure Setpoint 130
   +1 > MINI Pressure Reg On
     { if (MM_Pump_S && MM_Pump_DS) Validate MINI_Start_P; }
     Depending on (Shutdown) { Validate MINI_Shutdown; }
@@ -525,7 +526,6 @@ State CO2_Calibrate {
     Depending on (Shutdown) { Validate CO2_Shutdown; }
     { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
     { CO2_Ready_To_Calibrate = 1; }
-   
     Depending on (1Hz) {
       if ( CO2_Ready_To_Calibrate != 1 )
         Validate CO2_End_Calibrate;
@@ -1318,7 +1318,7 @@ State GasDeck_Shutdown {
   +1 > CO2 Exhaust Valve Closed
   +1 > ISO Exhaust Valve Closed
   +1 > CO2 Set Cell Pressure Setpoint 120
-  +1 > MINI Set Cell Pressure Setpoint 120
+  +1 > MINI Set Cell Pressure Setpoint 130
   +1 > CO2 Pressure Reg On
   +1 > MINI Pressure Reg On
      Hold Until ( convert(CCelHP) > 730 ) or 2:00;
