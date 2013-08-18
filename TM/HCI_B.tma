@@ -888,8 +888,9 @@ State ISO_End_Calibrate {
     +1 Hold until valid (IQCL_Watch);
    +10 Validate IQCL_Stop;
        Hold Until Valid (IQCL_Idle);
-       { MINI_Ready_To_Calibrate = 0; }
-       Validate ISO_Sample;
+       { MINI_Ready_To_Calibrate = 0;
+         Validate ISO_Sample;
+       }
 }
 
 State ISO_Shutdown {
@@ -1618,9 +1619,9 @@ Partition
 
 State LuggageBay_TCtrl_Init {
   +1 > HK Space Htr Ctl Off
-  +1 > drive Indexer Throttle Valve in 48000
+  +1 > drive Throttle Valve in 48000
      Hold until (TVStat & 1) or 15;
-  +1 > drive Indexer Throttle Valve out 1
+  +1 > drive Throttle Valve out 1
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
     Depending on (Record) { Validate LuggageBay_TCtrl_PI_Init; }
     { if ((IOSwS & 3) == 3)  Validate LuggageBay_TCtrl_PI_Init; }
@@ -1651,7 +1652,7 @@ State LuggageBay_TCtrl_PI {
         Validate LuggageBay_TCtrl_Hot;
       } else {
         if (!(TVStat & 1))
-          ci_sendfcmd(2, "Drive Indexer Throttle Valve In 48000\n");
+          ci_sendfcmd(2, "Drive Throttle Valve In 48000\n");
         dstep = LBHtrMaxSP * dstep / LBT_MAX_CAL_BITS;
         ci_sendfcmd(2, "HK Set Space Heater Temp Setpoint %.2f\n", dstep);
         if (!(SpHt_HC_DS))
@@ -1662,7 +1663,7 @@ State LuggageBay_TCtrl_PI {
       step = -dstep;
       if (SpHt_HC_DS)
         ci_sendfcmd(2, "HK Space Htr Ctl Off\n");
-      ci_sendfcmd(2, "Drive Indexer Throttle Valve To %u\n", step);
+      ci_sendfcmd(2, "Drive Throttle Valve To %u\n", step);
     }
   }
 }
@@ -1676,7 +1677,7 @@ State LuggageBay_TCtrl_Hot {
 
 State LuggageBay_TCtrl_Shutdown {
      > HK Space Htr Ctl Off
-     > Drive Indexer Throttle Valve In 48000
+     > Drive Throttle Valve In 48000
 } 
 
 # -----------------------------------------------------------------------------
