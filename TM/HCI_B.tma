@@ -1364,11 +1364,11 @@ State Pump_Init {
 
 State Pump_Start {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
-    Hold until valid (Inverter_On) or 5
+    Hold until valid (Inverter_On) or 10
       else Validate Pump_Init;
 # +5 > CO2 Scroll Pump On
  +5 > MINI Scroll Pump On
-    Hold until valid (Inverter_Off) or 5
+    Hold until valid (Inverter_Off) or 10
       else Validate Pump_Is_On;
 # +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
@@ -1380,7 +1380,7 @@ State Pump_Start {
       else Validate Pump_Inverter_Timeout;
 # + 1 > CO2 Scroll Pump On
  +1 > MINI Scroll Pump On
-    Hold until valid (Inverter_Off) or 5
+    Hold until valid (Inverter_Off) or 10
       else Validate Pump_Is_On;
  +1 { msg(2, "Inverter failed with and without circuit 3. Retrying"); }
  +1 Validate Pump_Init;
