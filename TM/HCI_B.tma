@@ -1351,7 +1351,7 @@ State Pump_Init {
     > CO2 Exhaust Valve Closed
     > ISO Exhaust Valve Closed
  +1 > MINI Scroll Pump Off
-# +1 > CO2 Scroll Pump Off
+ +1 > CO2 Scroll Pump Off
  +1 > Circuit3 Off
  +3 Hold until (convert(PM1V1) > 20) or 5
     else Validate Pump_Low_Battery;
@@ -1366,11 +1366,11 @@ State Pump_Start {
     Depending on (Shutdown) { Validate Pump_Shutdown; }
     Hold until valid (Inverter_On) or 10
       else Validate Pump_Init;
-# +5 > CO2 Scroll Pump On
- +5 > MINI Scroll Pump On
+ +5 > CO2 Scroll Pump On
+ +10 > MINI Scroll Pump On
     Hold until valid (Inverter_Off) or 10
       else Validate Pump_Is_On;
-# +1 > CO2 Scroll Pump Off
+ +1 > CO2 Scroll Pump Off
  +1 > MINI Scroll Pump Off
  +1 Hold until (Pump_Ground_Power || convert(PM1V1) > 26) or 3
       else Validate Pump_Circuit3_Fail;
@@ -1378,8 +1378,8 @@ State Pump_Start {
  +1 Validate Inverter_Start;
     Hold until valid (Inverter_On_Battery) or 10
       else Validate Pump_Inverter_Timeout;
-# + 1 > CO2 Scroll Pump On
- +1 > MINI Scroll Pump On
+ +1 > CO2 Scroll Pump On
++10 > MINI Scroll Pump On
     Hold until valid (Inverter_Off) or 10
       else Validate Pump_Is_On;
  +1 { msg(2, "Inverter failed with and without circuit 3. Retrying"); }
@@ -1412,7 +1412,7 @@ State Pump_Is_On {
      Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
   +1 > Circuit3 On
   +1 > ISO Exhaust Valve Open
-#  +5 > CO2 Exhaust Valve Open
+  +5 > CO2 Exhaust Valve Open
      Validate Pump_Watch;
 }
 
@@ -1420,12 +1420,12 @@ State Pump_Watch Nolog {
       Depending on (Shutdown) { Validate Pump_Shutdown; }
       Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
       Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
-      hold until ( !PUMP_TEMP_OK(convert(MPmpT)) );
-      hold until ( PUMP_TEMP_OK(convert(MPmpT)) ) or 5
-#      hold until ( !PUMP_TEMP_OK(convert(CPmpT)) ||
-#           !PUMP_TEMP_OK(convert(MPmpT)) );
-#      hold until ( PUMP_TEMP_OK(convert(CPmpT)) &&
-#           PUMP_TEMP_OK(convert(MPmpT)) ) or 5
+#      hold until ( !PUMP_TEMP_OK(convert(MPmpT)) );
+#      hold until ( PUMP_TEMP_OK(convert(MPmpT)) ) or 5
+      hold until ( !PUMP_TEMP_OK(convert(CPmpT)) ||
+           !PUMP_TEMP_OK(convert(MPmpT)) );
+      hold until ( PUMP_TEMP_OK(convert(CPmpT)) &&
+           PUMP_TEMP_OK(convert(MPmpT)) ) or 5
       else Validate Pump_Hot;
       Validate Pump_Watch;
 }
@@ -1437,10 +1437,10 @@ State Pump_Hot {
       > CO2 Exhaust Valve Closed
       > ISO Exhaust Valve Closed
    +1 > MINI Scroll Pump Off
-# +1 > CO2 Scroll Pump Off
-      Hold until ( PUMP_TEMP_OK(convert(MPmpT)+5) );
-#       Hold until ( PUMP_TEMP_OK(convert(CPmpT)+5) &&
-#            PUMP_TEMP_OK(convert(MPmpT)+5) );
+   +1 > CO2 Scroll Pump Off
+#      Hold until ( PUMP_TEMP_OK(convert(MPmpT)+5) );
+       Hold until ( PUMP_TEMP_OK(convert(CPmpT)+5) &&
+            PUMP_TEMP_OK(convert(MPmpT)+5) );
       Validate Pump_Start;
 }
 
@@ -1457,12 +1457,12 @@ State Pump_Shutdown {
       # pressure
       Hold until valid (GasDeck_Is_Shutdown) or 2:00;
    +1 > MINI Scroll Pump Off
-# +1 > CO2 Scroll Pump Off
+   +1 > CO2 Scroll Pump Off
    +1 Validate Pump_Off;
 }
 
 State Pump_Off {
-    Hold until valid (Pump_Cool_Is_Shutdown);
+#    Hold until valid (Pump_Cool_Is_Shutdown);
     Validate Pump_Is_Shutdown;
 }
 
@@ -1486,10 +1486,10 @@ Partition
 %}
 
 State Pump_Cool_Init {
-    > Coolant Pump Off
-    > Coolant Divert Off
+#    > Coolant Pump Off
+#    > Coolant Divert Off
     > Panel Top LED Off
-    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+#    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
 #    Depending on (Pump_Is_On) { Validate Pump_Cool_Start; }
 }
 
