@@ -5,27 +5,27 @@ MSkn1T  Cell Htr Connector Plate
 MSkn2T  Thermostat on Cell
 MSkn3T  Middle of Cell Fin
 MRov1T  On Cell Minco Htr
-MRov2T  DPV Back Access Panel
+MRov2T  Mini outlet plumbing
 MRov3T  LPV Side Near Cell
-MRov4T  Exhaust Valve
+MRov4T  LPV Front
 MRov5T  Luggage Bay Air Temp
 
-CSG1T
-CSG2T
-CSkn1T
+CSG1T   On Synflex tube towards valve manifold
+CSG2T   On swagelok nut on CO2 inlet side
+CSkn1T  
 CSkn2T
 CSkn3T
-CRov1T
-CRov2T
+CRov1T  On CO2 cell bracket 
+CRov2T  Inlet Side Mirror Holder
 CRov3T  Outlet Side Mirror Holder
-CRov4T
+CRov4T  On CO2 exhaust valve
 CRov5T  Luggage Bay Air Temp
 
 ISG1T  On Inlet tube to ISO Cell
-ISG2T
-ISkn1T
-ISkn2T
-ISkn3T
+ISG2T  On Inlet tube to ISO Cell
+ISkn1T Cell Therm
+ISkn2T Cell Therm
+ISkn3T Cell Therm
 IRov1T On ILPV Heat Sink
 IRov2T
 IRov3T Air Temp between SSP and Cell
