@@ -23,8 +23,7 @@ if strcmp(cfg.ScanDir,'SSP_C')
     if ~isfield(E10,'CCel2T')
         E10.CCel2T = interp1(T1,E.CCel2T,T10,'linear');
     end
-    % PT.Tavg = 273.15 + (E10.CCel1T + E10.CCel2T)/2; %gas temp (in K) to use for fit
-    PT.Tavg = 273.15 + E10.CCel2T; %gas temp (in K) to use for fit
+    PT.Tavg = 273.15 + (E10.CCel1T + E10.CCel2T)/2; %gas temp (in K) to use for fit
     PT.ScanNum = round(interp1(T1,E.SSP_C_Num,T10,'linear','extrap'));
     PT.QCLI_Wave = interp1(T1,E.QCLI_C_Wave,T10,'nearest','extrap'); %for example QCLI_C_Wave
 elseif strcmp(cfg.ScanDir,'SSP_M')
@@ -35,7 +34,7 @@ elseif strcmp(cfg.ScanDir,'SSP_M')
     PT.QCLI_Wave = interp1(T1,E.QCLI_M_Wave,T10,'nearest','extrap'); %for example QCLI_C_Wave
 elseif strcmp(cfg.ScanDir,'SSP_I')
     PT.TPT = T1;
-    PT.CellP = E.ICelHP;
+    PT.CellP = fastavg(E10.ICelLP,10);
     PT.Tavg = 273.15 + (E.ICel1T + E.ICel2T)/2;
     PT.ScanNum = E.SSP_I_Num;
     PT.QCLI_Wave = E.QCLI_I_Wave;
