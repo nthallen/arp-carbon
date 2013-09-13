@@ -1,5 +1,6 @@
-function pick_regions
-% pick_regions
+function pick_regions(Algo)
+% pick_regions(Algo)
+%  Algo should be 'A' or 'B'. The default is 'A'
 % Strategy:
 %  1: identify contiguous regions in each waveform
 %  2: within ringdown regions, restrict to regions where
@@ -7,19 +8,27 @@ function pick_regions
 %  3: within icos regions, identify two baseline regions and a sample
 %     region
 % 
-Algo='A';
+if nargin < 1
+    Algo='A';
+end
 cfg = load_ICOSfit_cfg;
 line_obj = fitline('load');
 waves = load_waves;
 D = ne_load('HCIeng_1', 'HCI_Data_Dir');
-D.CPrs_Reg_DS = bitand(D.DS84C,32);
-D.CGas_Vlv_DS = bitand(D.DS84C,64);
-D.MGas_Vlv_DS = bitand(D.DS868,128);
-D.MPrs_Reg_DS = bitand(D.DS868,64);
+D.CPrs_Reg_DS = bitand(D.DS84C,32) ~= 0;
+D.CGas_Vlv_DS = bitand(D.DS84C,64) ~= 0;
+D.MGas_Vlv_DS = bitand(D.DS868,128) ~= 0;
+D.MPrs_Reg_DS = bitand(D.DS868,64) ~= 0;
 SSP_Num = eval(['D.' cfg.ScanDir '_Num']);
 x = [1:length(SSP_Num)]';
 v = find(diff(SSP_Num)>0)+1; % Index of SSP numbers
-QCLI_Wave = eval(['D.' cfg.WavesFile(1:6) '_Wave']);
+WF = cfg.WavesFile;
+j = find(WF == '/' | WF == '\',1,'last');
+if isempty(j)
+    j = 0;
+end
+WV = WF(j+1:end-2);
+QCLI_Wave = eval(['D.' WV '_Wave']);
 wn = QCLI_Wave(v);
 vv = [ 0; find(diff(wn)) ] + 1; % Index in v of new waveforms
 wnum = wn(vv);
@@ -37,6 +46,7 @@ xend = v([vv(2:end); end])-1;
 % identify Sample Regions
 icosreg = find([waves(wnum+1).ISICOS]);
 samplenum = 0;
+calsamplenum = 0;
 Axis=cfg.ScanDir(5);
 if strcmp(Axis,'I')
     Axis='M';
@@ -53,10 +63,9 @@ for i=1:length(icosreg)
   % ibit, samplestart and sampleend are all referenced to
   % xreg
   
-  PRStat = eval(['D.' Axis 'Prs_Reg_DS']);
   CellP=eval(['D.' Axis 'CelP']);
-  ibit = bitand(PRStat(xreg),max(PRStat)) ~= 0;
-  [samplestart,sampleend] = select_reg( ibit, 150 );
+  PRStat = eval(['D.' Axis 'Prs_Reg_DS']);
+  [samplestart,sampleend] = select_reg( PRStat(xreg), 150 );
   for j=1:length(samplestart)
     samplereg = xreg(samplestart(j):sampleend(j));
     vdP = abs(diff(CellP(samplereg))) < .4;
@@ -88,24 +97,23 @@ for i=1:length(icosreg)
       end
     end
   end
-  PRStat = eval(['D.' Axis 'Gas_Vlv_DS']);
-  ibit = bitand(PRStat(xreg),max(PRStat)) ~= 0;
-  [samplestart,sampleend] = select_reg( ibit, 30 );
-  for j=1:length(samplestart)
-    samplereg = xreg(samplestart(j):sampleend(j));
-    vdP = abs(diff(CellP(samplereg))) < 3;
+  GVStat = eval(['D.' Axis 'Gas_Vlv_DS']);
+  [calsamplestart,calsampleend] = select_reg( GVStat(xreg), 30 );
+  for j=1:length(calsamplestart)
+    calsamplereg = xreg(calsamplestart(j):calsampleend(j));
+    vdP = abs(diff(CellP(calsamplereg))) < 3;
     [Pstart,Pend] = select_reg(vdP, 10);
     if ~isempty(Pstart)
-      %samplenum = samplenum + 1;
-      samplePreg = samplereg(Pstart(1):end);
-      sspstart = SSP_Num(samplePreg(1));
-      sspend = SSP_Num(samplePreg(end));
-      line_obj = addregion( line_obj, 'C', samplenum, [ sspstart sspend ] );
-      vdT = [ 1; diff(D.THCIeng_1(samplePreg)) < 10 ];
+      calsamplenum = calsamplenum + 1;
+      calsamplePreg = calsamplereg(Pstart(1):end);
+      sspstart = SSP_Num(calsamplePreg(1));
+      sspend = SSP_Num(calsamplePreg(end));
+      line_obj = addregion( line_obj, 'C', calsamplenum, [ sspstart sspend ] );
+      vdT = [ 1; diff(D.THCIeng_1(calsamplePreg)) < 10 ];
       [qclistart,qcliend] = select_reg(vdT,10);
       if length(qclistart) > 1 || qclistart(1) > 1
         for j1 = 1:length(qclistart)
-          Tqcli = D.THCIeng_1(samplePreg(qclistart(j1):qcliend(j1)));
+          Tqcli = D.THCIeng_1(calsamplePreg(qclistart(j1):qcliend(j1)));
           if qclistart(j1) > 1
             iQ = find(Tqcli > Tqcli(1)+60, 1 ); % QCLI Warmup
             if isempty(iQ)
@@ -115,8 +123,8 @@ for i=1:length(icosreg)
             end
           end
           if qclistart(j1) < qcliend(j1)
-            line_obj = addregion( line_obj, 'C', samplenum, ...
-              SSP_Num(samplePreg([qclistart(j1) qcliend(j1)])), j1 );
+            line_obj = addregion( line_obj, 'C', calsamplenum, ...
+              SSP_Num(calsamplePreg([qclistart(j1) qcliend(j1)])), j1 );
           end
         end
       end
