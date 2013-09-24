@@ -73,8 +73,8 @@ for i=1:length(icosreg)
     if ~isempty(Pstart)
       samplenum = samplenum + 1;
       samplePreg = samplereg(Pstart(1):end);
-      sspstart = SSP_Num(samplePreg(1));
-      sspend = SSP_Num(samplePreg(end));
+      sspstart = SSP_Num(samplePreg(1))+1;
+      sspend = SSP_Num(samplePreg(end))-1;
       line_obj = addregion( line_obj, 'R', samplenum, [ sspstart sspend ] );
       vdT = [ 1; diff(D.THCIeng_1(samplePreg)) < 10 ];
       [qclistart,qcliend] = select_reg(vdT,10);
