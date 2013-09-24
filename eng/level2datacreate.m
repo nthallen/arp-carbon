@@ -1,6 +1,19 @@
 function level2datacreate(config_file)
+%function level2datacreate(config_file)
 %function to process multiple ICOSout directories and do some simple flaging
 %of 'bad' data.
+%Usage: level2datacreate('level2config')
+% Will use the configuration file level2config.m to make a .mat file.
+% level2config.m should be stored in the local directory with the ICOSout
+% files. 
+% Format of level2config.m
+%regions={'R1','R2','R3','R4'};
+%suffix={'3p1e'};
+%OFILE='F130828.1.L2a.mat';
+%linen=[1,2];
+%remove_OA='y';
+%chilimit=1e-5;
+
 eval(config_file);
 cfg = load_ICOSfit_cfg;
 run=getrun(1);
