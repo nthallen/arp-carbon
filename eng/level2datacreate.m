@@ -20,6 +20,7 @@ run=getrun(1);
 D=ne_load('HCIeng_1','HCI_Data_Dir');
 Axis=cfg.ScanDir(5);
 SSP_Num=eval(['D.SSP_' Axis '_Num']);
+SSP_SN=eval(['D.SSP_' Axis '_SN']);
 save(OFILE,'run')
 for s=1:length(suffix)
     data=[]; snum=[]; chisq=[];
@@ -68,7 +69,11 @@ for s=1:length(suffix)
         end
 end
 sspnum=snum;
-ftime=interp1(SSP_Num(diff(SSP_Num)>0),D.THCIeng_1(diff(SSP_Num)>0),snum);
+hdrs=loadscanhdrs(sspnum);
+sn=reshape(struct2array(hdrs),9,size(hdrs,2));
+lon=find(diff(D.SSP_M_SN)~=0);
+spline1=csaps(D.THCIeng_1,SSP_SN,.05,D.THCIeng_1);
+ftime=interp1(spline1(lon),D.THCIeng_1(lon),sn(6,:));
 time=time2d(ftime);
 Lat=interp1(time2d(D.THCIeng_1),D.BP_Lat,time);
 Lon=interp1(time2d(D.THCIeng_1),D.BP_Lon,time);
