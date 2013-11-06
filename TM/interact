@@ -17,7 +17,7 @@ case $HCI_CONFIG in
      IOK='';;
   C) MOK=''
      COK=''
-     IOK=dns;;
+     IOK=;;
   *) echo "`date +%T` [ERROR] Invalid HCI_CONFIG: '$HCI_CONFIG'"
      MOK=dns
      COK=dns

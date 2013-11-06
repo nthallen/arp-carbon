@@ -23,6 +23,11 @@ ci_sendfcmd(2, "PhRTG Datum CPU_Pct %lu %s %s\n", itime(),
     text(CPU_Pct), text(CPU2_Pct));
 ci_sendfcmd(2, "PhRTG Datum MDetT %lu %s\n", itime(), text(MDetT));
 ci_sendfcmd(2, "PhRTG Datum MCelP %lu %s\n", itime(), text(MCelP));
+ci_sendfcmd(2, "PhRTG Datum MLasI %lu %s\n", itime(), text(MLasI));
+ci_sendfcmd(2, "PhRTG Datum MLPVCT %lu %s\n", itime(), text(MLPVCT));
+ci_sendfcmd(2, "PhRTG Datum MLPV_P %lu %s\n", itime(), text(MLPV_P));
+ci_sendfcmd(2, "PhRTG Datum MQCL_P %lu %s\n", itime(), text(MQCL_P));
+ci_sendfcmd(2, "PhRTG Datum MLTE7R7T %lu %s\n", itime(), text(MLTE7R7T));
 ci_sendfcmd(2, "PhRTG Datum CDetT %lu %s\n", itime(), text(CDetT));
 ci_sendfcmd(2, "PhRTG Datum CRvT %lu %.2lf %.2lf %.2lf %.2lf %.2lf\n",
   itime(), convert(CRv1T), convert(CRv2T), convert(CRv3T),

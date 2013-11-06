@@ -60,4 +60,6 @@
   : ISO Calibrate { $0 = SWS_ICALIBRATE; }
   : ISO Start { $0 = SWS_ISTART; }
   : SPAN Watchdog Disable { $0 = SWS_SPANCHK_IDLE; }
+  : GasDeck PI { $0 = SWS_GASDECK_PI; }
+  : GasDeck Close { $0 = SWS_GASDECK_CLOSE; }
   ;

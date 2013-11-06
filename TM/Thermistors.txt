@@ -1,5 +1,9 @@
 # Thermistors.txt stores locations of roving, skin, and gas sample thermistors
+<<<<<<< .mine
+MSG1T   On Cell Inlet plumbing
+=======
 MSG1T   On MLPV Heat Sink
+>>>>>>> .r516
 MSG2T   Manifold Outlet
 MSkn1T  Cell Htr Connector Plate
 MSkn2T  Thermostat on Cell
@@ -7,7 +11,11 @@ MSkn3T  Middle of Cell Fin
 MRov1T  On Cell Minco Htr
 MRov2T  Mini outlet plumbing
 MRov3T  LPV Side Near Cell
+<<<<<<< .mine
+MRov4T  On MLPV Heat Sink
+=======
 MRov4T  LPV Front
+>>>>>>> .r516
 MRov5T  Luggage Bay Air Temp
 
 CSG1T   On Synflex tube towards valve manifold
@@ -21,13 +29,28 @@ CRov3T  Outlet Side Mirror Holder
 CRov4T  On CO2 exhaust valve
 CRov5T  Luggage Bay Air Temp
 
+<<<<<<< .mine
+ISG1T  On Inlet tube to ISO Cell
+ISG2T  On Inlet tube to ISO Cell
+ISkn1T Cell Therm
+ISkn2T Cell Therm
+ISkn3T Cell Therm
+IRov1T On ILPV Top Heat Sink
+=======
 ISG1T  On Inlet tube to ISO Cell
 ISG2T  On Inlet tube to ISO Cell
 ISkn1T Cell Therm
 ISkn2T Cell Therm
 ISkn3T Cell Therm
 IRov1T On ILPV Heat Sink
+>>>>>>> .r516
 IRov2T
+<<<<<<< .mine
+IRov3T Air Temp between SSP and Cell
+IRov4T ISO Baratron
+IRov5T On ILPV Bottom Heat Sink
+=======
 IRov3T Air Temp between SSP and Cell
 IRov4T ISO Baratron
 IRov5T On top of ILPV
+>>>>>>> .r516

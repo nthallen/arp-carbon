@@ -148,9 +148,15 @@ State MINI_Init {
 State MINI_Start {
       Depending on (Shutdown) { Validate MINI_Shutdown; }
    +5 Hold until valid (Pump_Watch);
+<<<<<<< .mine
+   +1 > MINI Set Laser TEC Temp Setpoint 1.72
+   +1 > MINI Laser TEC On
+   +2:00 Validate MINI_Start_P;
+=======
    +1 > MINI Set Laser TEC Temp Setpoint 1.75
    +1 > MINI Laser TEC On
    +5:00 Validate MINI_Start_P;
+>>>>>>> .r516
 }
 
 State MINI_Start_P {
@@ -167,8 +173,13 @@ State MINI_Sample {
        Depending on (Shutdown) { Validate MINI_Shutdown; }
        { if (!MM_Pump_S || !MM_Pump_DS) Validate MINI_Fill_To_Ambient; }
     +1 Validate MQCL_SelectRingandRun;
+<<<<<<< .mine
+   +30 Validate MQCL_SelectICOSandRun;
+      Hold Until (SWStat == SWS_TIMEWARP) or 45:00;
+=======
    +30 Validate MQCL_SelectICOSandRun;
       Hold Until (SWStat == SWS_TIMEWARP) or 30:00;
+>>>>>>> .r516
        Validate MINI_Calibrate;
 }
 
@@ -518,7 +529,7 @@ State CO2_Start_P {
 State CO2_Sample {
        Depending on (Shutdown) { Validate CO2_Shutdown; }
        { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
-       Hold until (SWStat == SWS_TIMEWARP) or 30:00;
+       Hold until (SWStat == SWS_TIMEWARP) or 45:00;
        Validate CO2_Calibrate;
 }
 
@@ -856,10 +867,17 @@ State ISO_Init {
 
 State ISO_Start {
       Depending on (Shutdown) { Validate ISO_Shutdown; }
+<<<<<<< .mine
+   +5 Hold until valid (Pump_Watch);
+   +1 > ISO Set Laser TEC Temp Setpoint 1.72
+   +1 > ISO Laser TEC On
+   +2:00 Validate ISO_Sample;
+=======
    +5 Hold until valid (Pump_Watch);
    +1 > ISO Set Laser TEC Temp Setpoint 1.72
    +1 > ISO Laser TEC On
    +5:00 Validate ISO_Sample;
+>>>>>>> .r516
 }
 
 State ISO_Sample {
@@ -1406,6 +1424,18 @@ State Pump_Inverter_Timeout {
     Validate Pump_Init;
 }
 
+<<<<<<< .mine
+State Pump_Is_On {
+     Depending on (Shutdown) { Validate Pump_Shutdown; }
+     Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
+     Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
+  +1 > Circuit3 On
+  +1 > ISO Exhaust Valve Open
+  +5 > CO2 Exhaust Valve Open
+     Validate MPump_Watch;
+     Validate CPump_Watch;
+     Validate Pump_Watch;
+=======
 State Pump_Is_On {
      Depending on (Shutdown) { Validate Pump_Shutdown; }
      Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
@@ -1428,12 +1458,15 @@ State Pump_Watch Nolog {
            PUMP_TEMP_OK(convert(MPmpT)) ) or 5
       else Validate Pump_Hot;
       Validate Pump_Watch;
+>>>>>>> .r516
 }
 
-State Pump_Hot {
+State Pump_Watch Nolog {
       Depending on (Shutdown) { Validate Pump_Shutdown; }
       Depending on (Inverter_Off) { Validate Pump_Inverter_Off; }
       Depending on (Inverter_Fail) { Validate Pump_Inverter_Off; }
+<<<<<<< .mine
+=======
       > CO2 Exhaust Valve Closed
       > ISO Exhaust Valve Closed
    +1 > MINI Scroll Pump Off
@@ -1442,6 +1475,7 @@ State Pump_Hot {
        Hold until ( PUMP_TEMP_OK(convert(CPmpT)+5) &&
             PUMP_TEMP_OK(convert(MPmpT)+5) );
       Validate Pump_Start;
+>>>>>>> .r516
 }
 
 State Pump_Inverter_Off {
@@ -1468,6 +1502,81 @@ State Pump_Off {
 
 State Pump_Is_Shutdown {}
 
+#----------------------------------------------------------------
+# Partition 17: MINI/ISO Pumpkin Troll
+#----------------------------------------------------------------
+Partition
+
+%{
+ #define MPUMP_TEMP_HOT 50
+ #define MPUMP_TEMP_OK(x) (x < MPUMP_TEMP_HOT)
+%}
+
+State MPump_Watch_Init {}
+
+State MPump_Watch Nolog {
+      Depending on (Shutdown) { Validate MPump_Watch_Shutdown; }
+      hold until ( !MPUMP_TEMP_OK(convert(MPmpT)) );
+      hold until ( MPUMP_TEMP_OK(convert(MPmpT)) ) or 5
+      else Validate MPump_Hot;
+      Validate MPump_Watch;
+}
+
+State MPump_Hot {
+      Depending on (Shutdown) { Validate MPump_Watch_Shutdown; }
+ +1   > ISO Exhaust Valve Closed
+      Hold until ( MPUMP_TEMP_OK(convert(MPmpT)+5) ) or 5:00
+         else Validate MPump_Too_Hot;
+ +1   > ISO Exhaust Valve Open
+ +1   Validate MPump_Watch;
+}
+
+State MPump_Too_Hot {
+      Depending on (Shutdown) { Validate MPump_Watch_Shutdown; }
+  +1  > MINI Scroll Pump Off
+      Hold until ( MPUMP_TEMP_OK(convert(MPmpT)+5) );
+  +1   Validate Pump_Start;
+}
+
+State MPump_Watch_Shutdown {}
+
+#----------------------------------------------------------------
+# Partition 17: CO2 Pumpkin Troll
+#----------------------------------------------------------------
+Partition
+
+%{
+ #define CPUMP_TEMP_HOT 55
+ #define CPUMP_TEMP_OK(x) (x < CPUMP_TEMP_HOT)
+%}
+
+State CPump_Watch_Init {}
+
+State CPump_Watch Nolog {
+      Depending on (Shutdown) { Validate CPump_Watch_Shutdown; }
+      hold until ( !CPUMP_TEMP_OK(convert(CPmpT)) );
+      hold until ( CPUMP_TEMP_OK(convert(CPmpT)) ) or 5
+      else Validate CPump_Hot;
+      Validate CPump_Watch;
+}
+
+State CPump_Hot {
+      Depending on (Shutdown) { Validate CPump_Watch_Shutdown; }
+ +1   > ISO Exhaust Valve Closed
+      Hold until ( CPUMP_TEMP_OK(convert(CPmpT)+5) ) or 5:00
+         else Validate CPump_Too_Hot;
+ +1   > ISO Exhaust Valve Open
+ +1   Validate CPump_Watch;
+}
+
+State CPump_Too_Hot {
+      Depending on (Shutdown) { Validate CPump_Watch_Shutdown; }
+  +1  > MINI Scroll Pump Off
+      Hold until ( CPUMP_TEMP_OK(convert(CPmpT)+5) );
+  +1   Validate Pump_Start;
+}
+
+State CPump_Watch_Shutdown {}
 
 # -----------------------------------------------------------------------------
 # Partition 17: Pump Cooling Control
@@ -1686,7 +1795,7 @@ State LuggageBay_TCtrl_Shutdown {
 Partition
 
 %{
-  #define TEMP_OK(x,y) ( y-x < 0.1 )
+  #define TEMP_OK(x,y) ( y-x < 0.30 )
 %}
 
 State MTControl_Init {

@@ -1,53 +1,55 @@
 SW_Variable: SWStat
 
-SWS_SHUTDOWN      1  Shutdown: Validate Shutdown; break;
-SWS_TAKE_DATA     2  Flight Take Data: Validate TAKE_DATA; break;
-SWS_LAND          3  Flight Land: Validate LAND; break;
-SWS_MQCL_SELICOS  4  MINI Laser Select ICOS and Run:
+SWS_SHUTDOWN 	1 	Shutdown: Validate Shutdown; break;
+SWS_TAKE_DATA   2	Flight Take Data: Validate TAKE_DATA; break;
+SWS_LAND	3	Flight Land: Validate LAND; break;
+SWS_MQCL_SELICOS 4	MINI Laser Select ICOS and Run:
                           Validate MQCL_SelectICOSandRun; break;
-SWS_MQCL_SELRING 31  MINI Laser Select Ring and Run:
+SWS_MQCL_SELRING 31     MINI Laser Select Ring and Run:
                           Validate MQCL_SelectRingandRun; break;
-SWS_MQCL_START    5  MINI Laser Start: Validate MQCL_Start; break;
-SWS_MQCL_STOP     6  MINI Laser Stop: Validate MQCL_Stop; break;
-SWS_MQCL_DISABLE 23  MINI Laser Disable: Validate MQCL_Idle; break;
-SWS_MT_START      7  MINI Temperature Ctrl Start: Validate MTControl_Start; break;
-SWS_MT_STOP       8  MINI Temperature Ctrl Stop: Validate MTControl_Shutdown; break;
-SWS_MCALIBRATE    9  MINI Calibrate: Validate MINI_Calibrate; break;
-SWS_MSTART       10  MINI Start: Validate MINI_Start; break;
-SWS_SMPLHTRWTCH  11  HCI Start: Validate SampleHtr_Watch; break;
-SWS_CQCL_SELECT  12  CO2 Laser Select ICOS and Run:
+SWS_MQCL_START 	5 	MINI Laser Start: Validate MQCL_Start; break;
+SWS_MQCL_STOP	6	MINI Laser Stop: Validate MQCL_Stop; break;
+SWS_MQCL_DISABLE 23     MINI Laser Disable: Validate MQCL_Idle; break;
+SWS_MT_START 	7      	MINI Temperature Ctrl Start: Validate MTControl_Start; break;
+SWS_MT_STOP	8	MINI Temperature Ctrl Stop: Validate MTControl_Shutdown; break;
+SWS_MCALIBRATE 	9     	MINI Calibrate: Validate MINI_Calibrate; break;
+SWS_MSTART	10	MINI Start: Validate MINI_Start; break;
+SWS_SMPLHTRWTCH	11	HCI Start: Validate SampleHtr_Watch; break;
+SWS_CQCL_SELECT 12	CO2 Laser Select ICOS and Run:
                           Validate CQCL_SelectICOSandRun; break;
-SWS_CQCL_START   13  CO2 Laser Start: Validate CQCL_Start; break;
-SWS_CQCL_STOP    14  CO2 Laser Stop: Validate CQCL_Stop; break;
-SWS_CQCL_DISABLE 24  CO2 Laser Disable: Validate CQCL_Idle; break;
-SWS_CT_START     15  CO2 Temperature Ctrl Start: Validate CTControl_Start; break;
-SWS_CT_STOP      16  CO2 Temperature Ctrl Stop: Validate CTControl_Shutdown; break;
-SWS_CCALIBRATE   17  CO2 Calibrate: Validate CO2_Calibrate; break;
-SWS_CSTART       18  CO2 Start: Validate CO2_Start; break;
-SWS_TIMEWARP     19  Time Warp: break;
-SWS_PUMP_START   20  Pump Start: Validate Pump_Start; break;
-SWS_COOL_START   21  Pump Cool Start: Validate Pump_Cool_Start; break;
-SWS_READ_FILE    22  Read File: Validate ReadFile; break;
-SWS_MQCL_IDLE    25  MINI Laser Idle: Validate MQCL_Idle; break;
-SWS_CQCL_IDLE    26  CO2 Laser Idle: Validate CQCL_Idle; break;
-SWS_MQCL_RAMP    27  MINI Laser TEC Ramp: Validate MINI_Laser_TEC_Ramp; break;
-SWS_FILLMINI     28  MINI Fill Cell: Validate GasDeck_Fill_MINI_Cell; break;
-SWS_FILLCO2      29  CO2 Fill Cell: Validate GasDeck_Fill_CO2_Cell; break;
-SWS_CQCL_RAMP    30  CO2 Laser TEC Ramp: Validate CO2_Laser_TEC_Ramp; break;
-SWS_GROUND_PWR   32  Ground Power On: Pump_Ground_Power = 1; break;
-SWS_AIRCRAFT_PWR 33  Ground Power Off: Pump_Ground_Power = 0; break;
-SWS_SHORTSHUT    34  Shortcircuit Shutdown: Validate Shutdown_Fast; break;
+SWS_CQCL_START 	13	CO2 Laser Start: Validate CQCL_Start; break;
+SWS_CQCL_STOP	14	CO2 Laser Stop: Validate CQCL_Stop; break;
+SWS_CQCL_DISABLE 24     CO2 Laser Disable: Validate CQCL_Idle; break;
+SWS_CT_START 	15     	CO2 Temperature Ctrl Start: Validate CTControl_Start; break;
+SWS_CT_STOP	16	CO2 Temperature Ctrl Stop: Validate CTControl_Shutdown; break;
+SWS_CCALIBRATE 	17    	CO2 Calibrate: Validate CO2_Calibrate; break;
+SWS_CSTART	18	CO2 Start: Validate CO2_Start; break;
+SWS_TIMEWARP    19      Time Warp: break;
+SWS_PUMP_START  20      Pump Start: Validate Pump_Start; break;
+SWS_COOL_START  21      Pump Cool Start: Validate Pump_Cool_Start; break;
+SWS_READ_FILE   22      Read File: Validate ReadFile; break;
+SWS_MQCL_IDLE   25      MINI Laser Idle: Validate MQCL_Idle; break;
+SWS_CQCL_IDLE   26      CO2 Laser Idle: Validate CQCL_Idle; break;
+SWS_MQCL_RAMP   27      MINI Laser TEC Ramp: Validate MINI_Laser_TEC_Ramp; break;
+SWS_FILLMINI    28      MINI Fill Cell: Validate GasDeck_Fill_MINI_Cell; break;
+SWS_FILLCO2     29      CO2 Fill Cell: Validate GasDeck_Fill_CO2_Cell; break;
+SWS_CQCL_RAMP   30      CO2 Laser TEC Ramp: Validate CO2_Laser_TEC_Ramp; break;
+SWS_GROUND_PWR  32      Ground Power On: Pump_Ground_Power = 1; break;
+SWS_AIRCRAFT_PWR 33      Ground Power Off: Pump_Ground_Power = 0; break;
+SWS_SHORTSHUT   34      Shortcircuit Shutdown: Validate Shutdown_Fast; break;
 
-SWS_IQCL_SELICOS 35  ISO Laser Select ICOS and Run:
+SWS_IQCL_SELICOS 35     ISO Laser Select ICOS and Run:
                           Validate IQCL_SelectICOSandRun; break;
-SWS_IQCL_SELRING 36  ISO Laser Select Ring and Run:
+SWS_IQCL_SELRING 36     ISO Laser Select Ring and Run:
                           Validate IQCL_SelectRingandRun; break;
-SWS_IQCL_START   37  ISO Laser Start: Validate IQCL_Start; break;
-SWS_IQCL_STOP    38  ISO Laser Stop: Validate IQCL_Stop; break;
-SWS_IQCL_IDLE    39  ISO Laser Idle: Validate IQCL_Idle; break;
-SWS_IQCL_DISABLE 44  ISO Laser Disable: Validate IQCL_Idle; break;
-SWS_IT_START     40  ISO Temperature Ctrl Start: Validate ITControl_Start; break;
-SWS_IT_STOP      41  ISO Temperature Ctrl Stop: Validate ITControl_Shutdown; break;
-SWS_ICALIBRATE   42  ISO Calibrate: Validate ISO_Calibrate; break;
-SWS_ISTART       43  ISO Start: Validate ISO_Start; break;
-SWS_SPANCHK_IDLE 45  SPAN Watchdog Disable: Validate BAT_SPAN_Idle; break;
+SWS_IQCL_START 	 37     ISO Laser Start: Validate IQCL_Start; break;
+SWS_IQCL_STOP	 38     ISO Laser Stop: Validate IQCL_Stop; break;
+SWS_IQCL_IDLE    39     ISO Laser Idle: Validate IQCL_Idle; break;
+SWS_IQCL_DISABLE 44     ISO Laser Disable: Validate IQCL_Idle; break;
+SWS_IT_START 	 40     ISO Temperature Ctrl Start: Validate ITControl_Start; break;
+SWS_IT_STOP	 41     ISO Temperature Ctrl Stop: Validate ITControl_Shutdown; break;
+SWS_ICALIBRATE 	 42     ISO Calibrate: Validate ISO_Calibrate; break;
+SWS_ISTART	 43     ISO Start: Validate ISO_Start; break;
+SWS_SPANCHK_IDLE 45     SPAN Watchdog Disable: Validate BAT_SPAN_Idle; break;
+SWS_GASDECK_PI   46     GasDeck PI: Validate GasDeck_PI_Init; break;
+SWS_GASDECK_CLOSE 47    GasDeck Close: Validate GasDeck_Close; break;

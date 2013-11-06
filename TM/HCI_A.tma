@@ -1446,7 +1446,11 @@ State Pump_Cool_Init {
     > Coolant Divert Off
     > Panel Top LED Off
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+<<<<<<< .mine
+#    Depending on (Pump_Is_On) { Validate Pump_Cool_Start; }
+=======
     Depending on (Pump_Is_On) { Validate Pump_Cool_Start; }
+>>>>>>> .r516
 }
 
 State Pump_Cool_Start {
@@ -1544,9 +1548,9 @@ State Pump_Cool_HiP_Fail {
 
 State Pump_Cool_Shutdown {
    +1 Hold until valid (Pump_Off);
-   +1 hold until ( PUMP_COLD_OK(convert(CPmpT)) &&
-         PUMP_COLD_OK(convert(MPmpT)) );
-   +1 > Coolant Pump Off
+#   +1 hold until ( PUMP_COLD_OK(convert(CPmpT)) &&
+#         PUMP_COLD_OK(convert(MPmpT)) );
+#   +1 > Coolant Pump Off
    +1 Validate Pump_Cool_Is_Shutdown;
 }
 
