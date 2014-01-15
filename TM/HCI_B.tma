@@ -510,7 +510,7 @@ State CO2_Start_P {
        { if (!C_Pump_S || !C_Pump_DS) Validate CO2_Fill_to_Ambient; }
        > CO2 Set Cell Pressure Setpoint 0
     +1 Hold until (convert(CCelLP) < 10);
-    +1 > CO2 Set Cell Pressure Setpoint 57
+    +1 > CO2 Set Cell Pressure Setpoint 35
     +1 > CO2 Pressure Reg On
     +1 Validate CO2_Sample;
 }
@@ -533,7 +533,7 @@ State CO2_Calibrate {
 }
 
 State CO2_End_Calibrate {
-        > CO2 Set Cell Pressure Setpoint 57
+        > CO2 Set Cell Pressure Setpoint 35
         Hold until (convert(CCelLP) < 10);
     +1  > CO2 Pressure Reg On
    +20  Validate CQCL_NC_1;
