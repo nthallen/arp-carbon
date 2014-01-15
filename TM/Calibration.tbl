@@ -1,0 +1,18 @@
+Sols {
+  HBox { +-; Title: "Solenoids"; - };
+  1: (Cal_Flow_1_DS,6) (Cal_Flow_1_S,6);
+  2: (Cal_Flow_2_DS,6) (Cal_Flow_2_S,6);
+  3: (Cal_Flow_3_DS,6) (Cal_Flow_3_S,6);
+  4: (Cal_Flow_4_DS,6) (Cal_Flow_4_S,6);
+  5: (Cal_Flow_5_DS,6) (Cal_Flow_5_S,6);
+  6: (Cal_Flow_6_DS,6) (Cal_Flow_6_S,6);
+}
+Status {
+  +-+;
+  VGlue 0+3;
+  >{ (flttime,9) MFCtr: (MFCtr,5) }<;
+  VGlue 0+3;
+}
+{ [Sols];
+  [Status]
+}
