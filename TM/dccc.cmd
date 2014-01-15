@@ -59,6 +59,12 @@
   ;
 &dccc_op_cl <int>
   : Gas Deck Valve { $0 = 33; }
+  : Cal Flow 1 { $0 = 18; }
+  : Cal Flow 2 { $0 = 19; }
+  : Cal Flow 3 { $0 = 20; }
+  : Cal Flow 4 { $0 = 21; }
+  : Cal Flow 5 { $0 = 22; }
+  : Cal Flow 6 { $0 = 23; }
   ;
 &dccc_on_off <int>
   : CO2 Pressure Reg { $0 = 29; }
