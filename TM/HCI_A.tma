@@ -1446,11 +1446,7 @@ State Pump_Cool_Init {
     > Coolant Divert Off
     > Panel Top LED Off
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-<<<<<<< .mine
-#    Depending on (Pump_Is_On) { Validate Pump_Cool_Start; }
-=======
     Depending on (Pump_Is_On) { Validate Pump_Cool_Start; }
->>>>>>> .r516
 }
 
 State Pump_Cool_Start {
