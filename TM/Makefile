@@ -1,4 +1,4 @@
-# Makefile Generated Wed Jul 17 16:38:59 EDT 2013
+# Makefile Generated Wed Jan 15 12:14:22 EST 2014
 MNC=HCI
 SPECFILE=HCI.spec
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
@@ -13,8 +13,9 @@ SRC+=SWData_col.tmc AO.cmd BAT_SPAN.cmd Inverter.cmd dccc.cmd
 SRC+=qclis.cmd idx64drv.cmd subbus.cmd panel.cmd address.h SWData.cmd
 SRC+=QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd digio_conv.tmc P_conv.tmc
 SRC+=Inverter_conv.tmc hk.tbl qcli.tbl Cells.tbl SSPrtg.tmc
-SRC+=Pilot_conv.tmc BAT_SPAN.tbl Altimeter_conv.tmc hk2.tbl HCI_A.tma
-SRC+=HCI.sws HCI_B.tma HCI_C.tma HCIeng.cdf HCI.doit
+SRC+=Calibration.tbl Pilot_conv.tmc BAT_SPAN.tbl Altimeter_conv.tmc
+SRC+=hk2.tbl HCI_A.tma HCI.sws HCI_B.tma HCI_C.tma HCIeng.cdf
+SRC+=HCI.doit
 TOOL=HCI.spec Makefile
 SCRIPT=idx64.idx64 interact dccc.dccc runfile.FF
 OBJ=QCLI_C.cmd QCLI_C.out QCLI_C.tmc QCLI_C.m QCLI_C.log QCLI_M.cmd
@@ -24,27 +25,30 @@ OBJ+=HCIcoloui.c HCIcoloui.o HCIcol.o ptrhm.o ptrhm_col.o HCIcmd.cc
 OBJ+=HCIcmd.dat HCIsrvr.o HCIsrvroui.c HCIsrvroui.o hktbl.tmc
 OBJ+=qclitbl.tmc Cellstbl.tmc HCIdisp.cc HCIdispoui.c HCIdispoui.o
 OBJ+=HCIdisp.o hktblnc.tmc qclitblnc.tmc Cellstblnc.tmc HCIdispnc.cc
-OBJ+=HCIdispncoui.c HCIdispncoui.o HCIdispnc.o BAT_SPANtbl.tmc
-OBJ+=hk2tbl.tmc BSdisp.cc BSdispoui.c BSdispoui.o BSdisp.o
-OBJ+=BAT_SPANtblnc.tmc hk2tblnc.tmc BSdispnc.cc BSdispncoui.c
-OBJ+=BSdispncoui.o BSdispnc.o HCIsws.tma HCI_A_algoa.tmc
-OBJ+=HCI_A_algo.cc HCI_A_algooui.c HCI_A_algooui.o HCI_A_algo.o
-OBJ+=HCI_B_algoa.tmc HCI_B_algo.cc HCI_B_algooui.c HCI_B_algooui.o
-OBJ+=HCI_B_algo.o HCI_C_algoa.tmc HCI_C_algo.cc HCI_C_algooui.c
-OBJ+=HCI_C_algooui.o HCI_C_algo.o HCIengextcdf.oui HCIengext.tmc
-OBJ+=HCIengext.cc HCIengextoui.c HCIengextoui.o HCIengext.o doit.dep
-OBJ+=HCIclt.o HCIcltoui.c HCIcltoui.o HCIcltnc.o HCIcltncoui.c
-OBJ+=HCIcltncoui.o
-TGT=HCIcol HCIsrvr HCIdisp HCIdispnc BSdisp BSdispnc HCI_A_algo
-TGT+=HCI_B_algo HCI_C_algo HCIengext doit HCIclt HCIcltnc
+OBJ+=HCIdispncoui.c HCIdispncoui.o HCIdispnc.o Calibrationtbl.tmc
+OBJ+=Caldisp.cc Caldispoui.c Caldispoui.o Caldisp.o
+OBJ+=Calibrationtblnc.tmc Caldispnc.cc Caldispncoui.c Caldispncoui.o
+OBJ+=Caldispnc.o BAT_SPANtbl.tmc hk2tbl.tmc BSdisp.cc BSdispoui.c
+OBJ+=BSdispoui.o BSdisp.o BAT_SPANtblnc.tmc hk2tblnc.tmc BSdispnc.cc
+OBJ+=BSdispncoui.c BSdispncoui.o BSdispnc.o HCIsws.tma
+OBJ+=HCI_A_algoa.tmc HCI_A_algo.cc HCI_A_algooui.c HCI_A_algooui.o
+OBJ+=HCI_A_algo.o HCI_B_algoa.tmc HCI_B_algo.cc HCI_B_algooui.c
+OBJ+=HCI_B_algooui.o HCI_B_algo.o HCI_C_algoa.tmc HCI_C_algo.cc
+OBJ+=HCI_C_algooui.c HCI_C_algooui.o HCI_C_algo.o HCIengextcdf.oui
+OBJ+=HCIengext.tmc HCIengext.cc HCIengextoui.c HCIengextoui.o
+OBJ+=HCIengext.o doit.dep HCIclt.o HCIcltoui.c HCIcltoui.o HCIcltnc.o
+OBJ+=HCIcltncoui.c HCIcltncoui.o
+TGT=HCIcol HCIsrvr HCIdisp HCIdispnc Caldisp Caldispnc BSdisp
+TGT+=BSdispnc HCI_A_algo HCI_B_algo HCI_C_algo HCIengext doit HCIclt
+TGT+=HCIcltnc
 DISTRIB=QCLI_C.out QCLI_M.out QCLI_I.out ../BAT/BAT_SPAN
 DISTRIB+=../BAT/BS2cdfext ../BAT/BSlogger ../Inverter/Inverter
 DISTRIB+=../Altimeter/Altimeter HCI.pcm tm.dac
 IDISTRIB=Experiment.config VERSION BSext doit
 SRCDIST=QCLI_C.m QCLI_M.m QCLI_I.m HCI.sws $(qclibase)
 SRCDIST+=Thermistors.txt ../BAT/N51AU.txt hk.tbl qcli.tbl Cells.tbl
-SRCDIST+=BAT_SPAN.tbl hk2.tbl HCI_A.tma HCI_B.tma HCI_C.tma
-SRCDIST+=/usr/local/share/huarp/freemem.tmc cpu_usage.tmc
+SRCDIST+=Calibration.tbl BAT_SPAN.tbl hk2.tbl HCI_A.tma HCI_B.tma
+SRCDIST+=HCI_C.tma /usr/local/share/huarp/freemem.tmc cpu_usage.tmc
 SRCDIST+=/usr/local/share/huarp/vl_temp.tmc
 SRCDIST+=/usr/local/share/huarp/ebx37f_temp.tmc
 SRCDIST+=/usr/local/share/huarp/tmdf.tmc
@@ -84,7 +88,8 @@ COLBASE+=/usr/local/share/huarp/ptrhm_col.cc cpu_usage_col.tmc
 COLBASE+=/usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
 SWSBASE=HCI.sws
 QCLIBASE=QCLI_C.qcli QCLI_M.qcli QCLI_I.qcli
-PHTGT=hktbl.tmc qclitbl.tmc Cellstbl.tmc BAT_SPANtbl.tmc hk2tbl.tmc
+PHTGT=hktbl.tmc qclitbl.tmc Cellstbl.tmc Calibrationtbl.tmc
+PHTGT+=BAT_SPANtbl.tmc hk2tbl.tmc
 RCS=$(SRC) $(TOOL) $(SCRIPT)
 SOURCE=$(RCS) $(NONRCS)
 OBJECT=$(OBJ) *.err
@@ -127,6 +132,12 @@ HCIdisp : HCIdisp.o ptrhm.o HCIdispoui.o
 HCIdispnc : HCIdispnc.o ptrhm.o HCIdispncoui.o
 	$(LINK.normCXX) HCIdispnc.o ptrhm.o HCIdispncoui.o -ldispnc -ltmnc -lncurses -ltmpp -ltm -lnort
 	$(OUIUSE) HCIdispncoui.c
+Caldisp : Caldisp.o ptrhm.o Caldispoui.o
+	$(LINK.normCXX) Caldisp.o ptrhm.o Caldispoui.o -ldisp -ltmph -lph -ltmpp -ltm -lnort
+	$(OUIUSE) Caldispoui.c
+Caldispnc : Caldispnc.o ptrhm.o Caldispncoui.o
+	$(LINK.normCXX) Caldispnc.o ptrhm.o Caldispncoui.o -ldispnc -ltmnc -lncurses -ltmpp -ltm -lnort
+	$(OUIUSE) Caldispncoui.c
 BSdisp : BSdisp.o ptrhm.o BSdispoui.o
 	$(LINK.normCXX) BSdisp.o ptrhm.o BSdispoui.o -ldisp -ltmph -lph -ltmpp -ltm -lnort
 	$(OUIUSE) BSdispoui.c
@@ -188,6 +199,20 @@ HCIdispncoui.c : /usr/local/share/oui/cic.oui $(OUIDIR)/nctable.oui $(OUIDIR)/dc
 	$(OUI) /usr/local/share/oui/cic.oui $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIdispncoui.o : HCIdispncoui.c SWData.h
 HCIdispnc.o : HCIdispnc.cc SWData.h
+Calibrationtbl.tmc : Calibration.tbl
+Caldisp.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc T30K250KU.tmc T1M75KU.tmc T1M1M.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc digio_conv.tmc Calibrationtbl.tmc
+	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc T30K250KU.tmc T1M75KU.tmc T1M1M.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc digio_conv.tmc Calibrationtbl.tmc
+Caldispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+Caldispoui.o : Caldispoui.c SWData.h
+Caldisp.o : Caldisp.cc SWData.h
+Calibrationtblnc.tmc : Calibration.tbl
+Caldispnc.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc T30K250KU.tmc T1M75KU.tmc T1M1M.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc digio_conv.tmc Calibrationtblnc.tmc
+	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc T30K250KU.tmc T1M75KU.tmc T1M1M.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc digio_conv.tmc Calibrationtblnc.tmc
+Caldispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+Caldispncoui.o : Caldispncoui.c SWData.h
+Caldispnc.o : Caldispnc.cc SWData.h
 BAT_SPANtbl.tmc : BAT_SPAN.tbl
 hk2tbl.tmc : hk2.tbl
 BSdisp.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc T30K250KU.tmc T1M75KU.tmc T1M1M.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Pilot_conv.tmc digio_conv.tmc qcli_conv.tmc Inverter_conv.tmc BAT_SPANtbl.tmc Altimeter_conv.tmc hk2tbl.tmc

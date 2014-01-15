@@ -3,12 +3,14 @@ TM 1 Hz DStat DS84A; Address DS84A 0x84A;
 TM 1 Hz DStat DS84C; Address DS84C 0x84C;
   Collect DS84C = sbrba(DS84C.address) ^ 0x20; /* Inv CPrs_Reg_DS */
 TM 1 Hz DStat DS851; Address DS851 0x851;
+TM 1 Hz DStat DS853; Address DS853 0x853; /* Cal Flow DS */
 TM 1 Hz DStat DS855; Address DS855 0x855;
   Collect DS855 = sbrba(DS855.address) ^ 0x06; /* Inv IPrs_Reg_DS */
 TM 1 Hz DStat DS868; Address DS868 0x868;
   Collect DS868 = sbrba(DS868.address) ^ 0x40; /* Inv MPrs_Reg_DS */
 TM 1 Hz DStat DS86A; Address DS86A 0x86A;
   Collect DS86A = sbrba(DS86A.address) ^ 0x87;
+TM 1 Hz DStat DS86C; Address DS86C 0x86C; /* Cal Flow S */
 TM 1 Hz DStat DS873; Address DS873 0x873;
   Collect DS873 = sbrba(DS873.address) ^ 0xFF;
 TM 1 Hz DStat IOSwS; Collect IOSwS = read_switches();

@@ -6,9 +6,9 @@ Effective Frame Dimensions:
   20 Rows 49 Columns
   20 rows/sec
   7840 bits/sec
-  Data:  7104 bits/sec  91 %
+  Data:  7120 bits/sec  91 %
   Synch: 640 bits/sec  8 %
-  Empty: 96 bits/sec  1 %
+  Empty: 80 bits/sec  1 %
 -------End of Frame Statistics-----
 
 
@@ -327,16 +327,18 @@ Effective Frame Dimensions:
 1/1 Hz 2 bytes Datum SSP_M_Stale (20,19,18,2)
 1/1 Hz 2 bytes Datum TVPos (20,19,20,2)
 1/1 Hz 2 bytes Datum WTnkT (20,19,22,2)
-1/1 Hz 1 bytes Datum DS855 (20,19,24,1)
-1/1 Hz 1 bytes Datum DS868 (20,19,25,1)
-1/1 Hz 1 bytes Datum DS86A (20,19,26,1)
-1/1 Hz 1 bytes Datum DS873 (20,19,27,1)
-1/1 Hz 1 bytes Datum IOSwS (20,19,28,1)
-1/1 Hz 1 bytes Datum SSP_C_Status (20,19,29,1)
-1/1 Hz 1 bytes Datum SSP_I_Status (20,19,30,1)
-1/1 Hz 1 bytes Datum SSP_M_Status (20,19,31,1)
-1/1 Hz 1 bytes Datum SWStat (20,19,32,1)
-1/1 Hz 1 bytes Datum TVStat (20,19,33,1)
-1/1 Hz 1 bytes Datum vl_cpuT (20,19,34,1)
+1/1 Hz 1 bytes Datum DS853 (20,19,24,1)
+1/1 Hz 1 bytes Datum DS855 (20,19,25,1)
+1/1 Hz 1 bytes Datum DS868 (20,19,26,1)
+1/1 Hz 1 bytes Datum DS86A (20,19,27,1)
+1/1 Hz 1 bytes Datum DS86C (20,19,28,1)
+1/1 Hz 1 bytes Datum DS873 (20,19,29,1)
+1/1 Hz 1 bytes Datum IOSwS (20,19,30,1)
+1/1 Hz 1 bytes Datum SSP_C_Status (20,19,31,1)
+1/1 Hz 1 bytes Datum SSP_I_Status (20,19,32,1)
+1/1 Hz 1 bytes Datum SSP_M_Status (20,19,33,1)
+1/1 Hz 1 bytes Datum SWStat (20,19,34,1)
+1/1 Hz 1 bytes Datum TVStat (20,19,35,1)
+1/1 Hz 1 bytes Datum vl_cpuT (20,19,36,1)
 -------End of PCM Definition-------
 

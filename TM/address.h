@@ -13,9 +13,11 @@
 #define TVStat_Address 0xA0E
 #define TVStep_Address 0xA0C
 #define DS873_Address 0x873
+#define DS86C_Address 0x86C
 #define DS86A_Address 0x86A
 #define DS868_Address 0x868
 #define DS855_Address 0x855
+#define DS853_Address 0x853
 #define DS851_Address 0x851
 #define DS84C_Address 0x84C
 #define DS84A_Address 0x84A

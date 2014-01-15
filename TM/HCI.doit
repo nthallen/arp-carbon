@@ -1,5 +1,6 @@
 display HCIdisp -C $FlightNode
 display BSdisp
+display Caldisp
 client HCIclt
 batchfile interact
 memo
