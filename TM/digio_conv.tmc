@@ -100,3 +100,27 @@ off_on_t SW1; Invalidate SW1;
   { SW1 = (IOSwS>>1)&1; Validate SW1; }
 off_on_t FltMd; Invalidate FltMd;
   { FltMd = (IOSwS>>2)&1; Validate FltMd; }
+Op_Cl_t Cal_Flow_1_DS; Invalidate Cal_Flow_1_DS;
+  { Cal_Flow_1_DS = (DS853>>2)&1; Validate Cal_Flow_1_DS; }
+Op_Cl_t Cal_Flow_2_DS; Invalidate Cal_Flow_2_DS;
+  { Cal_Flow_2_DS = (DS853>>3)&1; Validate Cal_Flow_2_DS; }
+Op_Cl_t Cal_Flow_3_DS; Invalidate Cal_Flow_3_DS;
+  { Cal_Flow_3_DS = (DS853>>4)&1; Validate Cal_Flow_3_DS; }
+Op_Cl_t Cal_Flow_4_DS; Invalidate Cal_Flow_4_DS;
+  { Cal_Flow_4_DS = (DS853>>5)&1; Validate Cal_Flow_4_DS; }
+Op_Cl_t Cal_Flow_5_DS; Invalidate Cal_Flow_5_DS;
+  { Cal_Flow_5_DS = (DS853>>6)&1; Validate Cal_Flow_5_DS; }
+Op_Cl_t Cal_Flow_6_DS; Invalidate Cal_Flow_6_DS;
+  { Cal_Flow_6_DS = (DS853>>7)&1; Validate Cal_Flow_6_DS; }
+Op_Cl_t Cal_Flow_1_S; Invalidate Cal_Flow_1_S;
+  { Cal_Flow_1_S = (DS86C>>2)&1; Validate Cal_Flow_1_S; }
+Op_Cl_t Cal_Flow_2_S; Invalidate Cal_Flow_2_S;
+  { Cal_Flow_2_S = (DS86C>>3)&1; Validate Cal_Flow_2_S; }
+Op_Cl_t Cal_Flow_3_S; Invalidate Cal_Flow_3_S;
+  { Cal_Flow_3_S = (DS86C>>4)&1; Validate Cal_Flow_3_S; }
+Op_Cl_t Cal_Flow_4_S; Invalidate Cal_Flow_4_S;
+  { Cal_Flow_4_S = (DS86C>>5)&1; Validate Cal_Flow_4_S; }
+Op_Cl_t Cal_Flow_5_S; Invalidate Cal_Flow_5_S;
+  { Cal_Flow_5_S = (DS86C>>6)&1; Validate Cal_Flow_5_S; }
+Op_Cl_t Cal_Flow_6_S; Invalidate Cal_Flow_6_S;
+  { Cal_Flow_6_S = (DS86C>>7)&1; Validate Cal_Flow_6_S; }
