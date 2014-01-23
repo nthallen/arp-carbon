@@ -1,5 +1,5 @@
-function pHCIhkcp(varargin);
-% pHCIhkcp( [...] );
+function pHCIhk_coolantp(varargin);
+% pHCIhk_coolantp( [...] );
 % Coolant Pressure
 h = timeplot({'CoolP'}, ...
       'Coolant Pressure', ...

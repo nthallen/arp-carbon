@@ -1,5 +1,5 @@
-function pHCIhkct(varargin);
-% pHCIhkct( [...] );
+function pHCIhk_coolantt(varargin);
+% pHCIhk_coolantt( [...] );
 % Coolant Temp
 h = timeplot({'RadInT','WTnkT','RadOutT'}, ...
       'Coolant Temp', ...
