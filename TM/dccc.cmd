@@ -50,6 +50,12 @@
 # : Gas Deck Flow Controller Open { $0 = 39; }
   ;
 &dccc_cl_op <int>
+  : Cal Flow 1 { $0 = 18; }
+  : Cal Flow 2 { $0 = 19; }
+  : Cal Flow 3 { $0 = 20; }
+  : Cal Flow 4 { $0 = 21; }
+  : Cal Flow 5 { $0 = 22; }
+  : Cal Flow 6 { $0 = 23; }
   : CO2 Exhaust Valve { $0 = 31; }
   : CO2 Gas Valve { $0 = 30; }
   : ISO Exhaust Valve { $0 = 36; }
@@ -59,12 +65,6 @@
   ;
 &dccc_op_cl <int>
   : Gas Deck Valve { $0 = 33; }
-  : Cal Flow 1 { $0 = 18; }
-  : Cal Flow 2 { $0 = 19; }
-  : Cal Flow 3 { $0 = 20; }
-  : Cal Flow 4 { $0 = 21; }
-  : Cal Flow 5 { $0 = 22; }
-  : Cal Flow 6 { $0 = 23; }
   ;
 &dccc_on_off <int>
   : CO2 Pressure Reg { $0 = 29; }
