@@ -282,9 +282,12 @@ ROWS 15
 # 1 ICelP ISO:ISO_Cell P
 # 1 ICelPSt ISO:ISO_Cell P
   1 ICelTSt ISO:ISO_Cell T_ctrl
+  1 ICelCT ISO:ISO_Cell T_ctrl
   1 ICel1T ISO:ISO_Cell Temp
   1 ICel2T ISO:ISO_Cell Temp
-  1 ICelCT ISO:ISO_Cell Temp
+  1 ISk1T  ISO:ISO_Cell Temp
+  1 ISk2T  ISO:ISO_Cell Temp
+  1 ISk3T  ISO:ISO_Cell Temp
   1 ICell_HC_DS:DS851:3 ISO:ISO_Cell Status
   1 ICell_HC_S:DS86A:3 ISO:ISO_Cell Status
   1 IGas_Ex_Vlv_DS:DS855:4 ISO:ISO_Cell Status
@@ -377,9 +380,6 @@ ROWS 15
  1 IRv5T  ISO:Temps Roving
  1 ISG1T  ISO:Temps Sample
  1 ISG2T  ISO:Temps Sample
- 1 ISk1T  ISO:ISO_Cell Temp
- 1 ISk2T  ISO:ISO_Cell Temp
- 1 ISk3T  ISO:ISO_Cell Temp
 
  1 L1_DS:DS851:7  HK:Lab Status
  1 L1_S:DS86A:7  HK:Lab Status
