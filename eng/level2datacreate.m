@@ -18,10 +18,19 @@ eval(config_file);
 cfg = load_ICOSfit_cfg;
 run=getrun(1);
 D=ne_load('HCIeng_1','HCI_Data_Dir');
+D10=ne_load('HCIeng_10','HCI_Data_Dir');
 Axis=cfg.ScanDir(5);
 SSP_Num=eval(['D.SSP_' Axis '_Num']);
 SSP_SN=eval(['D.SSP_' Axis '_SN']);
+if strcmp(Axis,'I')
+    T1gps=D.THCIeng_1-18/20;
+elseif strcmp(Axis,'M')
+    T1gps=D.THCIeng_1-10/20;
+elseif strcmp(Axis,'C')
+    T1gps=D.THCIeng_1-13/20;
+end
 save(OFILE,'run')
+n=1;
 for s=1:length(suffix)
     data=[]; snum=[]; chisq=[];
     for r=1:length(regions)
@@ -33,7 +42,7 @@ for s=1:length(suffix)
     disp(['Processing Data ...']);
     if strcmp(remove_OA,'y')
         OFlag=bitand(D.SSP_I_Flags,64);
-        iDataFlag=interp1(snum,1:size(data,1),D.SSP_I_Num(OFlag>0),'nearest');
+        iDataFlag=interp1(snum,1:size(data,1),SSP_Num(OFlag>0),'nearest');
         iDataFlag(isnan(iDataFlag)) = [];
         data(iDataFlag,:)=[];
         snum(iDataFlag)=[];
@@ -65,20 +74,40 @@ for s=1:length(suffix)
                 name=[name2{1} letter];
             end
             eval([name '=data(:,linen(j));']);
-            save(OFILE,name,'-append')
+            %save(OFILE,name,'-append')
+            names{n}=name;
+            n=n+1;
         end
 end
 sspnum=snum;
 hdrs=loadscanhdrs(sspnum);
 sn=reshape(struct2array(hdrs),9,size(hdrs,2));
-lon=find(diff(D.SSP_M_SN)~=0);
-spline1=csaps(D.THCIeng_1,SSP_SN,.05,D.THCIeng_1);
-ftime=interp1(spline1(lon),D.THCIeng_1(lon),sn(6,:));
-time=time2d(ftime);
-Lat=interp1(time2d(D.THCIeng_1),D.BP_Lat,time);
-Lon=interp1(time2d(D.THCIeng_1),D.BP_Lon,time);
-Ht=interp1(time2d(D.THCIeng_1),D.BP_Ht,time);
-AirT=interp1(time2d(D.THCIeng_1),D.BAT_FOTemp,time);
-AirP=interp1(time2d(D.THCIeng_1),D.BAT_Ps,time);
-save(OFILE,'sspnum','ftime','time','Lat','Lon','Ht','AirT','AirP','-append')
+lon=find(diff(SSP_SN)~=0);
+sntime=csaps(SSP_SN(lon),T1gps(lon),.05,sn(6,:));
+%create evenly spaced 1Hz and 10Hz time vectors
+T1Hz_GPS_msec=[min(D.GPS_msecs(100:end)/1000):1:max(D.GPS_msecs(100:end)/1000)]';
+T10Hz_GPS_msec=[min(D.GPS_msecs(100:end)/1000):0.1:max(D.GPS_msecs(100:end)/1000)]';
+T1Hz_ftime=interp1(D.GPS_msecs(100:end)/1000,D.THCIeng_1(100:end)-18/20,T1Hz_GPS_msec);
+T10Hz_ftime=interp1(D.GPS_msecs(100:end)/1000,D.THCIeng_1(100:end)-18/20,T10Hz_GPS_msec);
+if strcmp(Axis,'I')
+        time=T1Hz_ftime;
+elseif strcmp(Axis,'C') || strcmp(Axis,'M')
+        time=T10Hz_ftime;
+end
+index=interp1(time,[1:length(time)],sntime,'nearest');
+for k = 1:length(names)
+    temp = time*NaN;
+    eval(['temp(index) = ' names{k} ';']);
+    eval([names{k} ' = temp;']);
+    save(OFILE,names{k},'-append')
+end
+Lat=interp1(D.THCIeng_1-18/20,D.BP_Lat,T1Hz_ftime);
+Lon=interp1(D.THCIeng_1-18/20,D.BP_Lon,T1Hz_ftime);
+Ht=interp1(D.THCIeng_1-18/20,D.BP_Ht,T1Hz_ftime);
+AirT=interp1(D.THCIeng_1-18/20,D.BAT_FOTemp,T1Hz_ftime);
+AirP=interp1(D.THCIeng_1-18/20,D.BAT_Ps,T1Hz_ftime);
+Alt=interp1(D10.THCIeng_10,D10.MRA_Alt_a,T10Hz_ftime);
+
+save(OFILE,'sspnum','T1Hz_GPS_msec','T10Hz_GPS_msec','T1Hz_ftime','T10Hz_ftime',...
+    'Lat','Lon','Ht','Alt','AirT','AirP','-append')
 disp(['Writing ' OFILE ' ... Done!']);
