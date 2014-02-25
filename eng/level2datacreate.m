@@ -85,10 +85,16 @@ sn=reshape(struct2array(hdrs),9,size(hdrs,2));
 lon=find(diff(SSP_SN)~=0);
 sntime=csaps(SSP_SN(lon),T1gps(lon),.05,sn(6,:));
 %create evenly spaced 1Hz and 10Hz time vectors
-T1Hz_GPS_msec=[min(D.GPS_msecs(100:end)/1000):1:max(D.GPS_msecs(100:end)/1000)]';
-T10Hz_GPS_msec=[min(D.GPS_msecs(100:end)/1000):0.1:max(D.GPS_msecs(100:end)/1000)]';
-T1Hz_ftime=interp1(D.GPS_msecs(100:end)/1000,D.THCIeng_1(100:end)-18/20,T1Hz_GPS_msec);
-T10Hz_ftime=interp1(D.GPS_msecs(100:end)/1000,D.THCIeng_1(100:end)-18/20,T10Hz_GPS_msec);
+if range(D.GPS_msecs)==0
+    T1Hz_ftime=[D.THCIeng_1(100):1:D.THCIeng_1(end)]';
+    T10Hz_ftime=[D.THCIeng_1(100):0.1:D.THCIeng_1(end)]';
+else
+    T1Hz_GPS_msec=[D.GPS_msecs(100)/1000:1:D.GPS_msecs(end)/1000]';
+    T10Hz_GPS_msec=[D.GPS_msecs(100)/1000:0.1:D.GPS_msecs(end)/1000]';
+    T1Hz_GPS_week=interp1(D.GPS_msecs(100:end)/1000,D.GPS_week(100:end),T1Hz_GPS_msec);
+    T1Hz_ftime=interp1(D.GPS_msecs(100:end)/1000,D.THCIeng_1(100:end)-18/20,T1Hz_GPS_msec);
+    T10Hz_ftime=interp1(D.GPS_msecs(100:end)/1000,D.THCIeng_1(100:end)-18/20,T10Hz_GPS_msec);
+end
 if strcmp(Axis,'I')
         time=T1Hz_ftime;
 elseif strcmp(Axis,'C') || strcmp(Axis,'M')
@@ -108,6 +114,5 @@ AirT=interp1(D.THCIeng_1-18/20,D.BAT_FOTemp,T1Hz_ftime);
 AirP=interp1(D.THCIeng_1-18/20,D.BAT_Ps,T1Hz_ftime);
 Alt=interp1(D10.THCIeng_10,D10.MRA_Alt_a,T10Hz_ftime);
 
-save(OFILE,'sspnum','T1Hz_GPS_msec','T10Hz_GPS_msec','T1Hz_ftime','T10Hz_ftime',...
-    'Lat','Lon','Ht','Alt','AirT','AirP','-append')
+save(OFILE,'sspnum','T1Hz_*','T10Hz_*','Lat','Lon','Ht','Alt','AirT','AirP','-append')
 disp(['Writing ' OFILE ' ... Done!']);

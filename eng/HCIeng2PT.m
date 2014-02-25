@@ -35,8 +35,8 @@ elseif strcmp(cfg.ScanDir,'SSP_M')
     PT.QCLI_Wave = interp1(T1,E.QCLI_M_Wave,T10,'nearest','extrap'); %for example QCLI_C_Wave
 elseif strcmp(cfg.ScanDir,'SSP_I')
     PT.TPT = T1;
-    PT.CellP = E.ICelHP;
-    PT.Tavg = 273.15 + (E.ICel1T + E.ICel2T)/2;
+    PT.CellP = interp1(fastavg(T10,10),fastavg(E10.ICelLP,10),T1);
+    PT.Tavg = 273.15 + mean([E.ICel1T,E.ICel2T,E.ISk1T,E.ISk2T,E.ISk3T]');
     PT.ScanNum = E.SSP_I_Num;
     PT.QCLI_Wave = E.QCLI_I_Wave;
 else
