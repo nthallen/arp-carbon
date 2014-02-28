@@ -89,11 +89,12 @@ if range(D.GPS_msecs)==0
     T1Hz_ftime=[D.THCIeng_1(100):1:D.THCIeng_1(end)]';
     T10Hz_ftime=[D.THCIeng_1(100):0.1:D.THCIeng_1(end)]';
 else
-    T1Hz_GPS_msec=[D.GPS_msecs(100)/1000:1:D.GPS_msecs(end)/1000]';
-    T10Hz_GPS_msec=[D.GPS_msecs(100)/1000:0.1:D.GPS_msecs(end)/1000]';
-    T1Hz_GPS_week=interp1(D.GPS_msecs(100:end)/1000,D.GPS_week(100:end),T1Hz_GPS_msec);
-    T1Hz_ftime=interp1(D.GPS_msecs(100:end)/1000,D.THCIeng_1(100:end)-18/20,T1Hz_GPS_msec);
-    T10Hz_ftime=interp1(D.GPS_msecs(100:end)/1000,D.THCIeng_1(100:end)-18/20,T10Hz_GPS_msec);
+    GPS_msecs=D.GPS_msecs(D.GPS_msecs~=0);
+    T1Hz_GPS_msec=[min(GPS_msecs)/1000:1:max(GPS_msecs)/1000]';
+    T10Hz_GPS_msec=[min(GPS_msecs)/1000:0.1:max(GPS_msecs)/1000]';
+    T1Hz_GPS_week=interp1(GPS_msecs/1000,D.GPS_week(D.GPS_msecs~=0),T1Hz_GPS_msec);
+    T1Hz_ftime=interp1(GPS_msecs/1000,D.THCIeng_1(D.GPS_msecs~=0)-18/20,T1Hz_GPS_msec);
+    T10Hz_ftime=interp1(GPS_msecs/1000,D.THCIeng_1(D.GPS_msecs~=0)-18/20,T10Hz_GPS_msec);
 end
 if strcmp(Axis,'I')
         time=T1Hz_ftime;
