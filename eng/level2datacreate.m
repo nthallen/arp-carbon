@@ -82,7 +82,7 @@ end
 sspnum=snum;
 hdrs=loadscanhdrs(sspnum);
 sn=reshape(struct2array(hdrs),9,size(hdrs,2));
-lon=find(diff(SSP_SN)~=0);
+lon=find(diff(SSP_SN)~=0 & SSP_Num(2:end) > min(sspnum) & SSP_Num(2:end) < max(sspnum));
 sntime=csaps(SSP_SN(lon),T1gps(lon),.05,sn(6,:));
 %create evenly spaced 1Hz and 10Hz time vectors
 if range(D.GPS_msecs)==0
