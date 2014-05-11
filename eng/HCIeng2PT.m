@@ -25,7 +25,11 @@ if strcmp(cfg.ScanDir,'SSP_C')
     end
     % PT.Tavg = 273.15 + (E10.CCel1T + E10.CCel2T)/2; %gas temp (in K) to use for fit
     PT.Tavg = 273.15 + E10.CCel2T; %gas temp (in K) to use for fit
-    PT.ScanNum = round(interp1(T1,E.SSP_C_Num,T10,'linear','extrap'));
+    if isfield(E10, 'SSP_C_Num')
+      PT.ScanNum = E10.SSP_C_Num;
+    else
+      PT.ScanNum = round(interp1(T1,E.SSP_C_Num,T10,'linear','extrap'));
+    end
     PT.QCLI_Wave = interp1(T1,E.QCLI_C_Wave,T10,'nearest','extrap'); %for example QCLI_C_Wave
 elseif strcmp(cfg.ScanDir,'SSP_M')
     PT.TPT = T10;
@@ -33,10 +37,8 @@ elseif strcmp(cfg.ScanDir,'SSP_M')
     PT.Tavg = 273.15 + (E10.MCel1T + E10.MCel2T)/2; %gas temp (in K) to use for fit
     if isfield(E10, 'SSP_M_Num')
       PT.ScanNum = E10.SSP_M_Num;
-      PT.QCLI_Wave = E10.QCLI_M_Wave;
     else
       PT.ScanNum = round(interp1(T1,E.SSP_M_Num,T10,'linear','extrap'));
-      PT.QCLI_Wave = interp1(T1,E.QCLI_M_Wave,T10,'nearest','extrap'); %for example QCLI_C_Wave
     end
 elseif strcmp(cfg.ScanDir,'SSP_I')
     PT.TPT = T1;
@@ -44,11 +46,10 @@ elseif strcmp(cfg.ScanDir,'SSP_I')
     PT.Tavg = 273.15 + mean([E.ICel1T,E.ICel2T,E.ISk1T,E.ISk2T,E.ISk3T]');
     if isfield(E10,'SSP_I_Num')
       PT.ScanNum = interp1(T10,SSP_I_Num,T1,'nearest');
-      PT.QCLI_Wave = interp1(T10,QCLI_I_Wave,T1,'nearest');
     else
       PT.ScanNum = E.SSP_I_Num;
-      PT.QCLI_Wave = E.QCLI_I_Wave;
     end
+    PT.QCLI_Wave = E.QCLI_I_Wave;
 else
     fprintf(1,'Unable to identify instrument from ScanDir "%s"\n', ...
         cfg.ScanDir);
