@@ -40,6 +40,7 @@ elseif strcmp(cfg.ScanDir,'SSP_M')
     else
       PT.ScanNum = round(interp1(T1,E.SSP_M_Num,T10,'linear','extrap'));
     end
+    PT.QCLI_Wave = interp1(T1,E.QCLI_M_Wave,T10,'nearest','extrap'); %for example QCLI_M_Wave
 elseif strcmp(cfg.ScanDir,'SSP_I')
     PT.TPT = T1;
     PT.CellP = interp1(fastavg(T10,10),fastavg(E10.ICelLP,10),T1);
