@@ -16,7 +16,19 @@ ICOS Waveform M3Db_600Hz10Hz {
   Tz = 5%;
   Ramp from 600 mA to 730 mA in 1.5 msec;
 }
+ICOS Waveform M3Db_600bHz10Hz {
+  SampleRate = 100 MHz/84;
+  Ncoadd = 56;
+  Tz = 5%;
+  Ramp from 570 mA to 680 mA in 1.5 msec;
+}
 
+ICOS Waveform M3Db_600cHz10Hz {
+  SampleRate = 100 MHz/84;
+  Ncoadd = 56;
+  Tz = 5%;
+  Ramp from 520 mA to 630 mA in 1.5 msec;
+}
 ICOS Waveform QCLI_M_ConstantI {
   Tz = 10 msec;
   Iz = 700 mA;

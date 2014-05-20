@@ -54,5 +54,6 @@ extern SWData_t SWData;
 #define SWS_SPANCHK_IDLE 45
 #define SWS_GASDECK_PI 46
 #define SWS_GASDECK_CLOSE 47
+#define SWS_LAB_CALIBRATE 48
 
 #endif

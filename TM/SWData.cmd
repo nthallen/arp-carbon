@@ -62,4 +62,5 @@
   : SPAN Watchdog Disable { $0 = SWS_SPANCHK_IDLE; }
   : GasDeck PI { $0 = SWS_GASDECK_PI; }
   : GasDeck Close { $0 = SWS_GASDECK_CLOSE; }
+  : Lab Calibrate { $0 = SWS_LAB_CALIBRATE; }
   ;

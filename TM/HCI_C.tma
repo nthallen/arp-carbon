@@ -2129,3 +2129,27 @@ State BAT_SPAN_Idle {}
 State BAT_SPAN_Fail {
   > Panel Display Text \\nBAT/GPS Failure
 }
+
+#Partition Lab Calibration
+#--------------------------
+Partition
+
+State LAB_Idle {
+}
+
+State LAB_Calibrate {
+   +1 > Cal Flow 2 Open
++2:00 > Cal Flow 2 Closed
+      > Cal Flow 3 Open
++2:00 > Cal Flow 3 Closed
+      > Cal Flow 4 Open
++2:00 > Cal Flow 4 Closed
+      > Cal Flow 5 Open
++4:00 > Cal Flow 5 Closed
+      > Cal Flow 4 Open
++2:00 > Cal Flow 4 Closed
+      > Cal Flow 3 Open
++2:00 > Cal Flow 3 Closed
+      > Cal Flow 2 Open
++2:00 > Cal Flow 2 Closed
+}

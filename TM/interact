@@ -39,7 +39,7 @@ esac
   $MOK Launch - qclidacsd -h QCLI_M -d 0
   $COK Launch - sspdrv -H 10.0.0.211 -hSSP_C -N `mlf_find SSP_C`
   $COK Launch - qclidacsd -h QCLI_C -d 1
-  $IOK Launch - sspdrv -H 10.0.0.206 -hSSP_I -N `mlf_find SSP_I`
+  $IOK Launch - sspdrv -H 10.0.0.206 -hSSP_I -N `mlf_find SSP_I` -L 20
   $IOK Launch - qclidacsd -h QCLI_I -d 2
   Launch - tmdf
   Launch - nice -n-1 BAT_SPAN -S /dev/ser2 -B /dev/ser4 -N `mlf_find BAT_SPAN`

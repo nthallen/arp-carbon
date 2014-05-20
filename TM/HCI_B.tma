@@ -148,7 +148,7 @@ State MINI_Init {
 State MINI_Start {
       Depending on (Shutdown) { Validate MINI_Shutdown; }
    +5 Hold until valid (Pump_Watch);
-   +1 > MINI Set Laser TEC Temp Setpoint 1.72
+   +1 > MINI Set Laser TEC Temp Setpoint 1.68
    +1 > MINI Laser TEC On
    +2:00 Validate MINI_Start_P;
 }
@@ -390,7 +390,7 @@ State MQCL_SelectICOSandRun {
     Hold until valid (MQCLI_Idle) or 2
     else Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle);
- +1 > MINI Set Laser TEC Temp Setpoint 1.75
+ +1 > MINI Set Laser TEC Temp Setpoint 1.68
  +1 > MINI Laser TEC On
     Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
  +10 > Select QCLI_M Waveform M3Db_600Hz10Hz
@@ -405,7 +405,7 @@ State MQCL_SelectRingandRun {
     Hold until valid (MQCLI_Idle) or 2
     else Validate MQCLI_Stop;
     Hold until valid (MQCLI_Idle);
- +1 > MINI Set Laser TEC Temp Setpoint 1.75
+ +1 > MINI Set Laser TEC Temp Setpoint 1.68
  +1 > MINI Laser TEC On
     Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
  +10 > Select QCLI_M Waveform M3Db_rRamp
@@ -2182,3 +2182,29 @@ State BAT_SPAN_Idle {}
 State BAT_SPAN_Fail {
   > Panel Display Text \\nBAT/GPS Failure
 }
+
+#--------------------------
+#Partition Lab Calibration
+#--------------------------
+Partition
+
+State LAB_Idle {
+}
+
+State LAB_Calibrate {
+   +1 > Cal Flow 2 Open
++2:00 > Cal Flow 2 Closed
+      > Cal Flow 3 Open
++2:00 > Cal Flow 3 Closed
+      > Cal Flow 4 Open
++2:00 > Cal Flow 4 Closed
+      > Cal Flow 5 Open
++2:00 > Cal Flow 5 Closed
+      > Cal Flow 4 Open
++2:00 > Cal Flow 4 Closed
+      > Cal Flow 3 Open
++2:00 > Cal Flow 3 Closed
+      > Cal Flow 2 Open
++2:00 > Cal Flow 2 Closed
+}
+
