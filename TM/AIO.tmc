@@ -113,3 +113,8 @@ TM 1 Hz AO16 MCelTSt; Address MCelTSt 0x42E; /* Cell Temp Setpoint MINI */
 TM 1 Hz AO16 MDPVTSt; Address MDPVTSt 0x42C; /* Detector Pressure Vessel Temp Setpoint MINI */
 TM 1 Hz AO16 MLPVTSt; Address MLPVTSt 0x42A; /* Mini-Methane LPV External TEC Setpoint */
 TM 1 Hz AO16 MLTETSt; Address MLTETSt 0x428; /* Laser TEC Temp Setpoint MINI */
+
+TM 10 Hz AI16 AIC48; Address AIC48 0xC48; /* Empty channel before MCel1T */
+TM 10 Hz AI16 AICD4; Address AICD4 0xCD4; /* Empty channel before CCel2T */
+TM 10 Hz AI16 AICD6; Address AICD6 0xCD6; /* Empty channel before CCel1T */
+

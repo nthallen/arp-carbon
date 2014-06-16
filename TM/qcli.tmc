@@ -78,14 +78,14 @@ TM 1 HZ QCLI_CS_t QCLI_I_CS; Address QCLI_I_CS 0x1020;
 
 TM "Receive" SSP_C 1;
 
-TM 10 Hz L20 SSP_C_Num;
-TM 10 Hz L20 SSP_C_SN;
-TM 10 Hz L20 SSP_C_TS;
-TM 10 Hz XLONG SSP_C_Flags;
-TM 10 Hz SSP_Status_t SSP_C_Status;
-TM 10 Hz UINT SSP_C_Stale;
-TM 10 Hz T_FPGA_t SSP_C_T_FPGA;
-TM 10 Hz T_HtSink_t SSP_C_T_HtSink;
+TM 1 Hz L20 SSP_C_Num;
+TM 1 Hz L20 SSP_C_SN;
+TM 1 Hz L20 SSP_C_TS;
+TM 1 Hz XLONG SSP_C_Flags;
+TM 1 Hz SSP_Status_t SSP_C_Status;
+TM 1 Hz UINT SSP_C_Stale;
+TM 1 Hz T_FPGA_t SSP_C_T_FPGA;
+TM 1 Hz T_HtSink_t SSP_C_T_HtSink;
 
 Group SSP_C_grp ( SSP_C_Num, SSP_C_SN, SSP_C_TS, SSP_C_Flags,
 		 SSP_C_T_FPGA, SSP_C_T_HtSink ) {
@@ -101,14 +101,14 @@ Group SSP_C_grp ( SSP_C_Num, SSP_C_SN, SSP_C_TS, SSP_C_Flags,
 }
 TM "Receive" SSP_M 1;
 
-TM 10 Hz L20 SSP_M_Num;
-TM 10 Hz L20 SSP_M_SN;
-TM 10 Hz L20 SSP_M_TS;
-TM 10 Hz XLONG SSP_M_Flags;
-TM 10 Hz SSP_Status_t SSP_M_Status;
-TM 10 Hz UINT SSP_M_Stale;
-TM 10 Hz T_FPGA_t SSP_M_T_FPGA;
-TM 10 Hz T_HtSink_t SSP_M_T_HtSink;
+TM 1 Hz L20 SSP_M_Num;
+TM 1 Hz L20 SSP_M_SN;
+TM 1 Hz L20 SSP_M_TS;
+TM 1 Hz XLONG SSP_M_Flags;
+TM 1 Hz SSP_Status_t SSP_M_Status;
+TM 1 Hz UINT SSP_M_Stale;
+TM 1 Hz T_FPGA_t SSP_M_T_FPGA;
+TM 1 Hz T_HtSink_t SSP_M_T_HtSink;
 
 Group SSP_M_grp ( SSP_M_Num, SSP_M_SN, SSP_M_TS, SSP_M_Flags,
 		 SSP_M_T_FPGA, SSP_M_T_HtSink ) {
@@ -125,14 +125,14 @@ Group SSP_M_grp ( SSP_M_Num, SSP_M_SN, SSP_M_TS, SSP_M_Flags,
 
 TM "Receive" SSP_I 1;
 
-TM 10 Hz L20 SSP_I_Num;
-TM 10 Hz L20 SSP_I_SN;
-TM 10 Hz L20 SSP_I_TS;
-TM 10 Hz XLONG SSP_I_Flags;
-TM 10 Hz SSP_Status_t SSP_I_Status;
-TM 10 Hz UINT SSP_I_Stale;
-TM 10 Hz T_FPGA_t SSP_I_T_FPGA;
-TM 10 Hz T_HtSink_t SSP_I_T_HtSink;
+TM 1 Hz L20 SSP_I_Num;
+TM 1 Hz L20 SSP_I_SN;
+TM 1 Hz L20 SSP_I_TS;
+TM 1 Hz XLONG SSP_I_Flags;
+TM 1 Hz SSP_Status_t SSP_I_Status;
+TM 1 Hz UINT SSP_I_Stale;
+TM 1 Hz T_FPGA_t SSP_I_T_FPGA;
+TM 1 Hz T_HtSink_t SSP_I_T_HtSink;
 
 Group SSP_I_grp ( SSP_I_Num, SSP_I_SN, SSP_I_TS, SSP_I_Flags,
      SSP_I_T_FPGA, SSP_I_T_HtSink ) {

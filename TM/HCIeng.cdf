@@ -269,22 +269,25 @@ csv HCIeng_1 270
   267 n_bp_records 
   268 n_span_records 
   269 vl_cpuT 
-csv HCIeng_10 15
+csv HCIeng_10 18
   0 THCIeng_10 %.3lf
-  1 CCel1T 
-  2 CCel2T 
-  3 CCelLP 
-  4 DS86C 
-  5 ICelLP 
-  6 MCel1T 
-  7 MCel2T 
-  8 MCelLP 
-  9 MRA_Alt 
-  10 MRA_Alt_a 
-  11 MRA_Stale 
-  12 SSP_C_Num 
-  13 SSP_I_Num 
-  14 SSP_M_Num 
+  1 AIC48 
+  2 AICD4 
+  3 AICD6 
+  4 CCel1T 
+  5 CCel2T 
+  6 CCelLP 
+  7 DS86C 
+  8 ICelLP 
+  9 MCel1T 
+  10 MCel2T 
+  11 MCelLP 
+  12 MRA_Alt 
+  13 MRA_Alt_a 
+  14 MRA_Stale 
+  15 SSP_C_Num 
+  16 SSP_I_Num 
+  17 SSP_M_Num 
 csv HCIeng_5 8
   0 THCIeng_5 %.3lf
   1 PM0I1 

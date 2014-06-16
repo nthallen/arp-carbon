@@ -22,6 +22,9 @@
 #define DS84C_Address 0x84C
 #define DS84A_Address 0x84A
 #define DS848_Address 0x848
+#define AICD6_Address 0xCD6
+#define AICD4_Address 0xCD4
+#define AIC48_Address 0xC48
 #define MLTETSt_Address 0x428
 #define MLPVTSt_Address 0x42A
 #define MDPVTSt_Address 0x42C

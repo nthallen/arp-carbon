@@ -141,11 +141,18 @@ GD {
   }
 }
 
+OPEN {
+  HBox { +-; Title: "Open"; -+ };
+  AIC48: (AIC48,7) V;
+  AICD4: (AICD4,7) V;
+  AICD6: (AICD6,7) V;
+}
+
 {
   HBox {
     [MM]; |+;
     [CO2]; |+;
-    [ICOS]; |+;
+    { [ICOS]; [OPEN] }; |+;
     {
       [HC];
       [pwrmon];
