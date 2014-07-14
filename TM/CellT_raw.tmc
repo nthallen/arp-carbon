@@ -1,0 +1,40 @@
+AI16 MSSPT_raw; Invalidate MSSPT_raw;
+  { MSSPT_raw = MSSPT; Validate MSSPT_raw; }
+AI16 ISk3T_raw; Invalidate ISk3T_raw;
+  { ISk3T_raw = ISk3T; Validate ISk3T_raw; }
+AI16 MCelP_raw; Invalidate MCelP_raw;
+  { MCelP_raw = MCelP; Validate MCelP_raw; }
+AI16 ICel1T_raw; Invalidate ICel1T_raw;
+  { ICel1T_raw = ICel1T; Validate ICel1T_raw; }
+AI16 MSG1T_raw; Invalidate MSG1T_raw;
+  { MSG1T_raw = MSG1T; Validate MSG1T_raw; }
+AI16 ICel2T_raw; Invalidate ICel2T_raw;
+  { ICel2T_raw = ICel2T; Validate ICel2T_raw; }
+AI16 MRv1T_raw; Invalidate MRv1T_raw;
+  { MRv1T_raw = MRv1T; Validate MRv1T_raw; }
+AI16 ISk1T_raw; Invalidate ISk1T_raw;
+  { ISk1T_raw = ISk1T; Validate ISk1T_raw; }
+AI16 MCel2T_raw; Invalidate MCel2T_raw;
+  { MCel2T_raw = MCel2T; Validate MCel2T_raw; }
+AI16 MSk1T_raw; Invalidate MSk1T_raw;
+  { MSk1T_raw = MSk1T; Validate MSk1T_raw; }
+AI16 ISk2T_raw; Invalidate ISk2T_raw;
+  { ISk2T_raw = ISk2T; Validate ISk2T_raw; }
+AI16 MSk3T_raw; Invalidate MSk3T_raw;
+  { MSk3T_raw = MSk3T; Validate MSk3T_raw; }
+AI16 AIC48_raw; Invalidate AIC48_raw;
+  { AIC48_raw = AIC48; Validate AIC48_raw; }
+AI16 MCel1T_raw; Invalidate MCel1T_raw;
+  { MCel1T_raw = MCel1T; Validate MCel1T_raw; }
+AI16 CRv1T_raw; Invalidate CRv1T_raw;
+  { CRv1T_raw = CRv1T; Validate CRv1T_raw; }
+AI16 AICD4_raw; Invalidate AICD4_raw;
+  { AICD4_raw = AICD4; Validate AICD4_raw; }
+AI16 CCel2T_raw; Invalidate CCel2T_raw;
+  { CCel2T_raw = CCel2T; Validate CCel2T_raw; }
+AI16 CSk3T_raw; Invalidate CSk3T_raw;
+  { CSk3T_raw = CSk3T; Validate CSk3T_raw; }
+AI16 AICD6_raw; Invalidate AICD6_raw;
+  { AICD6_raw = AICD6; Validate AICD6_raw; }
+AI16 CCel1T_raw; Invalidate CCel1T_raw;
+  { CCel1T_raw = CCel1T; Validate CCel1T_raw; }

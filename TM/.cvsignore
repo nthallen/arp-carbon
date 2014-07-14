@@ -84,6 +84,12 @@ HCIengext.cc
 HCIengextoui.c
 HCIengextoui.o
 HCIengext.o
+HCIrawextcdf.oui
+CellT_rawext.tmc
+HCIrawext.cc
+HCIrawextoui.c
+HCIrawextoui.o
+HCIrawext.o
 doit.dep
 HCIclt.o
 HCIcltoui.c
@@ -104,6 +110,7 @@ HCI_A_algo
 HCI_B_algo
 HCI_C_algo
 HCIengext
+HCIrawext
 doit
 HCIclt
 HCIcltnc
