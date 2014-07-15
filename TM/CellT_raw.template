@@ -1,0 +1,15 @@
+#! /bin/sh
+chans="MSSPT ISk3T MCelP ICel1T MSG1T ICel2T MRv1T ISk1T MCel2T
+      MSk1T ISk2T MSk3T MCel1T CRv1T CCel2T CSk3T
+      CCel1T
+      CSk1T CSk2T MSk2T
+      CRv2T CRv3T CRv4T CRv5T
+      MRv2T MRv3T MRv4T MRv5T
+      IRv1T IRv2T IRv3T IRv4T IRv5T"
+for chan in $chans; do
+cat <<EOF | sed -e "s/%chan%/$chan/g"
+AI16 %chan%_raw; Invalidate %chan%_raw;
+  { %chan%_raw = %chan%; Validate %chan%_raw; }
+EOF
+
+done >CellT_raw.tmc

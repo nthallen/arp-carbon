@@ -1481,15 +1481,10 @@ Partition
   #define PUMP_TEMP_COLD 35
   #define BATH_TEMP_OK(x) (x > BATH_TEMP_COLD)
   #define PUMP_COLD_OK(x) (x < PUMP_TEMP_COLD)
-<<<<<<< .mine
   #define COOLANT_PUMP_ON(x) (x > COOL_P_ON)
   #define COOL_P_ON 10
   #define COOL_P_LOW 1
   #define COOL_P_HIGH 75
-=======
-  #define COOL_P_LOW 18
-  #define COOL_P_HIGH 75
->>>>>>> .r516
 %}
 
 State Pump_Cool_Init {
@@ -1516,13 +1511,8 @@ State Pump_Cool_Watch Nolog {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
-<<<<<<< .mine
     { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP_Check; }
     { if (convert(CoolP) > COOL_P_HIGH) Validate Pump_Cool_HiP; }
-=======
-    { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP; }
-    { if (convert(CoolP) > COOL_P_HIGH) Validate Pump_Cool_HiP; }
->>>>>>> .r516
  +1 > Coolant Divert Off
  +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
  +1 hold until ( BATH_TEMP_OK(convert(WTnkT))) or 5
@@ -1616,7 +1606,6 @@ State Pump_Cool_Is_Shutdown {}
 Partition
 
 %{
-<<<<<<< .mine
   #define HEATER_HOT 2.0
   #define HEATER_TEMP_OK(x) (x<HEATER_HOT)
   #define BAY_HOT 25
@@ -1628,40 +1617,16 @@ Partition
   double LBTGi = 80.; /* requires 1 minute to completely unwind at T_diff of 1.0 */
   double LBT_set = 22.;
   #define LBT_MAX_CAL_BITS 48000.
-=======
-  #define HEATER_HOT 2.0
-  #define HEATER_TEMP_OK(x) (x<HEATER_HOT)
-  #define BAY_HOT 25
-  #define BAY_TEMP_OK(x) (x<BAY_HOT)
-  #define LBHtrMaxSP 1.9
-  
-  double LBT_sum = 0.;
-  double LBTGp = 900.;
-  double LBTGi = 80.; /* requires 1 minute to completely unwind at T_diff of 1.0 */
-  double LBT_set = 25.;
-  #define LBT_MAX_CAL_BITS 48000.
->>>>>>> .r516
 %}
 
 State LuggageBay_TCtrl_Init {
-<<<<<<< .mine
   +1 > HK Space Htr Ctl Off
   +1 > drive Throttle Valve in 48000
      Hold until (TVStat & 1) or 15;
   +1 > drive Throttle Valve out 1
-=======
->>>>>>> .r516
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
-<<<<<<< .mine
     Depending on (Record) { Validate LuggageBay_TCtrl_PI_Init; }
     { if ((IOSwS & 3) == 3)  Validate LuggageBay_TCtrl_PI_Init; }
-=======
-    Depending on (Record) { Validate LuggageBay_TCtrl_PI_Init; }
-   +1 > HK Space Htr Ctl Off
-   +1 > drive Throttle Valve in 48000
-    Hold until ((IOSwS & 3) == 3) ;
-    Validate LuggageBay_TCtrl_PI_Init; 
->>>>>>> .r516
 } 
 
 State LuggageBay_TCtrl_PI_Init {

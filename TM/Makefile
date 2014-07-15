@@ -1,6 +1,7 @@
-# Makefile Generated Wed Jul 17 16:38:59 EDT 2013
+# Makefile Generated Tue Jul 15 16:01:59 EDT 2014
 MNC=HCI
 SPECFILE=HCI.spec
+PCMFILE=HCI.pcm
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
 SRC+=hci_analysis cpu_usage.tmc types.tmc AIO.tmc Altimeter.tmc
 SRC+=BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc
@@ -14,7 +15,8 @@ SRC+=qclis.cmd idx64drv.cmd subbus.cmd panel.cmd address.h SWData.cmd
 SRC+=QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd digio_conv.tmc P_conv.tmc
 SRC+=Inverter_conv.tmc hk.tbl qcli.tbl Cells.tbl SSPrtg.tmc
 SRC+=Pilot_conv.tmc BAT_SPAN.tbl Altimeter_conv.tmc hk2.tbl HCI_A.tma
-SRC+=HCI.sws HCI_B.tma HCI_C.tma HCIeng.cdf HCI.doit
+SRC+=HCI.sws HCI_B.tma HCI_C.tma HCIeng.cdf CellT_raw.tmc
+SRC+=CellT_raw.cdf HCI.doit
 TOOL=HCI.spec Makefile
 SCRIPT=idx64.idx64 interact dccc.dccc runfile.FF
 OBJ=QCLI_C.cmd QCLI_C.out QCLI_C.tmc QCLI_C.m QCLI_C.log QCLI_M.cmd
@@ -32,11 +34,12 @@ OBJ+=HCI_A_algo.cc HCI_A_algooui.c HCI_A_algooui.o HCI_A_algo.o
 OBJ+=HCI_B_algoa.tmc HCI_B_algo.cc HCI_B_algooui.c HCI_B_algooui.o
 OBJ+=HCI_B_algo.o HCI_C_algoa.tmc HCI_C_algo.cc HCI_C_algooui.c
 OBJ+=HCI_C_algooui.o HCI_C_algo.o HCIengextcdf.oui HCIengext.tmc
-OBJ+=HCIengext.cc HCIengextoui.c HCIengextoui.o HCIengext.o doit.dep
-OBJ+=HCIclt.o HCIcltoui.c HCIcltoui.o HCIcltnc.o HCIcltncoui.c
-OBJ+=HCIcltncoui.o
+OBJ+=HCIengext.cc HCIengextoui.c HCIengextoui.o HCIengext.o
+OBJ+=HCIrawextcdf.oui CellT_rawext.tmc HCIrawext.cc HCIrawextoui.c
+OBJ+=HCIrawextoui.o HCIrawext.o doit.dep HCIclt.o HCIcltoui.c
+OBJ+=HCIcltoui.o HCIcltnc.o HCIcltncoui.c HCIcltncoui.o
 TGT=HCIcol HCIsrvr HCIdisp HCIdispnc BSdisp BSdispnc HCI_A_algo
-TGT+=HCI_B_algo HCI_C_algo HCIengext doit HCIclt HCIcltnc
+TGT+=HCI_B_algo HCI_C_algo HCIengext HCIrawext doit HCIclt HCIcltnc
 DISTRIB=QCLI_C.out QCLI_M.out QCLI_I.out ../BAT/BAT_SPAN
 DISTRIB+=../BAT/BS2cdfext ../BAT/BSlogger ../Inverter/Inverter
 DISTRIB+=../Altimeter/Altimeter HCI.pcm tm.dac
@@ -102,7 +105,10 @@ VERSION=`cat VERSION`
 extdistribution : $(DSTRB) $(SRCDIST) VERSION
 	@[ -d $(TGTDIR)/bin ] || mkdir $(TGTDIR)/bin
 	@[ -d $(TGTDIR)/bin/$(VERSION) ] || mkdir $(TGTDIR)/bin/$(VERSION)
-	@[ -d  $(TGTDIR)/bin/$(VERSION)/Base ] || mkdir $(TGTDIR)/bin/$(VERSION)/Base
+	@[ -d $(TGTDIR)/bin/$(VERSION)/Base ] || mkdir $(TGTDIR)/bin/$(VERSION)/Base
+	@[ ! -f $(TGTDIR)/bin/$(VERSION)/$(PCMFILE) ] || \
+	  cmp -s $(TGTDIR)/bin/$(VERSION)/$(PCMFILE) $(PCMFILE) || \
+	  ( echo "$(PCMFILE) changed without VERSION update"; false )
 	@distribute $(FORCE) $(TGTDIR)/bin/$(VERSION) $(DSTRB)
 	@distribute $(FORCE) $(TGTDIR)/bin/$(VERSION)/Base $(SRCDIST)
 distribution : extdistribution
@@ -145,6 +151,9 @@ HCI_C_algo : HCI_C_algo.o ptrhm.o HCI_C_algooui.o
 HCIengext : HCIengext.o ptrhm.o HCIengextoui.o
 	$(LINK.normCXX) HCIengext.o ptrhm.o HCIengextoui.o -ltmpp -ltm -lnort
 	$(OUIUSE) HCIengextoui.c
+HCIrawext : HCIrawext.o ptrhm.o HCIrawextoui.o
+	$(LINK.normCXX) HCIrawext.o ptrhm.o HCIrawextoui.o -ltmpp -ltm -lnort
+	$(OUIUSE) HCIrawextoui.c
 doit : HCI.doit
 	mkdoit3 -o doit  HCI.doit
 HCIclt : HCIclt.o HCIcltoui.o
@@ -243,6 +252,16 @@ HCIengextoui.c : HCIengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) HCIengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIengextoui.o : HCIengextoui.c SWData.h
 HCIengext.o : HCIengext.cc SWData.h
+HCIrawextcdf.oui : CellT_raw.cdf
+	$(EDF2OUI) CellT_raw.cdf
+CellT_rawext.tmc : CellT_raw.cdf
+	$(EDF2EXT) CellT_raw.cdf
+HCIrawext.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc T30K250KU.tmc T1M75KU.tmc T1M1M.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc CellT_raw.tmc CellT_rawext.tmc
+	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc T1M250KU.tmc T30K250KU.tmc T1M75KU.tmc T1M1M.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc CellT_raw.tmc CellT_rawext.tmc
+HCIrawextoui.c : HCIrawextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) HCIrawextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+HCIrawextoui.o : HCIrawextoui.c SWData.h
+HCIrawext.o : HCIrawext.cc SWData.h
 doit.dep : HCI.doit
 	mkdoit3 -M -o doit  HCI.doit
 -include doit.dep

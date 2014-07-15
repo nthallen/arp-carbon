@@ -93,6 +93,7 @@ HCI_C_algo : P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc \
           Pilot_conv.tmc HCI_C.tma HCI.sws
 HCIengext : qcli_conv.tmc PTRH_conv.tmc P_conv.tmc Altimeter_conv.tmc \
             HCIeng.cdf
+HCIrawext : CellT_raw.tmc CellT_raw.cdf
 doit : HCI.doit
 
 %%
