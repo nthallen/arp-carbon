@@ -24,7 +24,7 @@
   hart_channel HartCh[3];
 
   static void update_hart(int stale) {
-    if (Hart.chan > 0 && Hart.chan <= 10 ) {
+    if (Hart.chan > 0 && Hart.chan <= 2 ) {
       HartCh[Hart.chan].set(Hart.value, stale);
     }
   }
