@@ -1,4 +1,4 @@
-# Makefile Generated Wed Aug 06 10:54:50 EDT 2014
+# Makefile Generated Wed Aug 06 14:00:02 EDT 2014
 MNC=HCI
 SPECFILE=HCI.spec
 PCMFILE=HCI.pcm

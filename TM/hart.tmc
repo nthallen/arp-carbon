@@ -21,7 +21,7 @@
     value = value_in;
   }
 
-  hart_channel HartCh[1];
+  hart_channel HartCh[3];
 
   static void update_hart(int stale) {
     if (Hart.chan > 0 && Hart.chan <= 10 ) {
@@ -34,13 +34,13 @@
 
 TM "Receive" Hart 0;
 TM typedef double HartR { text "%10.4lf"; }
-TM 1 Hz HartR Hart0R;
+TM 1 Hz HartR Hart2R;
 TM typedef unsigned char stale_t { text "%3d"; }
-TM 1 Hz stale_t H0R_stale;
+TM 1 Hz stale_t H2R_stale;
 TM 1 Hz stale_t Hart_stale;
-group Hart ( Hart0R, H0R_stale, Hart_stale ) {
+group Hart ( Hart2R, H2R_stale, Hart_stale ) {
   Hart_stale = Hart_obj->stale();
   update_hart(Hart_stale);
-  Hart0R = hart_value(0); H0R_stale = hart_age(0);
+  Hart2R = hart_value(2); H2R_stale = hart_age(0);
 }
 

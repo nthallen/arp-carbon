@@ -30,7 +30,7 @@ else
   echo "==> Starting ser8250 for mother board"
   # devc-ser8250 -u1 3f8,4 -u2 2f8,3 -u3 3e8,7
   # Skip /dev/ser2
-  devc-ser8250 -u1 3f8,4 -u3 3e8,7
+  devc-ser8250 -u3 3f8,4 -u1 3e8,7
 fi
 
 echo "==> Starting ser8250 for Xtreme/104"
