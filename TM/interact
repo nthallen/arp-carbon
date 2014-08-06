@@ -44,5 +44,6 @@ esac
   Launch - tmdf
   Launch - nice -n-1 BAT_SPAN -S /dev/ser2 -B /dev/ser4 -N `mlf_find BAT_SPAN`
   Launch - Inverter -p /dev/ser1
-  Launch - Altimeter -p /dev/ser3
+# Launch - Altimeter -p /dev/ser3
+  Launch - hartd -p /dev/ser3
   Launch - HCI_${HCI_CONFIG}_algo -v
