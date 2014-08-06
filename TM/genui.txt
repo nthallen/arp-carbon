@@ -496,3 +496,8 @@ ROWS 15
  10 AIC48  HK:SPARE AI
  10 AICD4  HK:SPARE AI
  10 AICD6  HK:SPARE AI
+
+ 1  Hart_0R    HK:Hart R
+ 1  H0R_Stale  HK:Hart Stale
+ 1  Hart_Stale HK:Hart Stale
+ 

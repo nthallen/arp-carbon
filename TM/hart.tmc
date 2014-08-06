@@ -1,0 +1,46 @@
+/* hart.tmc */
+%{
+  #include "hartd.h"
+
+  hartd_t Hart;
+
+  class hart_channel {
+    private:
+      int age;
+    public:
+      double value;
+      inline hart_channel() { age = 255; }
+      unsigned char get_age();
+      void set( double value, int age );
+  };
+  unsigned char hart_channel::get_age() {
+    return age < 255 ? age++ : 255;
+  }
+  void hart_channel::set( double value_in, int age_in ) {
+    age = age_in;
+    value = value_in;
+  }
+
+  hart_channel HartCh[1];
+
+  static void update_hart(int stale) {
+    if (Hart.chan > 0 && Hart.chan <= 10 ) {
+      HartCh[Hart.chan].set(Hart.value, stale);
+    }
+  }
+  inline double hart_value(int i) { return HartCh[i].value; }
+  inline int hart_age(int i) { return HartCh[i].get_age(); }
+%}
+
+TM "Receive" Hart 0;
+TM typedef double HartR { text "%11.4lf"; }
+TM 1 Hz HartR Hart0R;
+TM typedef unsigned char stale_t { text "%3d"; }
+TM 1 Hz stale_t H0R_stale;
+TM 1 Hz stale_t Hart_stale;
+group Hart ( Hart0R, H0R_stale, Hart_stale ) {
+  Hart_stale = Hart_obj->stale();
+  update_hart(Hart_stale);
+  Hart0R = hart_value(0); H0R_stale = hart_age(0);
+}
+

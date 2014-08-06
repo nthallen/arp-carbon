@@ -1,0 +1,8 @@
+Hart {
+  HBox { +-; Title: "Hart"; -+ };
+  R0: (Hart0R,11) Ohm (H0R_stale,3) sec;
+  { Stale: (Hart_stale,3) }
+}
+
+{ [Hart] }
+
