@@ -39,7 +39,7 @@ TM typedef unsigned char stale_t { text "%3d"; }
 TM 1 Hz stale_t H2R_stale;
 TM 1 Hz stale_t Hart_stale;
 group Hart ( Hart2R, H2R_stale, Hart_stale ) {
-  Hart_stale = Hart_obj->stale();
+  Hart_stale = Hart_obj->stale(255);
   update_hart(Hart_stale);
   Hart2R = hart_value(2); H2R_stale = hart_age(2);
 }
