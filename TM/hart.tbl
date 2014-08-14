@@ -1,6 +1,7 @@
 Hart {
   HBox { +-; Title: "Hart"; -+ };
-  R0: (Hart2R,11) Ohm (H2R_stale,3) sec;
+  R1: (Hart1R,11) Ohm (H1R_stale,3) sec;
+  R2: (Hart2R,11) Ohm (H2R_stale,3) sec;
   { Stale: (Hart_stale,3) }
 }
 
