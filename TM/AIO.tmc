@@ -1,6 +1,6 @@
 TM 1 Hz AI_T30K C24VT; Address C24VT 0xCB0; /* CO2 V/I 24v Supply Temp */
-TM 10 Hz AI_T1M250KU CCel1T; Address CCel1T 0xCF6; /* Cell Temp 1 CO2 */
-TM 10 Hz AI_T1M250KU CCel2T; Address CCel2T 0xCF4; /* Cell Temp 2 CO2 */
+TM 10 Hz AI16_CCel1T CCel1T; Address CCel1T 0xCF6; /* Cell Temp 1 CO2 */
+TM 10 Hz AI16_CCel2T CCel2T; Address CCel2T 0xCF4; /* Cell Temp 2 CO2 */
 TM 1 Hz AI16 CCelCT; Address CCelCT 0xC7A; /* Cell Control Temp CO2 */
 TM 1 Hz P1000Torr_C CCelHP; Address CCelHP 0xC32; /* Cell Pressure (1000 Torr) CO2 */
 TM 10 Hz P100Torr_C CCelLP; Address CCelLP 0xC72; /* Cell Pressure (100 Torr) CO2 */
@@ -13,16 +13,16 @@ TM 1 Hz AI16 CLTE4R3T; Address CLTE4R3T 0xCEE; /* 4.3 Laser TEC Control Temp CO2
 TM 1 Hz AI_T30K CPampT; Address CPampT 0xC70; /* CO2 Power Amp (PA09) Temp */
 TM 1 Hz AI_T30K CPmpT; Address CPmpT 0xC1C; /* CO2 Pump Temp */
 TM 1 Hz AI_T30K CPMtT; Address CPMtT 0xC5C; /* CO2 Pump Motor Temp */
-TM 1 Hz AI_T30K CRv1T; Address CRv1T 0xCB4; /* Roving Temp 1 CO2 */
-TM 1 Hz AI_T30K CRv2T; Address CRv2T 0xC38; /* Roving Temp 2 CO2 */
-TM 1 Hz AI_T30K CRv3T; Address CRv3T 0xC78; /* Roving Temp 3 CO2 */
-TM 1 Hz AI_T30K CRv4T; Address CRv4T 0xCB8; /* Roving Temp 4 CO2 */
-TM 1 Hz AI_T30K CRv5T; Address CRv5T 0xCF8; /* Roving Temp 5 CO2 */
+TM 1 Hz AI16_CRv1T CRv1T; Address CRv1T 0xCB4; /* Roving Temp 1 CO2 */
+TM 1 Hz AI16_CRv2T CRv2T; Address CRv2T 0xC38; /* Roving Temp 2 CO2 */
+TM 1 Hz AI16_CRv3T CRv3T; Address CRv3T 0xC78; /* Roving Temp 3 CO2 */
+TM 1 Hz AI16_CRv4T CRv4T; Address CRv4T 0xCB8; /* Roving Temp 4 CO2 */
+TM 1 Hz AI16_CRv5T CRv5T; Address CRv5T 0xCF8; /* Roving Temp 5 CO2 */
 TM 1 Hz AI_T30K CSG1T; Address CSG1T 0xC34; /* Sample Gas Temp 1 CO2 */
 TM 1 Hz AI_T30K CSG2T; Address CSG2T 0xC74; /* Sample Gas Temp 2 CO2 */
-TM 1 Hz AI_T30K CSk1T; Address CSk1T 0xC36; /* Skin Temp 1 CO2 */
-TM 1 Hz AI_T30K CSk2T; Address CSk2T 0xC76; /* Skin Temp 2 CO2 */
-TM 1 Hz AI_T30K CSk3T; Address CSk3T 0xCB6; /* Skin Temp 3 CO2 */
+TM 1 Hz AI16_CSk1T CSk1T; Address CSk1T 0xC36; /* Skin Temp 1 CO2 */
+TM 1 Hz AI16_CSk2T CSk2T; Address CSk2T 0xC76; /* Skin Temp 2 CO2 */
+TM 1 Hz AI16_CSk3T CSk3T; Address CSk3T 0xCB6; /* Skin Temp 3 CO2 */
 TM 1 Hz AI_T30K CSSPT; Address CSSPT 0xCF0; /* SSP Bd Temp CO2 */
 TM 1 Hz AI_20SLM GasFl; Address GasFl 0xC40; /* Gas Deck Flow */
 TM 1 Hz AI_2500psig GasHP; Address GasHP 0xC80; /* Gas Deck High Pressure (5000 psig) */
@@ -32,8 +32,8 @@ TM 1 Hz AI16 SH_CT; Address SH_CT 0xCFA; /* Sample Heater Control Temp */
 TM 1 Hz AI16 SpHCT; Address SpHCT 0xC3C; /* Space Heater Control Temp */
 TM 1 Hz AI16 TVPos; Address TVPos 0xC6C; /* Throttle Valve Pot Position */
 TM 1 Hz AI_T30K I24VT; Address I24VT 0xCD8; /* Large ICOS V/I 24v Supply Temp */
-TM 1 Hz AI_T1M250KU ICel1T; Address ICel1T 0xC44; /* Cell Temp 1 ISO */
-TM 1 Hz AI_T1M250KU ICel2T; Address ICel2T 0xCC4; /* Cell Temp 2 ISO */
+TM 1 Hz AI16_ICel1T ICel1T; Address ICel1T 0xC44; /* Cell Temp 1 ISO */
+TM 1 Hz AI16_ICel2T ICel2T; Address ICel2T 0xCC4; /* Cell Temp 2 ISO */
 TM 1 Hz AI16 ICelCT; Address ICelCT 0xC0A; /* Cell Control Temp ISO */
 TM 1 Hz P1000Torr_I ICelHP; Address ICelHP 0xCCA; /* Cell Pressure (1000 Torr) ISO */
 TM 10 Hz P100Torr_I ICelLP; Address ICelLP 0xC0C; /* Cell Pressure (100 Torr) ISO */
@@ -47,20 +47,20 @@ TM 1 Hz AI16 ILTE7R7T; Address ILTE7R7T 0xC18; /* 7.7 Laser TEC Control Temp ISO
 TM 1 Hz AI_T30K IPampT; Address IPampT 0xC98; /* Large ICOS Power Amp (PA09) Temp */
 /* TM 1 Hz AI_T30K IPmpT; Address IPmpT 0xCDC; */ /* Large ICOS Pump Temp */
 /* TM 1 Hz AI_T30K IPMtT; Address IPMtT 0xC9C; */ /* Large ICOS Pump Moter Temp */
-TM 1 Hz AI_T30K IRv1T; Address IRv1T 0xC04; /* Roving Temp 1 ISO */
-TM 1 Hz AI_T30K IRv2T; Address IRv2T 0xC84; /* Roving Temp 2 ISO */
-TM 1 Hz AI_T30K IRv3T; Address IRv3T 0xC06; /* Roving Temp 3 ISO */
-TM 1 Hz AI_T30K IRv4T; Address IRv4T 0xC86; /* Roving Temp 4 ISO */
-TM 1 Hz AI_T30K IRv5T; Address IRv5T 0xC08; /* Roving Temp 5 ISO */
+TM 1 Hz AI16_IRv1T IRv1T; Address IRv1T 0xC04; /* Roving Temp 1 ISO */
+TM 1 Hz AI16_IRv2T IRv2T; Address IRv2T 0xC84; /* Roving Temp 2 ISO */
+TM 1 Hz AI16_IRv3T IRv3T; Address IRv3T 0xC06; /* Roving Temp 3 ISO */
+TM 1 Hz AI16_IRv4T IRv4T; Address IRv4T 0xC86; /* Roving Temp 4 ISO */
+TM 1 Hz AI16_IRv5T IRv5T; Address IRv5T 0xC08; /* Roving Temp 5 ISO */
 TM 1 Hz AI_T30K ISG1T; Address ISG1T 0xC42; /* Sample Gas Temp 1 ISO */
 TM 1 Hz AI_T30K ISG2T; Address ISG2T 0xCC2; /* Sample Gas Temp 2 ISO */
-TM 1 Hz AI_T1M250KU ISk1T; Address ISk1T 0xC46; /* Skin Temp 1 ISO */
-TM 1 Hz AI_T1M250KU ISk2T; Address ISk2T 0xCC6; /* Skin Temp 2 ISO */
-TM 1 Hz AI_T1M250KU ISk3T; Address ISk3T 0xC82; /* Skin Temp 3 ISO */
+TM 1 Hz AI16_ISk1T ISk1T; Address ISk1T 0xC46; /* Skin Temp 1 ISO */
+TM 1 Hz AI16_ISk2T ISk2T; Address ISk2T 0xCC6; /* Skin Temp 2 ISO */
+TM 1 Hz AI16_ISk3T ISk3T; Address ISk3T 0xC82; /* Skin Temp 3 ISO */
 TM 1 Hz AI_T30K ISSPT; Address ISSPT 0xC1A; /* SSP Bd Temp ISO */
 TM 1 Hz AI_T30K M24VT; Address M24VT 0xC22; /* Mini-Methane V/I 24v Supply Temp */
-TM 10 Hz AI_T1M250KU MCel1T; Address MCel1T 0xC68; /* Cell Temp 1 MINI */
-TM 10 Hz AI_T1M250KU MCel2T; Address MCel2T 0xC66; /* Cell Temp 2 MINI */
+TM 10 Hz AI16_MCel1T MCel1T; Address MCel1T 0xC68; /* Cell Temp 1 MINI */
+TM 10 Hz AI16_MCel2T MCel2T; Address MCel2T 0xC66; /* Cell Temp 2 MINI */
 TM 1 Hz AI16 MCelCT; Address MCelCT 0xCEA; /* Cell Control Temp MINI */
 TM 1 Hz P1000Torr_M MCelHP; Address MCelHP 0xCA2; /* Cell Pressure (1000 Torr) MINI */
 TM 10 Hz P100Torr_M MCelLP; Address MCelLP 0xCE2; /* Cell Pressure (100 Torr) MINI */
@@ -75,15 +75,15 @@ TM 1 Hz AI_T30K MPampT; Address MPampT 0xCE0; /* Mini-Meth Power Amp (PA09) Temp
 TM 1 Hz AI_T30K MPmpT; Address MPmpT 0xC9A; /* Mini-Methane Pump Temp */
 TM 1 Hz AI_T30K MPMtT; Address MPMtT 0xCDA; /* Mini-Methane Pump Motor Temp */
 TM 1 Hz AI_T30K MRv1T; Address MRv1T 0xC26; /* Roving Temp 1 MINI */
-TM 1 Hz AI_T30K MRv2T; Address MRv2T 0xCA8; /* Roving Temp 2 MINI */
-TM 1 Hz AI_T30K MRv3T; Address MRv3T 0xCE8; /* Roving Temp 3 MINI */
-TM 1 Hz AI_T30K MRv4T; Address MRv4T 0xC2A; /* Roving Temp 4 MINI */
-TM 1 Hz AI_T30K MRv5T; Address MRv5T 0xC6A; /* Roving Temp 5 MINI */
+TM 1 Hz AI16_MRv2T MRv2T; Address MRv2T 0xCA8; /* Roving Temp 2 MINI */
+TM 1 Hz AI16_MRv3T MRv3T; Address MRv3T 0xCE8; /* Roving Temp 3 MINI */
+TM 1 Hz AI16_MRv4T MRv4T; Address MRv4T 0xC2A; /* Roving Temp 4 MINI */
+TM 1 Hz AI16_MRv5T MRv5T; Address MRv5T 0xC6A; /* Roving Temp 5 MINI */
 TM 1 Hz AI_T30K MSG1T; Address MSG1T 0xCA4; /* Sample Gas Temp 1 MINI */
 TM 1 Hz AI_T30K MSG2T; Address MSG2T 0xCE4; /* Sample Gas Temp 2 MINI */
-TM 1 Hz AI_T30K MSk1T; Address MSk1T 0xCA6; /* Skin Temp 1 MINI */
-TM 1 Hz AI_T30K MSk2T; Address MSk2T 0xCE6; /* Skin Temp 2 MINI */
-TM 1 Hz AI_T30K MSk3T; Address MSk3T 0xC28; /* Skin Temp 3 MINI */
+TM 1 Hz AI16_MSk1T MSk1T; Address MSk1T 0xCA6; /* Skin Temp 1 MINI */
+TM 1 Hz AI16_MSk2T MSk2T; Address MSk2T 0xCE6; /* Skin Temp 2 MINI */
+TM 1 Hz AI16_MSk3T MSk3T; Address MSk3T 0xC28; /* Skin Temp 3 MINI */
 TM 1 Hz AI_T30K MSSPT; Address MSSPT 0xC62; /* SSP Bd Temp MINI */
 TM 1 Hz AI_T30K RadInT; Address RadInT 0xC8E; /* Radiator Input Temp (was WPmpT) */
 TM 1 Hz AI_100psig CoolP; Address CoolP 0xCCE; /* Coolant Pressure */

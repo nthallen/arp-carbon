@@ -53,6 +53,36 @@ TM typedef AI16 AI_T1M75KU
   { text "%6.2lf"; convert CELCIUS; }
   /* Calibration in T1M75KU.tmc */
 
+TM typedef AI_T1M250KU AI16_CCel1T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T1M250KU AI16_CCel2T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T1M250KU AI16_MCel1T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_MRv3T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T1M250KU AI16_ISk3T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_IRv2T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_IRv3T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_IRv4T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_IRv5T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T1M250KU AI16_MCel2T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_CSk1T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_CSk2T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_CSk3T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_CRv1T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_CRv2T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_CRv3T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_CRv4T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_CRv5T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_MSk1T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_MSk2T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_MSk3T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_MRv2T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_MRv4T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_MRv5T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T1M250KU AI16_ICel1T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T1M250KU AI16_ICel2T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T1M250KU AI16_ISk1T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T1M250KU AI16_ISk2T { text "%6.2lf"; convert CELCIUS; }
+TM typedef AI_T30K AI16_IRv1T { text "%6.2lf"; convert CELCIUS; }
+
 TM typedef AI16 AI_VigoT
   { text "%6.2lf"; convert KELVIN; }
   /* Calibration in VigoT.tmc */
