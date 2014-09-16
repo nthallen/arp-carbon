@@ -1,0 +1,66 @@
+AI16 MSSPT_raw; Invalidate MSSPT_raw;
+  { MSSPT_raw = MSSPT; Validate MSSPT_raw; }
+AI16 ISk3T_raw; Invalidate ISk3T_raw;
+  { ISk3T_raw = ISk3T; Validate ISk3T_raw; }
+AI16 MCelP_raw; Invalidate MCelP_raw;
+  { MCelP_raw = MCelP; Validate MCelP_raw; }
+AI16 ICel1T_raw; Invalidate ICel1T_raw;
+  { ICel1T_raw = ICel1T; Validate ICel1T_raw; }
+AI16 MSG1T_raw; Invalidate MSG1T_raw;
+  { MSG1T_raw = MSG1T; Validate MSG1T_raw; }
+AI16 ICel2T_raw; Invalidate ICel2T_raw;
+  { ICel2T_raw = ICel2T; Validate ICel2T_raw; }
+AI16 MRv1T_raw; Invalidate MRv1T_raw;
+  { MRv1T_raw = MRv1T; Validate MRv1T_raw; }
+AI16 ISk1T_raw; Invalidate ISk1T_raw;
+  { ISk1T_raw = ISk1T; Validate ISk1T_raw; }
+AI16 MCel2T_raw; Invalidate MCel2T_raw;
+  { MCel2T_raw = MCel2T; Validate MCel2T_raw; }
+AI16 MSk1T_raw; Invalidate MSk1T_raw;
+  { MSk1T_raw = MSk1T; Validate MSk1T_raw; }
+AI16 ISk2T_raw; Invalidate ISk2T_raw;
+  { ISk2T_raw = ISk2T; Validate ISk2T_raw; }
+AI16 MSk3T_raw; Invalidate MSk3T_raw;
+  { MSk3T_raw = MSk3T; Validate MSk3T_raw; }
+AI16 MCel1T_raw; Invalidate MCel1T_raw;
+  { MCel1T_raw = MCel1T; Validate MCel1T_raw; }
+AI16 CRv1T_raw; Invalidate CRv1T_raw;
+  { CRv1T_raw = CRv1T; Validate CRv1T_raw; }
+AI16 CCel2T_raw; Invalidate CCel2T_raw;
+  { CCel2T_raw = CCel2T; Validate CCel2T_raw; }
+AI16 CSk3T_raw; Invalidate CSk3T_raw;
+  { CSk3T_raw = CSk3T; Validate CSk3T_raw; }
+AI16 CCel1T_raw; Invalidate CCel1T_raw;
+  { CCel1T_raw = CCel1T; Validate CCel1T_raw; }
+AI16 CSk1T_raw; Invalidate CSk1T_raw;
+  { CSk1T_raw = CSk1T; Validate CSk1T_raw; }
+AI16 CSk2T_raw; Invalidate CSk2T_raw;
+  { CSk2T_raw = CSk2T; Validate CSk2T_raw; }
+AI16 MSk2T_raw; Invalidate MSk2T_raw;
+  { MSk2T_raw = MSk2T; Validate MSk2T_raw; }
+AI16 CRv2T_raw; Invalidate CRv2T_raw;
+  { CRv2T_raw = CRv2T; Validate CRv2T_raw; }
+AI16 CRv3T_raw; Invalidate CRv3T_raw;
+  { CRv3T_raw = CRv3T; Validate CRv3T_raw; }
+AI16 CRv4T_raw; Invalidate CRv4T_raw;
+  { CRv4T_raw = CRv4T; Validate CRv4T_raw; }
+AI16 CRv5T_raw; Invalidate CRv5T_raw;
+  { CRv5T_raw = CRv5T; Validate CRv5T_raw; }
+AI16 MRv2T_raw; Invalidate MRv2T_raw;
+  { MRv2T_raw = MRv2T; Validate MRv2T_raw; }
+AI16 MRv3T_raw; Invalidate MRv3T_raw;
+  { MRv3T_raw = MRv3T; Validate MRv3T_raw; }
+AI16 MRv4T_raw; Invalidate MRv4T_raw;
+  { MRv4T_raw = MRv4T; Validate MRv4T_raw; }
+AI16 MRv5T_raw; Invalidate MRv5T_raw;
+  { MRv5T_raw = MRv5T; Validate MRv5T_raw; }
+AI16 IRv1T_raw; Invalidate IRv1T_raw;
+  { IRv1T_raw = IRv1T; Validate IRv1T_raw; }
+AI16 IRv2T_raw; Invalidate IRv2T_raw;
+  { IRv2T_raw = IRv2T; Validate IRv2T_raw; }
+AI16 IRv3T_raw; Invalidate IRv3T_raw;
+  { IRv3T_raw = IRv3T; Validate IRv3T_raw; }
+AI16 IRv4T_raw; Invalidate IRv4T_raw;
+  { IRv4T_raw = IRv4T; Validate IRv4T_raw; }
+AI16 IRv5T_raw; Invalidate IRv5T_raw;
+  { IRv5T_raw = IRv5T; Validate IRv5T_raw; }
