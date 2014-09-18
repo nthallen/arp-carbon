@@ -28,7 +28,7 @@ tmcbase = Pilot.tmc
 tmcbase = pwrmon.tmc
 tmcbase = qcli.tmc
 tmcbase = PTRH.tmc
-tmcbase = hart.tmc
+# tmcbase = hart.tmc
 
 cmdbase = /usr/local/share/huarp/root.cmd
 cmdbase = /usr/local/share/huarp/getcon.cmd
@@ -84,7 +84,7 @@ HCIcol : -lsubbus
 HCIsrvr : -lsubbus
 HCIdisp : PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc \
           qcli_conv.tmc P_conv.tmc Inverter_conv.tmc hk.tbl qcli.tbl \
-          Cells.tbl hart.tbl SSPrtg.tmc /usr/local/share/oui/cic.oui
+          Cells.tbl SSPrtg.tmc /usr/local/share/oui/cic.oui
 Caldisp : digio_conv.tmc Calibration.tbl
 BSdisp : Pilot_conv.tmc digio_conv.tmc qcli_conv.tmc Inverter_conv.tmc \
          BAT_SPAN.tbl Altimeter_conv.tmc hk2.tbl

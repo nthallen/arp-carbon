@@ -26,25 +26,25 @@ case $HCI_CONFIG in
 esac
 
 # Verify and/or Program QCLIs
-# $MOK qclidprog -h QCLI_M -d0 -cwcwc $TMBINDIR/QCLI_M.out
-# $COK qclidprog -h QCLI_C -d1 -cwcwc $TMBINDIR/QCLI_C.out
-# $IOK qclidprog -h QCLI_I -d2 -cwcwc $TMBINDIR/QCLI_I.out
-
+  $MOK qclidprog -h QCLI_M -d0 -cwcwc $TMBINDIR/QCLI_M.out
+  $COK qclidprog -h QCLI_C -d1 -cwcwc $TMBINDIR/QCLI_C.out
+  $IOK qclidprog -h QCLI_I -d2 -cwcwc $TMBINDIR/QCLI_I.out
+  
   Launch dccc   dccc -f $TMBINDIR/dccc.dccc
   Launch DG/cmd HCIcol
   Launch cmd/server HCIsrvr
   Launch - lgr -N `mlf_find LOG`
   Launch - idx64 `cat $TMBINDIR/idx64.idx64`
-# $MOK Launch - sspdrv -H 10.0.0.210 -hSSP_M -N `mlf_find SSP_M`
-# $MOK Launch - qclidacsd -h QCLI_M -d 0
-# $COK Launch - sspdrv -H 10.0.0.211 -hSSP_C -N `mlf_find SSP_C`
-# $COK Launch - qclidacsd -h QCLI_C -d 1
-# $IOK Launch - sspdrv -H 10.0.0.206 -hSSP_I -N `mlf_find SSP_I` -L 20
-# $IOK Launch - qclidacsd -h QCLI_I -d 2
+  $MOK Launch - sspdrv -H 10.0.0.210 -hSSP_M -N `mlf_find SSP_M`
+  $MOK Launch - qclidacsd -h QCLI_M -d 0
+  $COK Launch - sspdrv -H 10.0.0.211 -hSSP_C -N `mlf_find SSP_C`
+  $COK Launch - qclidacsd -h QCLI_C -d 1
+  $IOK Launch - sspdrv -H 10.0.0.206 -hSSP_I -N `mlf_find SSP_I` -L 20
+  $IOK Launch - qclidacsd -h QCLI_I -d 2
   Launch - tmdf
 # Launch - nice -n-1 BAT_SPAN -S /dev/ser2 -B /dev/ser4 -N `mlf_find BAT_SPAN`
   Launch - Inverter -p /dev/ser1
 # Launch - Altimeter -p /dev/ser3
-  stty baud=9600 -ihflow -ohflow </dev/ser3
-  Launch - hartd -p /dev/ser3
-# Launch - HCI_${HCI_CONFIG}_algo -v
+# stty baud=9600 -ihflow -ohflow </dev/ser3
+# Launch - hartd -p /dev/ser3
+  Launch - HCI_${HCI_CONFIG}_algo -v
