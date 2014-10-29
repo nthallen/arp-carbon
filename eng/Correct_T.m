@@ -1,5 +1,6 @@
 %%
 % Script currently to be run in the RAW/RUN directory
+clc
 clear all
 close all
 if exist('HCIraw_1.csv','file') && ~exist('HCIraw_1.mat','file')
@@ -10,6 +11,9 @@ if exist('HCIraw_10.csv','file') && ~exist('HCIraw_10.mat','file')
 end
 %%
 draw_fig = [0 0 0 1];
+fnamefmt = 'CorrT_%s_%s_%s.png';
+print_fig = @(cell,ltr) print('-dpng',sprintf(fnamefmt, cell, ltr, getrun(1)));
+% print_fig = @(ltr) 0;
 E1 = load('HCIeng_1.mat');
 E10 = load('HCIeng_10.mat');
 R1 = load('HCIraw_1.mat');
@@ -23,8 +27,8 @@ LR10 = length(R10.THCIraw_10);
 % i1: indices into R10 vectors that correspond to elements of E10
 i10 = interp1(R10.THCIraw_10,1:LR10,E10.THCIeng_10,'nearest','extrap');
 C = load('../Corrections.mat');
-load('../alpha.mat'); % for S1, S2 and S3
-Cals = S3;
+load('../alphas.mat');
+Cals = alphas;
 %%
 chans = fieldnames(Cals);
 %%
@@ -92,7 +96,7 @@ for col = 1:length(chans)
     
     % Now we have Vtrue. We also have the pullup resistance
     Rth = Vtrue.*Rpu./(Vref-Vtrue);
-    cal = Cals.(chan).alpha;
+    cal = Cals.(chan);
     lnR = log(Rth);
     TempTrue = (1./([ones(size(lnR)), lnR, lnR.^3]*cal)) - 273.15;
     Tcorr.(chan) = TempTrue;
@@ -264,7 +268,7 @@ if draw_fig(4)
             plot(plots(col,1), T, T1, T, T2);
             title(plots(col,1), sprintf('%s: %s Cell %s', getrun, ...
                 desc{col}, cell));
-            legend(plots(col,1),[cell 'Cel1T'], [cell 'Cell2T']);
+            legend(plots(col,1),[cell 'Cel1T'], [cell 'Cell2T'],'Location','SouthEast');
             set(plots(col,1),'XTickLabel',[]);
             if col == 2
                 set(plots(col,1),'YAxisLocation', 'Right');
@@ -288,5 +292,6 @@ if draw_fig(4)
             yl = minmax([yl1, yl2]);
             set(plots(:,row),'ylim',yl);
         end
+        print_fig(cell, 'a');
     end
 end
