@@ -28,7 +28,7 @@ State Init {
   +2   Validate Standby;
 }
 
-# WAIT 
+# WAIT
 State Standby {
         depending on (TAKE_DATA) { Validate Record; }
         depending on (LAND)      { Validate Shutdown; }
@@ -40,7 +40,7 @@ State Standby {
         depending on (Inverter_Fail) { Validate Shutdown_Fast; }
 }
 
-# RECORD  
+# RECORD
 State Record {
         depending on (LAND)      { Validate Shutdown; }
         depending on (AI_Fail)   { Validate Shutdown; }
@@ -79,8 +79,8 @@ State Shutdown_Fast {
 # -----------------------------------------------------------------------------
 Partition
 
-# This partition looks for pilot panel switch position and flight sensors to decide state of instrument. 
-# IN Flight, Take Data, Land, Calibrate. 
+# This partition looks for pilot panel switch position and flight sensors to decide state of instrument.
+# IN Flight, Take Data, Land, Calibrate.
 # (ON_GROUND, OFF_GROUND, IN_AIR). \
 
 %{ /* Altitude definitions */
@@ -302,7 +302,7 @@ State MQCL_Watch NoLog {
     Validate MQCL_Watch;
 }
 
-State MQCL_Watch_Recover NoLog {  
+State MQCL_Watch_Recover NoLog {
   { if (!MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)))
       Validate MQCL_Out_TSpec;
     else if (convert(MLasI) <= M_LOW_CURRENT)
@@ -989,7 +989,7 @@ State IQCL_Watch NoLog {
     Validate IQCL_Watch;
 }
 
-State IQCL_Watch_Recover NoLog {  
+State IQCL_Watch_Recover NoLog {
   { if (!IQCL_TEMP_OK(convert(ILTE7R7T),convert(ILTETSt)))
       Validate IQCL_Out_TSpec;
     else if (convert(ILasI) <= I_LOW_CURRENT)
@@ -1170,14 +1170,14 @@ State IQCLI_Shutdown {}
 
 
 #----------------------------------------------------------------
-# Partition 13: Calibration Logic 
+# Partition 13: Calibration Logic
 #----------------------------------------------------------------
 Partition
 
 State Calibrate_Logic {
   Depending on (1Hz) {
     if ( MINI_Ready_To_Calibrate == 1 )
-      Validate Calibrate_MINI; 
+      Validate Calibrate_MINI;
     else if ( CO2_Ready_To_Calibrate == 1 )
       Validate Calibrate_CO2;
   }
@@ -1185,7 +1185,7 @@ State Calibrate_Logic {
 
 State Calibrate_MINI {
   { Cell_Ctrl = 0; }
-   +1 > MINI Pressure Reg Off 
+   +1 > MINI Pressure Reg Off
    +1 > MINI Gas Valve Open
    +1 Validate GasDeck_PI_Init;
       Hold until (MINI_Ready_To_Calibrate == 0) or 2:00;
@@ -1199,7 +1199,7 @@ State Calibrate_MINI {
 
 State Calibrate_CO2 {
   { Cell_Ctrl = 1; }
-   +1 > CO2 Pressure Reg Off 
+   +1 > CO2 Pressure Reg Off
    +1 > CO2 Gas Valve Open
    +1 Validate GasDeck_PI_Init;
       Hold until (CO2_Ready_To_Calibrate == 0) or 2:00;
@@ -1244,7 +1244,7 @@ State GasDeck_PI_Init {
 }
 
 State GasDeck_PI {
-  { double P, P_set, P_diff, dstep; 
+  { double P, P_set, P_diff, dstep;
     P = Cell_Ctrl ? convert(CCelP):convert(MCelP);
     P_set = Cell_Ctrl ? convert(CCelPSt):convert(MCelPSt);
     P_diff = P_set - P;
@@ -1269,7 +1269,7 @@ State GasDeck_Fill_MINI_Cell {
       > Gas Deck Set Gas Flow Setpoint 0
       > Gas Deck Flow Controller Closed Off
    +1 > Gas Deck Valve Open
-   +1 > Gas Deck Set Gas Flow Setpoint 3 
+   +1 > Gas Deck Set Gas Flow Setpoint 3
    Hold Until ( convert(MCelHP) > 500 ) or 2:00;
    +1 > Gas Deck Set Gas Flow Setpoint 2
    Hold Until ( convert(MCelHP) > 700 ) or 2:00;
@@ -1502,7 +1502,7 @@ State Pump_Cool_Start {
     Hold until valid (Inverter_On);
     Hold until valid (Pump_Watch);
  +1 > Coolant Pump On
- +1 Hold until ( COOLANT_PUMP_ON(convert(CoolP)) ) or 5   
+ +1 Hold until ( COOLANT_PUMP_ON(convert(CoolP)) ) or 5
 	else Validate Pump_Cool_Restart;
  +5 Validate Pump_Cool_Watch;
 }
@@ -1526,7 +1526,7 @@ State Pump_Cool_Restart {
     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
  +1 > Coolant Pump Off
  +3 > Coolant Pump On
- +1 Hold until ( COOLANT_PUMP_ON(convert(CoolP)) ) or 5   
+ +1 Hold until ( COOLANT_PUMP_ON(convert(CoolP)) ) or 5
 	else Validate Pump_Cool_Restart;
  +5 Validate Pump_Cool_Watch;
 }
@@ -1611,7 +1611,7 @@ Partition
   #define BAY_HOT 25
   #define BAY_TEMP_OK(x) (x<BAY_HOT)
   #define LBHtrMaxSP 1.9
-  
+
   double LBT_sum = 0.;
   double LBTGp = 900.;
   double LBTGi = 80.; /* requires 1 minute to completely unwind at T_diff of 1.0 */
@@ -1627,7 +1627,7 @@ State LuggageBay_TCtrl_Init {
     Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
     Depending on (Record) { Validate LuggageBay_TCtrl_PI_Init; }
     { if ((IOSwS & 3) == 3)  Validate LuggageBay_TCtrl_PI_Init; }
-} 
+}
 
 State LuggageBay_TCtrl_PI_Init {
   { LBT_sum = 0; LBTGp = 300; LBTGi = 80; }
@@ -1636,7 +1636,7 @@ State LuggageBay_TCtrl_PI_Init {
 
 State LuggageBay_TCtrl_PI {
   Depending on (Shutdown) { Validate LuggageBay_TCtrl_Shutdown; }
-  { double LBT, LBT_diff, dstep; 
+  { double LBT, LBT_diff, dstep;
     LBT = (convert(CRv5T)+convert(MRv5T))/2;
     LBT_diff = LBT_set - LBT;
     LBT_sum += LBT_diff * LBTGi;
@@ -1675,12 +1675,12 @@ State LuggageBay_TCtrl_Hot {
  +1 > HK Space Htr Ctl Off
     Hold until (convert(SpHCT) < 1.4);
     Validate LuggageBay_TCtrl_PI_Init;
-} 
+}
 
 State LuggageBay_TCtrl_Shutdown {
      > HK Space Htr Ctl Off
      > Drive Throttle Valve In 48000
-} 
+}
 
 # -----------------------------------------------------------------------------
 # Partition 19: Mini Methane Temperature Control
@@ -1695,7 +1695,7 @@ State MTControl_Init {
     Depending on (Shutdown) { Validate MTControl_Shutdown; }
     Depending on (Record) { Validate MTControl_Start; }
     Hold until ((IOSwS & 3) == 3) ;
-    Validate MTControl_Start; 
+    Validate MTControl_Start;
 }
 
 State MTControl_Start {
@@ -1756,7 +1756,7 @@ State CTControl_Init {
   Depending on (Shutdown) { Validate CTControl_Shutdown; }
   Depending on (Record) { Validate CTControl_Start; }
     Hold until ((IOSwS & 3) == 3) ;
-    Validate CTControl_Start; 
+    Validate CTControl_Start;
 }
 
 State CTControl_Start {
@@ -1804,7 +1804,7 @@ State ITControl_Init {
   Depending on (Shutdown) { Validate ITControl_Shutdown; }
   Depending on (Record) { Validate ITControl_Start; }
     Hold until ((IOSwS & 3) == 3) ;
-    Validate ITControl_Start; 
+    Validate ITControl_Start;
 }
 
 State ITControl_Start {
@@ -2102,7 +2102,7 @@ State Inverter_Fail {
 }
 
 # -----------------------------------------------------------------------------
-# Partition 29: GPS/INS/BAT 
+# Partition 29: GPS/INS/BAT
 # -----------------------------------------------------------------------------
 Partition
 
@@ -2130,14 +2130,63 @@ State BAT_SPAN_Fail {
   > Panel Display Text \\nBAT/GPS Failure
 }
 
-#Partition Lab Calibration
+#--------------------------
+#Partition Lab Calibration Pressure Control
 #--------------------------
 Partition
 
 State LAB_Idle {
 }
 
-State LAB_Calibrate {
+State LAB_MINI_Calibrate_P {
+   +1 > MINI Set Cell Pressure Setpoint 60
+   +1 > MINI Pressure Reg On
+   +1 Validate LAB_MINI_Calibrate;
+   +5 Hold Until valid (LAB_Cal_Idle);
+   +1 > MINI Set Cell Pressure Setpoint 51.5
+   +1 Validate LAB_MINI_Calibrate;
+}
+
+#--------------------------
+#Partition Lab Calibrate
+#-------------------------
+Partition
+
+State LAB_Cal_Idle {
+}
+
+State LAB_MINI_Calibrate {
+   +1 Validate MQCL_SelectRingandRun;
+   +1 Validate IQCL_SelectRingandRun;
+  +45 Validate MQCL_SelectICOSandRun;
+   +1 Validate IQCL_SelectICOSandRun;
+   +1 > SSP_M Stop
+      Hold until (SSP_M_Status == SSP_STATUS_READY) or 2 else {
+        nl_error( 2, "SSP_M Not Ready in MQCL_NC_1" );
+        Validate MQCL_SSP_M_Recover;
+      }
+   +1 > SSP_M Set Ncoadd 1
+   +1 > SSP_M Start
+   +1 > Cal Flow 2 Open
++5:00 > Cal Flow 2 Closed
+      > Cal Flow 3 Open
++5:00 > Cal Flow 3 Closed
+      > Cal Flow 4 Open
++5:00 > Cal Flow 4 Closed
+      > Cal Flow 5 Open
++5:00 > Cal Flow 5 Closed
+      > Cal Flow 4 Open
++5:00 > Cal Flow 4 Closed
+      > Cal Flow 3 Open
++5:00 > Cal Flow 3 Closed
+      > Cal Flow 2 Open
++5:00 > Cal Flow 2 Closed
+   +1 Validate MQCL_SelectRingandRun;
+   +1 Validate IQCL_SelectRingandRun;
+  +45 Validate LAB_Cal_Idle;
+}
+
+State LAB_CO2_Calibrate {
    +1 > Cal Flow 2 Open
 +2:00 > Cal Flow 2 Closed
       > Cal Flow 3 Open
@@ -2145,7 +2194,7 @@ State LAB_Calibrate {
       > Cal Flow 4 Open
 +2:00 > Cal Flow 4 Closed
       > Cal Flow 5 Open
-+4:00 > Cal Flow 5 Closed
++2:00 > Cal Flow 5 Closed
       > Cal Flow 4 Open
 +2:00 > Cal Flow 4 Closed
       > Cal Flow 3 Open

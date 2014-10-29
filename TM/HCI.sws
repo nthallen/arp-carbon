@@ -53,4 +53,6 @@ SWS_ISTART	 43     ISO Start: Validate ISO_Start; break;
 SWS_SPANCHK_IDLE 45     SPAN Watchdog Disable: Validate BAT_SPAN_Idle; break;
 SWS_GASDECK_PI   46     GasDeck PI: Validate GasDeck_PI_Init; break;
 SWS_GASDECK_CLOSE 47    GasDeck Close: Validate GasDeck_Close; break;
-SWS_LAB_CALIBRATE 48    Lab Calibrate: Validate LAB_Calibrate; break;
+SWS_LAB_MINI_CALIBRATE 48    Lab MINI_ISO Calibrate: Validate LAB_MINI_Calibrate_P; break;
+SWS_LAB_CO2_CALIBRATE 49    Lab CO2 Calibrate: Validate LAB_CO2_Calibrate; break;
+

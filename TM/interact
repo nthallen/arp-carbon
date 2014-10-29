@@ -47,4 +47,5 @@ esac
 # Launch - Altimeter -p /dev/ser3
 # stty baud=9600 -ihflow -ohflow </dev/ser3
 # Launch - hartd -p /dev/ser3
+# Launch - hartd2 -p /dev/ser3
   Launch - HCI_${HCI_CONFIG}_algo -v
