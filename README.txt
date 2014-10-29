@@ -109,6 +109,47 @@ LK204:
 Mamba CPU Die Temperature
 
 Ubuntu on external drive
+    On GSE, create /home/flight/.ssh/id_rsa*
+    visudo to add
+      (flight) /usr/local/bin/transfer
+    to list of apps FLIGHT users can run.
+    Copy transfer into /usr/local/bin
+    [move transfer and remtransfer into tmutil]
+    
+  First Drive
+    15 GB Boot partition ext3
+    2 GB Swap partition
+    Rest is /data ext3
+    If install fails, regenerate the USB install stick
+    Create account for me (nort) with QNX password
+    Create account for flight with rooty password
+      Copy relevant ssh keys into my account (cygwin, nortvm650a, *gse)
+      Copy relevant ssh keys into flight account (*gse)
+    Install sshd
+    edit /etc/fstab to mount /qnx4
+       /dev/sda1 /qnx4 qnx4 ro,nobootwait 0 0
+    visudo to add
+      Defaults editor=/usr/bin/vi
+      flight ALL=(root) /sbin/shutdown
+    edit /etc/default/grub
+    sudo update-grub
+    Copy remtransfer into /usr/local/bin and edit for instrument
+    
+    Copy configuration files to blast onto subsequent dists
+    
+  Subsequent Drives
+    15 GB Boot partition ext3
+    2 GB Swap partition
+    Rest is /data ext3
+    If install fails, regenerate the USB install stick
+    Create account for me (nort) with QNX password
+    Install sshd
+    edit /etc/fstab to mount /qnx4
+       /dev/sda1 /qnx4 qnx4 ro,nobootwait 0 0
+    Copy configuration tar.gz and install
+    
+    sudo update-grub
+    
     Fixed IP (so not dependent on lab network)
     ssh in to perform copy operation.
     Needs to work with ethernet jack J15 in order to use
@@ -120,3 +161,71 @@ Ubuntu on external drive
       set GRUB_CMDLINE_LINUX_DEFAULT to "quiet splash" for GUI
       and "text" for text
       Run sudo update-grub to commit changes
+      
+    Run "sudo lightdm" from commandline to bring up graphical interface
+
+Reduce procedure
+  fixdisk /net/hci (before reduce)
+  reduce
+  Do dircksum after reduce so we can quickly get analysis data.
+  Need analysis script to:
+    Run BAT_SPAN extraction
+    Copy engineering stuff
+    Run dircksum on the flight computer (wrap dircksum in script to establish pwd)
+      If all else fails, run a special script via flight.sh
+
+Transfer procedure
+  On GSE:
+    transfer flight
+      verify or wait for transfer to show up
+      verify what data sets will be copied
+      rsync src dest
+      shutdown
+
+7/1/13: Notes on external drive configuration. This info can be reintegrated
+above.
+
+  [123] Create user flight:flight on removable (adduser flight)
+  [123] Transfer hcigse id_rsa.pub to authorized-keys
+  [   ] Transfer scripts can go in /home/flight
+  [123] Edit sudoers to allow flight to sudo shutdown -h now
+      flight ALL=(root) NOPASSWD: /sbin/shutdown
+  [123] Save ssh host key from one drive and duplicate on the others
+  [x] Create /home/flight on gse and create /home/flight/.ssh/id_rsa*
+  [ ] Edit sudoers to allow group flight to sudo -u flight transfer
+
+Scripting
+  My inclination is to tie database into reduce, not saverun, so ignore
+  junk runs. If a junk run is subsequently reduced, it can be added to
+  the database then.
+  
+  Perform dircksum for flight data, optionally for other types?
+  
+  Transfer:
+    possible modes of operation
+      a: just transfer all runs in the database that have not been
+         copied to this drive
+      b: list all runs in the database that have not been copied and
+         ask for confirmation for some or all
+         
+      Both of these approaches would be decided on the gse, which has
+      access to the database, but the transfer machine only knows what
+      it sees on /qnx4/home/hci/raw and compares to /data/home/hci/raw.
+      Perhaps should compare the two lists? Propose to copy anything
+      except junk. Or could ask for that list, then have user use
+      command line
+    
+    transfer
+      transfer all runs in database that are on flight node and not
+      on this drive
+    transfer [flight|cal|data|junk]
+      like transfer, but limit list to runs of the specified type
+    transfer [(flight|cal|data|junk)/]run
+      transfer the specified run. runtype is optional, since it should be
+      easy to lookup the runtype in the database.
+    transfer -a
+      include runs that are not in the database
+    transfer -c
+      ask for confirmation of the list of runs to transfer before starting.
+    transfer -d
+      perform dircksum on tranferred runs
