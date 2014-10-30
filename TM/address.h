@@ -34,6 +34,8 @@
 #define ILPVTSt_Address 0x404
 #define IDPVTSt_Address 0x406
 #define ICelTSt_Address 0x408
+#define Flow2St_Address 0x40C
+#define Flow1St_Address 0x40A
 #define SpHtTSt_Address 0x420
 #define SHTSt_Address 0x426
 #define GsFlSt_Address 0x402
@@ -48,10 +50,10 @@
 #define Sp7AI_Address 0xC7C
 #define Sp6AI_Address 0xC6E
 #define Cam_T_Address 0xC2E
-#define RadOutT_Address 0xC10
-#define WTnkT_Address 0xC50
-#define CoolP_Address 0xCCE
-#define RadInT_Address 0xC8E
+#define Flow1_Address 0xC10
+#define Flow2_Address 0xC50
+#define Bub_P_Address 0xCCE
+#define Bub_T_Address 0xC8E
 #define MSSPT_Address 0xC62
 #define MSk3T_Address 0xC28
 #define MSk2T_Address 0xCE6

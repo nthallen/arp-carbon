@@ -90,9 +90,9 @@ TM 1 Hz AI_T30K Bub_T; Address Bub_T 0xC8E; /* Bubbler Temp (was RadInT) (was WP
 /* TM 1 Hz AI_100psig CoolP; Address CoolP 0xCCE; */ /* Coolant Pressure */
 TM 1 Hz P1000Torr Bub_P; Address Bub_P 0xCCE; /* Bubbler Pressuer (was CoolP) */
 /* TM 1 Hz AI_T30K WTnkT; Address WTnkT 0xC50; */ /* Water Tank T (was CoolT) */
-TM 1 Hz AI16_5SLM Flow2; Address Flow2 0xC50; /* Bubbler Flow 2 (was WTnkT) (was CoolT) */
+TM 1 Hz AI_5SLM Flow2; Address Flow2 0xC50; /* Bubbler Flow 2 (was WTnkT) (was CoolT) */
 /* TM 1 Hz AI_T30K RadOutT; Address RadOutT 0xC10; */ /* Coolant Return Temp (was Sp3AI, WTnkT) */
-TM 1 Hz AI16_5SLM Flow1; Address Flow1 0xC10; /* Bubbler Flow 1 (was RadOutT, Sp3AI, WTnkT) */
+TM 1 Hz AI_5SLM Flow1; Address Flow1 0xC10; /* Bubbler Flow 1 (was RadOutT, Sp3AI, WTnkT) */
 TM 1 Hz AI_T30K Cam_T; Address Cam_T 0xC2E; /* Camera Temp was Sp5AI */
 TM 1 Hz AI16 Sp6AI; Address Sp6AI 0xC6E; /* Spare Ana Channel */
 TM 1 Hz AI16 Sp7AI; Address Sp7AI 0xC7C; /* Spare Ana Channel */

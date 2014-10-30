@@ -35,7 +35,7 @@ TM typedef AI16_5V AI_20SLM { text "%6.3lf"; convert SLM; }
   Calibration (AI_20SLM, SLM) { 0, 0, 30720, 20 }
 
 /* AI16_5SLM 0-5V = 0-5 SLM. Channels need XP768 gain */
-TM typedef AI16_5V AI_20SLM { text "%6.3lf"; convert SLM; }
+TM typedef AI16_5V AI_5SLM { text "%6.3lf"; convert SLM; }
   Calibration (AI_5SLM, SLM) { 0, 0, 30720, 5 }
   
 TM typedef AI16 AI_T30K

@@ -1497,102 +1497,102 @@ State Pump_Cool_Init {
 
 State Pump_Cool_Start {
     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
-    Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
-    Hold until valid (Inverter_On);
-    Hold until valid (Pump_Watch);
- +1 > Coolant Pump On
- +1 Hold until ( COOLANT_PUMP_ON(convert(CoolP)) ) or 5
-	else Validate Pump_Cool_Restart;
- +5 Validate Pump_Cool_Watch;
+#   Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
+#   Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
+#   Hold until valid (Inverter_On);
+#   Hold until valid (Pump_Watch);
+#+1 > Coolant Pump On
+#+1 Hold until ( COOLANT_PUMP_ON(convert(CoolP)) ) or 5
+#     else Validate Pump_Cool_Restart;
+#+5 Validate Pump_Cool_Watch;
 }
 
-State Pump_Cool_Watch Nolog {
-    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
-    Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
-    { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP_Check; }
-    { if (convert(CoolP) > COOL_P_HIGH) Validate Pump_Cool_HiP; }
- +1 > Coolant Divert Off
- +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
- +1 hold until ( BATH_TEMP_OK(convert(WTnkT))) or 5
-    else Validate Pump_Cool_Cold;
-    Validate Pump_Cool_Watch;
-}
-
-State Pump_Cool_Restart {
-    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
-    Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
- +1 > Coolant Pump Off
- +3 > Coolant Pump On
- +1 Hold until ( COOLANT_PUMP_ON(convert(CoolP)) ) or 5
-	else Validate Pump_Cool_Restart;
- +5 Validate Pump_Cool_Watch;
-}
-
-State Pump_Cool_Cold {
-    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
-    Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
-    { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP_Check; }
-    { if (convert(CoolP) > COOL_P_HIGH) Validate Pump_Cool_HiP; }
-    > Coolant Divert On
-    Hold until (BATH_TEMP_OK(convert(WTnkT)-5));
- +1 > Coolant Divert Off
- +1 Validate Pump_Cool_Watch;
-}
-
-State Pump_Cool_Inverter_Off {
-    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    > Coolant Pump Off
- +1 > Coolant Divert Off
-    Hold until valid (Inverter_On);
- +5 Validate Pump_Cool_Start;
-}
-
-State Pump_Cool_LowP_Check Nolog {
-      Hold Until (convert(CoolP) >= COOL_P_LOW) or 10
-      else Validate Pump_Cool_LowP;
-      Validate Pump_Cool_Watch;
-}
-
-State Pump_Cool_LowP {
-   +1 { msg( 2, "Low Coolant Pressure: %.1lf", convert(CoolP)); }
-#   +1 > Panel Top LED Red
-#      > Panel Display Text \\nLow Coolant Pressure
-      > Coolant Pump Off
-      # Remain off
-    Depending on (Shutdown) { Validate Pump_Cool_Is_Shutdown; }
-}
-
-State Pump_Cool_HiP {
-      > Coolant Divert On
-      { msg( 2, "High Coolant Pressure: %.1lf", convert(CoolP)); }
-   +1 Validate Pump_Cool_HiP_Watch;
-}
-
-State Pump_Cool_HiP_Watch {
-    Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
-    Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
-    { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP_Check; }
-   +1 Hold until (convert(CoolP) < COOL_P_HIGH) or 10
-      else Validate Pump_Cool_HiP_Fail;
-      Hold until (convert(CoolP) > COOL_P_HIGH);
-      Validate Pump_Cool_HiP_Watch;
-}
-
-State Pump_Cool_HiP_Fail {
-    { msg( 2, "High Coolant Pressure Fail: %.1lf", convert(CoolP)); }
-    > Coolant Pump Off
-    Depending on (Shutdown) { Validate Pump_Cool_Is_Shutdown; }
-}
+# State Pump_Cool_Watch Nolog {
+#     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+#     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
+#     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
+#     { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP_Check; }
+#     { if (convert(CoolP) > COOL_P_HIGH) Validate Pump_Cool_HiP; }
+#  +1 > Coolant Divert Off
+#  +1 hold until ( !BATH_TEMP_OK(convert(WTnkT)) );
+#  +1 hold until ( BATH_TEMP_OK(convert(WTnkT))) or 5
+#     else Validate Pump_Cool_Cold;
+#     Validate Pump_Cool_Watch;
+# }
+# 
+# State Pump_Cool_Restart {
+#     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+#     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
+#     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
+#  +1 > Coolant Pump Off
+#  +3 > Coolant Pump On
+#  +1 Hold until ( COOLANT_PUMP_ON(convert(CoolP)) ) or 5
+# 	else Validate Pump_Cool_Restart;
+#  +5 Validate Pump_Cool_Watch;
+# }
+# 
+# State Pump_Cool_Cold {
+#     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+#     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
+#     Depending on (Inverter_Fail) { Validate Pump_Cool_Inverter_Off; }
+#     { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP_Check; }
+#     { if (convert(CoolP) > COOL_P_HIGH) Validate Pump_Cool_HiP; }
+#     > Coolant Divert On
+#     Hold until (BATH_TEMP_OK(convert(WTnkT)-5));
+#  +1 > Coolant Divert Off
+#  +1 Validate Pump_Cool_Watch;
+# }
+# 
+# State Pump_Cool_Inverter_Off {
+#     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+#     > Coolant Pump Off
+#  +1 > Coolant Divert Off
+#     Hold until valid (Inverter_On);
+#  +5 Validate Pump_Cool_Start;
+# }
+# 
+# State Pump_Cool_LowP_Check Nolog {
+#       Hold Until (convert(CoolP) >= COOL_P_LOW) or 10
+#       else Validate Pump_Cool_LowP;
+#       Validate Pump_Cool_Watch;
+# }
+# 
+# State Pump_Cool_LowP {
+#    +1 { msg( 2, "Low Coolant Pressure: %.1lf", convert(CoolP)); }
+# #   +1 > Panel Top LED Red
+# #      > Panel Display Text \\nLow Coolant Pressure
+#       > Coolant Pump Off
+#       # Remain off
+#     Depending on (Shutdown) { Validate Pump_Cool_Is_Shutdown; }
+# }
+# 
+# State Pump_Cool_HiP {
+#       > Coolant Divert On
+#       { msg( 2, "High Coolant Pressure: %.1lf", convert(CoolP)); }
+#    +1 Validate Pump_Cool_HiP_Watch;
+# }
+# 
+# State Pump_Cool_HiP_Watch {
+#     Depending on (Shutdown) { Validate Pump_Cool_Shutdown; }
+#     Depending on (Inverter_Off) { Validate Pump_Cool_Inverter_Off; }
+#     { if (convert(CoolP) < COOL_P_LOW) Validate Pump_Cool_LowP_Check; }
+#    +1 Hold until (convert(CoolP) < COOL_P_HIGH) or 10
+#       else Validate Pump_Cool_HiP_Fail;
+#       Hold until (convert(CoolP) > COOL_P_HIGH);
+#       Validate Pump_Cool_HiP_Watch;
+# }
+# 
+# State Pump_Cool_HiP_Fail {
+#     { msg( 2, "High Coolant Pressure Fail: %.1lf", convert(CoolP)); }
+#     > Coolant Pump Off
+#     Depending on (Shutdown) { Validate Pump_Cool_Is_Shutdown; }
+# }
 
 State Pump_Cool_Shutdown {
-   +1 Hold until valid (Pump_Off);
-   +1 hold until ( PUMP_COLD_OK(convert(CPmpT)) &&
-         PUMP_COLD_OK(convert(MPmpT)) );
-   +1 > Coolant Pump Off
+#  +1 Hold until valid (Pump_Off);
+#  +1 hold until ( PUMP_COLD_OK(convert(CPmpT)) &&
+#        PUMP_COLD_OK(convert(MPmpT)) );
+#  +1 > Coolant Pump Off
    +1 Validate Pump_Cool_Is_Shutdown;
 }
 
