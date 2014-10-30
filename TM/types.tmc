@@ -30,8 +30,13 @@ TM typedef AI16 PBI { text "%5.2lf"; convert AMPS; }
 TM typedef AI16 AI16_5V { text "%7.4lf"; convert VOLTS; }
   Calibration (AI16_5V, VOLTS) { 0, 0, 32768, 5.3333 }
 
+/* AI16_20SLM 0-5V = 0-20 SLM. Channels need XP768 gain */
 TM typedef AI16_5V AI_20SLM { text "%6.3lf"; convert SLM; }
   Calibration (AI_20SLM, SLM) { 0, 0, 30720, 20 }
+
+/* AI16_5SLM 0-5V = 0-5 SLM. Channels need XP768 gain */
+TM typedef AI16_5V AI_20SLM { text "%6.3lf"; convert SLM; }
+  Calibration (AI_5SLM, SLM) { 0, 0, 30720, 5 }
   
 TM typedef AI16 AI_T30K
   { text "%6.2lf"; convert CELCIUS; }
@@ -117,6 +122,9 @@ TM typedef unsigned short AO16 {
 
 TM typedef AO16 AO_20SLM { text "%6.3lf"; convert SLM; }
   Calibration (AO_20SLM, SLM) { 0, 0, 32768, 20 }
+
+TM typedef AO16 AO_5SLM { text "%6.3lf"; convert SLM; }
+  Calibration (AO_5SLM, SLM) { 0, 0, 32768, 5 }
 
 TM typedef AO16 AO_PSt { text "%7.3lf"; convert TORR; }
   Calibration (AO_PSt, TORR) { 0, 0, 21845.1, 100 }

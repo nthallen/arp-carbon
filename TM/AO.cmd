@@ -36,6 +36,8 @@
   ;
 &AO_5volts <unsigned short>
   : Gas Deck Set Gas Flow Setpoint { $0 = GsFlSt_Address; }
+  : Bubbler Set Flow1 Setpoint { $0 = Flow1_Address; }
+  : Bubbler Set Flow2 Setpoint { $0 = Flow2_Address; }
   ;
 &AO_volts <unsigned short>
   : CO2 Set Cell Temp Setpoint { $0 = CCelTSt_Address; }

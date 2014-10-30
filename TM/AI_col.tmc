@@ -24,6 +24,8 @@
   }
 %}
 TM INITFUNC ai_init();
+TM INITFUNC sbwr(Flow1.address, AI_CFG_XP768);
+TM INITFUNC sbwr(Flow2.address, AI_CFG_XP768);
 TM INITFUNC sbwr(GasFl.address, AI_CFG_XP768);
 TM INITFUNC sbwr(GasHP.address, AI_CFG_XP768);
 TM INITFUNC sbwr(GasLP.address, AI_CFG_XP768);

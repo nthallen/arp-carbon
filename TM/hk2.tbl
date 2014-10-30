@@ -36,6 +36,16 @@ Cool {
   CoolP:  (CoolP,6) psig;
 }
 
+Bubbler {
+  HBox { +-; Title: Bubbler; -+ };
+  Bub_T:   (Bub_T,6) C;
+  Bub_P:   (Bub_P,7) Torr;
+  Flow1:   (Flow1,6) SLM;
+  Flow1St: (Flow1St,6) SLM;
+  Flow2:   (Flow2,6) SLM;
+  Flow2St: (Flow2St,6) SLM;
+}
+
 Inverter {
   HBox { +-; Title: Inverter; -+ };
   { Arm:  (InverterArm_DS,3) (InverterArm_S,3); };
@@ -67,7 +77,7 @@ Status {
 }
 
 { HBox { [Panel]; |; [Inverter]; |; {
-    [Cool];
+#   [Cool];
     [Altimeter];
     VGlue 0+1;
     [Status] }

@@ -386,10 +386,10 @@ ROWS 15
 #1 L2_DS:DS84A:0  HK:Lab Status
 #1 L2_S:DS873:0  HK:Lab Status
 
- 1 RadInT  HK:Coolant Temp
- 1 WTnkT  HK:Coolant Temp
- 1 RadOutT  HK:Coolant Temp
- 1 CoolP  HK:Coolant Pressure
+ 1 RadInT  HK:Coolant Temp %-
+ 1 WTnkT  HK:Coolant Temp %-
+ 1 RadOutT  HK:Coolant Temp %-
+ 1 CoolP  HK:Coolant Pressure %-
  1 CoolPump_DS:DS851:7  HK:Coolant Status
  1 CoolDivert_DS:DS848:4  HK:Coolant Status
 
@@ -503,3 +503,9 @@ ROWS 15
  1  H2R_Stale  HK:Hart Stale %-
  1  Hart_Stale HK:Hart Stale %-
  
+ 1 Bub_T   HK:Bubbler Temp
+ 1 Bub_P   HK:Bubbler P
+ 1 Flow1   HK:Bubbler Flow
+ 1 Flow2   HK:Bubbler Flow
+ 1 Flow1St HK:Bubbler Flow
+ 1 Flow2St HK:Bubbler Flow
