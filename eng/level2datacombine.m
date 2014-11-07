@@ -1,4 +1,7 @@
 function level2datacombine(date,ext)
+% level2datacombine(date,ext)
+%   date : date of run eg. '130828.3'
+%   ext : extension for run eg. 'L2a'
 %script to combine ISO, CO2, and MM files into a single file
 %Combine will also create dry mixing ratios. MM data must exist. 
 %Assumptions: MM has one CH4, one H2O, and optionally a N2O
@@ -28,16 +31,20 @@ catch
     useISO='n';
 end
 try
-eval(['CO2 = load(''CO2' date '.' ext '.mat'',''T1*'');']);
-eval(['CO2CO2 = struct2array(load(''CO2' date '.' ext '.mat'',''CO2*''));']);
-eval(['CO2C13O2 = struct2array(load(''CO2' date '.' ext '.mat'',''C13O2*''));']);
-eval(['CO2C18OO = struct2array(load(''CO2' date '.' ext '.mat'',''C18OO*''));']);
+% eval(['CO2 = load(''C' date '.' ext '.mat'',''T1*'');']);
+% eval(['CO2CO2 = struct2array(load(''C' date '.' ext '.mat'',''CO2*''));']);
+% eval(['CO2C13O2 = struct2array(load(''C' date '.' ext '.mat'',''C13O2*''));']);
+% eval(['CO2C18OO = struct2array(load(''C' date '.' ext '.mat'',''C18OO*''));']);
+eval(['temp = load(''C' date '.' ext '.mat'');']);
+CO2.T10Hz_GPS_msec=temp(:,1);
+CO2CO2=temp(:,3);
+CO2C13O2=temp(:,4);
 catch
-    disp(['Warning: File CO2' date '.' ext '.mat does not exist. Continuing with no CO2 data']);
+    disp(['Warning: File C' date '.' ext '.mat does not exist. Continuing with no CO2 data']);
     useCO2='n';
 end
 
-eval(['load(''MM' date '.' ext '.mat'',''T*'',''A*'',''L*'',''Ht'',''run'',''sspnum'');']);
+eval(['load(''MM' date '.' ext '.mat'',''T*'',''A*'',''L*'',''Ht'',''run'');']);
 
 %Check to make sure time bases are the same
 if useISO=='y'
@@ -60,14 +67,14 @@ if isempty(MMH2O)
     return
 end
 % Interpolate water vapor for points where we don't have measurements. 
-H2Owet=interp1(T10Hz_ftime(~isnan(MMH2O)),MMH2O(~isnan(MMH2O)),T10Hz_ftime)/isovals(11,'abundance');
+H2Owet=interp1(T10Hz_ftime(~isnan(MMH2O)),MMH2O(~isnan(MMH2O)),T10Hz_ftime);
 if useCO2=='y'
-    CO2wet=( interp1(T10Hz_ftime(~isnan(CO2CO2)),CO2CO2(~isnan(CO2CO2)),T10Hz_ftime) + ...
-        interp1(T10Hz_ftime(~isnan(CO2C13O2)),CO2C13O2(~isnan(CO2C13O2)),T10Hz_ftime) )/(isovals(21,'abundance')+isovals(22,'abundance'));
+    CO2wet=( interp1(T10Hz_ftime(~isnan(CO2CO2)),CO2CO2(~isnan(CO2CO2)),T10Hz_ftime)*isovals(21,'abundance') + ...
+        interp1(T10Hz_ftime(~isnan(CO2C13O2)),CO2C13O2(~isnan(CO2C13O2)),T10Hz_ftime)*isovals(22,'abundance') )/(isovals(21,'abundance')+isovals(22,'abundance'));
 else
-    CO2wet=ones(size(T10Hz_ftime))*398e-6; %if we don't have CO2 assume mean troposhere. Not very good.
+    CO2wet=ones(size(T10Hz_ftime))*400e-6; %if we don't have CO2 assume mean troposhere. Not very good.
 end
-H2Odry=MMH2O./(1-H2Owet-CO2wet)/isovals(11,'abundance');
+H2Odry=MMH2O./(1-H2Owet-CO2wet);
 if ~isempty(MMCH4); CH4dry=MMCH4./(1-H2Owet-CO2wet)*isovals(61,'abundance'); end
 if ~isempty(MMN2O); N2Odry=MMN2O./(1-H2Owet-CO2wet)*isovals(41,'abundance'); end
 if useCO2=='y'

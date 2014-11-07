@@ -16,7 +16,7 @@ function level2datacreate(config_file)
 
 eval(config_file);
 cfg = load_ICOSfit_cfg;
-run=getrun(1);
+flight=getrun(1);
 D=ne_load('HCIeng_1','HCI_Data_Dir');
 D10=ne_load('HCIeng_10','HCI_Data_Dir');
 Axis=cfg.ScanDir(5);
@@ -29,16 +29,26 @@ elseif strcmp(Axis,'M')
 elseif strcmp(Axis,'C')
     T1gps=D.THCIeng_1-13/20;
 end
-save(OFILE,'run')
+save(OFILE,'flight')
 n=1;
 for s=1:length(suffix)
-    data=[]; snum=[]; chisq=[];
+    data=[]; snum=[]; chisq=[]; caldata=[]; 
     for r=1:length(regions)
         base = ['ICOSout.' regions{r} '.' suffix{s}];
         disp(['Reading ' base ' ...']);
         ICOSsetup
         data=[data;Chi]; snum=[snum;scannum]; chisq=[chisq;chi2];
     end
+    %Read in cal regions
+%     for r=1:length(calregions)
+%         base = ['ICOSout.' calregions{r} '.' suffix{s}];
+%         disp(['Reading ' base ' ...']);
+%         ICOSsetup
+%         caldata=[caldata;Chi];
+%     end
+%     %calculate means
+%     calmeans=mean(caldata);
+    %
     disp(['Processing Data ...']);
     if strcmp(remove_OA,'y')
         OFlag=bitand(D.SSP_I_Flags,64);
@@ -74,10 +84,27 @@ for s=1:length(suffix)
                 name=[name2{1} letter];
             end
             eval([name '=data(:,linen(j));']);
+            %eval([name '_cal=calmean(j);']);
             %save(OFILE,name,'-append')
             names{n}=name;
             n=n+1;
         end
+end
+%Read in Tank Data
+run('../caltanks.m');
+tank=eval(tanknum);
+Rs=isovals(62,'abundance')/isovals(61,'abundance');
+for i=1:length(linen)
+    molec=cell2mat(strtrim(isovals(floor(iso(linen(1))/10)*10,'text')));
+    if rem(iso(linen(i)),10)==1
+        tankconc=tank.(molec)(1).value/(1+Rs*(tank.(molec)(2).value/1000+1));
+    elseif rem(iso(linen(i)),10)==2
+        tankconc=tank.(molec)(1).value/(1+Rs*(tank.(molec)(2).value/1000+1));
+    elseif rem(iso(linen(i)),10)==3
+        tankconc=tank.(molec)(1).value/(1+Rs*(tank.(molec)(2).value/1000+1));
+    end
+    eval([names{i} '_cor_factor'])=tankconc/(eval([names{i} '_cal'])*isovals(iso(linen(i)),abundance));
+    eval([names{i} '=' names{i} '*' names{i} '_cor_factor;'])
 end
 sspnum=snum;
 hdrs=loadscanhdrs(sspnum);
@@ -108,6 +135,8 @@ for k = 1:length(names)
     eval([names{k} ' = temp;']);
     save(OFILE,names{k},'-append')
 end
+SSP_NUM=time*NaN;
+SSP_NUM(index)=sspnum;
 Lat=interp1(D.THCIeng_1-18/20,D.BP_Lat,T1Hz_ftime);
 Lon=interp1(D.THCIeng_1-18/20,D.BP_Lon,T1Hz_ftime);
 Ht=interp1(D.THCIeng_1-18/20,D.BP_Ht,T1Hz_ftime);
@@ -115,5 +144,5 @@ AirT=interp1(D.THCIeng_1-18/20,D.BAT_FOTemp,T1Hz_ftime);
 AirP=interp1(D.THCIeng_1-18/20,D.BAT_Ps,T1Hz_ftime);
 Alt=interp1(D10.THCIeng_10,D10.MRA_Alt_a,T10Hz_ftime);
 
-save(OFILE,'sspnum','T1Hz_*','T10Hz_*','Lat','Lon','Ht','Alt','AirT','AirP','-append')
+save(OFILE,'SSP_NUM','T1Hz_*','T10Hz_*','Lat','Lon','Ht','Alt','AirT','AirP','-append')
 disp(['Writing ' OFILE ' ... Done!']);
