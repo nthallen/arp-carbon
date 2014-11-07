@@ -87,7 +87,7 @@ HCIdisp : PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc \
           Cells.tbl SSPrtg.tmc /usr/local/share/oui/cic.oui
 Caldisp : digio_conv.tmc Calibration.tbl
 BSdisp : Pilot_conv.tmc digio_conv.tmc qcli_conv.tmc Inverter_conv.tmc \
-         BAT_SPAN.tbl Altimeter_conv.tmc hk2.tbl
+         BAT_SPAN.tbl Altimeter_conv.tmc P_conv.tmc hk2.tbl
 HCI_A_algo : P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc \
           Pilot_conv.tmc HCI_A.tma HCI.sws
 HCI_B_algo : P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc \

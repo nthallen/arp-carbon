@@ -78,6 +78,7 @@ Status {
 
 { HBox { [Panel]; |; [Inverter]; |; {
 #   [Cool];
+    [Bubbler];
     [Altimeter];
     VGlue 0+1;
     [Status] }
