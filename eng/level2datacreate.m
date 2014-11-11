@@ -31,6 +31,7 @@ elseif strcmp(Axis,'C')
 end
 save(OFILE,'flight')
 n=1;
+if strcmp(Inst,'MM')
 for s=1:length(suffix)
     data=[]; snum=[]; chisq=[]; caldata=[]; 
     for r=1:length(regions)
@@ -93,7 +94,6 @@ end
 %Read in Tank Data
 run('caltanks.m');
 tank=eval(tanknum);
-
 for i=1:length(linen)
     molec=cell2mat(strtrim(isovals(floor(iso(linen(i))/10)*10,'text')));
     Rs2=isovals(floor(iso(linen(i))/10)*10+2,'abundance')/isovals(floor(iso(linen(i))/10)*10+1,'abundance');
@@ -112,6 +112,12 @@ for i=1:length(linen)
     end
     eval([names{i} '_cor_factor=tankconc/(' names{i} '_cal*isovals(iso(linen(i)),''abundance''))']);
     eval([names{i} '=' names{i} '*' names{i} '_cor_factor;']);
+end
+elseif strcmp(Inst,'CO2')
+   names={'CO2','C13O2'};
+   CO2=CO2run(:,3);
+   C13O2=CO2run(:,4);
+   snum=CO2run(:,1);
 end
 sspnum=snum;
 hdrs=loadscanhdrs(sspnum);
