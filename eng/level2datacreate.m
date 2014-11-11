@@ -93,15 +93,22 @@ end
 %Read in Tank Data
 run('caltanks.m');
 tank=eval(tanknum);
-Rs=isovals(62,'abundance')/isovals(61,'abundance');
+
 for i=1:length(linen)
-    molec=cell2mat(strtrim(isovals(floor(iso(linen(1))/10)*10,'text')));
+    molec=cell2mat(strtrim(isovals(floor(iso(linen(i))/10)*10,'text')));
+    Rs2=isovals(floor(iso(linen(i))/10)*10+2,'abundance')/isovals(floor(iso(linen(i))/10)*10+1,'abundance');
+    Rs3=isovals(floor(iso(linen(i))/10)*10+3,'abundance')/isovals(floor(iso(linen(i))/10)*10+1,'abundance');
+    Tmr=tank.(molec)(1).value;
+    DR2=(tank.(molec)(2).value/1000+1)*Rs2;
+    DR3=(tank.(molec)(3).value/1000+1)*Rs3;
     if rem(iso(linen(i)),10)==1
-        tankconc=tank.(molec)(1).value/(1+Rs*(tank.(molec)(2).value/1000+1));
+        tankconc=Tmr/(1+DR2+DR3);
     elseif rem(iso(linen(i)),10)==2
-        tankconc=tank.(molec)(1).value/(1+Rs*(tank.(molec)(2).value/1000+1));
+        tankconc=Tmr*DR2/(1+DR2+DR3);
     elseif rem(iso(linen(i)),10)==3
-        tankconc=tank.(molec)(1).value/(1+Rs*(tank.(molec)(2).value/1000+1));
+        tankconc=Tmr*DR3/(1+DR2+DR3);
+    else
+        error('Invalid Isotopologue %s. Aborting.',isovals(iso(linen(i),'text')));
     end
     eval([names{i} '_cor_factor=tankconc/(' names{i} '_cal*isovals(iso(linen(i)),''abundance''))']);
     eval([names{i} '=' names{i} '*' names{i} '_cor_factor;']);

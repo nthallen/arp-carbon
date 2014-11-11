@@ -1,14 +1,14 @@
-%Values for cal tanks NOAA and two standards calibrated by Wofsy Group
-% Total-CO2, Sdev, D13CO2, Sdev, D18CO2, Sdev, Total-CH4, Sdev, D13CH4,
-% Sdev, DDCH4, Sdev, Total-N2O, Sdev
+%Values for cal tanks NOAA and secondary standard
+% Order of delta values should follow HITRAN order of isotopologues.
+% Value should be given in fractional mixing ratio. (i.e. 1.8e-9, not 1.8)
 Tank0.Analysis=struct('Cylinder','ND47847','Org','N2','Date','May, 2012');
 Tank0.CH4(1)=struct('molec','Total','value',0,'Sdev',0.3,'unit','ppbv');
 Tank0.CH4(2)=struct('molec','D13C','value',0,'Sdev',20,'unit','permil');
 Tank0.CH4(3)=struct('molec','DD','value',0,'Sdev',20,'unit','permil');
 Tank0.CO2(1)=struct('molec','Total','value',0,'Sdev',0.011,'unit','ppmv');
-Tank0.CO2(2)=struct('molec','D13C','value',-8.652,'Sdev',0.002,'unit','permil');
-Tank0.CO2(3)=struct('molec','D18O','value',-1.197,'Sdev',0.007,'unit','permil');
-Tank0.N2O(1)=struct('molec','Total','value',325.42,'Sdev',0.10,'unit','ppbv');
+Tank0.CO2(2)=struct('molec','D13C','value',0,'Sdev',0.002,'unit','permil');
+Tank0.CO2(3)=struct('molec','D18O','value',0,'Sdev',0.007,'unit','permil');
+Tank0.N2O(1)=struct('molec','Total','value',0,'Sdev',0.10,'unit','ppbv');
 
 Tank1.Analysis=struct('Cylinder','ND47847','Org','NOAA/GMD','Date','May, 2012');
 Tank1.CH4(1)=struct('molec','Total','value',1883.996e-9,'Sdev',0.3,'unit','ppbv');
