@@ -11,6 +11,13 @@ ICOS Waveform I3Df_600Hz {
   Ramp from 710 mA to 780 mA in 1.5 msec;
 }
 
+ICOS Waveform I3Df_600Hz_1Hz {
+  SampleRate = 100 MHz/84;
+  Ncoadd = 563;
+  Tz = 5%;
+  Ramp from 710 mA to 780 mA in 1.5 msec;
+}
+
 ICOS Waveform I3Df_800Hz {
   SampleRate = 100 MHz/56;
   Ncoadd = 1600;
