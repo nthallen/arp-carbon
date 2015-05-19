@@ -505,7 +505,7 @@ ROWS 15
  
  1 Bub_T   HK:Bubbler Temp
  1 Bub_P   HK:Bubbler P
- 1 Flow1   HK:Bubbler Flow
+20 Flow1   HK:Bubbler Flow
  1 Flow2   HK:Bubbler Flow
  1 Flow1St HK:Bubbler Flow
  1 Flow2St HK:Bubbler Flow
