@@ -19,6 +19,7 @@ cfg = load_ICOSfit_cfg;
 flight=getrun(1);
 D=ne_load('HCIeng_1','HCI_Data_Dir');
 D10=ne_load('HCIeng_10','HCI_Data_Dir');
+run('calcoeffs.m');
 Axis=cfg.ScanDir(5);
 SSP_Num=eval(['D.SSP_' Axis '_Num']);
 SSP_SN=eval(['D.SSP_' Axis '_SN']);
@@ -69,26 +70,28 @@ for s=1:length(suffix)
                 name2{1}=[name2{1}(l+1) name2{1}(1:l) name2{1}(l+2:end)];
             end
             name=name2{1};
-            if length(find(iso==iso(j)))~=1
+            if length(find(iso==iso(linen(j))))~=1
                 foundline='F';
                 k=1;
                 letter=char('a'-1);
                 while (strcmp(foundline,'F'))
-                    if iso(k)==iso(j);
+                    if iso(k)==iso(linen(j));
                         letter=char(letter+1);
                     end
-                    if nu(k)==nu(j)
+                    if nu(k)==nu(linen(j))
                         foundline='T';
                     end
                     k=k+1;
                 end
                 name=[name2{1} letter];
             end
-            eval([name '=data(:,linen(j));']);
-            eval([name '_cal=calmean(j);']);
+            ncal=find([cal_coeffs.line]==nu(linen(j)));
+            eval([name '=data(:,linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b;']);
+            eval([name '_cal=calmean(linen(j));']);
             %save(OFILE,name,'-append')
             names{n}=name;
             n=n+1;
+            lines_used(j)=struct('name',name,'nu',nu(linen(j)),'iso',iso(linen(j)));
         end
 end
 %Read in Tank Data
@@ -96,6 +99,7 @@ run('caltanks.m');
 tank=eval(tanknum);
 for i=1:length(linen)
     molec=cell2mat(strtrim(isovals(floor(iso(linen(i))/10)*10,'text')));
+    if ~strcmp('H2O',molec)
     Rs2=isovals(floor(iso(linen(i))/10)*10+2,'abundance')/isovals(floor(iso(linen(i))/10)*10+1,'abundance');
     Rs3=isovals(floor(iso(linen(i))/10)*10+3,'abundance')/isovals(floor(iso(linen(i))/10)*10+1,'abundance');
     Tmr=tank.(molec)(1).value;
@@ -110,8 +114,9 @@ for i=1:length(linen)
     else
         error('Invalid Isotopologue %s. Aborting.',isovals(iso(linen(i),'text')));
     end
-    eval([names{i} '_cor_factor=tankconc/(' names{i} '_cal*isovals(iso(linen(i)),''abundance''))']);
+    eval([names{i} '_cor_factor=tankconc/(' names{i} '_cal*isovals(iso(linen(i)),''abundance''));']);
     eval([names{i} '=' names{i} '*' names{i} '_cor_factor;']);
+    end
 end
 elseif strcmp(Inst,'CO2')
    names={'CO2','C13O2'};
@@ -120,10 +125,11 @@ elseif strcmp(Inst,'CO2')
    snum=CO2run(:,1);
 end
 sspnum=snum;
+disp(['Reading SSP file headers. This may take awhile... '])
 hdrs=loadscanhdrs(sspnum);
-sn=reshape(struct2array(hdrs),9,size(hdrs,2));
+%sn=reshape(struct2array(hdrs),9,size(hdrs,2));
 lon=find(diff(SSP_SN)~=0 & SSP_Num(2:end) > min(sspnum) & SSP_Num(2:end) < max(sspnum));
-sntime=csaps(SSP_SN(lon),T1gps(lon),.05,sn(6,:));
+sntime=interp1(SSP_SN(lon),T1gps(lon),[hdrs.SerialNum]);
 %create evenly spaced 1Hz and 10Hz time vectors
 if range(D.GPS_msecs)==0
     T1Hz_ftime=[D.THCIeng_1(100):1:D.THCIeng_1(end)]';
@@ -132,16 +138,22 @@ else
     GPS_msecs=D.GPS_msecs(D.GPS_msecs~=0);
     T1Hz_GPS_msec=[min(GPS_msecs)/1000:1:max(GPS_msecs)/1000]';
     T10Hz_GPS_msec=[min(GPS_msecs)/1000:0.1:max(GPS_msecs)/1000]';
-    T1Hz_GPS_week=interp1(GPS_msecs/1000,D.GPS_week(D.GPS_msecs~=0),T1Hz_GPS_msec);
+    T1Hz_GPS_week=interp1(GPS_msecs/1000,D.GPS_week(D.GPS_msecs~=0),T1Hz_GPS_msec,'nearest');
     T1Hz_ftime=interp1(GPS_msecs/1000,D.THCIeng_1(D.GPS_msecs~=0)-18/20,T1Hz_GPS_msec);
     T10Hz_ftime=interp1(GPS_msecs/1000,D.THCIeng_1(D.GPS_msecs~=0)-18/20,T10Hz_GPS_msec);
 end
+%use correct rate time vector and correct for inlet to cell lag
 if strcmp(Axis,'I')
         time=T1Hz_ftime;
-elseif strcmp(Axis,'C') || strcmp(Axis,'M')
+        t_offset=t_inlet.ISO;
+elseif strcmp(Axis,'C')
         time=T10Hz_ftime;
+        t_offset=t_inlet.CO2;
+elseif strcmp(Axis,'M')
+        time=T10Hz_ftime;
+        t_offset=t_inlet.MINI;
 end
-index=interp1(time,[1:length(time)],sntime,'nearest');
+index=interp1(time,[1:length(time)],sntime-t_offset,'nearest');
 for k = 1:length(names)
     temp = time*NaN;
     eval(['temp(index) = ' names{k} ';']);
@@ -157,5 +169,5 @@ AirT=interp1(D.THCIeng_1-18/20,D.BAT_FOTemp,T1Hz_ftime);
 AirP=interp1(D.THCIeng_1-18/20,D.BAT_Ps,T1Hz_ftime);
 Alt=interp1(D10.THCIeng_10,D10.MRA_Alt_a,T10Hz_ftime);
 
-save(OFILE,'SSP_NUM','T1Hz_*','T10Hz_*','Lat','Lon','Ht','Alt','AirT','AirP','-append')
+save(OFILE,'SSP_NUM','T1Hz_*','T10Hz_*','Lat','Lon','Ht','Alt','AirT','AirP','lines_used','-append')
 disp(['Writing ' OFILE ' ... Done!']);
