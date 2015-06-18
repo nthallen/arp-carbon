@@ -4,56 +4,38 @@ QCLIConfig StandardxP33;
 Digitizer SSP;
 Prefix QCLI_M;
 
-ICOS Waveform M3Db_600Hz {
+ICOS Waveform MC22_600Hz {
   SampleRate = 100 MHz/84;
   Ncoadd = 563;
   Tz = 5%;
-  Ramp from 550 mA to 700 mA in 1.5 msec;
-}
-ICOS Waveform M3Db_600Hz10Hz {
-  SampleRate = 100 MHz/84;
-  Ncoadd = 56;
-  Tz = 5%;
-  Ramp from 600 mA to 730 mA in 1.5 msec;
-}
-ICOS Waveform M3Db_600bHz10Hz {
-  SampleRate = 100 MHz/84;
-  Ncoadd = 56;
-  Tz = 5%;
-  Ramp from 570 mA to 680 mA in 1.5 msec;
+  Ramp from 1.04 A to 1.24 A in 1.5 msec;
 }
 
-ICOS Waveform M3Db_600cHz10Hz {
-  SampleRate = 100 MHz/84;
-  Ncoadd = 56;
-  Tz = 5%;
-  Ramp from 520 mA to 630 mA in 1.5 msec;
-}
 ICOS Waveform QCLI_M_ConstantI {
   Tz = 10 msec;
-  Iz = 700 mA;
+  Iz = 1.15 A;
   SampleRate = 10 MHz;
   dI/dt = 0 A/sec;
 }
 
-Ringdown Waveform M3Db_rConstant {
+Ringdown Waveform MC22_rConstant {
   SampleRate = 25 MHz;
   Toff = 50 msec;
   Ton =  50 msec;
   Tpre = 2 usec;
-  I = 700 mA;
+  I = 1.15 A;
 }
 
-Ringdown Waveform M3Db_rRamp {
+Ringdown Waveform MC22_rRamp {
   SampleRate = 50 MHz/20;
   Nsample = 3500;
   Toff = 5 msec;
   Ton =  5 msec;
   Tpre = 2 usec;
-  I = 550 mA to 700 mA in 1000 Steps;
+  I = 1.15 A to 1.25 A in 1000 Steps;
 }
 
-Ringdown Waveform M3Db_rRamp_NC10 {
+Ringdown Waveform MC22_rRamp_NC10 {
   SampleRate = 50 MHz/20;
   Nsample = 3500;
   Ncoadd = 10;

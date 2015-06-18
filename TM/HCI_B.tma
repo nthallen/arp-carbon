@@ -393,7 +393,7 @@ State MQCL_SelectICOSandRun {
  +1 > MINI Set Laser TEC Temp Setpoint 1.68
  +1 > MINI Laser TEC On
     Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
- +10 > Select QCLI_M Waveform M3Db_600Hz10Hz
+ +10 > Select QCLI_M Waveform MC22_600Hz
  +3 Validate MQCL_Start;
 }
 
@@ -408,7 +408,7 @@ State MQCL_SelectRingandRun {
  +1 > MINI Set Laser TEC Temp Setpoint 1.68
  +1 > MINI Laser TEC On
     Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
- +10 > Select QCLI_M Waveform M3Db_rRamp
+ +10 > Select QCLI_M Waveform MC22_rRamp
  +1 > SSP_M Set NSample 3500
  +2 Validate MQCL_Start;
 }
@@ -2209,19 +2209,21 @@ State LAB_Cal_Idle {
 }
 
 State LAB_MINI_Calibrate {
-   +1 Validate MQCL_SelectRingandRun;
+#   +1 Validate MQCL_SelectRingandRun;
    +1 Validate IQCL_SelectRingandRun;
-  +45 Validate MQCL_SelectICOSandRun;
-   +1 Validate IQCL_SelectICOSandRun;
-   +5 Hold until valid (MQCL_Watch);
-   +1 > SSP_M Stop
-      Hold until (SSP_M_Status == SSP_STATUS_READY) or 2 else {
-        nl_error( 2, "SSP_M Not Ready in MQCL_NC_1" );
-        Validate MQCL_SSP_M_Recover;
-      }
-   +1 > SSP_M Set Ncoadd 1
-   +1 > SSP_M Start 
-   +1 > Cal Flow 2 Open
+#  +45 Validate MQCL_SelectICOSandRun;
+   +45 Validate IQCL_SelectICOSandRun;
+   +5 Hold until valid (IQCL_Watch);
+#   +1 > SSP_M Stop
+#      Hold until (SSP_M_Status == SSP_STATUS_READY) or 2 else {
+#        nl_error( 2, "SSP_M Not Ready in MQCL_NC_1" );
+#        Validate MQCL_SSP_M_Recover;
+#      }
+#   +1 > SSP_M Set Ncoadd 1
+#   +1 > SSP_M Start 
+   +1 > Cal Flow 1 Open
++5:00 > Cal Flow 1 Closed
+      > Cal Flow 2 Open
 +5:00 > Cal Flow 2 Closed
       > Cal Flow 3 Open
 +5:00 > Cal Flow 3 Closed
@@ -2229,19 +2231,25 @@ State LAB_MINI_Calibrate {
 +5:00 > Cal Flow 4 Closed
       > Cal Flow 5 Open
 +5:00 > Cal Flow 5 Closed
+      > Cal Flow 6 Open
++5:00 > Cal Flow 6 Closed
       > Cal Flow 4 Open
 +5:00 > Cal Flow 4 Closed
       > Cal Flow 3 Open
 +5:00 > Cal Flow 3 Closed
       > Cal Flow 2 Open
 +5:00 > Cal Flow 2 Closed
-   +1 Validate MQCL_SelectRingandRun;
+      > Cal Flow 1 Open
++5:00 > Cal Flow 1 Closed
+#   +1 Validate MQCL_SelectRingandRun;
    +1 Validate IQCL_SelectRingandRun;
   +45 Validate LAB_Cal_Idle;
 }
 
 State LAB_CO2_Calibrate {
-   +1 > Cal Flow 2 Open
+   +1 > Cal Flow 1 Open
++2:00 > Cal Flow 1 Closed
+      > Cal Flow 2 Open
 +2:00 > Cal Flow 2 Closed
       > Cal Flow 3 Open
 +2:00 > Cal Flow 3 Closed
@@ -2249,10 +2257,14 @@ State LAB_CO2_Calibrate {
 +2:00 > Cal Flow 4 Closed
       > Cal Flow 5 Open
 +2:00 > Cal Flow 5 Closed
+      > Cal Flow 6 Open
++2:00 > Cal Flow 6 Closed
       > Cal Flow 4 Open
 +2:00 > Cal Flow 4 Closed
       > Cal Flow 3 Open
 +2:00 > Cal Flow 3 Closed
       > Cal Flow 2 Open
 +2:00 > Cal Flow 2 Closed
+      > Cal Flow 1 Open
++2:00 > Cal Flow 1 Closed
 }

@@ -380,7 +380,7 @@ State MQCL_SelectICOSandRun {
  +1 > MINI Set Laser TEC Temp Setpoint 1.75
  +1 > MINI Laser TEC On
     Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
- +10 > Select QCLI_M Waveform M3Db_600Hz10Hz
+ +10 > Select QCLI_M Waveform MC22_600Hz
  +3 Validate MQCL_Start;
 }
 
@@ -395,7 +395,7 @@ State MQCL_SelectRingandRun {
  +1 > MINI Set Laser TEC Temp Setpoint 1.75
  +1 > MINI Laser TEC On
     Hold until ( MQCL_TEMP_OK(convert(MLTE7R7T),convert(MLTETSt)) );
- +10 > Select QCLI_M Waveform M3Db_rRamp
+ +10 > Select QCLI_M Waveform MC22_rRamp
  +1 > SSP_M Set NSample 3500
  +2 Validate MQCL_Start;
 }
