@@ -1,7 +1,7 @@
 %Values for cal tanks NOAA and secondary standard
 % Order of delta values should follow HITRAN order of isotopologues.
 % Value should be given in fractional mixing ratio. (i.e. 1.8e-9, not 1.8)
-Tank0.Analysis=struct('Cylinder','N2','Org','N2','Date','May, 2012');
+Tank0.Analysis=struct('Cylinder','N2','Org','AirGas','Date','May, 2012');
 Tank0.CH4(1)=struct('molec','Total','value',0,'Sdev',0.3,'unit','ppbv');
 Tank0.CH4(2)=struct('molec','D13C','value',0,'Sdev',20,'unit','permil');
 Tank0.CH4(3)=struct('molec','DD','value',0,'Sdev',20,'unit','permil');
@@ -21,8 +21,8 @@ Tank1.N2O(1)=struct('molec','Total','value',325.42,'Sdev',0.10,'unit','ppbv');
 
 Tank2.Analysis=struct('Cylinder','CA03687','Org','AirGas/Wofsy','Date','Nov, 2013');
 Tank2.CH4(1)=struct('molec','Total','value',1898.5944e-9,'Sdev',0.3,'unit','ppbv');
-Tank2.CH4(2)=struct('molec','D13C','value',0,'Sdev',20,'unit','permil');
-Tank2.CH4(3)=struct('molec','DD','value',0,'Sdev',NaN,'unit','permil');
+Tank2.CH4(2)=struct('molec','D13C','value',-35.7,'Sdev',.16,'unit','permil');
+Tank2.CH4(3)=struct('molec','DD','value',-192,'Sdev',.7,'unit','permil');
 Tank2.CO2(1)=struct('molec','Total','value',392.56967e-6,'Sdev',0.043,'unit','ppmv');
 Tank2.CO2(2)=struct('molec','D13C','value',0,'Sdev',0.002,'unit','permil');
 Tank2.CO2(3)=struct('molec','D18O','value',0,'Sdev',0.007,'unit','permil');
@@ -30,8 +30,8 @@ Tank2.N2O(1)=struct('molec','Total','value',NaN,'Sdev',0.10,'unit','ppbv');
 
 Tank3.Analysis=struct('Cylinder','CC130206','Org','AirGas/Wofsy','Date','Nov, 2013');
 Tank3.CH4(1)=struct('molec','Total','value',1882.0873e-9,'Sdev',0.38,'unit','ppbv');
-Tank3.CH4(2)=struct('molec','D13C','value',0,'Sdev',20,'unit','permil');
-Tank3.CH4(3)=struct('molec','DD','value',0,'Sdev',NaN,'unit','permil');
+Tank3.CH4(2)=struct('molec','D13C','value',-35.7,'Sdev',.16,'unit','permil');
+Tank3.CH4(3)=struct('molec','DD','value',-192,'Sdev',.7,'unit','permil');
 Tank3.CO2(1)=struct('molec','Total','value',398.29126e-6,'Sdev',0.05,'unit','ppmv');
 Tank3.CO2(2)=struct('molec','D13C','value',0,'Sdev',0.002,'unit','permil');
 Tank3.CO2(3)=struct('molec','D18O','value',0,'Sdev',0.007,'unit','permil');

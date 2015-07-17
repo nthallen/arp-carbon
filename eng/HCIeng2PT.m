@@ -44,7 +44,7 @@ elseif strcmp(cfg.ScanDir,'SSP_M')
 elseif strcmp(cfg.ScanDir,'SSP_I')
     PT.TPT = T1;
     PT.CellP = interp1(fastavg(T10,10),fastavg(E10.ICelLP,10),T1);
-    PT.Tavg = 273.15 + mean([E.ICel1T,E.ICel2T,E.ISk1T,E.ISk2T,E.ISk3T]');
+    PT.Tavg = 273.15 + mean([E.ICel1T,E.ICel2T,E.ISk1T,E.ISk3T]');
     if isfield(E10,'SSP_I_Num')
       PT.ScanNum = interp1(T10,E10.SSP_I_Num,T1,'nearest','extrap');
     else

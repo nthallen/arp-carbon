@@ -31,20 +31,16 @@ catch
     useISO='n';
 end
 try
-% eval(['CO2 = load(''C' date '.' ext '.mat'',''T1*'');']);
-% eval(['CO2CO2 = struct2array(load(''C' date '.' ext '.mat'',''CO2*''));']);
-% eval(['CO2C13O2 = struct2array(load(''C' date '.' ext '.mat'',''C13O2*''));']);
-% eval(['CO2C18OO = struct2array(load(''C' date '.' ext '.mat'',''C18OO*''));']);
-eval(['temp = load(''C' date '.' ext '.mat'');']);
-CO2.T10Hz_GPS_msec=temp(:,1);
-CO2CO2=temp(:,3);
-CO2C13O2=temp(:,4);
+eval(['CO2 = load(''CO2' date '.' ext '.mat'',''T1*'');']);
+eval(['CO2CO2 = struct2array(load(''CO2' date '.' ext '.mat'',''CO2*''));']);
+eval(['CO2C13O2 = struct2array(load(''CO2' date '.' ext '.mat'',''C13O2*''));']);
+eval(['CO2C18OO = struct2array(load(''CO2' date '.' ext '.mat'',''C18OO*''));']);
 catch
-    disp(['Warning: File C' date '.' ext '.mat does not exist. Continuing with no CO2 data']);
+    disp(['Warning: File CO2' date '.' ext '.mat does not exist. Continuing with no CO2 data']);
     useCO2='n';
 end
 
-eval(['load(''MM' date '.' ext '.mat'',''T*'',''A*'',''L*'',''Ht'',''run'');']);
+eval(['load(''MM' date '.' ext '.mat'',''T*'',''A*'',''L*'',''Ht'');']);
 
 %Check to make sure time bases are the same
 if useISO=='y'

@@ -24,7 +24,7 @@ Axis=cfg.ScanDir(5);
 SSP_Num=eval(['D.SSP_' Axis '_Num']);
 SSP_SN=eval(['D.SSP_' Axis '_SN']);
 if strcmp(Axis,'I')
-    T1gps=D.THCIeng_1-18/20;
+    T1gps=D.THCIeng_1-10/20;
 elseif strcmp(Axis,'M')
     T1gps=D.THCIeng_1-10/20;
 elseif strcmp(Axis,'C')
@@ -40,6 +40,7 @@ for s=1:length(suffix)
         disp(['Reading ' base ' ...']);
         ICOSsetup
         data=[data;Chi]; snum=[snum;scannum]; chisq=[chisq;chi2];
+        snumst(r)=scannum(1); snumed(r)=scannum(end);
     end
     %Read in cal regions
      for r=1:length(calregions)
@@ -86,8 +87,8 @@ for s=1:length(suffix)
                 name=[name2{1} letter];
             end
             ncal=find([cal_coeffs.line]==nu(linen(j)));
-            eval([name '=data(:,linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b;']);
-            eval([name '_cal=calmean(linen(j));']);
+            eval([name '=data(:,linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b/isovals(iso(linen(i)),''abundance'');']);
+            eval([name '_cal=calmean(linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b/isovals(iso(linen(i)),''abundance'');']);
             %save(OFILE,name,'-append')
             names{n}=name;
             n=n+1;
@@ -124,12 +125,7 @@ elseif strcmp(Inst,'CO2')
    C13O2=CO2run(:,4);
    snum=CO2run(:,1);
 end
-sspnum=snum;
-disp(['Reading SSP file headers. This may take awhile... '])
-hdrs=loadscanhdrs(sspnum);
-%sn=reshape(struct2array(hdrs),9,size(hdrs,2));
-lon=find(diff(SSP_SN)~=0 & SSP_Num(2:end) > min(sspnum) & SSP_Num(2:end) < max(sspnum));
-sntime=interp1(SSP_SN(lon),T1gps(lon),[hdrs.SerialNum]);
+
 %create evenly spaced 1Hz and 10Hz time vectors
 if range(D.GPS_msecs)==0
     T1Hz_ftime=[D.THCIeng_1(100):1:D.THCIeng_1(end)]';
@@ -139,19 +135,35 @@ else
     T1Hz_GPS_msec=[min(GPS_msecs)/1000:1:max(GPS_msecs)/1000]';
     T10Hz_GPS_msec=[min(GPS_msecs)/1000:0.1:max(GPS_msecs)/1000]';
     T1Hz_GPS_week=interp1(GPS_msecs/1000,D.GPS_week(D.GPS_msecs~=0),T1Hz_GPS_msec,'nearest');
-    T1Hz_ftime=interp1(GPS_msecs/1000,D.THCIeng_1(D.GPS_msecs~=0)-18/20,T1Hz_GPS_msec);
-    T10Hz_ftime=interp1(GPS_msecs/1000,D.THCIeng_1(D.GPS_msecs~=0)-18/20,T10Hz_GPS_msec);
+    T1Hz_ftime=interp1(GPS_msecs/1000,D.THCIeng_1(D.GPS_msecs~=0)+12/20,T1Hz_GPS_msec);
+    T10Hz_ftime=interp1(GPS_msecs/1000,D.THCIeng_1(D.GPS_msecs~=0)+12/20,T10Hz_GPS_msec);
 end
+sspnum=snum;
+disp(['Reading SSP file headers. This may take awhile... '])
+hdrs=loadscanhdrs(sspnum);
+%Do linear fit for time correction for each region segment
+SN=[]; GPS=[];
+for i=1:length(snumst)
+    ind=find(SSP_Num>snumst(i) & SSP_Num<snumed(i));
+    P=polyfit(time2d(T1gps(ind)),SSP_SN(ind),1);
+    m=max(SSP_SN(ind)-polyval(P,time2d(T1gps(ind))));
+    SNi=round(polyval(P,time2d(T1gps(ind(1)-2)))+m);
+    SNii=SNi:56:SSP_SN(ind(end)+2);
+    SN=[SN, SNii];
+    GPS=[GPS, [0:1:length(SNii)-1]*.1+D.GPS_msecs(ind(1)-2)/1000-12/20];    
+end
+sntime=interp1(SN,GPS,[hdrs.SerialNum]);
+
 %use correct rate time vector and correct for inlet to cell lag
 if strcmp(Axis,'I')
-        time=T1Hz_ftime;
-        t_offset=t_inlet.ISO;
+        time=T1Hz_GPS_msec;
+        t_offset=t_inlet.(FConfig).ISO;
 elseif strcmp(Axis,'C')
-        time=T10Hz_ftime;
-        t_offset=t_inlet.CO2;
+        time=T10Hz_GPS_msec;
+        t_offset=t_inlet.(FConfig).CO2;
 elseif strcmp(Axis,'M')
-        time=T10Hz_ftime;
-        t_offset=t_inlet.MINI;
+        time=T10Hz_GPS_msec;
+        t_offset=t_inlet.(FConfig).MINI;
 end
 index=interp1(time,[1:length(time)],sntime-t_offset,'nearest');
 for k = 1:length(names)
