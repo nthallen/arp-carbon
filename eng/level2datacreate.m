@@ -147,10 +147,10 @@ for i=1:length(snumst)
     ind=find(SSP_Num>snumst(i) & SSP_Num<snumed(i));
     P=polyfit(time2d(T1gps(ind)),SSP_SN(ind),1);
     m=max(SSP_SN(ind)-polyval(P,time2d(T1gps(ind))));
-    SNi=round(polyval(P,time2d(T1gps(ind(1)-2)))+m);
-    SNii=SNi:56:SSP_SN(ind(end)+2);
+    SNi=round(polyval(P,time2d(T1gps(ind(1)-3)))+m);
+    SNii=SNi:56:SSP_SN(ind(end)+3);
     SN=[SN, SNii];
-    GPS=[GPS, [0:1:length(SNii)-1]*.1+D.GPS_msecs(ind(1)-2)/1000-12/20];    
+    GPS=[GPS, [0:1:length(SNii)-1]*.1+D.GPS_msecs(ind(1)-3)/1000-12/20];    
 end
 sntime=interp1(SN,GPS,[hdrs.SerialNum]);
 
