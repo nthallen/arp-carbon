@@ -87,8 +87,8 @@ for s=1:length(suffix)
                 name=[name2{1} letter];
             end
             ncal=find([cal_coeffs.line]==nu(linen(j)));
-            eval([name '=data(:,linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b/isovals(iso(linen(i)),''abundance'');']);
-            eval([name '_cal=calmean(linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b/isovals(iso(linen(i)),''abundance'');']);
+            eval([name '=data(:,linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b/isovals(iso(linen(j)),''abundance'');']);
+            eval([name '_cal=calmean(linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b/isovals(iso(linen(j)),''abundance'');']);
             %save(OFILE,name,'-append')
             names{n}=name;
             n=n+1;
