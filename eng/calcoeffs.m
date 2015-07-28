@@ -9,7 +9,7 @@ cal_coeffs(2)=struct('line',1294.1964,'s_m',1.142617,'s_b',9.86e-10,'g_m',4.9893
 cal_coeffs(3)=struct('line',1292.5776,'s_m',1.100,'s_b',3.445e-9,'g_m',1); %CH4
 cal_coeffs(4)=struct('line',1292.6104,'s_m',1.01589,'s_b',2.91e-9,'g_m',1); %CH4
 cal_coeffs(5)=struct('line',1292.6779,'s_m',1.055,'s_b',6.022e-9,'g_m',1); %CH4
-cal_coeffs(6)=struct('line',1292.8269,'s_m',1,'s_b',0,'g_m',1); %H2O
+cal_coeffs(6)=struct('line',1292.8269,'s_m',1.2728,'s_b',-1.225e-4,'g_m',1); %H2O
 cal_coeffs(7)=struct('line',1293.0898,'s_m',1,'s_b',0,'g_m',1); %N2O
 
 %CO2 lines
