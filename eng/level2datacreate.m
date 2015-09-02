@@ -24,11 +24,11 @@ Axis=cfg.ScanDir(5);
 SSP_Num=eval(['D.SSP_' Axis '_Num']);
 SSP_SN=eval(['D.SSP_' Axis '_SN']);
 if strcmp(Axis,'I')
-    T1gps=D.THCIeng_1-10/20;
+    T1gps=D.GPS_msecs/1000-12/20+10/20;
 elseif strcmp(Axis,'M')
-    T1gps=D.THCIeng_1-10/20;
+    T1gps=D.GPS_msecs/1000-12/20+10/20;
 elseif strcmp(Axis,'C')
-    T1gps=D.THCIeng_1-13/20;
+    T1gps=D.GPS_msecs/1000-12/20+13/20;
 end
 save(OFILE,'flight')
 n=1;
@@ -120,10 +120,16 @@ for i=1:length(linen)
     end
 end
 elseif strcmp(Inst,'CO2')
+   load(regions)
    names={'CO2','C13O2'};
-   CO2=CO2run(:,3);
-   C13O2=CO2run(:,4);
-   snum=CO2run(:,1);
+   CO2=CO2run(1:end-1,3);
+   C13O2=CO2run(1:end-1,4);
+   snum=CO2run(1:end-1,1);
+   j=find(diff(snum)>10);
+   snumst=[1;j+1];
+   snumed=[j;snum(end)];
+   lines_used(1)=struct('name','CO2','nu',2310.6861,'iso',21);
+   lines_used(2)=struct('name','C13O2','nu',2310.3472,'iso',22);
 end
 
 %create evenly spaced 1Hz and 10Hz time vectors
@@ -141,16 +147,27 @@ end
 sspnum=snum;
 disp(['Reading SSP file headers. This may take awhile... '])
 hdrs=loadscanhdrs(sspnum);
+%old time correction
+% sn=reshape(struct2array(hdrs),9,size(hdrs,2));
+% lon=find(diff(SSP_SN)~=0 & SSP_Num(2:end) > min(sspnum) & SSP_Num(2:end) < max(sspnum));
+% sntime=csaps(SSP_SN(lon),T1gps(lon),.05,sn(6,:));
 %Do linear fit for time correction for each region segment
+wv=waves_used;
+if strcmp(Inst,'CO2')
+    Trecycle=200e-6;
+elseif strcmp(Inst,'MM')
+    Trecycle=201e-6;
+end
+t_wave=(wv(1).RawSamples/wv(1).RawRate+Trecycle)*wv(1).NCoadd;
 SN=[]; GPS=[];
 for i=1:length(snumst)
     ind=find(SSP_Num>snumst(i) & SSP_Num<snumed(i));
     P=polyfit(time2d(T1gps(ind)),SSP_SN(ind),1);
     m=max(SSP_SN(ind)-polyval(P,time2d(T1gps(ind))));
     SNi=round(polyval(P,time2d(T1gps(ind(1)-3)))+m);
-    SNii=SNi:56:SSP_SN(ind(end)+3);
+    SNii=SNi:wv(1).NCoadd:SSP_SN(ind(end)+4);
     SN=[SN, SNii];
-    GPS=[GPS, [0:1:length(SNii)-1]*.1+D.GPS_msecs(ind(1)-3)/1000-12/20];    
+    GPS=[GPS, [0:1:length(SNii)-1]*t_wave+D.GPS_msecs(ind(1)-3)/1000-12/20];    
 end
 sntime=interp1(SN,GPS,[hdrs.SerialNum]);
 
@@ -165,7 +182,7 @@ elseif strcmp(Axis,'M')
         time=T10Hz_GPS_msec;
         t_offset=t_inlet.(FConfig).MINI;
 end
-index=interp1(time,[1:length(time)],sntime-t_offset,'nearest');
+index=interp1(time,1:length(time),sntime+t_offset,'nearest');
 for k = 1:length(names)
     temp = time*NaN;
     eval(['temp(index) = ' names{k} ';']);

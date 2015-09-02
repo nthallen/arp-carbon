@@ -16,24 +16,28 @@ useISO='y'; useCO2='y'; useMM='y';
 run('calcoeffs');
 try
 eval(['MM = load(''MM' date '.' ext '.mat'',''T1*'',''lines_used'');']);
-lu=struct2cell(lines_used);
+lu=struct2cell(MM.lines_used);
 eval(['MMCH4 = struct2array(load(''MM' date '.' ext '.mat'',''CH4*''));']);
-MMCH4ncal=find([cal_coeffs.line]==lines_used(find(strncmp('CH4',lu(1,:,:),3))).nu);
+MMCH4ncal=find([cal_coeffs.line]==MM.lines_used(find(strncmp('CH4',lu(1,:,:),3))).nu);
 eval(['MMH2O = struct2array(load(''MM' date '.' ext '.mat'',''H2O*''));']);
-MMH2Oncal=find([cal_coeffs.line]==lines_used(find(strncmp('H2O',lu(1,:,:),3))).nu);
-eval(['MMN2O = struct2array(load(''MM' date '.' ext '.mat'',''N2O*''));']);
-MMN2Oncal=find([cal_coeffs.line]==lines_used(find(strncmp('N2O',lu(1,:,:),3))).nu);
+MMH2Oncal=find([cal_coeffs.line]==MM.lines_used(find(strncmp('H2O',lu(1,:,:),3))).nu);
 catch
     disp(['Warning: File MM' date '.' ext '.mat does not exist. Exiting']);
     return
 end
 try
-eval(['ISO = load(''ISO' date '.' ext '.mat'',''T1*'');']);
-lu=struct2cell(lines_used);
+eval(['MMN2O = struct2array(load(''MM' date '.' ext '.mat'',''N2O*''));']);
+MMN2Oncal=find([cal_coeffs.line]==MM.lines_used(find(strncmp('N2O',lu(1,:,:),3))).nu);
+catch
+    disp(['Warning: No N2O Data. Continuing with no N2O data']);
+end
+try
+eval(['ISO = load(''ISO' date '.' ext '.mat'',''T1*'',''lines_used'');']);
+lu=struct2cell(ISO.lines_used);
 eval(['ISOCH4 = struct2array(load(''ISO' date '.' ext '.mat'',''CH4*''));']);
-ISOCH4ncal=find([cal_coeffs.line]==lines_used(find(strncmp('CH4',lu(1,:,:),3))).nu);
+ISOCH4ncal=find([cal_coeffs.line]==ISO.lines_used(find(strncmp('CH4',lu(1,:,:),3))).nu);
 eval(['ISOC13H4 = struct2array(load(''ISO' date '.' ext '.mat'',''C13H4*''));']);
-MMC13H4ncal=find([cal_coeffs.line]==lines_used(find(strncmp('C13',lu(1,:,:),3))).nu);
+ISOC13H4ncal=find([cal_coeffs.line]==ISO.lines_used(find(strncmp('C13',lu(1,:,:),3))).nu);
 catch
     disp(['Warning: File ISO' date '.' ext '.mat does not exist. Continuing with no ISO data']);
     useISO='n';
@@ -79,8 +83,8 @@ else
     CO2wet=ones(size(T10Hz_ftime))*400e-6; %if we don't have CO2 assume mean troposhere. Not very good.
 end
 H2Odry=H2Owet./(1-H2Owet-CO2wet);
-if ~isempty(MMCH4); CH4dry=MMCH4./(1-H2Owet-CO2wet)*isovals(61,'abundance')+H2Owet*calcoeffs(MMCH4ncal).g_m; end
-if ~isempty(MMN2O); N2Odry=MMN2O./(1-H2Owet-CO2wet)*isovals(41,'abundance'); end
+if ~isempty(MMCH4); CH4dry=(MMCH4./(1-H2Owet-CO2wet)+H2Owet*cal_coeffs(MMCH4ncal).g_m)*isovals(61,'abundance'); end
+if ~isempty(MMN2O); N2Odry=(MMN2O./(1-H2Owet-CO2wet)+H2Owet*cal_coeffs(MMN2Oncal).g_m)*isovals(41,'abundance'); end
 if useCO2=='y'
     if ~isempty(CO2CO2); CO2dry=CO2CO2./(1-H2Owet-CO2wet)*isovals(21,'abundance'); end
     if ~isempty(CO2C13O2); C13O2dry=CO2C13O2./(1-H2Owet-CO2wet)*isovals(22,'abundance'); end
@@ -88,9 +92,9 @@ if useCO2=='y'
     TCO2dry=(CO2dry+C13O2dry)/(isovals(21,'abundance')+isovals(22,'abundance'));
 end
 if useISO=='y'
-    if ~isempty(ISOCH4); CH4ISOdry=ISOCH4./fastavg((1-H2Owet-CO2wet),10)*isovals(61,'abundance'); end
-    if ~isempty(ISOC13H4); C13H4dry=ISOC13H4./fastavg((1-H2Owet-CO2wet),10)*isovals(62,'abundance'); end
-    TCH4dry=(CH4dry+interp1(T1Hz_ftime(~isnan(C13H4dry)),C13H4dry(~isnan(C13H4dry)),T10Hz_ftime))/(isovals(61,'abundance')+isovals(62,'abundance'));
+    if ~isempty(ISOCH4); CH4ISOdry=(ISOCH4./fastavg((1-H2Owet-CO2wet),10)+fastavg(H2Owet*cal_coeffs(ISOCH4ncal).g_m,10))*isovals(61,'abundance'); end
+    if ~isempty(ISOC13H4); C13H4dry=(ISOC13H4./fastavg((1-H2Owet-CO2wet),10)+fastavg(H2Owet*cal_coeffs(ISOC13H4ncal).g_m,10))*isovals(62,'abundance'); end
+    TCH4dry=(CH4dry+interp1(T1Hz_GPS_msec(~isnan(C13H4dry)),C13H4dry(~isnan(C13H4dry)),T10Hz_GPS_msec))/(isovals(61,'abundance')+isovals(62,'abundance'));
 else
     TCH4dry=CH4dry/isovals(61,'abundance');
 end
