@@ -23,9 +23,9 @@ cal_coeffs(12)=struct('line',2310.6861,'s_m',1,'s_b',0,'g_m',0); %CO2 line used 
 
 %Travel time from inlet to cell (units seconds)
 
-t_inlet.A.CO2=0.85; 
-t_inlet.A.MINI=0.95;
-t_inlet.A.ISO=1.95;
+t_inlet.A.CO2=0; 
+t_inlet.A.MINI=0;
+t_inlet.A.ISO=0;
 t_inlet.B.CO2=0.85; %based on 150519.2
 t_inlet.B.MINI=0.55; %based on 150519.2
 t_inlet.B.ISO=1.6; %based on 150519.2
