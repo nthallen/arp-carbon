@@ -43,10 +43,14 @@ catch
     useISO='n';
 end
 try
-eval(['CO2 = load(''CO2' date '.' ext '.mat'',''T1*'');']);
+eval(['CO2 = load(''CO2' date '.' ext '.mat'',''T1*'',''lines_used'');']);
+lu=struct2cell(CO2.lines_used);
 eval(['CO2CO2 = struct2array(load(''CO2' date '.' ext '.mat'',''CO2*''));']);
+CO2CO2ncal=find([cal_coeffs.line]==CO2.lines_used(find(strncmp('CO2',lu(1,:,:),3))).nu);
 eval(['CO2C13O2 = struct2array(load(''CO2' date '.' ext '.mat'',''C13O2*''));']);
-eval(['CO2C18OO = struct2array(load(''CO2' date '.' ext '.mat'',''C18OO*''));']);
+CO2C13O2ncal=find([cal_coeffs.line]==CO2.lines_used(find(strncmp('C13O2',lu(1,:,:),3))).nu);
+%eval(['CO2C18OO = struct2array(load(''CO2' date '.' ext '.mat'',''C18OO*''));']);
+%CO2C18OOncal=find([cal_coeffs.line]==CO2.lines_used(find(strncmp('C18OO',lu(1,:,:),3))).nu);
 catch
     disp(['Warning: File CO2' date '.' ext '.mat does not exist. Continuing with no CO2 data']);
     useCO2='n';
@@ -86,9 +90,9 @@ H2Odry=H2Owet./(1-H2Owet-CO2wet);
 if ~isempty(MMCH4); CH4dry=(MMCH4./(1-H2Owet-CO2wet)+H2Owet*cal_coeffs(MMCH4ncal).g_m)*isovals(61,'abundance'); end
 if ~isempty(MMN2O); N2Odry=(MMN2O./(1-H2Owet-CO2wet)+H2Owet*cal_coeffs(MMN2Oncal).g_m)*isovals(41,'abundance'); end
 if useCO2=='y'
-    if ~isempty(CO2CO2); CO2dry=CO2CO2./(1-H2Owet-CO2wet)*isovals(21,'abundance'); end
-    if ~isempty(CO2C13O2); C13O2dry=CO2C13O2./(1-H2Owet-CO2wet)*isovals(22,'abundance'); end
-    if ~isempty(CO2C18OO); C18OOdry=CO2C18OO./(1-H2Owet-CO2wet)*isovals(23,'abundance'); end
+    if ~isempty(CO2CO2); CO2dry=(CO2CO2./(1-H2Owet-CO2wet)+H2Owet*cal_coeffs(CO2CO2ncal).g_m)*isovals(21,'abundance'); end
+    if ~isempty(CO2C13O2); C13O2dry=(CO2C13O2./(1-H2Owet-CO2wet)+H2Owet*cal_coeffs(CO2C13O2ncal).g_m)*isovals(22,'abundance'); end
+%    if ~isempty(CO2C18OO); C18OOdry=(CO2C18OO./(1-H2Owet-CO2wet)+H2Owet*cal_coeffs(CO2C18OOncal).g_m)*isovals(23,'abundance'); end
     TCO2dry=(CO2dry+C13O2dry)/(isovals(21,'abundance')+isovals(22,'abundance'));
 end
 if useISO=='y'

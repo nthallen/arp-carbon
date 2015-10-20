@@ -152,24 +152,25 @@ hdrs=loadscanhdrs(sspnum);
 % lon=find(diff(SSP_SN)~=0 & SSP_Num(2:end) > min(sspnum) & SSP_Num(2:end) < max(sspnum));
 % sntime=csaps(SSP_SN(lon),T1gps(lon),.05,sn(6,:));
 %Do linear fit for time correction for each region segment
-wv=waves_used;
+[wv,ranges]=waves_used;
 if strcmp(Inst,'CO2')
-    Trecycle=200e-6;
+    t_wave=1.312e-3*wv(1).NCoadd; %hardcoded from QCLI_C.log
 elseif strcmp(Inst,'MM')
-    Trecycle=201e-6;
+    t_wave=1.779e-3*wv(1).NCoadd; %hardcoded from QCLI_M.log
 end
-t_wave=(wv(1).RawSamples/wv(1).RawRate+Trecycle)*wv(1).NCoadd;
+
 SN=[]; GPS=[];
 for i=1:length(snumst)
-    ind=find(SSP_Num>snumst(i) & SSP_Num<snumed(i));
-    P=polyfit(time2d(T1gps(ind)),SSP_SN(ind),1);
-    m=max(SSP_SN(ind)-polyval(P,time2d(T1gps(ind))));
-    SNi=round(polyval(P,time2d(T1gps(ind(1)-3)))+m);
-    SNii=SNi:wv(1).NCoadd:SSP_SN(ind(end)+4);
+    [~,I]=min(abs((ranges(1).ranges(:,1)-snumst(i))));
+    ind=find(SSP_Num>ranges(1).ranges(I,1) & SSP_Num<snumed(i)); 
+    P=polyfit(T1gps(ind),SSP_SN(ind),1);
+    m=max(SSP_SN(ind)-polyval(P,T1gps(ind)));
+    SNi=round(polyval(P,T1gps(ind(1)))+m);
+    SNii=SNi:wv(1).NCoadd:SSP_SN(ind(end));
     SN=[SN, SNii];
-    GPS=[GPS, [0:1:length(SNii)-1]*t_wave+D.GPS_msecs(ind(1)-3)/1000-12/20];    
+    GPS=[GPS, [0:1:length(SNii)-1]*t_wave+D.GPS_msecs(ind(1))/1000];    
 end
-sntime=interp1(SN,GPS,[hdrs.SerialNum]);
+sntime=interp1(SN,GPS,[hdrs.SerialNum],'linear','extrap');
 
 %use correct rate time vector and correct for inlet to cell lag
 if strcmp(Axis,'I')
