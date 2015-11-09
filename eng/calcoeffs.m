@@ -1,16 +1,16 @@
 %Various Calibration Coefficients for Carbon Instrument
 %Please note date of updates
 
-%ISO lines
-cal_coeffs(1)=struct('line',1294.3792,'s_m',1.185491,'s_b',1.4023e-8,'g_m',5.898e-7); %CH4 Based on 141008.1 and 150323.3
-cal_coeffs(13)=struct('line',1294.3789,'s_m',1.185491,'s_b',1.4023e-8,'g_m',5.898e-7);
-cal_coeffs(2)=struct('line',1294.1964,'s_m',1.142617,'s_b',9.86e-10,'g_m',4.9893e-6); %13CH4 Based on 141008.1 and 150323.3
+%ISO lines                 
+cal_coeffs(1)=struct('line',1294.378648,'s_m',0.9816,'s_b',2.2763e-8,'g_m',8.7651e-7); %CH4 Based on 141008.1 and 150323.3
+%cal_coeffs(13)=struct('line',1294.378648,'s_m',1.185491,'s_b',1.4023e-8,'g_m',5.898e-7);
+cal_coeffs(2)=struct('line',1294.1964,'s_m',1.0831,'s_b',3.7530e-10,'g_m',3.3404e-7); %13CH4 Based on 141008.1 and 150323.3
 
 %MINI lines
 cal_coeffs(3)=struct('line',1292.5776,'s_m',1.100,'s_b',3.445e-9,'g_m',0); %CH4
 cal_coeffs(4)=struct('line',1292.6104,'s_m',1.01589,'s_b',2.91e-9,'g_m',0); %CH4
-cal_coeffs(5)=struct('line',1292.6779,'s_m',1.055,'s_b',6.022e-9,'g_m',0); %CH4
-cal_coeffs(6)=struct('line',1292.8269,'s_m',1.2728,'s_b',-1.225e-4,'g_m',0); %H2O
+cal_coeffs(5)=struct('line',1292.6779,'s_m',0.9878,'s_b',1.343e-8,'g_m',0); %CH4 from 141009.1
+cal_coeffs(6)=struct('line',1292.8269,'s_m',1.6924,'s_b',-2.6418e-4,'g_m',0); %H2O from 150323.3
 cal_coeffs(7)=struct('line',1293.0898,'s_m',1,'s_b',0,'g_m',0); %N2O
 
 %CO2 lines
