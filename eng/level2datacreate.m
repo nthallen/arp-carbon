@@ -183,12 +183,14 @@ elseif strcmp(Axis,'M')
         time=T10Hz_GPS_msec;
         t_offset=t_inlet.(FConfig).MINI;
 end
+sntime=sntime+t_offset;
 index=interp1(time,1:length(time),sntime+t_offset,'nearest');
 for k = 1:length(names)
     temp = time*NaN;
     eval(['temp(index) = ' names{k} ';']);
+    eval([names{k} 'sntime =' names{k} ';']);
     eval([names{k} ' = temp;']);
-    save(OFILE,names{k},'-append')
+    save(OFILE,names{k},[names{k} 'sntime'],'-append')
 end
 SSP_NUM=time*NaN;
 SSP_NUM(index)=sspnum;
@@ -199,5 +201,5 @@ AirT=interp1(D.THCIeng_1-18/20,D.BAT_FOTemp,T1Hz_ftime);
 AirP=interp1(D.THCIeng_1-18/20,D.BAT_Ps,T1Hz_ftime);
 Alt=interp1(D10.THCIeng_10,D10.MRA_Alt_a,T10Hz_ftime);
 
-save(OFILE,'SSP_NUM','T1Hz_*','T10Hz_*','Lat','Lon','Ht','Alt','AirT','AirP','lines_used','-append')
+save(OFILE,'sntime','T1Hz_*','T10Hz_*','Lat','Lon','Ht','Alt','AirT','AirP','lines_used','-append')
 disp(['Writing ' OFILE ' ... Done!']);
