@@ -14,46 +14,63 @@ function level2datacombine(date,ext)
 % Loading data into program
 useISO='y'; useCO2='y'; useMM='y';
 run('calcoeffs');
-try
-eval(['MM = load(''MM' date '.' ext '.mat'',''T1*'',''lines_used'');']);
-lu=struct2cell(MM.lines_used);
-eval(['MMCH4 = struct2array(load(''MM' date '.' ext '.mat'',''CH4*''));']);
-MMCH4ncal=find([cal_coeffs.line]==MM.lines_used(find(strncmp('CH4',lu(1,:,:),3))).nu);
-eval(['MMH2O = struct2array(load(''MM' date '.' ext '.mat'',''H2O*''));']);
-MMH2Oncal=find([cal_coeffs.line]==MM.lines_used(find(strncmp('H2O',lu(1,:,:),3))).nu);
-catch
-    disp(['Warning: File MM' date '.' ext '.mat does not exist. Exiting']);
+if exist(['MM' date '.' ext '.mat'],'file')~=2
+    disp(['Error: File MM' date '.' ext '.mat does not exist. Exiting']);
     return
 end
 try
-eval(['MMN2O = struct2array(load(''MM' date '.' ext '.mat'',''N2O*''));']);
+eval(['MM = load(''MM' date '.' ext '.mat'',''T1*'',''lines_used'');']);
+lu=struct2cell(MM.lines_used);
+eval(['MMCH4 = struct2array(load(''MM' date '.' ext '.mat'',''-regexp'',''CH4[a-z]?$''));']);
+MMCH4ncal=find([cal_coeffs.line]==MM.lines_used(find(strncmp('CH4',lu(1,:,:),3))).nu);
+eval(['MMH2O = struct2array(load(''MM' date '.' ext '.mat'',''-regexp'',''H2O[a-z]?$''));']);
+MMH2Oncal=find([cal_coeffs.line]==MM.lines_used(find(strncmp('H2O',lu(1,:,:),3))).nu);
+eval(['MMCH4sntime = struct2array(load(''MM' date '.' ext '.mat'',''-regexp'',''CH4[a-z]?sntime''));']);
+eval(['MMH2Osntime = struct2array(load(''MM' date '.' ext '.mat'',''-regexp'',''H2O[a-z]?sntime''));']);
+load(['MM' date '.' ext '.mat'],'sntime');
+catch
+    disp(['Error: File MM' date '.' ext '.mat does not contain CH4 or H2O or lines_used variables. Can not continue. Exiting']);
+    return
+end
+try
+eval(['MMN2O = struct2array(load(''MM' date '.' ext '.mat'',''-regexp'',''N2O[a-z]?$''));']);
 MMN2Oncal=find([cal_coeffs.line]==MM.lines_used(find(strncmp('N2O',lu(1,:,:),3))).nu);
 catch
     disp(['Warning: No N2O Data. Continuing with no N2O data']);
 end
-try
-eval(['ISO = load(''ISO' date '.' ext '.mat'',''T1*'',''lines_used'');']);
-lu=struct2cell(ISO.lines_used);
-eval(['ISOCH4 = struct2array(load(''ISO' date '.' ext '.mat'',''CH4*''));']);
-ISOCH4ncal=find([cal_coeffs.line]==ISO.lines_used(find(strncmp('CH4',lu(1,:,:),3))).nu);
-eval(['ISOC13H4 = struct2array(load(''ISO' date '.' ext '.mat'',''C13H4*''));']);
-ISOC13H4ncal=find([cal_coeffs.line]==ISO.lines_used(find(strncmp('C13',lu(1,:,:),3))).nu);
-catch
+if exist(['ISO' date '.' ext '.mat'],'file')~=2
     disp(['Warning: File ISO' date '.' ext '.mat does not exist. Continuing with no ISO data']);
     useISO='n';
+else
+    try
+        eval(['ISO = load(''ISO' date '.' ext '.mat'',''T1*'',''lines_used'');']);
+        lu=struct2cell(ISO.lines_used);
+        eval(['ISOCH4 = struct2array(load(''ISO' date '.' ext '.mat'',''-regexp'',''CH4[a-z]?$''));']);
+        ISOCH4ncal=find([cal_coeffs.line]==ISO.lines_used(find(strncmp('CH4',lu(1,:,:),3))).nu);
+        eval(['ISOC13H4 = struct2array(load(''ISO' date '.' ext '.mat'',''-regexp'',''C13H4[a-z]?$''));']);
+        ISOC13H4ncal=find([cal_coeffs.line]==ISO.lines_used(find(strncmp('C13',lu(1,:,:),3))).nu);
+    catch
+            disp(['Warning: File ISO' date '.' ext '.mat does not contain CH4 or 13CH4 or lines_used. Continuing with no ISO data']);
+            useISO='n';
+    end
 end
-try
-eval(['CO2 = load(''CO2' date '.' ext '.mat'',''T1*'',''lines_used'');']);
-lu=struct2cell(CO2.lines_used);
-eval(['CO2CO2 = struct2array(load(''CO2' date '.' ext '.mat'',''CO2*''));']);
-CO2CO2ncal=find([cal_coeffs.line]==CO2.lines_used(find(strncmp('CO2',lu(1,:,:),3))).nu);
-eval(['CO2C13O2 = struct2array(load(''CO2' date '.' ext '.mat'',''C13O2*''));']);
-CO2C13O2ncal=find([cal_coeffs.line]==CO2.lines_used(find(strncmp('C13O2',lu(1,:,:),3))).nu);
-%eval(['CO2C18OO = struct2array(load(''CO2' date '.' ext '.mat'',''C18OO*''));']);
-%CO2C18OOncal=find([cal_coeffs.line]==CO2.lines_used(find(strncmp('C18OO',lu(1,:,:),3))).nu);
-catch
+if exist(['CO2' date '.' ext '.mat'],'file')~=2
     disp(['Warning: File CO2' date '.' ext '.mat does not exist. Continuing with no CO2 data']);
     useCO2='n';
+else
+    try
+        eval(['CO2 = load(''CO2' date '.' ext '.mat'',''T1*'',''lines_used'');']);
+        lu=struct2cell(CO2.lines_used);
+        eval(['CO2CO2 = struct2array(load(''CO2' date '.' ext '.mat'',''-regexp'',''CO2[a-z]?$''));']);
+        CO2CO2ncal=find([cal_coeffs.line]==CO2.lines_used(find(strncmp('CO2',lu(1,:,:),3))).nu);
+        eval(['CO2C13O2 = struct2array(load(''CO2' date '.' ext '.mat'',''-regexp'',''C13O2[a-z]?$''));']);
+        CO2C13O2ncal=find([cal_coeffs.line]==CO2.lines_used(find(strncmp('C13O2',lu(1,:,:),3))).nu);
+%eval(['CO2C18OO = struct2array(load(''CO2' date '.' ext '.mat'',''C18OO*''));']);
+%CO2C18OOncal=find([cal_coeffs.line]==CO2.lines_used(find(strncmp('C18OO',lu(1,:,:),3))).nu);
+    catch
+            disp(['Warning: File CO2' date '.' ext '.mat does not contain CO2 or 13CO2 or lines_used. Continuing with no CO2 data']);
+            useCO2='n';
+    end
 end
 
 eval(['load(''MM' date '.' ext '.mat'',''T*'',''A*'',''L*'',''Ht'');']);
