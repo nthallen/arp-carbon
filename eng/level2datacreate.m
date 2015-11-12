@@ -14,15 +14,19 @@ function level2datacreate(config_file)
 %remove_OA='y';
 %chilimit=1e-5;
 
+%load config files and 1Hz and 10Hz telemetry data. 
 eval(config_file);
 cfg = load_ICOSfit_cfg;
 flight=getrun(1);
 D=ne_load('HCIeng_1','HCI_Data_Dir');
 D10=ne_load('HCIeng_10','HCI_Data_Dir');
+% load calibration coeffs
 run('calcoeffs.m');
 Axis=cfg.ScanDir(5);
 SSP_Num=eval(['D.SSP_' Axis '_Num']);
 SSP_SN=eval(['D.SSP_' Axis '_SN']);
+%correct for telemetry frame time offset difference between GPS data and
+%SSP data
 if strcmp(Axis,'I')
     T1gps=D.GPS_msecs/1000-12/20+10/20;
 elseif strcmp(Axis,'M')
@@ -33,9 +37,9 @@ end
 save(OFILE,'flight')
 n=1;
 if strcmp(Inst,'MM')
-for s=1:length(suffix)
+for s=1:length(suffix) %for each suffix listed
     data=[]; snum=[]; chisq=[]; caldata=[]; 
-    for r=1:length(regions)
+    for r=1:length(regions) %read in each region and cat data
         base = ['ICOSout.' regions{r} '.' suffix{s}];
         disp(['Reading ' base ' ...']);
         ICOSsetup
@@ -43,13 +47,13 @@ for s=1:length(suffix)
         snumst(r)=scannum(1); snumed(r)=scannum(end);
     end
     %Read in cal regions
-     for r=1:length(calregions)
+     for r=1:length(calregions) %read in each calibration region and cat data
          base = ['ICOSout.' calregions{r} '.' suffix{s}];
          disp(['Reading ' base ' ...']);
          ICOSsetup
          caldata=[caldata;Chi];
      end
-     %calculate means
+     %calculate means of calibration data
      calmean=mean(caldata);
     %
     disp(['Processing Data ...']);
@@ -63,7 +67,7 @@ for s=1:length(suffix)
     end
     data(chisq>chilimit,:)=NaN;
     
-        for j = 1:length(linen)
+        for j = 1:length(linen) %this goes through and figures out which lines were fit and labels them. eg. CH4
             name2=strtrim(isovals(iso(linen(j)),'text'));
             num=regexp(name2{1},'\d');
             if num(1)==1
@@ -71,7 +75,7 @@ for s=1:length(suffix)
                 name2{1}=[name2{1}(l+1) name2{1}(1:l) name2{1}(l+2:end)];
             end
             name=name2{1};
-            if length(find(iso==iso(linen(j))))~=1
+            if length(find(iso==iso(linen(j))))~=1 %this adds a letter extention to the name eg. CH4a
                 foundline='F';
                 k=1;
                 letter=char('a'-1);
@@ -86,7 +90,10 @@ for s=1:length(suffix)
                 end
                 name=[name2{1} letter];
             end
-            ncal=find([cal_coeffs.line]==nu(linen(j)));
+            ncal=find([cal_coeffs.line]==nu(linen(j))); %figures out which calibration coeffs to use based on nu_o of line
+            %below performs calibration. Multiply by s_m and add s_b
+            %assumes s_b is in real units (not scaled by HITRAN). data is
+            %still in HITRAN units. 
             eval([name '=data(:,linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b/isovals(iso(linen(j)),''abundance'');']);
             eval([name '_cal=calmean(linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b/isovals(iso(linen(j)),''abundance'');']);
             %save(OFILE,name,'-append')
@@ -98,6 +105,8 @@ end
 %Read in Tank Data
 run('caltanks.m');
 tank=eval(tanknum);
+%calculates mixing ratios in calibration tank based on total and delta
+%values. 
 for i=1:length(linen)
     molec=cell2mat(strtrim(isovals(floor(iso(linen(i))/10)*10,'text')));
     if ~strcmp('H2O',molec)
@@ -115,9 +124,12 @@ for i=1:length(linen)
     else
         error('Invalid Isotopologue %s. Aborting.',isovals(iso(linen(i),'text')));
     end
+    %assumes that cal data is in HITRAN units and converts for ratio
     eval([names{i} '_cor_factor=tankconc/(' names{i} '_cal*isovals(iso(linen(i)),''abundance''));']);
+    %scales data based on ratio of cal data and calibration tank
     eval([names{i} '=' names{i} '*' names{i} '_cor_factor;']);
     end
+%In the end all mixing ratios are left in HITRAN units    
 end
 elseif strcmp(Inst,'CO2')
    load(regions)
