@@ -113,6 +113,8 @@ if useCO2=='y'
     TCO2dry=(CO2dry+C13O2dry)/(isovals(21,'abundance')+isovals(22,'abundance'));
 end
 if useISO=='y'
+    %dilution and water broadening correction and switch to non-scaled
+    %units of 12CH4 and 13CH4
     if ~isempty(ISOCH4); CH4ISOdry=(ISOCH4./fastavg((1-H2Owet-CO2wet),10)+fastavg(H2Owet*cal_coeffs(ISOCH4ncal).g_m,10))*isovals(61,'abundance'); end
     if ~isempty(ISOC13H4); C13H4dry=(ISOC13H4./fastavg((1-H2Owet-CO2wet),10)+fastavg(H2Owet*cal_coeffs(ISOC13H4ncal).g_m,10))*isovals(62,'abundance'); end
     TCH4dry=(CH4dry+interp1(T1Hz_GPS_msec(~isnan(C13H4dry)),C13H4dry(~isnan(C13H4dry)),T10Hz_GPS_msec))/(isovals(61,'abundance')+isovals(62,'abundance'));
