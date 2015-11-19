@@ -95,8 +95,18 @@ for s=1:length(suffix) %for each suffix listed
             %assumes s_b is in real units (not scaled by HITRAN). data is
             %still in HITRAN units. 
             eval([name '=data(:,linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b/isovals(iso(linen(j)),''abundance'');']);
-            eval([name '_cal=calmean(linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b/isovals(iso(linen(j)),''abundance'');']);
-            %save(OFILE,name,'-append')
+            if strcmp(Axis,'I')
+                if nu(linen(j))==1294.3792 || nu(linen(j))==1294.378648 %C12
+                    eval([name '_cal=calmean(linen(j)).*1.0236 + 4.6934e-8/isovals(iso(linen(j)),''abundance'');']);
+                elseif nu(linen(j))==1294.1964 %C13
+                    eval([name '_cal=calmean(linen(j)).*1.027 + 6.1688e-10/isovals(iso(linen(j)),''abundance'');']);
+                else
+                    disp('line mis-match in cal correction')
+                end
+            else
+                eval([name '_cal=calmean(linen(j)).*cal_coeffs(' num2str(ncal) ').s_m + cal_coeffs(' num2str(ncal) ').s_b/isovals(iso(linen(j)),''abundance'');']);
+            end
+                %save(OFILE,name,'-append')
             names{n}=name;
             n=n+1;
             lines_used(j)=struct('name',name,'nu',nu(linen(j)),'iso',iso(linen(j)));

@@ -4,9 +4,9 @@
 %isotope, not scaled as in HITRAN.
 
 %ISO lines                 
-cal_coeffs(1)=struct('line',1294.378648,'s_m',0.9816,'s_b',2.2763e-8,'g_m',8.7651e-7); %CH4 Based on 141008.1 and 150323.3
-cal_coeffs(13)=struct('line',1294.3792,'s_m',1.185491,'s_b',1.4023e-8,'g_m',5.898e-7);
-cal_coeffs(2)=struct('line',1294.1964,'s_m',1.0831,'s_b',3.7530e-10,'g_m',3.3404e-7); %13CH4 Based on 141008.1 and 150323.3
+cal_coeffs(1)=struct('line',1294.378648,'s_m',1.0113,'s_b',-3.7024e-8,'g_m',9.1350e-7); %CH4 Based on 141008.1 and 150323.3
+cal_coeffs(13)=struct('line',1294.3792,'s_m',1.0113,'s_b',-3.7024e-8,'g_m',9.1350e-7);
+cal_coeffs(2)=struct('line',1294.1964,'s_m',1.0250,'s_b',1.2937e-9,'g_m',2.4920e-9); %13CH4 Based on 141008.1 and 150323.3
 
 %MINI lines
 cal_coeffs(3)=struct('line',1292.5776,'s_m',1.100,'s_b',3.445e-9,'g_m',0); %CH4
