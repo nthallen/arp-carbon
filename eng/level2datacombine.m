@@ -106,6 +106,8 @@ end
 H2Odry=H2Owet./(1-H2Owet-CO2wet);
 if ~isempty(MMCH4); CH4dry=(MMCH4./(1-H2Owet-CO2wet))*isovals(61,'abundance')+H2Owet*cal_coeffs(MMCH4ncal).g_m; end
 if ~isempty(MMN2O); N2Odry=(MMN2O./(1-H2Owet-CO2wet))*isovals(41,'abundance')+H2Owet*cal_coeffs(MMN2Oncal).g_m; end
+if ~isempty(MMCH4sntime); CH4drysntime=(MMCH4sntime./(1-MMH2Osntime))+MMH2Osntime*cal_coeffs(MMCH4ncal).g_m; end
+if ~isempty(MMH2Osntime); H2Odrysntime=(MMH2Osntime./(1-MMH2Osntime))+MMH2Osntime*cal_coeffs(MMH2Oncal).g_m; end
 if useCO2=='y'
     if ~isempty(CO2CO2); CO2dry=(CO2CO2./(1-H2Owet-CO2wet))*isovals(21,'abundance')+H2Owet*cal_coeffs(CO2CO2ncal).g_m; end
     if ~isempty(CO2C13O2); C13O2dry=(CO2C13O2./(1-H2Owet-CO2wet))*isovals(22,'abundance')+H2Owet*cal_coeffs(CO2C13O2ncal).g_m; end

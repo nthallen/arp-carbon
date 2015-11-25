@@ -183,8 +183,9 @@ end
 
 SN=[]; GPS=[];
 for i=1:length(snumst)
-    [~,I]=min(abs((ranges(1).ranges(:,1)-snumst(i))));
-    ind=find(SSP_Num>ranges(1).ranges(I,1) & SSP_Num<snumed(i)); 
+    %[~,I]=min(abs((ranges(1).ranges(:,1)-snumst(i))));
+    I=ranges(1).ranges(:,1)-snumst(i)<0;
+    ind=find(SSP_Num>max(ranges(1).ranges(I,1)) & SSP_Num<snumed(i)); 
     P=polyfit(T1gps(ind),SSP_SN(ind),1);
     m=max(SSP_SN(ind)-polyval(P,T1gps(ind)));
     SNi=round(polyval(P,T1gps(ind(1)))+m);
