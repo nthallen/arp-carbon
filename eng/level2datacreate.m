@@ -183,15 +183,21 @@ end
 
 SN=[]; GPS=[];
 for i=1:length(snumst)
-    %[~,I]=min(abs((ranges(1).ranges(:,1)-snumst(i))));
-    I=ranges(1).ranges(:,1)-snumst(i)<0;
-    ind=find(SSP_Num>max(ranges(1).ranges(I,1)) & SSP_Num<snumed(i)); 
+    if strcmp(Inst,'MM')
+       I=ranges(1).ranges(:,1)-snumst(i)<0;
+       ind=find(SSP_Num>max(ranges(1).ranges(I,1)) & SSP_Num<snumed(i)); 
+    elseif strcmp(Inst,'CO2')
+        ind=find(SSP_Num>snumst(i) & SSP_Num<snumed(i));
+    end
     P=polyfit(T1gps(ind),SSP_SN(ind),1);
     m=max(SSP_SN(ind)-polyval(P,T1gps(ind)));
     SNi=round(polyval(P,T1gps(ind(1)))+m);
     SNii=SNi:wv(1).NCoadd:SSP_SN(ind(end));
     SN=[SN, SNii];
     GPS=[GPS, [0:1:length(SNii)-1]*t_wave+D.GPS_msecs(ind(1))/1000];    
+end
+if strcmp(flight,'130813.2F') && strcmp(Axis,'M') %hack to correct timing on R2 for 130813.2 MM
+    SN(14703:31424)=interp1(D.GPS_msecs(D.GPS_msecs~=0)/1000,D.SSP_M_SN(D.GPS_msecs~=0),GPS(14703:31424));
 end
 sntime=interp1(SN,GPS,[hdrs.SerialNum],'linear','extrap');
 

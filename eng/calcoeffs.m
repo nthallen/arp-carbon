@@ -19,7 +19,7 @@ cal_coeffs(7)=struct('line',1293.0898,'s_m',1,'s_b',0,'g_m',0); %N2O
 cal_coeffs(8)=struct('line',2309.8062,'s_m',1,'s_b',0,'g_m',0); %CO2
 cal_coeffs(9)=struct('line',2310.0025,'s_m',1,'s_b',0,'g_m',0); %CO2
 cal_coeffs(10)=struct('line',2310.2056,'s_m',1,'s_b',0,'g_m',0); %CO18O
-cal_coeffs(11)=struct('line',2310.3472,'s_m',1,'s_b',0,'g_m',4.451e-3); %13CO2 line used by Jason
+cal_coeffs(11)=struct('line',2310.3470,'s_m',1,'s_b',0,'g_m',4.451e-3); %13CO2 line used by Jason
 cal_coeffs(12)=struct('line',2310.6861,'s_m',1,'s_b',0,'g_m',3.638e-4); %CO2 line used by Jason
 
 
