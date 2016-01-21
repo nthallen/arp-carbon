@@ -95,8 +95,14 @@ if isempty(MMH2O)
     disp('No H2O data. Can not calculate dry mixing ratios. Exiting.');
     return
 end
-% Interpolate water vapor for points where we don't have measurements. 
-H2Owet=interp1(T10Hz_GPS_msec(~isnan(MMH2O)),MMH2O(~isnan(MMH2O)),T10Hz_GPS_msec);
+% Interpolate water vapor for points where we don't have measurements.
+y=fastavg(MMH2O,10);
+index=(find(~isnan(y))-1)*10*ones(1,10);
+index=index+ones(size(index,1),1)*[1:10];
+index=flatten(index');
+H2Owet=ones(size(T10Hz_GPS_msec))*NaN;
+H2Owet(index)=interp1(T10Hz_GPS_msec(~isnan(MMH2O)),MMH2O(~isnan(MMH2O)),T10Hz_GPS_msec(index));
+
 if useCO2=='y'
     CO2wet=( interp1(T10Hz_ftime(~isnan(CO2CO2)),CO2CO2(~isnan(CO2CO2)),T10Hz_ftime)*isovals(21,'abundance') + ...
         interp1(T10Hz_ftime(~isnan(CO2C13O2)),CO2C13O2(~isnan(CO2C13O2)),T10Hz_ftime)*isovals(22,'abundance') )/(isovals(21,'abundance')+isovals(22,'abundance'));
