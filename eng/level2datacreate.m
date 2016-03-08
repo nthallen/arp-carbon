@@ -179,16 +179,17 @@ if strcmp(Inst,'CO2')
     t_wave=1.312e-3*wv(1).NCoadd; %hardcoded from QCLI_C.log
 elseif strcmp(Inst,'MM')
     t_wave=1.779e-3*wv(1).NCoadd; %hardcoded from QCLI_M.log
+    t_wave=1.312e-3*wv(1).NCoadd; %hardcoded from QCLI_C.log
 end
 
 SN=[]; GPS=[];
 for i=1:length(snumst)
-    if strcmp(Inst,'MM')
-       I=ranges(1).ranges(:,1)-snumst(i)<0;
-       ind=find(SSP_Num>max(ranges(1).ranges(I,1)) & SSP_Num<snumed(i)); 
-    elseif strcmp(Inst,'CO2')
+%     if strcmp(Inst,'MM')
+%        I=ranges(1).ranges(:,1)-snumst(i)<0;
+%        ind=find(SSP_Num>max(ranges(1).ranges(I,1)) & SSP_Num<snumed(i)); 
+%     elseif strcmp(Inst,'CO2')
         ind=find(SSP_Num>snumst(i) & SSP_Num<snumed(i));
-    end
+%     end
     P=polyfit(T1gps(ind),SSP_SN(ind),1);
     m=max(SSP_SN(ind)-polyval(P,T1gps(ind)));
     SNi=round(polyval(P,T1gps(ind(1)))+m);

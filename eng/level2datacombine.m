@@ -99,7 +99,8 @@ end
 y=fastavg(MMH2O,10);
 index=(find(~isnan(y))-1)*10*ones(1,10);
 index=index+ones(size(index,1),1)*[1:10];
-index=flatten(index');
+[row,col]=size(index');
+index=reshape(index',1,row*col);
 H2Owet=ones(size(T10Hz_GPS_msec))*NaN;
 H2Owet(index)=interp1(T10Hz_GPS_msec(~isnan(MMH2O)),MMH2O(~isnan(MMH2O)),T10Hz_GPS_msec(index));
 

@@ -26,7 +26,9 @@ Tank2.CH4(3)=struct('molec','DD','value',-192,'Sdev',.7,'unit','permil');
 Tank2.CO2(1)=struct('molec','Total','value',392.56967e-6,'Sdev',0.043,'unit','ppmv');
 Tank2.CO2(2)=struct('molec','D13C','value',-25.7,'Sdev',0.02,'unit','permil');
 Tank2.CO2(3)=struct('molec','D18O','value',0,'Sdev',0.07,'unit','permil');
-Tank2.N2O(1)=struct('molec','Total','value',NaN,'Sdev',0.10,'unit','ppbv');
+Tank2.N2O(1)=struct('molec','Total','value',277e-9,'Sdev',0.10,'unit','ppbv');
+Tank2.N2O(2)=struct('molec','D15N','value',0,'Sdev',0.10,'unit','ppbv');
+Tank2.N2O(3)=struct('molec','D18O','value',0,'Sdev',0.10,'unit','ppbv');
 
 Tank3.Analysis=struct('Cylinder','CC130206','Org','AirGas/Wofsy','Date','Nov, 2013');
 Tank3.CH4(1)=struct('molec','Total','value',1882.0873e-9,'Sdev',0.38,'unit','ppbv');
@@ -35,7 +37,7 @@ Tank3.CH4(3)=struct('molec','DD','value',-192,'Sdev',.7,'unit','permil');
 Tank3.CO2(1)=struct('molec','Total','value',398.29126e-6,'Sdev',0.05,'unit','ppmv');
 Tank3.CO2(2)=struct('molec','D13C','value',-25.55,'Sdev',0.02,'unit','permil');
 Tank3.CO2(3)=struct('molec','D18O','value',0,'Sdev',0.07,'unit','permil');
-Tank3.N2O(1)=struct('molec','Total','value',.3e-6,'Sdev',0.10,'unit','ppbv');
+Tank3.N2O(1)=struct('molec','Total','value',277e-9,'Sdev',0.10,'unit','ppbv');
 Tank3.N2O(2)=struct('molec','D15N','value',0,'Sdev',0.10,'unit','ppbv');
 Tank3.N2O(3)=struct('molec','D18O','value',0,'Sdev',0.10,'unit','ppbv');
 
