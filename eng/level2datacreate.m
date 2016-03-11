@@ -179,7 +179,7 @@ if strcmp(Inst,'CO2')
     t_wave=1.312e-3*wv(1).NCoadd; %hardcoded from QCLI_C.log
 elseif strcmp(Inst,'MM')
     t_wave=1.779e-3*wv(1).NCoadd; %hardcoded from QCLI_M.log
-    t_wave=1.312e-3*wv(1).NCoadd; %hardcoded from QCLI_C.log
+   % t_wave=1.312e-3*wv(1).NCoadd; %hardcoded from QCLI_C.log
 end
 
 SN=[]; GPS=[];
