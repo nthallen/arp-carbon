@@ -37,7 +37,7 @@ esac
   Launch - idx64 `cat $TMBINDIR/idx64.idx64`
   $MOK Launch - sspdrv -H 10.0.0.210 -hSSP_M -N `mlf_find SSP_M`
   $MOK Launch - qclidacsd -h QCLI_M -d 0
-  $COK Launch - sspdrv -H 10.0.0.211 -hSSP_C -N `mlf_find SSP_C`
+  $COK Launch - sspdrv -H 10.0.0.211 -hSSP_C -N `mlf_find SSP_C` -L 10
   $COK Launch - qclidacsd -h QCLI_C -d 1
   $IOK Launch - sspdrv -H 10.0.0.206 -hSSP_I -N `mlf_find SSP_I` -L 20
   $IOK Launch - qclidacsd -h QCLI_I -d 2

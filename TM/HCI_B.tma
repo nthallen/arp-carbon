@@ -669,7 +669,7 @@ State CQCL_Watch NoLog {
          convert(CLasI) <= C_LOW_CURRENT );
     hold until ( SSP_C_Status == SSP_STATUS_TRIG &&
          CQCL_TEMP_OK(convert(CLTE4R3T),convert(CLTETSt)) &&
-         convert(CLasI) >= C_LOW_CURRENT ) or 2
+         convert(CLasI) >= C_LOW_CURRENT ) or 4
     else Validate CQCL_Watch_Recover;
     Validate CQCL_Watch;
 }
@@ -766,7 +766,7 @@ State CQCL_SelectICOSandRun {
     Hold until valid (CQCLI_Idle);
  +1 > CO2 Set Laser TEC Temp Setpoint 1.45
  +1 > CO2 Laser TEC On
- +20 > Select QCLI_C Waveform C2Cd_800Hz10Hz
+ +20 > Select QCLI_C Waveform C2Cd_800Hz
  +2 Validate CQCL_Start;
 }
 
