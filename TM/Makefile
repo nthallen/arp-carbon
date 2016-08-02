@@ -1,30 +1,44 @@
-# Makefile Generated Fri Nov 07 15:35:17 EST 2014
+# Makefile Generated Tue Aug 02 15:45:25 EDT 2016
 MNC=HCI
 SPECFILE=HCI.spec
 PCMFILE=HCI.pcm
 SRC=pwrmon_conv.tmc idx64flag.tmc qcli_conv.tmc PTRH_conv.tmc
-SRC+=hci_analysis cpu_usage.tmc types.tmc AIO.tmc Altimeter.tmc
-SRC+=BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc
-SRC+=VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc
-SRC+=PTRH.tmc SWData.tmc SWData.h QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc
-SRC+=Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc Inverter_col.tmc
-SRC+=idx64col.tmc PTRH_col.tmc qcli_col.tmc cpu_usage_col.tmc
-SRC+=SWData_col.tmc AO.cmd BAT_SPAN.cmd Inverter.cmd dccc.cmd
-SRC+=qclis.cmd idx64drv.cmd subbus.cmd panel.cmd address.h SWData.cmd
-SRC+=QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd digio_conv.tmc P_conv.tmc
-SRC+=Inverter_conv.tmc hk.tbl qcli.tbl Cells.tbl SSPrtg.tmc
+SRC+=hci_analysis /usr/local/share/huarp/freemem.tmc cpu_usage.tmc
+SRC+=/usr/local/share/huarp/vl_temp.tmc
+SRC+=/usr/local/share/huarp/ebx37f_temp.tmc
+SRC+=/usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/ptrhm.cc
+SRC+=/usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc
+SRC+=Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc
+SRC+=T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc
+SRC+=pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc SWData.h QCLI_C.tmc
+SRC+=QCLI_M.tmc QCLI_I.tmc Altimeter_col.tmc AI_col.tmc
+SRC+=BAT_SPAN_col.tmc Inverter_col.tmc idx64col.tmc PTRH_col.tmc
+SRC+=qcli_col.tmc /usr/local/share/huarp/DACS_ID.tmc
+SRC+=/usr/local/share/huarp/ebx37f_temp_col.tmc
+SRC+=/usr/local/share/huarp/tmdf_col.tmc
+SRC+=/usr/local/share/huarp/ptrhm_col.cc cpu_usage_col.tmc
+SRC+=/usr/local/share/huarp/freemem_col.tmc SWData_col.tmc -lsubbus
+SRC+=/usr/local/share/huarp/root.cmd
+SRC+=/usr/local/share/huarp/getcon.cmd
+SRC+=/usr/local/share/huarp/DACS_AI.cmd
+SRC+=/usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd
+SRC+=/usr/local/share/huarp/phrtg.cmd AO.cmd BAT_SPAN.cmd
+SRC+=Inverter.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd
+SRC+=panel.cmd address.h SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
+SRC+=digio_conv.tmc P_conv.tmc Inverter_conv.tmc hk.tbl qcli.tbl
+SRC+=Cells.tbl SSPrtg.tmc /usr/local/share/oui/cic.oui
 SRC+=Calibration.tbl Pilot_conv.tmc BAT_SPAN.tbl Altimeter_conv.tmc
 SRC+=hk2.tbl HCI_A.tma HCI.sws HCI_B.tma HCI_C.tma HCIeng.cdf
-SRC+=CellT_raw.tmc CellT_raw.cdf HCI.doit
+SRC+=CellT_raw.tmc CellT_raw.cdf HCI.doit HCI.pcm
 TOOL=HCI.spec Makefile
 SCRIPT=idx64.idx64 interact dccc.dccc runfile.FF
 OBJ=QCLI_C.cmd QCLI_C.out QCLI_C.tmc QCLI_C.m QCLI_C.log QCLI_M.cmd
 OBJ+=QCLI_M.out QCLI_M.tmc QCLI_M.m QCLI_M.log QCLI_I.cmd QCLI_I.out
-OBJ+=QCLI_I.tmc QCLI_I.m QCLI_I.log HCIcol.cc HCI.pcm tm.dac
-OBJ+=HCIcoloui.c HCIcoloui.o HCIcol.o ptrhm.o ptrhm_col.o HCIcmd.cc
-OBJ+=HCIcmd.dat HCIsrvr.o HCIsrvroui.c HCIsrvroui.o hktbl.tmc
-OBJ+=qclitbl.tmc Cellstbl.tmc HCIdisp.cc HCIdispoui.c HCIdispoui.o
-OBJ+=HCIdisp.o hktblnc.tmc qclitblnc.tmc Cellstblnc.tmc HCIdispnc.cc
+OBJ+=QCLI_I.tmc QCLI_I.m QCLI_I.log HCIcol.cc tm.dac HCIcoloui.c
+OBJ+=HCIcoloui.o HCIcol.o ptrhm.o ptrhm_col.o HCIcmd.cc HCIcmd.dat
+OBJ+=HCIsrvr.o HCIsrvroui.c HCIsrvroui.o hktbl.tmc qclitbl.tmc
+OBJ+=Cellstbl.tmc HCIdisp.cc HCIdispoui.c HCIdispoui.o HCIdisp.o
+OBJ+=hktblnc.tmc qclitblnc.tmc Cellstblnc.tmc HCIdispnc.cc
 OBJ+=HCIdispncoui.c HCIdispncoui.o HCIdispnc.o Calibrationtbl.tmc
 OBJ+=Caldisp.cc Caldispoui.c Caldispoui.o Caldisp.o
 OBJ+=Calibrationtblnc.tmc Caldispnc.cc Caldispncoui.c Caldispncoui.o
@@ -35,10 +49,14 @@ OBJ+=HCI_A_algoa.tmc HCI_A_algo.cc HCI_A_algooui.c HCI_A_algooui.o
 OBJ+=HCI_A_algo.o HCI_B_algoa.tmc HCI_B_algo.cc HCI_B_algooui.c
 OBJ+=HCI_B_algooui.o HCI_B_algo.o HCI_C_algoa.tmc HCI_C_algo.cc
 OBJ+=HCI_C_algooui.c HCI_C_algooui.o HCI_C_algo.o HCIengextcdf.oui
-OBJ+=HCIengext.tmc HCIengext.cc HCIengextoui.c HCIengextoui.o
-OBJ+=HCIengext.o HCIrawextcdf.oui CellT_rawext.tmc HCIrawext.cc
+OBJ+=HCIengcdf.tmc HCIengext.cc HCIengextoui.c HCIengextoui.o
+OBJ+=HCIengext.o HCIrawextcdf.oui CellT_rawcdf.tmc HCIrawext.cc
 OBJ+=HCIrawextoui.c HCIrawextoui.o HCIrawext.o doit.dep HCIclt.o
 OBJ+=HCIcltoui.c HCIcltoui.o HCIcltnc.o HCIcltncoui.c HCIcltncoui.o
+OBJ+=hktbl.tmc.dep qclitbl.tmc.dep Cellstbl.tmc.dep hktblnc.tmc.dep
+OBJ+=qclitblnc.tmc.dep Cellstblnc.tmc.dep Calibrationtbl.tmc.dep
+OBJ+=Calibrationtblnc.tmc.dep BAT_SPANtbl.tmc.dep hk2tbl.tmc.dep
+OBJ+=BAT_SPANtblnc.tmc.dep hk2tblnc.tmc.dep
 TGT=HCIcol HCIsrvr HCIdisp HCIdispnc Caldisp Caldispnc BSdisp
 TGT+=BSdispnc HCI_A_algo HCI_B_algo HCI_C_algo HCIengext HCIrawext
 TGT+=doit HCIclt HCIcltnc
@@ -46,10 +64,11 @@ DISTRIB=QCLI_C.out QCLI_M.out QCLI_I.out ../BAT/BAT_SPAN
 DISTRIB+=../BAT/BS2cdfext ../BAT/BSlogger ../Inverter/Inverter
 DISTRIB+=../Altimeter/Altimeter HCI.pcm tm.dac
 IDISTRIB=Experiment.config VERSION BSext doit
-SRCDIST=QCLI_C.m QCLI_M.m QCLI_I.m HCI.sws $(qclibase)
-SRCDIST+=Thermistors.txt ../BAT/N51AU.txt hk.tbl qcli.tbl Cells.tbl
-SRCDIST+=Calibration.tbl BAT_SPAN.tbl hk2.tbl HCI_A.tma HCI_B.tma
-SRCDIST+=HCI_C.tma /usr/local/share/huarp/freemem.tmc cpu_usage.tmc
+SRCDIST=QCLI_C.m QCLI_C.qcli QCLI_M.m QCLI_M.qcli QCLI_I.m
+SRCDIST+=QCLI_I.qcli HCI.sws $(qclibase) Thermistors.txt
+SRCDIST+=../BAT/N51AU.txt hk.tbl qcli.tbl Cells.tbl Calibration.tbl
+SRCDIST+=BAT_SPAN.tbl hk2.tbl HCI_A.tma HCI_B.tma HCI_C.tma
+SRCDIST+=/usr/local/share/huarp/freemem.tmc cpu_usage.tmc
 SRCDIST+=/usr/local/share/huarp/vl_temp.tmc
 SRCDIST+=/usr/local/share/huarp/ebx37f_temp.tmc
 SRCDIST+=/usr/local/share/huarp/tmdf.tmc
@@ -76,8 +95,8 @@ CMDBASE+=/usr/local/share/huarp/idx64.cmd
 CMDBASE+=/usr/local/share/huarp/qcli.cmd
 CMDBASE+=/usr/local/share/huarp/phrtg.cmd AO.cmd BAT_SPAN.cmd
 CMDBASE+=Inverter.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd
-CMDBASE+=panel.cmd address.h SWData.cmd QCLI_C.cmd QCLI_M.cmd
-CMDBASE+=QCLI_I.cmd
+CMDBASE+=panel.cmd address.h SWData.cmd SWData.h QCLI_C.cmd
+CMDBASE+=QCLI_M.cmd QCLI_I.cmd
 COLBASE=Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc
 COLBASE+=Inverter_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc
 COLBASE+=/usr/local/share/huarp/DACS_ID.tmc
@@ -87,20 +106,25 @@ COLBASE+=/usr/local/share/huarp/ptrhm_col.cc cpu_usage_col.tmc
 COLBASE+=/usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
 SWSBASE=HCI.sws
 QCLIBASE=QCLI_C.qcli QCLI_M.qcli QCLI_I.qcli
+GENUIBASE=
+EXTBASE=
+SPECDEPBASE=
+AG_CPPFLAGS=
 PHTGT=hktbl.tmc qclitbl.tmc Cellstbl.tmc Calibrationtbl.tmc
 PHTGT+=BAT_SPANtbl.tmc hk2tbl.tmc
-RCS=$(SRC) $(TOOL) $(SCRIPT)
-SOURCE=$(RCS) $(NONRCS)
+SOURCE=$(SRC) $(TOOL) $(SCRIPT)
 OBJECT=$(OBJ) *.err
 TARGET=$(TGT)
 DSTRB=$(TGT) $(DISTRIB) $(SCRIPT)
 TGTDIR= $(TGTNODE)/home/hci
 include /usr/local/share/huarp/appgen.mk
 
-.PHONY : all extdistribution distribution clean check_photon
+.PHONY : all all-dist extdistribution distribution clean clean-dist check_photon
 
-all : Makefile check_photon $(TGT) .cvsignore
-Makefile : HCI.spec
+IGNOREFILE=.gitignore
+all : Makefile check_photon $(TGT) $(IGNOREFILE)
+all-dist : $(DSTRB) $(SRCDIST) VERSION
+Makefile : HCI.spec $(SPECDEPBASE)
 	appgen HCI.spec
 VERSION=`cat VERSION`
 extdistribution : $(DSTRB) $(SRCDIST) VERSION
@@ -169,7 +193,7 @@ HCIclt : HCIclt.o HCIcltoui.o
 HCIcltnc : HCIcltnc.o HCIcltncoui.o
 	$(LINK.normCXX) HCIcltnc.o HCIcltncoui.o -ltmnc -lncurses -ltmpp -ltm -lnort
 	$(OUIUSE) HCIcltncoui.c
-HCIcol.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc Inverter_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc /usr/local/share/huarp/DACS_ID.tmc /usr/local/share/huarp/ebx37f_temp_col.tmc /usr/local/share/huarp/tmdf_col.tmc cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
+HCIcol.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc Inverter_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc /usr/local/share/huarp/DACS_ID.tmc /usr/local/share/huarp/ebx37f_temp_col.tmc /usr/local/share/huarp/tmdf_col.tmc cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc VERSION
 	$(TMC.col) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Altimeter_col.tmc AI_col.tmc BAT_SPAN_col.tmc Inverter_col.tmc idx64col.tmc PTRH_col.tmc qcli_col.tmc /usr/local/share/huarp/DACS_ID.tmc /usr/local/share/huarp/ebx37f_temp_col.tmc /usr/local/share/huarp/tmdf_col.tmc cpu_usage_col.tmc /usr/local/share/huarp/freemem_col.tmc SWData_col.tmc
 HCIcoloui.c : $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
@@ -181,54 +205,66 @@ ptrhm_col.o : /usr/local/share/huarp/ptrhm_col.cc SWData.h
 	$(COMPILE.cc) /usr/local/share/huarp/ptrhm_col.cc
 HCIcmd.cc : /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd /usr/local/share/huarp/phrtg.cmd AO.cmd BAT_SPAN.cmd Inverter.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd panel.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
 	$(CMDGEN) -d HCIcmd.dat /usr/local/share/huarp/root.cmd /usr/local/share/huarp/getcon.cmd /usr/local/share/huarp/DACS_AI.cmd /usr/local/share/huarp/idx64.cmd /usr/local/share/huarp/qcli.cmd /usr/local/share/huarp/phrtg.cmd AO.cmd BAT_SPAN.cmd Inverter.cmd dccc.cmd qclis.cmd idx64drv.cmd subbus.cmd panel.cmd SWData.cmd QCLI_C.cmd QCLI_M.cmd QCLI_I.cmd
-HCIsrvr.o : HCIcmd.cc
+HCIsrvr.o : HCIcmd.cc address.h SWData.h
 	$(COMPILE.srvr) HCIcmd.cc
 HCIsrvroui.c : $(OUIDIR)/cis.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/cis.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
-HCIsrvroui.o : HCIsrvroui.c address.h
+HCIsrvroui.o : HCIsrvroui.c address.h SWData.h
 hktbl.tmc : hk.tbl
+-include hktbl.tmc.dep
 qclitbl.tmc : qcli.tbl
+-include qclitbl.tmc.dep
 Cellstbl.tmc : Cells.tbl
-HCIdisp.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc P_conv.tmc Inverter_conv.tmc hktbl.tmc qclitbl.tmc Cellstbl.tmc SSPrtg.tmc
+-include Cellstbl.tmc.dep
+HCIdisp.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc P_conv.tmc Inverter_conv.tmc hktbl.tmc qclitbl.tmc Cellstbl.tmc SSPrtg.tmc VERSION
 	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc P_conv.tmc Inverter_conv.tmc hktbl.tmc qclitbl.tmc Cellstbl.tmc SSPrtg.tmc
 HCIdispoui.c : /usr/local/share/oui/cic.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) /usr/local/share/oui/cic.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIdispoui.o : HCIdispoui.c SWData.h
 HCIdisp.o : HCIdisp.cc SWData.h
 hktblnc.tmc : hk.tbl
+-include hktblnc.tmc.dep
 qclitblnc.tmc : qcli.tbl
+-include qclitblnc.tmc.dep
 Cellstblnc.tmc : Cells.tbl
-HCIdispnc.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc P_conv.tmc Inverter_conv.tmc hktblnc.tmc qclitblnc.tmc Cellstblnc.tmc SSPrtg.tmc
+-include Cellstblnc.tmc.dep
+HCIdispnc.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc P_conv.tmc Inverter_conv.tmc hktblnc.tmc qclitblnc.tmc Cellstblnc.tmc SSPrtg.tmc VERSION
 	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc PTRH_conv.tmc pwrmon_conv.tmc digio_conv.tmc idx64flag.tmc qcli_conv.tmc P_conv.tmc Inverter_conv.tmc hktblnc.tmc qclitblnc.tmc Cellstblnc.tmc SSPrtg.tmc
 HCIdispncoui.c : /usr/local/share/oui/cic.oui $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) /usr/local/share/oui/cic.oui $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIdispncoui.o : HCIdispncoui.c SWData.h
 HCIdispnc.o : HCIdispnc.cc SWData.h
 Calibrationtbl.tmc : Calibration.tbl
-Caldisp.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc digio_conv.tmc Calibrationtbl.tmc
+-include Calibrationtbl.tmc.dep
+Caldisp.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc digio_conv.tmc Calibrationtbl.tmc VERSION
 	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc digio_conv.tmc Calibrationtbl.tmc
 Caldispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 Caldispoui.o : Caldispoui.c SWData.h
 Caldisp.o : Caldisp.cc SWData.h
 Calibrationtblnc.tmc : Calibration.tbl
-Caldispnc.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc digio_conv.tmc Calibrationtblnc.tmc
+-include Calibrationtblnc.tmc.dep
+Caldispnc.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc digio_conv.tmc Calibrationtblnc.tmc VERSION
 	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc digio_conv.tmc Calibrationtblnc.tmc
 Caldispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 Caldispncoui.o : Caldispncoui.c SWData.h
 Caldispnc.o : Caldispnc.cc SWData.h
 BAT_SPANtbl.tmc : BAT_SPAN.tbl
+-include BAT_SPANtbl.tmc.dep
 hk2tbl.tmc : hk2.tbl
-BSdisp.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Pilot_conv.tmc digio_conv.tmc qcli_conv.tmc Inverter_conv.tmc BAT_SPANtbl.tmc Altimeter_conv.tmc P_conv.tmc hk2tbl.tmc
+-include hk2tbl.tmc.dep
+BSdisp.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Pilot_conv.tmc digio_conv.tmc qcli_conv.tmc Inverter_conv.tmc BAT_SPANtbl.tmc Altimeter_conv.tmc P_conv.tmc hk2tbl.tmc VERSION
 	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Pilot_conv.tmc digio_conv.tmc qcli_conv.tmc Inverter_conv.tmc BAT_SPANtbl.tmc Altimeter_conv.tmc P_conv.tmc hk2tbl.tmc
 BSdispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 BSdispoui.o : BSdispoui.c SWData.h
 BSdisp.o : BSdisp.cc SWData.h
 BAT_SPANtblnc.tmc : BAT_SPAN.tbl
+-include BAT_SPANtblnc.tmc.dep
 hk2tblnc.tmc : hk2.tbl
-BSdispnc.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Pilot_conv.tmc digio_conv.tmc qcli_conv.tmc Inverter_conv.tmc BAT_SPANtblnc.tmc Altimeter_conv.tmc P_conv.tmc hk2tblnc.tmc
+-include hk2tblnc.tmc.dep
+BSdispnc.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Pilot_conv.tmc digio_conv.tmc qcli_conv.tmc Inverter_conv.tmc BAT_SPANtblnc.tmc Altimeter_conv.tmc P_conv.tmc hk2tblnc.tmc VERSION
 	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc Pilot_conv.tmc digio_conv.tmc qcli_conv.tmc Inverter_conv.tmc BAT_SPANtblnc.tmc Altimeter_conv.tmc P_conv.tmc hk2tblnc.tmc
 BSdispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -239,7 +275,7 @@ HCIsws.tma : HCI.sws
 HCI_A_algoa.tmc : HCI_A.tma HCIsws.tma HCIsrvr
 	$(SERVER) ./HCIsrvr
 	$(TMCALGO) -V "`./HCIsrvr -R`" HCI_A.tma HCIsws.tma
-HCI_A_algo.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc Pilot_conv.tmc HCI_A_algoa.tmc
+HCI_A_algo.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc Pilot_conv.tmc HCI_A_algoa.tmc VERSION
 	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc Pilot_conv.tmc HCI_A_algoa.tmc
 HCI_A_algooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -248,7 +284,7 @@ HCI_A_algo.o : HCI_A_algo.cc SWData.h
 HCI_B_algoa.tmc : HCI_B.tma HCIsws.tma HCIsrvr
 	$(SERVER) ./HCIsrvr
 	$(TMCALGO) -V "`./HCIsrvr -R`" HCI_B.tma HCIsws.tma
-HCI_B_algo.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc Pilot_conv.tmc HCI_B_algoa.tmc
+HCI_B_algo.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc Pilot_conv.tmc HCI_B_algoa.tmc VERSION
 	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc Pilot_conv.tmc HCI_B_algoa.tmc
 HCI_B_algooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -257,7 +293,7 @@ HCI_B_algo.o : HCI_B_algo.cc SWData.h
 HCI_C_algoa.tmc : HCI_C.tma HCIsws.tma HCIsrvr
 	$(SERVER) ./HCIsrvr
 	$(TMCALGO) -V "`./HCIsrvr -R`" HCI_C.tma HCIsws.tma
-HCI_C_algo.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc Pilot_conv.tmc HCI_C_algoa.tmc
+HCI_C_algo.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc Pilot_conv.tmc HCI_C_algoa.tmc VERSION
 	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc P_conv.tmc qcli_conv.tmc digio_conv.tmc Inverter_conv.tmc Pilot_conv.tmc HCI_C_algoa.tmc
 HCI_C_algooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -265,20 +301,20 @@ HCI_C_algooui.o : HCI_C_algooui.c SWData.h
 HCI_C_algo.o : HCI_C_algo.cc SWData.h
 HCIengextcdf.oui : HCIeng.cdf
 	$(EDF2OUI) HCIeng.cdf
-HCIengext.tmc : HCIeng.cdf
+HCIengcdf.tmc : HCIeng.cdf
 	$(EDF2EXT) HCIeng.cdf
-HCIengext.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc qcli_conv.tmc PTRH_conv.tmc P_conv.tmc Altimeter_conv.tmc HCIengext.tmc
-	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc qcli_conv.tmc PTRH_conv.tmc P_conv.tmc Altimeter_conv.tmc HCIengext.tmc
+HCIengext.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc qcli_conv.tmc PTRH_conv.tmc P_conv.tmc Altimeter_conv.tmc HCIengcdf.tmc VERSION
+	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc qcli_conv.tmc PTRH_conv.tmc P_conv.tmc Altimeter_conv.tmc HCIengcdf.tmc
 HCIengextoui.c : HCIengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) HCIengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIengextoui.o : HCIengextoui.c SWData.h
 HCIengext.o : HCIengext.cc SWData.h
 HCIrawextcdf.oui : CellT_raw.cdf
 	$(EDF2OUI) CellT_raw.cdf
-CellT_rawext.tmc : CellT_raw.cdf
+CellT_rawcdf.tmc : CellT_raw.cdf
 	$(EDF2EXT) CellT_raw.cdf
-HCIrawext.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc CellT_raw.tmc CellT_rawext.tmc
-	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc CellT_raw.tmc CellT_rawext.tmc
+HCIrawext.cc : /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc CellT_raw.tmc CellT_rawcdf.tmc VERSION
+	$(TMC) /usr/local/share/huarp/freemem.tmc cpu_usage.tmc /usr/local/share/huarp/vl_temp.tmc /usr/local/share/huarp/ebx37f_temp.tmc /usr/local/share/huarp/tmdf.tmc /usr/local/share/huarp/flttime.tmc types.tmc AIO.tmc Altimeter.tmc BAT_SPAN.tmc BAT_SPAN_cal.tmc Inverter.tmc T30K75KU.tmc TCal.tmc VigoT.tmc digio.tmc idx64.tmc Pilot.tmc pwrmon.tmc qcli.tmc PTRH.tmc SWData.tmc QCLI_C.tmc QCLI_M.tmc QCLI_I.tmc CellT_raw.tmc CellT_rawcdf.tmc
 HCIrawextoui.c : HCIrawextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) HCIrawextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HCIrawextoui.o : HCIrawextoui.c SWData.h
@@ -286,16 +322,16 @@ HCIrawext.o : HCIrawext.cc SWData.h
 doit.dep : HCI.doit
 	mkdoit3 -M -o doit  HCI.doit
 -include doit.dep
-HCIclt.o : HCIcmd.cc
+HCIclt.o : HCIcmd.cc address.h SWData.h
 	$(COMPILE.clt) HCIcmd.cc
 HCIcltoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui
-HCIcltoui.o : HCIcltoui.c address.h
-HCIcltnc.o : HCIcmd.cc
+HCIcltoui.o : HCIcltoui.c address.h SWData.h
+HCIcltnc.o : HCIcmd.cc address.h SWData.h
 	$(COMPILE.cltnc) HCIcmd.cc
 HCIcltncoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/nctable.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/kbdclt.oui $(OUIDIR)/nctable.oui $(OUIDIR)/msg.oui
-HCIcltncoui.o : HCIcltncoui.c address.h
+HCIcltncoui.o : HCIcltncoui.c address.h SWData.h
 SWData.h SWData.tmc SWData_col.tmc SWData.cmd :  HCI.sws
 	swscomp -o SWData  HCI.sws
 QCLI_C.cmd QCLI_C.out QCLI_C.tmc QCLI_C.m : QCLI_C.qcli
@@ -315,8 +351,9 @@ tidy :
 	rm -f $(OBJECT)
 clean : tidy
 	rm -f $(TARGET)
-.cvsignore : Makefile
-	@for i in $(OBJECT) $(TARGET); do echo "$$i"; done >.cvsignore
+clean-dist : clean
+$(IGNOREFILE) : Makefile
+	@for i in $(OBJECT) $(TARGET); do echo "$$i"; done >$(IGNOREFILE)
 
 CPPFLAGS += -I ../BAT -I ../Inverter
 COLFLAGS = -H address.h

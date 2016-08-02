@@ -1,0 +1,5 @@
+*.o
+*oui.c
+BAT_SPAN
+BS2cdfext
+BSlogger
